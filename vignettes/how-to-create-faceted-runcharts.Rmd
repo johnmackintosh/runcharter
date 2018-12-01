@@ -1,0 +1,165 @@
+---
+title: "How to create faceted runcharts"
+author: "John MacKintosh"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How to create a faceted plot of multiple runcharts}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 6,
+  fig.height = 4
+)
+```
+
+
+
+## Faceted plots - 1 column
+
+```{r}
+library(runcharter)
+library(tidyr)
+library(purrr)
+library(dplyr)
+library(ggplot2)
+
+p <- runcharter(signals,
+                med_rows = 13,
+                runlength = 9,
+                chart_title = "facet test 1",
+                chart_subtitle = " 1 column trellis using facet_wrap", 
+                direction = "below",
+                faceted = TRUE,
+                n_facet_cols = 1)
+
+
+
+```
+
+
+
+```{r}
+
+library(runcharter)
+library(tidyr)
+library(purrr)
+library(dplyr)
+library(ggplot2)
+
+p <- runcharter(signals,
+                med_rows = 13,
+                runlength = 9,
+                chart_title = "facet test 2",
+                chart_subtitle = " 2 column trellis using facet_wrap", 
+                direction = "below",
+                faceted = TRUE,
+                n_facet_cols = 2)
+
+```
+
+
+
+
+
+## Faceted plots - do it yourself method
+
+This example follows on from the previous example, "How to create multiple runcharts". We will start with exactly the same approach. The difference is that we will then extract items from the created dataframe to build a faceted plot. 
+In this way, you can experiment with different theme and colour options to build runcharts that suit your preferences, based on the analysis that the function does for you. 
+
+
+
+```{r}
+library(runcharter)
+library(tidyr)
+library(purrr)
+library(dplyr)
+library(ggplot2)
+
+# create the initial plots individually
+ multiple_by_ward <- signals %>%
+    mutate(out_group = grp) %>%
+    group_by(out_group) %>%
+    tidyr::nest() %>% 
+    mutate(runcharts = purrr::map(data,runcharter,
+                                  med_rows = 13,
+                                  runlength = 9,
+                                  chart_title = NULL,
+                                  chart_subtitle = NULL,
+                                  direction = "below"))
+ 
+ # now process the results of the function to create a faceted plot
+ 
+results <- multiple_by_ward %>% tidyr::unnest(out_group,.preserve = runcharts)
+ 
+
+# Now retrieve the individual components to allows us to build a faceted plot
+median_rows <- bind_rows(modify_depth(multiple_by_ward$runcharts, 1, "median_rows"))
+sustained <- bind_rows(modify_depth(multiple_by_ward$runcharts, 1, "sustained"))
+StartBaseline <- unlist(modify_depth(multiple_by_ward$runcharts, 1, "StartBaseline"))
+
+#create a temporary dataframe for plotting purposes
+grp <- results$out_group
+temp <- data.frame(grp,StartBaseline)
+
+# join the temporary dataframe to the original plotting data so that the 'StartBaseline' is avaialable for plotting
+data <- bind_rows(results$data)
+data <- left_join(data,temp, by = "grp")  
+
+rm(temp)
+
+
+# Now - create the faceted plot
+
+# This is the code used internally within the package
+
+# You can use this, amending themes and colours to suit, to build your own plots.
+
+runchart <- ggplot2::ggplot(data, aes(date, y, group = 1)) +
+    geom_line(colour = "#005EB8", size = 1.3)  +
+    geom_point(shape = 21 , colour = "#005EB8", fill = "white", size = 3) +
+    theme_minimal(base_size = 10) +
+    theme(axis.text.y = element_text(angle = 0)) +
+    theme(axis.text.x = element_text(angle = 90)) +
+    theme(panel.grid.minor = element_blank(), panel.grid.major = element_blank()) +
+    ggtitle(label = "Faceted Plot Example",
+            subtitle = " Plots over 2 rows") +
+    labs(x = "", y = "") +
+    theme(legend.position = "bottom") 
+  
+  runchart <- runchart + 
+    geom_line(data = median_rows,aes(x = date,y = baseline,group = grp),
+                            colour = "#E87722", size = 1.2,linetype = 1)
+  
+  
+  runchart <- runchart + 
+    geom_line(data = data,aes(x = date, y = StartBaseline, group = grp),
+                            colour = "#E87722", size = 1.2, linetype = 2)
+    
+  runchart <- runchart + 
+    geom_point(data = sustained, aes(x = date,y = y,group = rungroup),
+              shape = 21, colour = "#005EB8", fill = "#DB1884" , size = 3.5)
+  
+  runchart <- runchart + 
+    geom_line(data = sustained,aes(x = date,y = improve,group = rungroup),
+                          colour = "#E87722", linetype = 1, size = 1.2)
+  
+  runchart <- runchart +  
+    geom_segment(data = sustained, 
+                 aes(x = enddate, xend = lastdate, 
+                     y = improve, yend = improve, group = rungroup),
+                        colour = "#E87722",linetype = 2, size = 1.2) 
+  
+  runchart <- runchart + facet_wrap(vars(grp), nrow = 2) # amend as required
+  
+  
+  print(runchart)
+ 
+```
+
+

@@ -1,0 +1,76 @@
+---
+title: "How to create a single runchart"
+author: "John MacKintosh"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette 
+fig_caption: yes
+vignette: >
+  %\VignetteIndexEntry{How to create a single runchart}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 6,
+  fig.height = 4
+)
+```
+
+Runcharts are easy to create and analyse on an individual basis, hence they are widely used in healthcare quality improvement. However, if you have many runcharts to analyse, the process of updating medians and amending plots quickly becomes very labour intensive. This package aims to make it easier to analyse multiple run charts at once - for example visualising all hospital ward areas performance with a newly introduced safety initiative. 
+
+
+
+## The runcharter function - input
+
+The function requires a simple three column dataframe, with the following column names
+
+- "grp" : a character column indicating a grouping variable to identify each individual run chart and for faceted plots
+- "date" : a column of type 'date'. 
+- "y" :  the variable / value to plot. 
+
+## runcharter function arguments
+
+- "df" : a three column dataframe with columns named 'grp', 'date' and 'y' as specified above
+- "med_rows" :  How many rows / data points should the initial baseline median be calculated over? 
+- "runlength" : How long a run of consecutive points do you want to find, before you rebase the median? 
+The median will be rebased using all useful observations (points on the median are not useful, and are ignored). 
+- "chart_title" : The main title for the chart
+- "chart_subtitle" : A subtitle for the chart
+- "direction" : Is improvement indicated by a run "above" the median, or "below" the median? The function will only look for successive runs in one direction. It will find multiple runs below the median, or multiple runs above the median, but will not look for alternating runs or runs in both directions at once.
+- faceted : if you want a faceted / trellis plot of multiple groups at once, set this to TRUE. This will call an internal function to create a faceted plot as required.
+- n_facet_cols : the number of columns in a faced plot -  only required if faceted is set to TRUE, otherwise ignored
+
+
+
+## Plot one chart
+
+This example shows how to filter the built in dataset 'signals', for an individual ward, and look for successive runs below the baseline median. The original median is calculated over the first 13 data points, and we are looking for a run of 9 consecutive points below the median.
+
+The function wil inform you if any signals are found, and will exit when the remaining number of rows is less than the desired run length, or  there are no further runs of the desired run length. 
+
+```{r, fig.show='hold',fig.cap = "One plot, one run below the median"}
+library(runcharter)
+library(dplyr)
+
+single <- signals %>%
+  filter(grp == "WardX") %>% 
+  runcharter(single,
+             med_rows = 13,
+             runlength = 9,
+             chart_title = "Analysis of runs below median",
+             chart_subtitle = "Ward X",
+             direction = "below",
+             faceted =  FALSE)
+
+```
+
+The function will print the plot, and return a list, containing:
+
+- a ggplot2 object,  
+- a dataframe / tibble containing the rows of data used to calculate the baseline median
+- if applicable, a  dataframe / tibble  showing the points in each sustained period of improvement.
+
+The latter 2 items can be retrieved from the list and used to create new plots (if, for example, you would like different plot themes or colours from the package defaults)
