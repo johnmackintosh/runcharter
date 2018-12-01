@@ -13,14 +13,15 @@ The analysis and re-basing of improvement medians quickly becomes labour intensi
 
 
 This package automatically creates rebased run charts, based on run chart rules commonly used in healthcare.
-This can be a single chart, and will eventually also create faceted small multiples. 
+The main motivation is to analyse many charts at one time, but will also analyse a single chart. 
 All sustained runs of improvement, in the desired direction, will be highlighted and the median re-phased, using the points that contributed to the run. 
 Non useful observations (points on the median) are ignored for the purposes of identifying a sustained improvement and are not highlighted. 
 
 
  For the time being, the function requires a three column data frame, containing the named variables "grp", "y" and "date".
  "grp" is a grouping variable which will be used for faceting. 
- "y" is the variable on the y axis. You are encouraged to ensure that any doubles have been rounded appropriately.
+ "y" is the variable on the y axis. 
+ You are encouraged to ensure that any doubles have been rounded appropriately.
  "date" is a date column.
  
  The function returns  a runchart and  dataframe of sustained data points, allowing you to perform further analysis or processing. 
@@ -31,3 +32,20 @@ Non useful observations (points on the median) are ignored for the purposes of i
  ```
 
 ![runcharter 1 plot facet](https://user-images.githubusercontent.com/3278367/49329156-eb721800-f572-11e8-8c13-91590f40a9c1.png)
+
+
+```r
+runcharter(signals, faceted = TRUE,n_facet_cols = 2)
+```
+
+![runcharter 2 facet plot](https://user-images.githubusercontent.com/3278367/49329166-0cd30400-f573-11e8-8add-1a02ab437266.png)
+
+
+```r
+library(dplyr)  # for piping
+signals %>%
+filter(grp == "WardX") %>%
+runcharter()
+
+```
+
