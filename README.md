@@ -43,9 +43,19 @@ runcharter(signals, faceted = TRUE,n_facet_cols = 2)
 
 
 ```r
-library(dplyr)  # for piping
 signals %>%
 filter(grp == "WardX") %>%
 runcharter(chart_title = "WardX", chart_subtitle = "testing runs below")
 ```
 ![wardxbelow](https://user-images.githubusercontent.com/3278367/49329213-8ec32d00-f573-11e8-80e0-5a65734bdb20.png)
+
+
+```r
+
+signals %>% 
+  runcharter(med_rows = 3,
+             runlength =3, 
+             direction = "above",
+             faceted = TRUE,
+             n_facet_cols = 2)
+```
