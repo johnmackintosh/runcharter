@@ -69,7 +69,9 @@ p <- runcharter(signals,
 
 ## Faceted plots - do it yourself method
 
-This example follows on from the previous example, "How to create multiple runcharts". We will start with exactly the same approach. The difference is that we will then extract items from the created dataframe to build a faceted plot. 
+This example follows on from the previous example, "How to create multiple runcharts".
+
+We will start with exactly the same approach. The difference is that we will then extract items from the created dataframe to build a faceted plot. 
 In this way, you can experiment with different theme and colour options to build runcharts that suit your preferences, based on the analysis that the function does for you. 
 
 
