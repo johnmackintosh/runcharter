@@ -1,0 +1,20 @@
+Package: runcharter
+Title: Automatically analyse,rebase and plot multiple runcharts
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "John",
+           family = "MacKintosh",
+           role = c("aut", "cre"),
+           email = "johnmackintosh.jm@gmail.com")
+Description: Find successive runs indicating improvement, rebasing medians and plotting multiple runcharts.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
+Depends: R (>= 2.10)
+Imports: dplyr, ggplot2, stats, utils, tidyr, purrr
+Exports: runcharter
+Suggests: knitr, rmarkdown
+VignetteBuilder: knitr
+URL: https://github.com/johnmackintosh/runcharter
+BugReports: https://github.com/johnmackintosh/runcharter/issues
