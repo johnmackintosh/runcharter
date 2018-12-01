@@ -128,7 +128,7 @@ runcharter_facet <- function(df, med_rows = 13, runlength = 9, chart_title = NUL
     runchart <- baseplot(df, chart_title, chart_subtitle)
     #print(runchart)
     #message("no sustained runs found")
-    results <- list(median_rows = median_rows, StartBaseline = StartBaseline)
+    results <- list(runchart = runchart, median_rows = median_rows, StartBaseline = StartBaseline)
     return(results)
   }
 
@@ -162,7 +162,7 @@ runcharter_facet <- function(df, med_rows = 13, runlength = 9, chart_title = NUL
     sustained <- sustained %>%
       dplyr::arrange(date) %>%
       dplyr::mutate(rungroup = cumsum_with_reset_group(abs(flag),abs(flag_reset)))
-    ################################################
+    ##########################################
 
     sustained <- sustained %>%
       dplyr::group_by(grp,rungroup) %>%
@@ -175,7 +175,7 @@ runcharter_facet <- function(df, med_rows = 13, runlength = 9, chart_title = NUL
     runchart <- susplot(df, sustained)
     #print(runchart)
 
-    results <- list(sustained = sustained,
+    results <- list(runchart = runchart,sustained = sustained,
                     median_rows = median_rows, StartBaseline = StartBaseline)
 
     # message("Improvements noted, not enough rows remaining for further analysis")
@@ -243,7 +243,7 @@ runcharter_facet <- function(df, med_rows = 13, runlength = 9, chart_title = NUL
 
 
         #message("all sustained runs found, not enough rows remaining for further analysis")
-        results <- list(sustained = sustained,
+        results <- list( runchart = runchart, sustained = sustained,
                         median_rows = median_rows, StartBaseline = StartBaseline)
         return(results)
         break
@@ -287,7 +287,8 @@ runcharter_facet <- function(df, med_rows = 13, runlength = 9, chart_title = NUL
         #print(runchart)
         ##runchart <<- runchart
         ## sustained <<- sustained
-        results <- list(sustained = sustained)
+        results <- list(runchart = runchart, sustained = sustained,
+                        median_rows = median_rows, StartBaseline = StartBaseline)
         # message("all sustained runs found, not enough rows remaining for further analysis")
         return(results)
         break
