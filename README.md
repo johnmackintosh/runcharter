@@ -26,8 +26,8 @@ Non useful observations (points on the median) are ignored for the purposes of i
  The function returns  a runchart and  dataframe of sustained data points, allowing you to perform further analysis or processing.
 
  ```r
- runcharter(signals, med_rows = 13, runlength = 9, chart_title = unique(newtest$grp),
-                      chart_subtitle = "test runs above", direction = "below", faceted = FALSE)
+ runcharter(signals, med_rows = 13, runlength = 9, chart_title = "Test runs below",
+                      chart_subtitle = "test runs above", direction = "below", faceted = TRUE)
 
  ```
 
