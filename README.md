@@ -29,3 +29,5 @@ Non useful observations (points on the median) are ignored for the purposes of i
  runcharter(signals, faceted = TRUE)
 
  ```
+
+![runcharter 1 plot facet](https://user-images.githubusercontent.com/3278367/49329156-eb721800-f572-11e8-8c13-91590f40a9c1.png)
