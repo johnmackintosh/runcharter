@@ -43,9 +43,22 @@ runcharter(signals, faceted = TRUE,n_facet_cols = 2)
 
 
 ```r
-library(dplyr)  # for piping
 signals %>%
 filter(grp == "WardX") %>%
 runcharter(chart_title = "WardX", chart_subtitle = "testing runs below")
 ```
 ![wardxbelow](https://user-images.githubusercontent.com/3278367/49329213-8ec32d00-f573-11e8-80e0-5a65734bdb20.png)
+
+Don't try this at home - setting runlength of 3 to show that successive runs are identified:
+
+```r
+
+signals %>% 
+  runcharter(med_rows = 3,
+             runlength =3, 
+             direction = "above",
+             faceted = TRUE,
+             n_facet_cols = 2)
+```
+
+![successive rebasing](https://user-images.githubusercontent.com/3278367/49333222-ca311c00-f5b2-11e8-8256-4db9dee878d5.png)
