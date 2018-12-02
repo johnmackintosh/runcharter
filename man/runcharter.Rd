@@ -5,8 +5,8 @@
 \title{Create run chart with highlighted improvements where applicable}
 \usage{
 runcharter(df, med_rows = 13, runlength = 9, chart_title = NULL,
-  chart_subtitle = NULL, direction = "below", faceted = FALSE,
-  n_facet_cols = NULL, ...)
+  chart_subtitle = NULL, direction = "below", faceted = TRUE,
+  facet_cols = NULL, ...)
 }
 \arguments{
 \item{df}{dataframe containing columns "date", "y", "grp"}
@@ -21,9 +21,9 @@ runcharter(df, med_rows = 13, runlength = 9, chart_title = NULL,
 
 \item{direction}{look for runs "below" or "above" the median}
 
-\item{faceted}{if you want to plot multiple plots at once in a faceted / trellis display set this to TRUE}
+\item{faceted}{if you  dont need a faceted / trellis display set this to FALSE}
 
-\item{n_facet_cols}{the number of columns required for a faceted plot. Ignored if faceted is set to FALSE}
+\item{facet_cols}{the number of columns required for a faceted plot. Ignored if faceted is set to FALSE}
 
 \item{...}{further arguments passed on to function}
 }

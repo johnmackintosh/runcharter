@@ -6,7 +6,7 @@
 \usage{
 runcharter_facet(df, med_rows = 13, runlength = 9,
   chart_title = NULL, chart_subtitle = NULL, direction = "below",
-  faceted = TRUE, n_facet_cols = NULL, ...)
+  faceted = TRUE, facet_cols = NULL, ...)
 }
 \arguments{
 \item{df}{dataframe containing columns "date", "y", "grp"}
@@ -23,7 +23,7 @@ runcharter_facet(df, med_rows = 13, runlength = 9,
 
 \item{faceted}{whether the plot is faceted or not - must be TRUE to call this function}
 
-\item{n_facet_cols}{the number of columns to facet by}
+\item{facet_cols}{the number of columns to facet by}
 
 \item{...}{further arguments passed on to function}
 }

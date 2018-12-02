@@ -15,7 +15,7 @@ utils::globalVariables(c("Baseline", "Date", "EndDate", "StartBaseline", "baseli
 #' @param chart_subtitle subtitle for chart
 #' @param direction look for runs "below" or "above" the median
 #' @param faceted  whether the plot is faceted or not - must be TRUE to call this function
-#' @param n_facet_cols the number of columns to facet by
+#' @param facet_cols the number of columns to facet by
 #' @param ... further arguments passed on to function
 #'
 #' @return runchart and a dataframe showing sustained run data if appropriate
@@ -35,7 +35,7 @@ utils::globalVariables(c("Baseline", "Date", "EndDate", "StartBaseline", "baseli
 #
 runcharter_facet <- function(df, med_rows = 13, runlength = 9, chart_title = NULL,
                              chart_subtitle = NULL, direction ="below",
-                             faceted = TRUE, n_facet_cols = NULL, ...) {
+                             faceted = TRUE, facet_cols = NULL, ...) {
 
   baseplot <- function(df, chart_title, chart_subtitle, ...) {
     runchart <- ggplot2::ggplot(df, aes(date, y, group = 1)) +
@@ -108,13 +108,15 @@ runcharter_facet <- function(df, med_rows = 13, runlength = 9, chart_title = NUL
   testdata[["rungroup"]] <- myrleid(testdata[["flag"]])
 
   if (direction == "below") {
-    testdata <- testdata %>% group_by(grp,rungroup) %>%
-      mutate(cusum = cumsum_with_reset_neg(flag, flag_reset)) %>%
-      ungroup()
+    testdata <- testdata %>%
+      dplyr::group_by(grp,rungroup) %>%
+      dplyr::mutate(cusum = cumsum_with_reset_neg(flag, flag_reset)) %>%
+      dplyr::ungroup()
   } else {
-    testdata <- testdata %>% group_by(grp,rungroup) %>%
-      mutate(cusum = cumsum_with_reset(flag, flag_reset)) %>%
-      ungroup()
+    testdata <- testdata %>%
+      dplyr::group_by(grp,rungroup) %>%
+      dplyr::mutate(cusum = cumsum_with_reset(flag, flag_reset)) %>%
+      dplyr::ungroup()
   }
 
   breakrow <- which.max(testdata[["cusum"]] == flag_reset)
