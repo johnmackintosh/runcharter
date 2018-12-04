@@ -38,7 +38,7 @@ Non useful observations (points on the median) are ignored for the purposes of i
 
 
 ```r
-runcharter(signals, faceted = TRUE,n_facet_cols = 2)
+runcharter(signals, faceted = TRUE,facet_cols = 2)
 ```
 
 ![runcharter 2 facet plot](https://user-images.githubusercontent.com/3278367/49329166-0cd30400-f573-11e8-8add-1a02ab437266.png)
