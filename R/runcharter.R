@@ -87,7 +87,7 @@ runcharter <- function(df, med_rows = 13, runlength = 9, chart_title = NULL,
                 cs = chart_subtitle, direct = direction, faceted = TRUE, n_facets = facet_cols)
   } else {
     ### first pass##
-    df <- df %>% arrange(date)
+    df <- df %>% dplyr::arrange(date)
     enddate <- df[["date"]][med_rows]
 
     median_rows <- head(df,med_rows)

@@ -116,8 +116,8 @@
 <li>“chart_title” : The main title for the chart</li>
 <li>“chart_subtitle” : A subtitle for the chart</li>
 <li>“direction” : Is improvement indicated by a run “above” the median, or “below” the median? The function will only look for successive runs in one direction. It will find multiple runs below the median, or multiple runs above the median, but will not look for alternating runs or runs in both directions at once.</li>
-<li>faceted : if you want a faceted / trellis plot of multiple groups at once, set this to TRUE. This will call an internal function to create a faceted plot as required.</li>
-<li>n_facet_cols : the number of columns in a faceted plot - only required if faceted is set to TRUE, otherwise ignored</li>
+<li>faceted : defaults to TRUE. Set to FALSE if you only need to plot a single runchart.</li>
+<li>facet_cols : the number of columns in a faceted plot - only required if faceted is set to TRUE, otherwise ignored</li>
 </ul>
 </div>
 <div id="plot-one-chart" class="section level2">
