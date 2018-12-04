@@ -4,3 +4,5 @@
 ^\.travis\.yml$
 ^runcharter\.Rproj$
 ^\.Rproj\.user$
+^README\.Rmd$
+^README-.*\.png$

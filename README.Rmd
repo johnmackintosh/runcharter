@@ -1,0 +1,105 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+# runcharter
+
+Automated analysis and re-basing of  runcharts at scale.
+
+Online documentation and vignettes : [runcharter](https://www.johnmackintosh.com/runcharter/)
+
+[![Build Status](https://travis-ci.org/johnmackintosh/runcharter.svg?branch=Master)](https://travis-ci.org/johnmackintosh/runcharter)
+[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+
+
+
+## Installation
+
+You can install runcharter from github with:
+
+```{r gh-installation, eval = FALSE}
+# install.packages("devtools")
+devtools::install_github("johnmackintosh/runcharter")
+```
+
+## Rationale
+
+Run charts are used extensively in quality improvement within the healthcare.
+
+They are simple to construct and analyse using run chart rules.
+However over time, a signal of improvement may require a run-chart median to be rebased.
+While this is manageable for a few charts, it quickly becomes labour intensive as the QI initiatives spread through the organisation. 
+
+While enterprise level database software can be used to store the raw data, their associated reporting systems are usually ill suited to the task of analysing QI data using run chart rules.
+
+
+This package automatically creates rebased run charts, based on run chart rules commonly used in healthcare.
+
+The main motivation is to analyse many charts at once, but you can also create and analyse a single runchart.
+
+All sustained runs of improvement, in the desired direction, will be highlighted and the median re-phased, using the points that contributed to the run. 
+
+Non useful observations (points on the median) are ignored and are not highlighted. 
+
+
+
+## Example
+
+By default the function returns a faceted plot, highlighting successive runs below the median:
+
+```{r example}
+library(runcharter)
+runcharter(signals, faceted = TRUE, facet_cols = 1)
+```
+
+
+For the time being, the function requires a three column data frame, containing the named variables "grp", "y" and "date":
+ "grp" is a grouping variable which will be used for faceting. 
+ "y" is the variable on the y axis. 
+ You are encouraged to ensure that any doubles have been rounded appropriately.
+ "date" is a date column.
+ 
+ The function returns a list containing a faceted  or series of individual runcharts plus a tibble / dataframe of  the sustained data points, allowing you to perform further analysis or processing. 
+ 
+
+
+```{r}
+
+runcharter(signals, faceted = TRUE, facet_cols = 2)
+
+```
+
+
+```{r}
+library(dplyr)
+signals %>%
+filter(grp == "WardX") %>%
+runcharter(chart_title = "WardX", chart_subtitle = "testing runs below")
+```
+
+
+
+
+Don't try this at home - setting runlength of 3 to show that successive runs are identified:
+
+```{r}
+
+signals %>% 
+  runcharter(med_rows = 3,
+             runlength = 3, 
+             direction = "above",
+             faceted = TRUE,
+              facet_cols = 2)
+```
+
+
