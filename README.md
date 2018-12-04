@@ -1,7 +1,7 @@
 # runcharter
 Automated  analysis and re-basing of  runcharts at scale.
 
-[runcharter](https://www.johnmackintosh.com/runcharter/)
+Online documentation and vignettes : [runcharter](https://www.johnmackintosh.com/runcharter/)
 
 [![Build Status](https://travis-ci.org/johnmackintosh/runcharter.svg?branch=Master)](https://travis-ci.org/johnmackintosh/runcharter)
 
