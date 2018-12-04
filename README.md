@@ -4,6 +4,7 @@ Automated  analysis and re-basing of  runcharts at scale.
 Online documentation and vignettes : [runcharter](https://www.johnmackintosh.com/runcharter/)
 
 [![Build Status](https://travis-ci.org/johnmackintosh/runcharter.svg?branch=Master)](https://travis-ci.org/johnmackintosh/runcharter)
+[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 
 Run charts  and SPC charts are used extensively in quality improvement within the healthcare.
 
