@@ -30,6 +30,7 @@ Non useful observations (points on the median) are ignored for the purposes of i
  The function returns  a runchart and  dataframe of sustained data points, allowing you to perform further analysis or processing. 
  
  ```r
+ 
  runcharter(signals, faceted = TRUE)
 
  ```
@@ -38,16 +39,20 @@ Non useful observations (points on the median) are ignored for the purposes of i
 
 
 ```r
+
 runcharter(signals, faceted = TRUE,facet_cols = 2)
+
 ```
 
 ![runcharter 2 facet plot](https://user-images.githubusercontent.com/3278367/49329166-0cd30400-f573-11e8-8add-1a02ab437266.png)
 
 
 ```r
+
 signals %>%
 filter(grp == "WardX") %>%
 runcharter(chart_title = "WardX", chart_subtitle = "testing runs below")
+
 ```
 ![wardxbelow](https://user-images.githubusercontent.com/3278367/49329213-8ec32d00-f573-11e8-80e0-5a65734bdb20.png)
 
