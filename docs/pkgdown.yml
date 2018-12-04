@@ -1,0 +1,8 @@
+pandoc: 1.19.2.1
+pkgdown: 1.2.0
+pkgdown_sha: ~
+articles:
+  how-to-create-faceted-runcharts: how-to-create-faceted-runcharts.html
+  how-to-create-multiple-runcharts: how-to-create-multiple-runcharts.html
+  how-to-create-single-runchart: how-to-create-single-runchart.html
+
