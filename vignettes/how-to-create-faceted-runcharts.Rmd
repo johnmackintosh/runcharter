@@ -1,22 +1,53 @@
 ---
-title: "How to create faceted runcharts"
+title: "runcharter"
 author: "John MacKintosh"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{How to create a faceted plot of multiple runcharts}
+  %\VignetteIndexEntry{runcharter}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+
+The rationale for the package is to analyse multiple runcharts at once.
+More importantly, the package will identify a run of n successive points on the desired side of the median line, and will recalculate / rebase the median accordingly.
+Each time a run occurs, the median will be rebased.
+This helps to track improvements over time. 
+
+
+The default is to plot a faceted plot, allowing ggplot2 to handle the axis limits. 
+You can specify the number of columns in the faceted plot, or let ggplot2 do its thing.
+
+
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.width = 6,
-  fig.height = 4
+  fig.height = 5
 )
 ```
+
+Here are the function arguments and defaults. 
+A default run of 9 is specified as that is the length of run used by the IHI for it's patient safety initiatives worldwide. 
+
+
+```{r, eval=FALSE}
+#function arguments and defaults
+
+library(runcharter)
+runcharter(df = signals,
+          med_rows = 13,
+          runlength = 9, 
+          chart_title = NULL,
+          chart_subtitle = NULL, 
+          direction = "below",
+          faceted = TRUE,
+          facet_cols = NULL)
+
+```
+
 
 
 
@@ -40,7 +71,7 @@ p <- runcharter(signals,
 
 
 
-```{r message=TRUE, warning=TRUE}
+```{r}
 
 library(runcharter)
 
@@ -55,7 +86,33 @@ p <- runcharter(signals,
 
 ```
 
+## Design decisions
 
+This package makes no attempt to identify or highlight 'trends' (consecutively increasing or decreasing points) or shorter 'shifts' of runs below the median.
+In 8 years of working with QI data, I very rarely see trends, and when they do appear, they tend to result after a period of process degradation, when the process begins to return back to its natural median state. 
+
+Research by qicharts2 author Jacob Anheoj shows that the trend rule is not reliable.
+
+The package  will only identify a run in one direction at a time. 
+In other words, if you are trying to reduce adverse events, improvement will be evidenced with a run below the median. Therefore, you would not rebase the median if a run of points above the median was observed. 
+
+If you want to rebase in both directions and / or  also apply the rules for trend then you should use Joseph Adam's 'runchart' package.
+
+## We're not supposed to do this
+
+"But [insert QI expert name here] says you should not automatically rebase the median unless you know the signal is genuine".
+
+Yes, and no. 
+
+Truth is, sometimes, there is too much information being collected, and the task of manually performing this analysis is very time consuming, especially if you have to make manual adjustments to spreadsheets / databases / graphical outputs, to deadlines, whilst battling traditional BI tools that were only ever designed for bar and pie charts.
+
+I needed this solution. 
+It didn't exist, so I've built it. 
+
+
+## I don't like the default chart colours
+
+Use the package to do the analysis, take the outputs, and build your own plots.
 
 
 
