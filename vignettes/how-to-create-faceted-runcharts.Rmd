@@ -106,13 +106,17 @@ Yes, and no.
 
 Truth is, sometimes, there is too much information being collected, and the task of manually performing this analysis is very time consuming, especially if you have to make manual adjustments to spreadsheets / databases / graphical outputs, to deadlines, whilst battling traditional BI tools that were only ever designed for bar and pie charts.
 
-I needed this solution. 
-It didn't exist, so I've built it. 
+I have over 2000 run charts that I need to produce and analyse. 
+I needed this solution. I'm confident that in time others will realise they need it too.
+ 
 
 
 ## I don't like the default chart colours
 
 Use the package to do the analysis, take the outputs, and build your own plots.
+Or assign the function outputs to a variable, retrieve the runchart object, and add additional ggplot2 syntax to modify it to suit your preferences. 
+I've let ggplot2 handle faceting and the axis limits in order keep the function simple.
+This means you can add additional scale syntax to control date breaks, limits and formats.
 
 
 

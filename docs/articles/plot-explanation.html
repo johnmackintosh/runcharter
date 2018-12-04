@@ -5,11 +5,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>individual-runcharts • runcharter</title>
+<title>plot-explanation • runcharter</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="individual-runcharts">
+<script src="../pkgdown.js"></script><meta property="og:title" content="plot-explanation">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -86,48 +86,29 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>individual-runcharts</h1>
+      <h1>plot-explanation</h1>
                         <h4 class="author">John MacKintosh</h4>
             
             <h4 class="date">2018-12-04</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/johnmackintosh/runcharter/blob/master/vignettes/how-to-create-single-runchart.Rmd"><code>vignettes/how-to-create-single-runchart.Rmd</code></a></small>
-      <div class="hidden name"><code>how-to-create-single-runchart.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/johnmackintosh/runcharter/blob/master/vignettes/plot-explanation.Rmd"><code>vignettes/plot-explanation.Rmd</code></a></small>
+      <div class="hidden name"><code>plot-explanation.Rmd</code></div>
 
     </div>
 
     
     
-<p>Runcharts are easy to create and analyse on an individual basis, hence they are widely used in healthcare quality improvement. However, if you have many runcharts to analyse, the process of updating medians and amending plots quickly becomes very labour intensive. This package aims to make it easier to analyse multiple run charts at once - for example visualising all hospital ward areas performance with a newly introduced safety initiative.</p>
-<div id="the-runcharter-function---input" class="section level2">
+<div id="plot-explanation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#the-runcharter-function---input" class="anchor"></a>The runcharter function - input</h2>
-<p>The function requires a simple three column dataframe, with the following column names</p>
-<ul>
-<li>“grp” : a character column indicating a grouping variable to identify each individual run chart and for faceted plots</li>
-<li>“date” : a column of type ‘date’.</li>
-<li>“y” : the variable / value to plot.</li>
-</ul>
+<a href="#plot-explanation" class="anchor"></a>Plot explanation</h2>
+<p>“med_rows” defines the initial baseline period. In the example below, the first 13 points are used to calculate the initial median. This is represented with a solid orange horizontal line. This median is then used as a reference for the remaining values, denoted by the extending orange dashed line</p>
+<p>“runlength”" specifies the length of run to be identified. Along with “direction”, which specifies which side of median represents improvement, the runlength is your target number of successive points on the desired side of the median (points on the median are ignored as they do not make or break a run).</p>
+<p>If a run is identified, the points are highlighted (the purple coloured points), a new median is calculated using these points, and plotted, and extended, with a new set of solid and dashed horizontal lines.</p>
+<p>The analysis continues, rebasing any further runs, until no more runs are found or there are not enough data points remaining.</p>
 </div>
-<div id="runcharter-function-arguments" class="section level2">
+<div id="example-plot" class="section level2">
 <h2 class="hasAnchor">
-<a href="#runcharter-function-arguments" class="anchor"></a>runcharter function arguments</h2>
-<ul>
-<li>“df” : a three column dataframe with columns named ‘grp’, ‘date’ and ‘y’ as specified above</li>
-<li>“med_rows” : How many rows / data points should the initial baseline median be calculated over?</li>
-<li>“runlength” : How long a run of consecutive points do you want to find, before you rebase the median? The median will be rebased using all useful observations (points on the median are not useful, and are ignored).</li>
-<li>“chart_title” : The main title for the chart</li>
-<li>“chart_subtitle” : A subtitle for the chart</li>
-<li>“direction” : Is improvement indicated by a run “above” the median, or “below” the median? The function will only look for successive runs in one direction. It will find multiple runs below the median, or multiple runs above the median, but will not look for alternating runs or runs in both directions at once.</li>
-<li>faceted : defaults to TRUE. Set to FALSE if you only need to plot a single runchart.</li>
-<li>facet_cols : the number of columns in a faceted plot - only required if faceted is set to TRUE, otherwise ignored</li>
-</ul>
-</div>
-<div id="plot-one-chart" class="section level2">
-<h2 class="hasAnchor">
-<a href="#plot-one-chart" class="anchor"></a>Plot one chart</h2>
-<p>This example shows how to filter the built in dataset ‘signals’, for an individual ward, and look for successive runs below the baseline median. The original median is calculated over the first 13 data points, and we are looking for a run of 9 consecutive points below the median.</p>
-<p>The function wil inform you if any signals are found, and will exit when the remaining number of rows is less than the desired run length, or there are no further runs of the desired run length.</p>
+<a href="#example-plot" class="anchor"></a>example plot</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(runcharter)
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)
 <span class="co">#&gt; </span>
@@ -150,18 +131,10 @@ single &lt;-<span class="st"> </span>signals <span class="op">%&gt;%</span>
              <span class="dt">faceted =</span>  <span class="ot">FALSE</span>)
 <span class="co">#&gt; all sustained runs found, not enough rows remaining for further analysis</span></code></pre></div>
 <div class="figure">
-<img src="how-to-create-single-runchart_files/figure-html/unnamed-chunk-1-1.png" alt="One plot, one run below the median" width="576"><p class="caption">
+<img src="plot-explanation_files/figure-html/unnamed-chunk-1-1.png" alt="One plot, one run below the median" width="576"><p class="caption">
 One plot, one run below the median
 </p>
 </div>
-<p>The function will print the plot, and return a list, containing:</p>
-<ul>
-<li>a ggplot2 object,<br>
-</li>
-<li>a dataframe / tibble containing the rows of data used to calculate the baseline median</li>
-<li>if applicable, a dataframe / tibble showing the points in each sustained period of improvement.</li>
-</ul>
-<p>The latter 2 items can be retrieved from the list and used to create new plots (if, for example, you would like different plot themes or colours from the package defaults)</p>
 </div>
   </div>
 
@@ -170,9 +143,8 @@ One plot, one run below the median
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#the-runcharter-function---input">The runcharter function - input</a></li>
-      <li><a href="#runcharter-function-arguments">runcharter function arguments</a></li>
-      <li><a href="#plot-one-chart">Plot one chart</a></li>
+<li><a href="#plot-explanation">Plot explanation</a></li>
+      <li><a href="#example-plot">example plot</a></li>
       </ul>
 </div>
       </div>

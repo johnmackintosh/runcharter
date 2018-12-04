@@ -1,11 +1,11 @@
 ---
-title: "How to create a single runchart"
+title: "individual-runcharts"
 author: "John MacKintosh"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette 
 fig_caption: yes
 vignette: >
-  %\VignetteIndexEntry{How to create a single runchart}
+  %\VignetteIndexEntry{individual runcharts}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -74,3 +74,4 @@ The function will print the plot, and return a list, containing:
 - if applicable, a  dataframe / tibble  showing the points in each sustained period of improvement.
 
 The latter 2 items can be retrieved from the list and used to create new plots (if, for example, you would like different plot themes or colours from the package defaults)
+
