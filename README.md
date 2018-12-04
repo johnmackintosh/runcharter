@@ -58,7 +58,7 @@ signals %>%
              runlength =3, 
              direction = "above",
              faceted = TRUE,
-             n_facet_cols = 2)
+              facet_cols = 2)
 ```
 
 ![successive rebasing](https://user-images.githubusercontent.com/3278367/49333222-ca311c00-f5b2-11e8-8256-4db9dee878d5.png)
