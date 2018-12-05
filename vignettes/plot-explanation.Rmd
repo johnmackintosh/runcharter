@@ -1,0 +1,55 @@
+---
+title: "plot-explanation"
+author: "John MacKintosh"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+fig_caption: yes
+vignette: >
+  %\VignetteIndexEntry{plot explanation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r  setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 6,
+  fig.height = 4
+)
+
+```
+
+
+## Plot explanation
+
+"med_rows" defines the initial baseline period. In the example below, the first 13 points are used to calculate the initial median. This is represented with a solid orange horizontal line.
+This median is then used as a reference for the remaining values, denoted by the extending orange dashed line
+
+"runlength"" specifies the length of run to be identified. Along with "direction", which specifies which side of median represents improvement,  the runlength is your target number of successive points on the desired side of the median (points on the median are ignored as they do not make or break a run).
+
+
+If a run is identified, the points are highlighted (the purple coloured points), a new median is calculated using these points, and plotted, and extended, with a new set of solid and dashed horizontal lines.
+
+The analysis continues, rebasing any further runs, until no more runs are found or there are not enough data points remaining.
+
+
+## example plot
+
+```{r, fig.show='hold',fig.cap = "One plot, one run below the median"}
+library(runcharter)
+library(dplyr)
+
+single <- signals %>%
+filter(grp == "WardX") %>%
+runcharter(single,
+med_rows = 13,
+runlength = 9,
+chart_title = "Analysis of runs below median",
+chart_subtitle = "Ward X",
+direction = "below",
+faceted =  FALSE)
+
+```
+
+

@@ -182,8 +182,8 @@ build_facet <- function(df, mr, rl,ct,cs,direct, n_facets, ...) {
   runchart <- runchart + ggplot2::ggtitle(label = ct, subtitle = cs)
 
   runchart <- runchart + ggplot2::facet_wrap(vars(grp),ncol = n_facets)
-  print(runchart)
-  results <- list()
+  #print(runchart)
+  #results <- list()
   results <- list(runchart = runchart, median_rows = median_rows, sustained = sustained, StartBaseline = StartBaseline)
   return(results)
 }
