@@ -56,7 +56,7 @@ runcharter(df = signals,
 ```{r}
 library(runcharter)
 
-p <- runcharter(signals,
+runcharter(signals,
                 med_rows = 13,
                 runlength = 9,
                 chart_title = "facet test 1",
@@ -75,7 +75,7 @@ p <- runcharter(signals,
 
 library(runcharter)
 
-p <- runcharter(signals,
+runcharter(signals,
                 med_rows = 13,
                 runlength = 9,
                 chart_title = "facet test 2",
