@@ -44,13 +44,10 @@ By default the function returns a faceted plot, highlighting successive runs bel
 ``` r
 library(runcharter)
 runcharter(signals, faceted = TRUE, facet_cols = 1)
+#> $runchart
 ```
 
 ![](README-example-1.png)
-
-    #> $runchart
-
-![](README-example-2.png)
 
     #> 
     #> $median_rows
@@ -103,13 +100,10 @@ The function returns a list containing a faceted or series of individual runchar
 ``` r
 
 runcharter(signals, faceted = TRUE, facet_cols = 2)
+#> $runchart
 ```
 
 ![](README-unnamed-chunk-2-1.png)
-
-    #> $runchart
-
-![](README-unnamed-chunk-2-2.png)
 
     #> 
     #> $median_rows
@@ -168,13 +162,10 @@ library(dplyr)
 signals %>%
 filter(grp == "WardX") %>%
 runcharter(chart_title = "WardX", chart_subtitle = "testing runs below")
+#> $runchart
 ```
 
 ![](README-unnamed-chunk-3-1.png)
-
-    #> $runchart
-
-![](README-unnamed-chunk-3-2.png)
 
     #> 
     #> $median_rows
@@ -223,13 +214,10 @@ signals %>%
              direction = "above",
              faceted = TRUE,
               facet_cols = 2)
+#> $runchart
 ```
 
 ![](README-unnamed-chunk-4-1.png)
-
-    #> $runchart
-
-![](README-unnamed-chunk-4-2.png)
 
     #> 
     #> $median_rows
