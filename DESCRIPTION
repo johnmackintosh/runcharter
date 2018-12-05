@@ -22,7 +22,10 @@ Imports:
     magrittr,
     tibble
 Exports: runcharter
-Suggests: knitr, rmarkdown
+Suggests: 
+    knitr,
+    rmarkdown,
+    covr
 VignetteBuilder: knitr
 URL: https://github.com/johnmackintosh/runcharter
 BugReports: https://github.com/johnmackintosh/runcharter/issues
