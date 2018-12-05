@@ -1,4 +1,3 @@
-^codecov\.yml$
 ^docs$
 ^_pkgdown\.yml$
 ^data-raw$

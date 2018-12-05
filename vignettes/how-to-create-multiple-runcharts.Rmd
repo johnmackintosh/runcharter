@@ -1,10 +1,10 @@
 ---
-title: "multiple-runcharts-in-sequence"
+title: "How to create multiple runcharts"
 author: "John MacKintosh"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{create multiple runcharts in sequence}
+  %\VignetteIndexEntry{How to create multiple runcharts in sequence}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
