@@ -47,7 +47,7 @@ runcharter(signals, faceted = TRUE, facet_cols = 1)
 #> $runchart
 ```
 
-![](README-example-1.png)
+![](https://github.com/johnmackintosh/runcharter/blob/master/README-example-1.png)
 
     #> 
     #> $median_rows
