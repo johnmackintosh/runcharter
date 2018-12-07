@@ -47,7 +47,7 @@ runcharter(signals, faceted = TRUE, facet_cols = 1)
 #> $runchart
 ```
 
-![](https://github.com/johnmackintosh/runcharter/blob/master/README-example-1.png)
+![](man/figures/example-1.png)
 
     #> 
     #> $median_rows
@@ -98,12 +98,12 @@ For the time being, the function requires a three column data frame, containing 
 The function returns a list containing a faceted or series of individual runcharts plus a tibble / dataframe of the sustained data points, allowing you to perform further analysis or processing.
 
 ``` r
-
+library(runcharter)
 runcharter(signals, faceted = TRUE, facet_cols = 2)
 #> $runchart
 ```
 
-![](README-unnamed-chunk-2-1.png)
+![](man/figures/unnamed-chunk-2-1.png)
 
     #> 
     #> $median_rows
@@ -165,7 +165,7 @@ runcharter(chart_title = "WardX", chart_subtitle = "testing runs below")
 #> $runchart
 ```
 
-![](README-unnamed-chunk-3-1.png)
+![](man/figures/unnamed-chunk-3-1.png)
 
     #> 
     #> $median_rows
@@ -217,7 +217,7 @@ signals %>%
 #> $runchart
 ```
 
-![](README-unnamed-chunk-4-1.png)
+![](man/figures/unnamed-chunk-4-1.png)
 
     #> 
     #> $median_rows
