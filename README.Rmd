@@ -74,8 +74,8 @@ For the time being, the function requires a three column data frame, containing 
  
 
 
-```{r}
-
+```{r fig.height=5, fig.width =6}
+library(runcharter)
 runcharter(signals, faceted = TRUE, facet_cols = 2)
 
 ```
@@ -93,7 +93,7 @@ runcharter(chart_title = "WardX", chart_subtitle = "testing runs below")
 
 Don't try this at home - setting runlength of 3 to show that successive runs are identified:
 
-```{r}
+```{r fig.height=5, fig.width =6}
 
 signals %>% 
   runcharter(med_rows = 3,
