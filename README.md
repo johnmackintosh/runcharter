@@ -79,9 +79,8 @@ library(dplyr)
 #>     intersect, setdiff, setequal, union
 
 single <- signals %>%
-filter(grp == "WardX") %>%
-runcharter(single,
-med_rows = 13,
+dplyr::filter(grp == "WardX") %>%
+runcharter(med_rows = 13,
 runlength = 9,
 chart_title = "Analysis of runs below median",
 chart_subtitle = "Ward X",
@@ -110,7 +109,7 @@ By default the function returns a faceted plot, highlighting successive runs bel
 
 ``` r
 library(runcharter)
-runcharter(signals, faceted = TRUE, facet_cols = 2, direction = "above")
+runcharter(signals, faceted = TRUE, facet_cols = 2)
 #> $runchart
 ```
 
@@ -134,19 +133,28 @@ runcharter(signals, faceted = TRUE, facet_cols = 2, direction = "above")
     #> # ... with 42 more rows
     #> 
     #> $sustained
-    #> # A tibble: 9 x 10
-    #>   grp       y date        flag rungroup cusum improve startdate  enddate   
-    #>   <chr> <int> <date>     <dbl>    <dbl> <dbl>   <int> <date>     <date>    
-    #> 1 WardZ     6 2017-06-01     1        1     1       9 2017-06-01 2018-03-01
-    #> 2 WardZ    10 2017-07-01     1        1     2       9 2017-06-01 2018-03-01
-    #> 3 WardZ     9 2017-08-01     1        1     3       9 2017-06-01 2018-03-01
-    #> 4 WardZ    12 2017-09-01     1        1     4       9 2017-06-01 2018-03-01
-    #> 5 WardZ     9 2017-10-01     1        1     5       9 2017-06-01 2018-03-01
-    #> 6 WardZ     7 2017-12-01     1        1     6       9 2017-06-01 2018-03-01
-    #> 7 WardZ     6 2018-01-01     1        1     7       9 2017-06-01 2018-03-01
-    #> 8 WardZ     5 2018-02-01     1        1     8       9 2017-06-01 2018-03-01
-    #> 9 WardZ     9 2018-03-01     1        1     9       9 2017-06-01 2018-03-01
-    #> # ... with 1 more variable: lastdate <date>
+    #> # A tibble: 18 x 10
+    #>    grp       y date        flag rungroup cusum improve startdate 
+    #>    <chr> <int> <date>     <dbl>    <dbl> <dbl>   <int> <date>    
+    #>  1 WardX     7 2016-12-01    -1        1    -1       6 2016-12-01
+    #>  2 WardX     5 2017-01-01    -1        1    -2       6 2016-12-01
+    #>  3 WardX     4 2017-02-01    -1        1    -3       6 2016-12-01
+    #>  4 WardX    10 2017-03-01    -1        1    -4       6 2016-12-01
+    #>  5 WardX     4 2017-04-01    -1        1    -5       6 2016-12-01
+    #>  6 WardX     9 2017-05-01    -1        1    -6       6 2016-12-01
+    #>  7 WardX     4 2017-06-01    -1        1    -7       6 2016-12-01
+    #>  8 WardX     8 2017-07-01    -1        1    -8       6 2016-12-01
+    #>  9 WardX     6 2017-08-01    -1        1    -9       6 2016-12-01
+    #> 10 WardY     7 2017-10-01    -1        1    -1       8 2017-10-01
+    #> 11 WardY     3 2017-11-01    -1        1    -2       8 2017-10-01
+    #> 12 WardY     8 2017-12-01    -1        1    -3       8 2017-10-01
+    #> 13 WardY    11 2018-01-01    -1        1    -4       8 2017-10-01
+    #> 14 WardY     7 2018-02-01    -1        1    -5       8 2017-10-01
+    #> 15 WardY     9 2018-03-01    -1        1    -6       8 2017-10-01
+    #> 16 WardY     8 2018-04-01    -1        1    -7       8 2017-10-01
+    #> 17 WardY     8 2018-05-01    -1        1    -8       8 2017-10-01
+    #> 18 WardY     7 2018-06-01    -1        1    -9       8 2017-10-01
+    #> # ... with 2 more variables: enddate <date>, lastdate <date>
     #> 
     #> $StartBaseline
     #> [1] 11 13  4  7

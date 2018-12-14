@@ -89,9 +89,8 @@ library(runcharter)
 library(dplyr)
 
 single <- signals %>%
-filter(grp == "WardX") %>%
-runcharter(single,
-med_rows = 13,
+dplyr::filter(grp == "WardX") %>%
+runcharter(med_rows = 13,
 runlength = 9,
 chart_title = "Analysis of runs below median",
 chart_subtitle = "Ward X",
@@ -123,7 +122,7 @@ By default the function returns a faceted plot, highlighting successive runs bel
 
 ```{r fig.height=5, fig.width =8}
 library(runcharter)
-runcharter(signals, faceted = TRUE, facet_cols = 2, direction = "above")
+runcharter(signals, faceted = TRUE, facet_cols = 2)
 
 ```
 
