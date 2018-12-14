@@ -3,7 +3,5 @@ pkgdown: 1.2.0
 pkgdown_sha: ~
 articles:
   how-to-create-multiple-runcharts: how-to-create-multiple-runcharts.html
-  plot-explanation: plot-explanation.html
   runcharter: runcharter.html
-  single-runchart: single-runchart.html
 

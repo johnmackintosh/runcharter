@@ -58,12 +58,6 @@
 <li>
       <a href="../articles/how-to-create-multiple-runcharts.html">How to create multiple runcharts</a>
     </li>
-    <li>
-      <a href="../articles/plot-explanation.html">plot-explanation</a>
-    </li>
-    <li>
-      <a href="../articles/single-runchart.html">single runchart</a>
-    </li>
   </ul>
 </li>
       </ul>
@@ -89,7 +83,7 @@
       <h1>How to create multiple runcharts</h1>
                         <h4 class="author">John MacKintosh</h4>
             
-            <h4 class="date">2018-12-07</h4>
+            <h4 class="date">2018-12-14</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/johnmackintosh/runcharter/blob/master/vignettes/how-to-create-multiple-runcharts.Rmd"><code>vignettes/how-to-create-multiple-runcharts.Rmd</code></a></small>
       <div class="hidden name"><code>how-to-create-multiple-runcharts.Rmd</code></div>
@@ -126,7 +120,7 @@
 <span class="st">    </span><span class="kw">mutate</span>(<span class="dt">out_group =</span> grp) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">group_by</span>(out_group) <span class="op">%&gt;%</span>
 <span class="st">    </span>tidyr<span class="op">::</span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/nest.html">nest</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">runcharts =</span> purrr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/purrr/topics/map">map</a></span>(data,runcharter,
+<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">runcharts =</span> purrr<span class="op">::</span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(data,runcharter,
                                   <span class="dt">med_rows =</span> <span class="dv">13</span>,
                                   <span class="dt">runlength =</span> <span class="dv">9</span>,
                                   <span class="dt">chart_title =</span> <span class="ot">NULL</span>,
@@ -162,7 +156,7 @@
 <span class="st">    </span><span class="kw">mutate</span>(<span class="dt">out_group =</span> grp) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">group_by</span>(out_group) <span class="op">%&gt;%</span>
 <span class="st">    </span>tidyr<span class="op">::</span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/nest.html">nest</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">runcharts =</span> purrr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/purrr/topics/map">map</a></span>(data,runcharter,
+<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">runcharts =</span> purrr<span class="op">::</span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(data,runcharter,
                                   <span class="dt">med_rows =</span> <span class="dv">3</span>,
                                   <span class="dt">runlength =</span> <span class="dv">3</span>,
                                   <span class="dt">chart_title =</span> <span class="ot">NULL</span>,

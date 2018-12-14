@@ -58,12 +58,6 @@
 <li>
       <a href="../articles/how-to-create-multiple-runcharts.html">How to create multiple runcharts</a>
     </li>
-    <li>
-      <a href="../articles/plot-explanation.html">plot-explanation</a>
-    </li>
-    <li>
-      <a href="../articles/single-runchart.html">single runchart</a>
-    </li>
   </ul>
 </li>
       </ul>
@@ -89,7 +83,7 @@
       <h1>runcharter</h1>
                         <h4 class="author">John MacKintosh</h4>
             
-            <h4 class="date">2018-12-07</h4>
+            <h4 class="date">2018-12-14</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/johnmackintosh/runcharter/blob/master/vignettes/runcharter.Rmd"><code>vignettes/runcharter.Rmd</code></a></small>
       <div class="hidden name"><code>runcharter.Rmd</code></div>
@@ -232,21 +226,20 @@
 <a href="#design-decisions" class="anchor"></a>Design decisions</h2>
 <p>This package makes no attempt to identify or highlight ‘trends’ (consecutively increasing or decreasing points) or shorter ‘shifts’ of runs below the median. In 8 years of working with QI data, I very rarely see trends, and when they do appear, they tend to result after a period of process degradation, when the process begins to return back to its natural median state.</p>
 <p>Research by qicharts2 author Jacob Anheoj shows that the trend rule is not reliable.</p>
-<p>The package will only identify a run in one direction at a time. In other words, if you are trying to reduce adverse events, improvement will be evidenced with a run below the median. Therefore, you would not rebase the median if a run of points above the median was observed.</p>
-<p>If you want to rebase in both directions and / or also apply the rules for trend then you should use Joseph Adam’s ‘runchart’ package.</p>
+<p>The package currently only identifies a run in one direction at a time. In other words, if you are trying to reduce adverse events, improvement will be evidenced with a run below the median. Therefore, you would not rebase the median if a run of points above the median was observed.</p>
+<p>If you want to rebase in both directions and / or also apply the rules for trend then you should consider using Joseph Adam’s ‘runchart’ package.</p>
 </div>
 <div id="were-not-supposed-to-do-this" class="section level2">
 <h2 class="hasAnchor">
 <a href="#were-not-supposed-to-do-this" class="anchor"></a>We’re not supposed to do this</h2>
 <p>“But [insert QI expert name here] says you should not automatically rebase the median unless you know the signal is genuine”.</p>
 <p>Yes, and no.</p>
-<p>Truth is, sometimes, there is too much information being collected, and the task of manually performing this analysis is very time consuming, especially if you have to make manual adjustments to spreadsheets / databases / graphical outputs, to deadlines, whilst battling traditional BI tools that were only ever designed for bar and pie charts.</p>
-<p>I needed this solution. It didn’t exist, so I’ve built it.</p>
+<p>Truth is, sometimes, there is too much information being collected, or the task of manually performing this analysis is very time consuming, especially if you have to make manual adjustments to spreadsheets / databases / graphical outputs, to deadlines, whilst battling traditional BI tools that were only ever designed for bar and pie charts. Ultimately, I built this for me, to make my job easier. I believe other healthcare analysts, who work with QI data, will also find it beneficial.</p>
 </div>
-<div id="i-dont-like-the-default-chart-colours" class="section level2">
+<div id="i-dont-like-the-default-chart-colours-or-axis-limits" class="section level2">
 <h2 class="hasAnchor">
-<a href="#i-dont-like-the-default-chart-colours" class="anchor"></a>I don’t like the default chart colours</h2>
-<p>Use the package to do the analysis, take the outputs, and build your own plots.</p>
+<a href="#i-dont-like-the-default-chart-colours-or-axis-limits" class="anchor"></a>I don’t like the default chart colours or axis limits</h2>
+<p>Use the package to do the analysis, take the outputs, and build your own plots. Or save the output to a variable, retrieve the runchart component, and pass further ggplot2 syntax to amend the limits, labels etc.</p>
 </div>
   </div>
 
@@ -258,7 +251,7 @@
 <li><a href="#faceted-plots---1-column">Faceted plots - 1 column</a></li>
       <li><a href="#design-decisions">Design decisions</a></li>
       <li><a href="#were-not-supposed-to-do-this">We’re not supposed to do this</a></li>
-      <li><a href="#i-dont-like-the-default-chart-colours">I don’t like the default chart colours</a></li>
+      <li><a href="#i-dont-like-the-default-chart-colours-or-axis-limits">I don’t like the default chart colours or axis limits</a></li>
       </ul>
 </div>
       </div>
