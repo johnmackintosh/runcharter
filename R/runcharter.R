@@ -16,6 +16,8 @@ utils::globalVariables(c("Baseline", "Date", "EndDate", "StartBaseline", "baseli
 #' @param direction look for runs "below" or "above" the median
 #' @param faceted if you  dont need a faceted / trellis display set this to FALSE
 #' @param facet_cols the number of columns required for a faceted plot. Ignored if faceted is set to FALSE
+#' @param save_plot should the plot be saved?  Calls ggsave on the last plot, saving in the current directory, if TRUE.
+#' @param plot_extension one of "png","pdf" or other valid extension for saving ggplot2 plots. Used in the call to ggsave.
 #' @param ... further arguments passed on to function
 #'
 #' @return runchart and a dataframe showing sustained run data if appropriate
@@ -35,7 +37,8 @@ utils::globalVariables(c("Baseline", "Date", "EndDate", "StartBaseline", "baseli
 #
 runcharter <- function(df, med_rows = 13, runlength = 9, chart_title = NULL,
                        chart_subtitle = NULL, direction ="below",
-                       faceted = TRUE, facet_cols = NULL, ...) {
+                       faceted = TRUE, facet_cols = NULL,
+                       save_plot = FALSE, plot_extension = "png", ...) {
 
   baseplot <- function(df, chart_title, chart_subtitle, ...) {
     runchart <- ggplot2::ggplot(df, aes(date, y, group = 1)) +
@@ -77,37 +80,70 @@ runcharter <- function(df, med_rows = 13, runlength = 9, chart_title = NULL,
                                                   colour = "#E87722",linetype = 2, size = 1.2)
 
     runchart <- runchart + ggplot2::ggtitle(label = chart_title, subtitle = chart_subtitle)
-    #print(runchart)
     return(runchart)
   }
 
 
   if (faceted == TRUE) {
     build_facet(df, mr = med_rows,rl = runlength, ct = chart_title,
-                cs = chart_subtitle, direct = direction, faceted = TRUE, n_facets = facet_cols)
+                cs = chart_subtitle, direct = direction, faceted = TRUE, n_facets = facet_cols,
+                sp = save_plot, plot_extension)
   } else {
-    ### first pass##
-    df <- df %>% dplyr::arrange(date)
-    enddate <- df[["date"]][med_rows]
 
-    median_rows <- head(df,med_rows)
+    # setup
+    df <- df %>% dplyr::arrange(date)
+    df[["grp"]] <-  as.character(df[["grp"]])
+
+    keep <- df %>% group_by(grp) %>% dplyr::count()
+    keep <- keep %>% filter(n >= (med_rows + runlength))
+    keep <- keep %>% pull(grp)
+
+    working_df <- df %>% filter(grp %in% keep)
+
+    enddate <- working_df[["date"]][med_rows]
+
+    median_rows <- head(working_df,med_rows)
     median_rows[["baseline"]] <- median(median_rows[["y"]])
 
-    Baseline <- median(head(df[["y"]],med_rows))
+    Baseline <- median(head(working_df[["y"]],med_rows))
 
     StartBaseline <- Baseline
 
     flag_reset <- ifelse(direction != "above", flag_reset <- runlength * -1, runlength)
-    remaining_rows <- dim(df)[1] - med_rows
+    remaining_rows <- dim(working_df)[1] - med_rows
     saved_sustained <- list()
     results <- list()
     i <- 1
 
-    stopifnot(remaining_rows > runlength)
+    current_grp <- unique(df[["grp"]])
+    filename <- paste0(current_grp,".",plot_extension)
+
+    #chart_title <- ifelse(!is.null(chart_title), chart_title, current_grp)
 
 
-    testdata <- df[which(df[["date"]] > enddate),]
+    ### first pass##
+
+    #if (!remaining_rows > runlength)
+    #stop("Not enough remaining beyond the baseline period")
+
+
+
+    testdata <- working_df[which(working_df[["date"]] > enddate),]
     testdata <- testdata[which(testdata[["y"]] != Baseline),]
+
+    if (dim(testdata)[1] < 1) {
+      runchart <- baseplot(df, chart_title, chart_subtitle)
+      if (!faceted) {
+        print(runchart)
+        if (save_plot) {
+          ggsave(filename)
+        }
+        message("no sustained runs found")
+      }
+      results <- list(runchart = runchart, median_rows = median_rows, StartBaseline = StartBaseline)
+      return(results)
+    }
+
     testdata[["flag"]] <- sign(testdata[["y"]] -  Baseline)
     testdata[["rungroup"]] <- myrleid(testdata[["flag"]])
 
@@ -130,10 +166,15 @@ runcharter <- function(df, med_rows = 13, runlength = 9, chart_title = NULL,
     #   return the chart object  so it can be modified by the user
 
 
-    if (startrow < 0) {
+    if (startrow < 1) {
       runchart <- baseplot(df, chart_title, chart_subtitle)
-      print(runchart)
-      message("no sustained runs found")
+      if (!faceted) {
+        print(runchart)
+        if (save_plot) {
+          ggsave(filename)
+        }
+        message("no sustained runs found")
+      }
       results <- list(runchart = runchart, median_rows = median_rows, StartBaseline = StartBaseline)
       return(results)
     }
@@ -152,7 +193,7 @@ runcharter <- function(df, med_rows = 13, runlength = 9, chart_title = NULL,
     saved_sustained[[i]] <- tempdata
 
     Baseline <- median(tempdata[["y"]])
-    testdata <- df[which(df[["date"]] > enddate),]
+    testdata <- working_df[which(working_df[["date"]] > enddate),]
     remaining_rows <- dim(testdata)[1]
 
     # if not enough rows remaining, print the sustained run chart
@@ -179,12 +220,17 @@ runcharter <- function(df, med_rows = 13, runlength = 9, chart_title = NULL,
 
 
       runchart <- susplot(df, sustained)
-      print(runchart)
+      if (!faceted) {
+        print(runchart)
+        if (save_plot) {
+          ggsave(filename)
+        }
+
+        message("Improvements noted, not enough rows remaining for further analysis")
+      }
 
       results <- list(runchart = runchart, sustained = sustained,
                       median_rows = median_rows, StartBaseline = StartBaseline)
-
-      message("Improvements noted, not enough rows remaining for further analysis")
       return(results)
 
     }
@@ -198,8 +244,44 @@ runcharter <- function(df, med_rows = 13, runlength = 9, chart_title = NULL,
 
         # return rows beyond the current end date
 
-        testdata <- df[which(df[["date"]] > enddate),]
+        testdata <- working_df[which(working_df[["date"]] > enddate),]
         testdata <- testdata[which(testdata[["y"]] != Baseline),]
+
+        #check that are still rows remaining in case all rows are equal to the baseline value
+
+        if (dim(testdata)[1] < 1) {
+          sustained <- bind_rows(saved_sustained)
+
+          ### make sure each rungroup is unique#####
+
+          sustained <- sustained %>%
+            dplyr::arrange(date) %>%
+            dplyr::mutate(rungroup = cumsum_with_reset_group(abs(flag),abs(flag_reset)))
+          ################################################
+
+          sustained <- sustained %>%
+            dplyr::group_by(grp,rungroup) %>%
+            dplyr::mutate(startdate = min(date),
+                          enddate = max(date),
+                          lastdate = max(df[["date"]])) %>%
+            dplyr::ungroup()
+
+
+          runchart <- susplot(df, sustained)
+          if (!facet_cols) {
+            print(runchart)
+            if (save_plot) {
+              ggsave(filename)
+            }
+            message("Improvements noted, not enough rows remaining for further analysis")
+          }
+          results <- list(runchart = runchart, sustained = sustained,
+                          median_rows = median_rows, StartBaseline = StartBaseline)
+          return(results)
+        }
+
+
+        # moved to 235
         testdata[["flag"]] <- sign(testdata[["y"]] -  Baseline)
         testdata[["rungroup"]] <- myrleid(testdata[["flag"]])
 
@@ -219,10 +301,9 @@ runcharter <- function(df, med_rows = 13, runlength = 9, chart_title = NULL,
         breakrow <- which.max(testdata[["cusum"]] == flag_reset)
         startrow <- breakrow - (abs(runlength) - 1)
 
-        # if we get to this point, there is at least one sustained run
         #if there are no more runs of the required length, print sustained chart and quit
 
-        if (startrow < 0) {
+        if (startrow < 1) {
 
           #need to unlist the sustained rows
           sustained <- dplyr::bind_rows(saved_sustained)
@@ -245,10 +326,14 @@ runcharter <- function(df, med_rows = 13, runlength = 9, chart_title = NULL,
 
           #now do sustained plot
           runchart <- susplot(df, sustained, chart_title,chart_subtitle)
-          print(runchart)
+          if (!faceted) {
+            print(runchart)
+            if (save_plot) {
+              ggsave(filename)
+            }
 
-
-          message("all sustained runs found, not enough rows remaining for further analysis")
+            message("all sustained runs found, not enough rows remaining for further analysis")
+          }
           results <- list(runchart = runchart, sustained = sustained,
                           median_rows = median_rows, StartBaseline = StartBaseline)
           return(results)
@@ -264,7 +349,7 @@ runcharter <- function(df, med_rows = 13, runlength = 9, chart_title = NULL,
         saved_sustained[[i]] <- tempdata
 
         Baseline <- median(tempdata[["y"]])
-        testdata <- df[which(df[["date"]] > enddate),]
+        testdata <- working_df[which(working_df[["date"]] > enddate),]
         remaining_rows <- dim(testdata)[1]
         i <- i + 1
 
@@ -290,11 +375,17 @@ runcharter <- function(df, med_rows = 13, runlength = 9, chart_title = NULL,
 
 
           runchart <- susplot(df, sustained, chart_title,chart_subtitle)
-          print(runchart)
-          ##runchart <<- runchart
-          ## sustained <<- sustained
-          results <- list(runchart = runchart, sustained = sustained)
-          message("all sustained runs found, not enough rows remaining for further analysis")
+          if (!faceted){
+            print(runchart)
+
+            if (save_plot) {
+              ggsave(filename)
+            }
+
+            message("all sustained runs found, not enough rows remaining for further analysis")
+          }
+          results <- list(runchart = runchart, sustained = sustained,
+                          median_rows = median_rows, StartBaseline = StartBaseline)
           return(results)
           break
 
@@ -312,7 +403,3 @@ runcharter <- function(df, med_rows = 13, runlength = 9, chart_title = NULL,
   }
 
 }
-
-
-
-
