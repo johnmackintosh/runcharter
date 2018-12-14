@@ -93,10 +93,10 @@ In 8 years of working with QI data, I very rarely see trends, and when they do a
 
 Research by qicharts2 author Jacob Anheoj shows that the trend rule is not reliable.
 
-The package  will only identify a run in one direction at a time. 
+The package currently only identifies a run in one direction at a time. 
 In other words, if you are trying to reduce adverse events, improvement will be evidenced with a run below the median. Therefore, you would not rebase the median if a run of points above the median was observed. 
 
-If you want to rebase in both directions and / or  also apply the rules for trend then you should use Joseph Adam's 'runchart' package.
+If you want to rebase in both directions and / or  also apply the rules for trend then you should consider using Joseph Adam's 'runchart' package.
 
 ## We're not supposed to do this
 
@@ -104,15 +104,15 @@ If you want to rebase in both directions and / or  also apply the rules for tren
 
 Yes, and no. 
 
-Truth is, sometimes, there is too much information being collected, and the task of manually performing this analysis is very time consuming, especially if you have to make manual adjustments to spreadsheets / databases / graphical outputs, to deadlines, whilst battling traditional BI tools that were only ever designed for bar and pie charts.
+Truth is, sometimes, there is too much information being collected, or the task of manually performing this analysis is very time consuming, especially if you have to make manual adjustments to spreadsheets / databases / graphical outputs, to deadlines, whilst battling traditional BI tools that were only ever designed for bar and pie charts.
+Ultimately, I built this for me, to make my job easier. 
+I believe other healthcare analysts, who work with QI data, will also find it beneficial.
 
-I needed this solution. 
-It didn't exist, so I've built it. 
 
-
-## I don't like the default chart colours
+## I don't like the default chart colours or axis limits
 
 Use the package to do the analysis, take the outputs, and build your own plots.
+Or save the output to a variable, retrieve the runchart component, and pass further ggplot2 syntax to amend the limits, labels etc.
 
 
 

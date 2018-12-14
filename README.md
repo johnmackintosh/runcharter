@@ -22,134 +22,52 @@ devtools::install_github("johnmackintosh/runcharter")
 Rationale
 ---------
 
-Run charts are used extensively in quality improvement within the healthcare.
+Runcharts are easy to create and analyse on an individual basis, hence they are widely used in healthcare quality improvement.
 
-They are simple to construct and analyse using run chart rules. However over time, a signal of improvement may require a run-chart median to be rebased. While this is manageable for a few charts, it quickly becomes labour intensive as the QI initiatives spread through the organisation.
+A runchart is a regular line chart, but with a central reference line, calculated over a baseline period before any quality improvement takes place.
+
+This central line, calculated using the median of a number of baseline values, is plotted, allowing the QI team to assess if any statistically significant improvement is taking place, as a result of their improvement initiatives.
+
+These improvements are denoted by certain patterns, or signals, within the plotted data points, in relation to the median line. The main signal is a run of 9 or more consecutive values on the desired side of the median line.
+
+If this signal occurs as a result of improvement activities, a new median can be calculated using the points that contributed to this run. While this 'rebasing' (calculating new medians) is manageable for a few charts, it quickly becomes labour intensive as QI initiatives expand or further QI programmes are launched.
 
 While enterprise level database software can be used to store the raw data, their associated reporting systems are usually ill suited to the task of analysing QI data using run chart rules.
 
-This package automatically creates rebased run charts, based on run chart rules commonly used in healthcare.
-
-The main motivation is to analyse many charts at once, but you can also create and analyse a single runchart.
+This package automatically creates rebased run charts, based on the run chart rule for sustained improvement commonly used in healthcare ( n consecutive points on the desired side of the median).
 
 All sustained runs of improvement, in the desired direction, will be highlighted and the median re-phased, using the points that contributed to the run.
 
 Non useful observations (points on the median) are ignored and are not highlighted.
 
-Example
--------
+The main motivation is to analyse many charts at once, but you can also create and analyse a single runchart, or iterate, plot and save many individual charts.
 
-By default the function returns a faceted plot, highlighting successive runs below the median:
+The runcharter function - input
+-------------------------------
 
-``` r
-library(runcharter)
-runcharter(signals, faceted = TRUE, facet_cols = 1)
-#> $runchart
-```
+The function requires a simple three column dataframe, with the following column names
 
-![](man/figures/example-1.png)
+-   "grp" : a character column indicating a grouping variable to identify each individual run chart and for faceted plots
+-   "date" : a column of type 'date'.
+-   "y" : the variable / value to plot.
 
-    #> 
-    #> $median_rows
-    #> # A tibble: 52 x 4
-    #>    grp       y date       baseline
-    #>    <chr> <int> <date>        <int>
-    #>  1 WardX     9 2014-01-01       11
-    #>  2 WardX    22 2014-02-01       11
-    #>  3 WardX    19 2014-03-01       11
-    #>  4 WardX    18 2014-04-01       11
-    #>  5 WardX     8 2014-05-01       11
-    #>  6 WardX     7 2014-06-01       11
-    #>  7 WardX    11 2014-07-01       11
-    #>  8 WardX    11 2014-08-01       11
-    #>  9 WardX    11 2014-09-01       11
-    #> 10 WardX    12 2014-10-01       11
-    #> # ... with 42 more rows
-    #> 
-    #> $sustained
-    #> # A tibble: 18 x 10
-    #>    grp       y date        flag rungroup cusum improve startdate 
-    #>    <chr> <int> <date>     <dbl>    <dbl> <dbl>   <int> <date>    
-    #>  1 WardX     7 2016-12-01    -1        1    -1       6 2016-12-01
-    #>  2 WardX     5 2017-01-01    -1        1    -2       6 2016-12-01
-    #>  3 WardX     4 2017-02-01    -1        1    -3       6 2016-12-01
-    #>  4 WardX    10 2017-03-01    -1        1    -4       6 2016-12-01
-    #>  5 WardX     4 2017-04-01    -1        1    -5       6 2016-12-01
-    #>  6 WardX     9 2017-05-01    -1        1    -6       6 2016-12-01
-    #>  7 WardX     4 2017-06-01    -1        1    -7       6 2016-12-01
-    #>  8 WardX     8 2017-07-01    -1        1    -8       6 2016-12-01
-    #>  9 WardX     6 2017-08-01    -1        1    -9       6 2016-12-01
-    #> 10 WardY     7 2017-10-01    -1        1    -1       8 2017-10-01
-    #> 11 WardY     3 2017-11-01    -1        1    -2       8 2017-10-01
-    #> 12 WardY     8 2017-12-01    -1        1    -3       8 2017-10-01
-    #> 13 WardY    11 2018-01-01    -1        1    -4       8 2017-10-01
-    #> 14 WardY     7 2018-02-01    -1        1    -5       8 2017-10-01
-    #> 15 WardY     9 2018-03-01    -1        1    -6       8 2017-10-01
-    #> 16 WardY     8 2018-04-01    -1        1    -7       8 2017-10-01
-    #> 17 WardY     8 2018-05-01    -1        1    -8       8 2017-10-01
-    #> 18 WardY     7 2018-06-01    -1        1    -9       8 2017-10-01
-    #> # ... with 2 more variables: enddate <date>, lastdate <date>
-    #> 
-    #> $StartBaseline
-    #> [1] 11 13  4  7
+runcharter function arguments
+-----------------------------
 
-For the time being, the function requires a three column data frame, containing the named variables "grp", "y" and "date": "grp" is a grouping variable which will be used for faceting. "y" is the variable on the y axis. You are encouraged to ensure that any doubles have been rounded appropriately. "date" is a date column.
+-   "df" : a three column dataframe with columns named 'grp', 'date' and 'y' as specified above
+-   "med\_rows" : How many rows / data points should the initial baseline median be calculated over?
+-   "runlength" : How long a run of consecutive points do you want to find, before you rebase the median? The median will be rebased using all useful observations (points on the median are not useful, and are ignored).
+-   "chart\_title" : The main title for the chart
+-   "chart\_subtitle" : A subtitle for the chart
+-   "direction" : Is improvement indicated by a run "above" the median, or "below" the median? The function will only look for successive runs in one direction. It will find multiple runs below the median, or multiple runs above the median, but will not look for alternating runs or runs in both directions at once.
+-   faceted : defaults to TRUE. Set to FALSE if you only need to plot a single runchart.
+-   facet\_cols : the number of columns in a faceted plot - only required if faceted is set to TRUE, otherwise ignored
 
-The function returns a list containing a faceted or series of individual runcharts plus a tibble / dataframe of the sustained data points, allowing you to perform further analysis or processing.
+example plot
+------------
 
 ``` r
 library(runcharter)
-runcharter(signals, faceted = TRUE, facet_cols = 2)
-#> $runchart
-```
-
-![](man/figures/unnamed-chunk-2-1.png)
-
-    #> 
-    #> $median_rows
-    #> # A tibble: 52 x 4
-    #>    grp       y date       baseline
-    #>    <chr> <int> <date>        <int>
-    #>  1 WardX     9 2014-01-01       11
-    #>  2 WardX    22 2014-02-01       11
-    #>  3 WardX    19 2014-03-01       11
-    #>  4 WardX    18 2014-04-01       11
-    #>  5 WardX     8 2014-05-01       11
-    #>  6 WardX     7 2014-06-01       11
-    #>  7 WardX    11 2014-07-01       11
-    #>  8 WardX    11 2014-08-01       11
-    #>  9 WardX    11 2014-09-01       11
-    #> 10 WardX    12 2014-10-01       11
-    #> # ... with 42 more rows
-    #> 
-    #> $sustained
-    #> # A tibble: 18 x 10
-    #>    grp       y date        flag rungroup cusum improve startdate 
-    #>    <chr> <int> <date>     <dbl>    <dbl> <dbl>   <int> <date>    
-    #>  1 WardX     7 2016-12-01    -1        1    -1       6 2016-12-01
-    #>  2 WardX     5 2017-01-01    -1        1    -2       6 2016-12-01
-    #>  3 WardX     4 2017-02-01    -1        1    -3       6 2016-12-01
-    #>  4 WardX    10 2017-03-01    -1        1    -4       6 2016-12-01
-    #>  5 WardX     4 2017-04-01    -1        1    -5       6 2016-12-01
-    #>  6 WardX     9 2017-05-01    -1        1    -6       6 2016-12-01
-    #>  7 WardX     4 2017-06-01    -1        1    -7       6 2016-12-01
-    #>  8 WardX     8 2017-07-01    -1        1    -8       6 2016-12-01
-    #>  9 WardX     6 2017-08-01    -1        1    -9       6 2016-12-01
-    #> 10 WardY     7 2017-10-01    -1        1    -1       8 2017-10-01
-    #> 11 WardY     3 2017-11-01    -1        1    -2       8 2017-10-01
-    #> 12 WardY     8 2017-12-01    -1        1    -3       8 2017-10-01
-    #> 13 WardY    11 2018-01-01    -1        1    -4       8 2017-10-01
-    #> 14 WardY     7 2018-02-01    -1        1    -5       8 2017-10-01
-    #> 15 WardY     9 2018-03-01    -1        1    -6       8 2017-10-01
-    #> 16 WardY     8 2018-04-01    -1        1    -7       8 2017-10-01
-    #> 17 WardY     8 2018-05-01    -1        1    -8       8 2017-10-01
-    #> 18 WardY     7 2018-06-01    -1        1    -9       8 2017-10-01
-    #> # ... with 2 more variables: enddate <date>, lastdate <date>
-    #> 
-    #> $StartBaseline
-    #> [1] 11 13  4  7
-
-``` r
 library(dplyr)
 #> 
 #> Attaching package: 'dplyr'
@@ -159,9 +77,40 @@ library(dplyr)
 #> The following objects are masked from 'package:base':
 #> 
 #>     intersect, setdiff, setequal, union
-signals %>%
+
+single <- signals %>%
 filter(grp == "WardX") %>%
-runcharter(chart_title = "WardX", chart_subtitle = "testing runs below")
+runcharter(single,
+med_rows = 13,
+runlength = 9,
+chart_title = "Analysis of runs below median",
+chart_subtitle = "Ward X",
+direction = "below",
+faceted =  FALSE)
+#> all sustained runs found, not enough rows remaining for further analysis
+```
+
+![One plot, one run below the median](man/figures/unnamed-chunk-2-1.png)
+
+Plot explanation
+----------------
+
+"med\_rows" defines the initial baseline period. In the example below, the first 13 points are used to calculate the initial median. This is represented with a solid orange horizontal line. This median is then used as a reference for the remaining values, denoted by the extending orange dashed line
+
+"runlength"" specifies the length of run to be identified. Along with "direction", which specifies which side of median represents improvement, the runlength is your target number of successive points on the desired side of the median (points on the median are ignored as they do not make or break a run).
+
+If a run is identified, the points are highlighted (the purple coloured points), a new median is calculated using these points, and plotted, and extended, with a new set of solid and dashed horizontal lines.
+
+The analysis continues, rebasing any further runs, until no more runs are found or there are not enough data points remaining.
+
+Example
+-------
+
+By default the function returns a faceted plot, highlighting successive runs below the median:
+
+``` r
+library(runcharter)
+runcharter(signals, faceted = TRUE, facet_cols = 2, direction = "above")
 #> $runchart
 ```
 
@@ -169,7 +118,7 @@ runcharter(chart_title = "WardX", chart_subtitle = "testing runs below")
 
     #> 
     #> $median_rows
-    #> # A tibble: 13 x 4
+    #> # A tibble: 52 x 4
     #>    grp       y date       baseline
     #>    <chr> <int> <date>        <int>
     #>  1 WardX     9 2014-01-01       11
@@ -182,27 +131,36 @@ runcharter(chart_title = "WardX", chart_subtitle = "testing runs below")
     #>  8 WardX    11 2014-08-01       11
     #>  9 WardX    11 2014-09-01       11
     #> 10 WardX    12 2014-10-01       11
-    #> 11 WardX     2 2014-11-01       11
-    #> 12 WardX     8 2014-12-01       11
-    #> 13 WardX     9 2015-01-01       11
+    #> # ... with 42 more rows
     #> 
     #> $sustained
     #> # A tibble: 9 x 10
     #>   grp       y date        flag rungroup cusum improve startdate  enddate   
     #>   <chr> <int> <date>     <dbl>    <dbl> <dbl>   <int> <date>     <date>    
-    #> 1 WardX     7 2016-12-01    -1        1    -1       6 2016-12-01 2017-08-01
-    #> 2 WardX     5 2017-01-01    -1        1    -2       6 2016-12-01 2017-08-01
-    #> 3 WardX     4 2017-02-01    -1        1    -3       6 2016-12-01 2017-08-01
-    #> 4 WardX    10 2017-03-01    -1        1    -4       6 2016-12-01 2017-08-01
-    #> 5 WardX     4 2017-04-01    -1        1    -5       6 2016-12-01 2017-08-01
-    #> 6 WardX     9 2017-05-01    -1        1    -6       6 2016-12-01 2017-08-01
-    #> 7 WardX     4 2017-06-01    -1        1    -7       6 2016-12-01 2017-08-01
-    #> 8 WardX     8 2017-07-01    -1        1    -8       6 2016-12-01 2017-08-01
-    #> 9 WardX     6 2017-08-01    -1        1    -9       6 2016-12-01 2017-08-01
+    #> 1 WardZ     6 2017-06-01     1        1     1       9 2017-06-01 2018-03-01
+    #> 2 WardZ    10 2017-07-01     1        1     2       9 2017-06-01 2018-03-01
+    #> 3 WardZ     9 2017-08-01     1        1     3       9 2017-06-01 2018-03-01
+    #> 4 WardZ    12 2017-09-01     1        1     4       9 2017-06-01 2018-03-01
+    #> 5 WardZ     9 2017-10-01     1        1     5       9 2017-06-01 2018-03-01
+    #> 6 WardZ     7 2017-12-01     1        1     6       9 2017-06-01 2018-03-01
+    #> 7 WardZ     6 2018-01-01     1        1     7       9 2017-06-01 2018-03-01
+    #> 8 WardZ     5 2018-02-01     1        1     8       9 2017-06-01 2018-03-01
+    #> 9 WardZ     9 2018-03-01     1        1     9       9 2017-06-01 2018-03-01
     #> # ... with 1 more variable: lastdate <date>
     #> 
     #> $StartBaseline
-    #> [1] 11
+    #> [1] 11 13  4  7
+
+For the time being, the function requires a three column data frame, containing the named variables "grp", "y" and "date": "grp" is a grouping variable which will be used for faceting. "y" is the variable on the y axis. You are encouraged to ensure that any doubles have been rounded appropriately. "date" is a date column.
+
+The function will print the plot, and return a list, containing:
+
+-   a ggplot2 object,
+-   a dataframe / tibble containing the rows of data used to calculate the baseline median
+-   if applicable, a dataframe / tibble showing the points in each sustained period of improvement.
+-   the initial baseline median value
+
+The latter 3 items can be retrieved from the list and used to create new plots (if, for example, you would like different plot themes or colours from the package defaults)
 
 Don't try this at home - setting runlength of 3 to show that successive runs are identified:
 
