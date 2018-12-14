@@ -6,7 +6,7 @@
 \usage{
 runcharter(df, med_rows = 13, runlength = 9, chart_title = NULL,
   chart_subtitle = NULL, direction = "below", faceted = TRUE,
-  facet_cols = NULL, ...)
+  facet_cols = NULL, save_plot = FALSE, plot_extension = "png", ...)
 }
 \arguments{
 \item{df}{dataframe containing columns "date", "y", "grp"}
@@ -24,6 +24,10 @@ runcharter(df, med_rows = 13, runlength = 9, chart_title = NULL,
 \item{faceted}{if you  dont need a faceted / trellis display set this to FALSE}
 
 \item{facet_cols}{the number of columns required for a faceted plot. Ignored if faceted is set to FALSE}
+
+\item{save_plot}{should the plot be saved?  Calls ggsave on the last plot, saving in the current directory, if TRUE.}
+
+\item{plot_extension}{one of "png","pdf" or other valid extension for saving ggplot2 plots. Used in the call to ggsave.}
 
 \item{...}{further arguments passed on to function}
 }
