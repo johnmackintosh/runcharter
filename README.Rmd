@@ -121,7 +121,7 @@ The analysis continues, rebasing any further runs, until no more runs are found 
 By default the function returns a faceted plot, highlighting successive runs below the median:
 
 
-```{r fig.height=5, fig.width =6}
+```{r fig.height=5, fig.width =8}
 library(runcharter)
 runcharter(signals, faceted = TRUE, facet_cols = 2, direction = "above")
 
@@ -145,7 +145,7 @@ The latter 3 items can be retrieved from the list and used to create new plots (
 
 Don't try this at home - setting runlength of 3 to show that successive runs are identified:
 
-```{r fig.height=5, fig.width =6}
+```{r fig.height=5, fig.width =8}
 
 signals %>% 
   runcharter(med_rows = 3,
