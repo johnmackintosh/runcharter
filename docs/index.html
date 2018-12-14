@@ -165,7 +165,7 @@ One plot, one run below the median
 <h2 class="hasAnchor">
 <a href="#plot-explanation" class="anchor"></a>Plot explanation</h2>
 <p>“med_rows” defines the initial baseline period. In the example below, the first 13 points are used to calculate the initial median. This is represented with a solid orange horizontal line. This median is then used as a reference for the remaining values, denoted by the extending orange dashed line</p>
-<p>“runlength”" specifies the length of run to be identified. Along with “direction”, which specifies which side of median represents improvement, the runlength is your target number of successive points on the desired side of the median (points on the median are ignored as they do not make or break a run).</p>
+<p>“runlength” specifies the length of run to be identified. Along with “direction”, which specifies which side of median represents improvement, the runlength is your target number of successive points on the desired side of the median (points on the median are ignored as they do not make or break a run).</p>
 <p>If a run is identified, the points are highlighted (the purple coloured points), a new median is calculated using these points, and plotted, and extended, with a new set of solid and dashed horizontal lines.</p>
 <p>The analysis continues, rebasing any further runs, until no more runs are found or there are not enough data points remaining.</p>
 </div>
@@ -176,7 +176,7 @@ One plot, one run below the median
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(runcharter)
 <span class="kw"><a href="reference/runcharter.html">runcharter</a></span>(signals, <span class="dt">faceted =</span> <span class="ot">TRUE</span>, <span class="dt">facet_cols =</span> <span class="dv">2</span>, <span class="dt">direction =</span> <span class="st">"above"</span>)
 <span class="co">#&gt; $runchart</span></code></pre></div>
-<p><img src="reference/figures/unnamed-chunk-3-1.png" width="576"></p>
+<p><img src="reference/figures/unnamed-chunk-3-1.png" width="768"></p>
 <pre><code>#&gt; 
 #&gt; $median_rows
 #&gt; # A tibble: 52 x 4
@@ -230,7 +230,7 @@ signals <span class="op">%&gt;%</span><span class="st"> </span>
              <span class="dt">faceted =</span> <span class="ot">TRUE</span>,
               <span class="dt">facet_cols =</span> <span class="dv">2</span>)
 <span class="co">#&gt; $runchart</span></code></pre></div>
-<p><img src="reference/figures/unnamed-chunk-4-1.png" width="576"></p>
+<p><img src="reference/figures/unnamed-chunk-4-1.png" width="768"></p>
 <pre><code>#&gt; 
 #&gt; $median_rows
 #&gt; # A tibble: 12 x 4
