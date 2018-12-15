@@ -62,6 +62,8 @@ runcharter function arguments
 -   "direction" : Is improvement indicated by a run "above" the median, or "below" the median? The function will only look for successive runs in one direction. It will find multiple runs below the median, or multiple runs above the median, but will not look for alternating runs or runs in both directions at once.
 -   faceted : defaults to TRUE. Set to FALSE if you only need to plot a single runchart.
 -   facet\_cols : the number of columns in a faceted plot - only required if faceted is set to TRUE, otherwise ignored
+-   save\_plot : Calls ggsave if TRUE, saving in the current working directory
+-   plot\_extension : one of "png","pdf" or other valid extension for saving ggplot2 plots. Used in the call to ggsave.
 
 example plot
 ------------
