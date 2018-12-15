@@ -29,8 +29,8 @@ utils::globalVariables(c("Baseline", "Date", "EndDate", "StartBaseline", "baseli
 #'
 #'@examples
 #'\donttest{
-#'runcharter(data, med_rows = 13, runlength = 9, chart_title = "Automated runs analysis",
-#'direction = "above", faceted = FALSE)
+#'runcharter(signals, med_rows = 13, runlength = 9, chart_title = "Automated runs analysis",
+#'direction = "above", faceted = TRUE, facet_cols = 2, save_plot = TRUE, plot_extension = "pdf)
 #'}
 #'
 #'

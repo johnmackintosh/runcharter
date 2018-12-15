@@ -38,11 +38,3 @@ runchart and a dataframe showing sustained run data if appropriate
 This will plot the original dataframe, with highlighted runs of improvement.
 It will also return a dataframe showing the improvment data
 }
-\examples{
-\donttest{
-runcharter(data, med_rows = 13, runlength = 9, chart_title = "Automated runs analysis",
-direction = "above", faceted = FALSE)
-}
-
-
-}
