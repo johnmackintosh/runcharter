@@ -97,12 +97,14 @@ devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumen
 <h2 class="hasAnchor">
 <a href="#rationale" class="anchor"></a>Rationale</h2>
 <p>Runcharts are easy to create and analyse on an individual basis, hence they are widely used in healthcare quality improvement.</p>
-<p>A runchart is a regular line chart, but with a central reference line, calculated over a baseline period before any quality improvement takes place.</p>
-<p>This central line, calculated using the median of a number of baseline values, is plotted, allowing the QI team to assess if any statistically significant improvement is taking place, as a result of their improvement initiatives.</p>
+<p>A runchart is a regular line chart, with a central reference line.</p>
+<p>This central line, calculated using the median of a number of values over a baseline period, allows the QI team to assess if any statistically significant improvement is taking place, as a result of their improvement initiatives.</p>
 <p>These improvements are denoted by certain patterns, or signals, within the plotted data points, in relation to the median line. The main signal is a run of 9 or more consecutive values on the desired side of the median line.</p>
-<p>If this signal occurs as a result of improvement activities, a new median can be calculated using the points that contributed to this run. While this ‘rebasing’ (calculating new medians) is manageable for a few charts, it quickly becomes labour intensive as QI initiatives expand or further QI programmes are launched.</p>
+<p>If this signal occurs as a result of improvement activities, but performance is not yet at the target level, a new median line can be plotted.</p>
+<p>This is calculated using the median of the points that contributed to the signal. The aim is to then continue to work on improvement, measure and plot data, and look for the next sustained signal, until the improvement initiative is operating at its target level.</p>
+<p>While this ‘rebasing’ (calculating new medians) is manageable for a few charts, it quickly becomes labour intensive as QI initiatives expand or further QI programmes are launched.</p>
 <p>While enterprise level database software can be used to store the raw data, their associated reporting systems are usually ill suited to the task of analysing QI data using run chart rules.</p>
-<p>This package automatically creates rebased run charts, based on the run chart rule for sustained improvement commonly used in healthcare ( n consecutive points on the desired side of the median).</p>
+<p>This package automatically creates rebased run charts, based on the run chart rule for sustained improvement commonly used in healthcare ( 9 consecutive points on the desired side of the median).</p>
 <p>All sustained runs of improvement, in the desired direction, will be highlighted and the median re-phased, using the points that contributed to the run.</p>
 <p>Non useful observations (points on the median) are ignored and are not highlighted.</p>
 <p>The main motivation is to analyse many charts at once, but you can also create and analyse a single runchart, or iterate, plot and save many individual charts.</p>
@@ -112,21 +114,21 @@ devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumen
 <a href="#the-runcharter-function---input" class="anchor"></a>The runcharter function - input</h2>
 <p>The function requires a simple three column dataframe, with the following column names</p>
 <ul>
-<li>“grp” : a character column indicating a grouping variable to identify each individual run chart and for faceted plots</li>
-<li>“date” : a column of type ‘date’.</li>
-<li>“y” : the variable / value to plot.</li>
+<li>grp : a character column indicating a grouping variable to identify each individual run chart and for faceted plots</li>
+<li>date : a column of type ‘date’.</li>
+<li>y : the variable / value to plot.</li>
 </ul>
 </div>
 <div id="runcharter-function-arguments" class="section level2">
 <h2 class="hasAnchor">
 <a href="#runcharter-function-arguments" class="anchor"></a>runcharter function arguments</h2>
 <ul>
-<li>“df” : a three column dataframe with columns named ‘grp’, ‘date’ and ‘y’ as specified above</li>
-<li>“med_rows” : How many rows / data points should the initial baseline median be calculated over?</li>
-<li>“runlength” : How long a run of consecutive points do you want to find, before you rebase the median? The median will be rebased using all useful observations (points on the median are not useful, and are ignored).</li>
-<li>“chart_title” : The main title for the chart</li>
-<li>“chart_subtitle” : A subtitle for the chart</li>
-<li>“direction” : Is improvement indicated by a run “above” the median, or “below” the median? The function will only look for successive runs in one direction. It will find multiple runs below the median, or multiple runs above the median, but will not look for alternating runs or runs in both directions at once.</li>
+<li>df : a three column dataframe with columns named ‘grp’, ‘date’ and ‘y’ as specified above</li>
+<li>med_rows : How many rows / data points should the initial baseline median be calculated over?</li>
+<li>runlength : How long a run of consecutive points do you want to find, before you rebase the median? The median will be rebased using all useful observations (points on the median are not useful, and are ignored).</li>
+<li>chart_title : The main title for the chart</li>
+<li>chart_subtitle : A subtitle for the chart</li>
+<li>direction : “above” or “below” the median. The function will only look for successive runs in one direction at a time. It will not look for alternating runs in both directions.</li>
 <li>faceted : defaults to TRUE. Set to FALSE if you only need to plot a single runchart.</li>
 <li>facet_cols : the number of columns in a faceted plot - only required if faceted is set to TRUE, otherwise ignored</li>
 <li>save_plot : Calls ggsave if TRUE, saving in the current working directory</li>
@@ -165,9 +167,11 @@ One plot, one run below the median
 <div id="plot-explanation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#plot-explanation" class="anchor"></a>Plot explanation</h2>
-<p>“med_rows” defines the initial baseline period. In the example below, the first 13 points are used to calculate the initial median. This is represented with a solid orange horizontal line. This median is then used as a reference for the remaining values, denoted by the extending orange dashed line</p>
-<p>“runlength” specifies the length of run to be identified. Along with “direction”, which specifies which side of median represents improvement, the runlength is your target number of successive points on the desired side of the median (points on the median are ignored as they do not make or break a run).</p>
-<p>If a run is identified, the points are highlighted (the purple coloured points), a new median is calculated using these points, and plotted, and extended, with a new set of solid and dashed horizontal lines.</p>
+<ul>
+<li><p><code>med_rows</code> defines the initial baseline period. In the example below, the first 13 points are used to calculate the initial median. This is represented with a solid orange horizontal line. This median is then used as a reference for the remaining values, denoted by the extending orange dashed line</p></li>
+<li><p><code>runlength</code> specifies the length of run to be identified. Along with <code>direction</code>, which specifies which side of median represents improvement, the runlength is your target number of successive points on the desired side of the median (points on the median are ignored as they do not make or break a run).</p></li>
+</ul>
+<p>If a run is identified, the points are highlighted (the purple coloured points), and a new median is calculated using them. The median is also plotted and extended into the future for further run chart rules analysis, with a new set of solid and dashed horizontal lines.</p>
 <p>The analysis continues, rebasing any further runs, until no more runs are found or there are not enough data points remaining.</p>
 </div>
 <div id="example" class="section level2">
@@ -175,7 +179,7 @@ One plot, one run below the median
 <a href="#example" class="anchor"></a>Example</h2>
 <p>By default the function returns a faceted plot, highlighting successive runs below the median:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(runcharter)
-<span class="kw"><a href="reference/runcharter.html">runcharter</a></span>(signals, <span class="dt">faceted =</span> <span class="ot">TRUE</span>, <span class="dt">facet_cols =</span> <span class="dv">2</span>)
+<span class="kw"><a href="reference/runcharter.html">runcharter</a></span>(signals, <span class="dt">facet_cols =</span> <span class="dv">2</span>)
 <span class="co">#&gt; $runchart</span></code></pre></div>
 <p><img src="reference/figures/unnamed-chunk-3-1.png" width="768"></p>
 <pre><code>#&gt; 
@@ -221,7 +225,6 @@ One plot, one run below the median
 #&gt; 
 #&gt; $StartBaseline
 #&gt; [1] 11 13  4  7</code></pre>
-<p>For the time being, the function requires a three column data frame, containing the named variables “grp”, “y” and “date”: “grp” is a grouping variable which will be used for faceting. “y” is the variable on the y axis. You are encouraged to ensure that any doubles have been rounded appropriately. “date” is a date column.</p>
 <p>The function will print the plot, and return a list, containing:</p>
 <ul>
 <li>a ggplot2 object,<br>
