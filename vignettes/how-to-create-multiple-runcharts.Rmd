@@ -35,7 +35,7 @@ Because the "grp" column is used internally in the runcharter function, we creat
 library(runcharter)
 library(tidyr)
 library(purrr)
-library(dplyr)
+library(dplyr,quietly = TRUE,warn.conflicts = FALSE)
 
 
  multiple_by_ward <- signals %>%
