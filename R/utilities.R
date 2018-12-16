@@ -412,8 +412,8 @@ build_facet <- function(df, mr, rl,ct,cs,direct, n_facets,sp, plot_extension, ..
 
 
   runchart <- ggplot2::ggplot(data, aes(date, y, group = 1)) +
-    ggplot2::geom_line(colour = "#005EB8", size = 1.3)  +
-    ggplot2::geom_point(shape = 21 , colour = "#005EB8", fill = "white", size = 3) +
+    ggplot2::geom_line(colour = "#005EB8", size = 1.2)  +
+    ggplot2::geom_point(shape = 21 , colour = "#005EB8", fill = "white", size = 2.8) +
     ggplot2::theme_minimal(base_size = 10) +
     ggplot2::theme(axis.text.y = element_text(angle = 0)) +
     ggplot2::theme(axis.text.x = element_text(angle = 90)) +
@@ -422,12 +422,12 @@ build_facet <- function(df, mr, rl,ct,cs,direct, n_facets,sp, plot_extension, ..
     ggplot2::theme(legend.position = "bottom")
 
   runchart <- runchart + ggplot2::geom_line(data = median_rows,aes(x = date,y = baseline,group = grp),
-                                            colour = "#E87722", size = 1.2,linetype = 1)
+                                            colour = "#E87722", size = 1.1,linetype = 1)
 
 
   runchart <- runchart + ggplot2::geom_line(data = data,aes(x = date, y = StartBaseline,
                                                             group = grp),
-                                            colour = "#E87722", size = 1.2, linetype = 2)
+                                            colour = "#E87722", size = 1.1, linetype = 2)
 
 
   # if there are no sustained runs, plot now
@@ -448,13 +448,13 @@ build_facet <- function(df, mr, rl,ct,cs,direct, n_facets,sp, plot_extension, ..
 
 
     runchart <- runchart + ggplot2::geom_point(data = sustained, aes(x = date,y = y,group = rungroup),
-                                               shape = 21, colour = "#005EB8", fill = "#DB1884" , size = 3.5)
+                                               shape = 21, colour = "#005EB8", fill = "#DB1884" , size = 3)
 
     runchart <- runchart + ggplot2::geom_line(data = sustained,aes(x = date,y = improve,group = rungroup),
-                                              colour = "#E87722", linetype = 1, size = 1.2)
+                                              colour = "#E87722", linetype = 1, size = 1.1)
 
     runchart <- runchart +  ggplot2::geom_segment(data = sustained,aes(x = enddate,xend = lastdate,y = improve, yend = improve, group = rungroup),
-                                                  colour = "#E87722",linetype = 2, size = 1.2)
+                                                  colour = "#E87722",linetype = 2, size = 1.1)
 
     runchart <- runchart + ggplot2::ggtitle(label = ct, subtitle = cs)
 

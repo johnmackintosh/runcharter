@@ -42,8 +42,8 @@ runcharter <- function(df, med_rows = 13, runlength = 9, chart_title = NULL,
 
   baseplot <- function(df, chart_title, chart_subtitle, ...) {
     runchart <- ggplot2::ggplot(df, aes(date, y, group = 1)) +
-      ggplot2::geom_line(colour = "#005EB8", size = 1.3)  +
-      ggplot2::geom_point(shape = 21 , colour = "#005EB8", fill = "white", size = 3) +
+      ggplot2::geom_line(colour = "#005EB8", size = 1.2)  +
+      ggplot2::geom_point(shape = 21 , colour = "#005EB8", fill = "white", size = 2.8) +
       ggplot2::theme_minimal(base_size = 10) +
       theme(axis.text.y = element_text(angle = 0)) +
       theme(axis.text.x = element_text(angle = 90)) +
@@ -53,13 +53,10 @@ runcharter <- function(df, med_rows = 13, runlength = 9, chart_title = NULL,
       ggplot2::labs(x = "", y = "") +
       theme(legend.position = "bottom")
 
-
-    #runchart <- runchart + ggplot2::facet_wrap(vars(grp))
-
     runchart <- runchart + ggplot2::geom_line(data = median_rows,aes(x = date,y = baseline,group = 1),
-                                              colour = "#E87722", size = 1.2,linetype = 1)
+                                              colour = "#E87722", size = 1.1,linetype = 1)
     runchart <- runchart + ggplot2::geom_line(data = df,aes(x = date, y = StartBaseline, group = 1),
-                                              colour = "#E87722", size = 1.2, linetype = 2)
+                                              colour = "#E87722", size = 1.1, linetype = 2)
 
 
     return(runchart)
@@ -70,14 +67,14 @@ runcharter <- function(df, med_rows = 13, runlength = 9, chart_title = NULL,
     runchart <- baseplot(df,chart_title, chart_subtitle,...)
 
     runchart <- runchart + ggplot2::geom_point(data = susdf, aes(x = date,y = y,group = rungroup),
-                                               shape = 21, colour = "#005EB8", fill = "#DB1884" , size = 3.5)
+                                               shape = 21, colour = "#005EB8", fill = "#DB1884" , size = 3)
 
     runchart <- runchart + ggplot2::geom_line(data = susdf,aes(x = date,y = improve,group = rungroup),
-                                              colour = "#E87722", linetype = 1, size = 1.2)
+                                              colour = "#E87722", linetype = 1, size = 1.1)
 
     runchart <- runchart +  ggplot2::geom_segment(data = susdf,
                                                   aes(x = enddate, xend = lastdate, y = improve,  yend = improve, group = rungroup),
-                                                  colour = "#E87722",linetype = 2, size = 1.2)
+                                                  colour = "#E87722",linetype = 2, size = 1.1)
 
     runchart <- runchart + ggplot2::ggtitle(label = chart_title, subtitle = chart_subtitle)
     return(runchart)
@@ -117,8 +114,6 @@ runcharter <- function(df, med_rows = 13, runlength = 9, chart_title = NULL,
 
     current_grp <- unique(df[["grp"]])
     filename <- paste0(current_grp,".",plot_extension)
-
-    #chart_title <- ifelse(!is.null(chart_title), chart_title, current_grp)
 
 
     ### first pass##

@@ -32,9 +32,9 @@ knitr::opts_chunk$set(
 Here are the function arguments and defaults. 
 A default run of 9 is specified as that is the length of run used by the IHI for it's patient safety initiatives worldwide. 
 
+# Function arguments and defaults
 
 ```{r, eval=FALSE}
-#function arguments and defaults
 
 library(runcharter)
 runcharter(df = signals,
@@ -44,7 +44,9 @@ runcharter(df = signals,
           chart_subtitle = NULL, 
           direction = "below",
           faceted = TRUE,
-          facet_cols = NULL)
+          facet_cols = NULL,
+          save_plot = FALSE,
+          plot_extension = "png")
 
 ```
 
@@ -57,13 +59,9 @@ runcharter(df = signals,
 library(runcharter)
 
 runcharter(signals,
-                med_rows = 13,
-                runlength = 9,
-                chart_title = "facet test 1",
-                chart_subtitle = " 1 column trellis using facet_wrap", 
-                direction = "below",
-                faceted = TRUE,
-                facet_cols = 1)
+              chart_title = "facet test 1",
+              chart_subtitle = " 1 column trellis using facet_wrap", 
+              facet_cols = 1)
 
 
 
@@ -76,13 +74,9 @@ runcharter(signals,
 library(runcharter)
 
 runcharter(signals,
-                med_rows = 13,
-                runlength = 9,
-                chart_title = "facet test 2",
-                chart_subtitle = " 2 column trellis using facet_wrap", 
-                direction = "below",
-                faceted = TRUE,
-                facet_cols = 2)
+              chart_title = "facet test 2",
+              chart_subtitle = " 2 column trellis using facet_wrap", 
+              facet_cols = 2)
 
 ```
 
