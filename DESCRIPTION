@@ -1,12 +1,12 @@
 Package: runcharter
-Title: Automatically analyse,rebase and plot multiple runcharts
+Title: Automatically plot, analyse and rebase multiple runcharts
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "John",
            family = "MacKintosh",
            role = c("aut", "cre"),
            email = "johnmackintosh.jm@gmail.com")
-Description: Find successive runs indicating improvement, rebasing medians and plotting multiple runcharts.
+Description: Plot multiple runcharts, finding successive signals of improvement, and rebasing medians .
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
