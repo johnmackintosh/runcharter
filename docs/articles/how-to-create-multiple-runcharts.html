@@ -97,10 +97,6 @@
 <h2 class="hasAnchor">
 <a href="#plot-multiple-charts-in-sequence" class="anchor"></a>Plot multiple charts in sequence</h2>
 <p>We’ve seen how to create a single runchart. What if we have several, or many, that we want to analyse and plot individually? We can take use the purrr and dplyr packages to assist with this task</p>
-</div>
-<div id="runs-below" class="section level2">
-<h2 class="hasAnchor">
-<a href="#runs-below" class="anchor"></a>Runs below</h2>
 <p>Here we take the built-in dataset ‘signals’ and create a nested dataframe using tidyr’s nest() function. Because the “grp” column is used internally in the runcharter function, we create a dummy, outer grouping variable using it, purely for nesting purposes. We group by this dummy variable, create a nested dataframe, and use purrr::map to apply the runcharter function to each individual group in turn.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(runcharter)
@@ -135,33 +131,6 @@
 </ul>
 <p>The latter 3 items can be retrieved from the list and used to create new plots (if, for example, you would like different plot themes or colours from the package defaults), or to create a faceted plot.</p>
 </div>
-<div id="runs-above-the-median" class="section level2">
-<h2 class="hasAnchor">
-<a href="#runs-above-the-median" class="anchor"></a>Runs above the median</h2>
-<p>It is not recommended to use very short runs as a basis for evidencing improvement. The following example is used only to demonstrate that the runcharter function will find multiple successive runs in the desired direction</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(runcharter)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(tidyr)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(purrr)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)
-
- by_ward_above &lt;-<span class="st"> </span>signals <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">out_group =</span> grp) <span class="op">%&gt;%</span>
-<span class="st">    </span><span class="kw">group_by</span>(out_group) <span class="op">%&gt;%</span>
-<span class="st">    </span>tidyr<span class="op">::</span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/nest.html">nest</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">runcharts =</span> purrr<span class="op">::</span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(data,runcharter,
-                                  <span class="dt">med_rows =</span> <span class="dv">3</span>,
-                                  <span class="dt">runlength =</span> <span class="dv">3</span>,
-                                  <span class="dt">chart_title =</span> <span class="ot">NULL</span>,
-                                  <span class="dt">chart_subtitle =</span> <span class="ot">NULL</span>,
-                                  <span class="dt">direction =</span> <span class="st">"above"</span>, 
-                                  <span class="dt">faceted =</span> <span class="ot">FALSE</span>))
-<span class="co">#&gt; no sustained runs found</span>
-<span class="co">#&gt; all sustained runs found, not enough rows remaining for further analysis</span>
-<span class="co">#&gt; all sustained runs found, not enough rows remaining for further analysis</span>
-<span class="co">#&gt; all sustained runs found, not enough rows remaining for further analysis</span></code></pre></div>
-<p><img src="how-to-create-multiple-runcharts_files/figure-html/unnamed-chunk-2-1.png" width="576"><img src="how-to-create-multiple-runcharts_files/figure-html/unnamed-chunk-2-2.png" width="576"><img src="how-to-create-multiple-runcharts_files/figure-html/unnamed-chunk-2-3.png" width="576"><img src="how-to-create-multiple-runcharts_files/figure-html/unnamed-chunk-2-4.png" width="576"></p>
-</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -170,8 +139,6 @@
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#plot-multiple-charts-in-sequence">Plot multiple charts in sequence</a></li>
-      <li><a href="#runs-below">Runs below</a></li>
-      <li><a href="#runs-above-the-median">Runs above the median</a></li>
       </ul>
 </div>
       </div>
