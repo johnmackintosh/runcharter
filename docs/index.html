@@ -237,8 +237,9 @@ One plot, one run below the median
 </ul>
 <p>The latter 3 items can be retrieved from the list and used to create new plots (if, for example, you would like different plot themes or colours from the package defaults)</p>
 <p>Don’t try this at home - setting runlength of 3 to show that successive runs are identified:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)
 signals <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw"><a href="http://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(date <span class="op">&lt;=</span><span class="st"> '2015-12-01'</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="reference/runcharter.html">runcharter</a></span>(<span class="dt">med_rows =</span> <span class="dv">3</span>,
              <span class="dt">runlength =</span> <span class="dv">3</span>, 
              <span class="dt">direction =</span> <span class="st">"above"</span>,
