@@ -12,7 +12,8 @@ knitr::opts_chunk$set(
 )
 ```
 
-# runcharter
+# runcharter <img src="man/figures/logo.png" width="160px" align="right" /> 
+
 
 Automated analysis and re-basing of  runcharts at scale.
 

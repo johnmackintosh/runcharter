@@ -95,8 +95,10 @@
 <p>The rationale for the package is to analyse multiple runcharts at once. More importantly, the package will identify a run of n successive points on the desired side of the median line, and will recalculate / rebase the median accordingly. Each time a run occurs, the median will be rebased. This helps to track improvements over time.</p>
 <p>The default is to plot a faceted plot, allowing ggplot2 to handle the axis limits. You can specify the number of columns in the faceted plot, or let ggplot2 do its thing.</p>
 <p>Here are the function arguments and defaults. A default run of 9 is specified as that is the length of run used by the IHI for it’s patient safety initiatives worldwide.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#function arguments and defaults</span>
-
+<div id="function-arguments-and-defaults" class="section level1">
+<h1 class="hasAnchor">
+<a href="#function-arguments-and-defaults" class="anchor"></a>Function arguments and defaults</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(runcharter)
 <span class="kw"><a href="../reference/runcharter.html">runcharter</a></span>(<span class="dt">df =</span> signals,
           <span class="dt">med_rows =</span> <span class="dv">13</span>,
@@ -105,20 +107,18 @@
           <span class="dt">chart_subtitle =</span> <span class="ot">NULL</span>, 
           <span class="dt">direction =</span> <span class="st">"below"</span>,
           <span class="dt">faceted =</span> <span class="ot">TRUE</span>,
-          <span class="dt">facet_cols =</span> <span class="ot">NULL</span>)</code></pre></div>
+          <span class="dt">facet_cols =</span> <span class="ot">NULL</span>,
+          <span class="dt">save_plot =</span> <span class="ot">FALSE</span>,
+          <span class="dt">plot_extension =</span> <span class="st">"png"</span>)</code></pre></div>
 <div id="faceted-plots---1-column" class="section level2">
 <h2 class="hasAnchor">
 <a href="#faceted-plots---1-column" class="anchor"></a>Faceted plots - 1 column</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(runcharter)
 
 <span class="kw"><a href="../reference/runcharter.html">runcharter</a></span>(signals,
-                <span class="dt">med_rows =</span> <span class="dv">13</span>,
-                <span class="dt">runlength =</span> <span class="dv">9</span>,
-                <span class="dt">chart_title =</span> <span class="st">"facet test 1"</span>,
-                <span class="dt">chart_subtitle =</span> <span class="st">" 1 column trellis using facet_wrap"</span>, 
-                <span class="dt">direction =</span> <span class="st">"below"</span>,
-                <span class="dt">faceted =</span> <span class="ot">TRUE</span>,
-                <span class="dt">facet_cols =</span> <span class="dv">1</span>)
+              <span class="dt">chart_title =</span> <span class="st">"facet test 1"</span>,
+              <span class="dt">chart_subtitle =</span> <span class="st">" 1 column trellis using facet_wrap"</span>, 
+              <span class="dt">facet_cols =</span> <span class="dv">1</span>)
 <span class="co">#&gt; $runchart</span></code></pre></div>
 <p><img src="runcharter_files/figure-html/unnamed-chunk-2-1.png" width="576"></p>
 <pre><code>#&gt; 
@@ -168,13 +168,9 @@
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(runcharter)
 
 <span class="kw"><a href="../reference/runcharter.html">runcharter</a></span>(signals,
-                <span class="dt">med_rows =</span> <span class="dv">13</span>,
-                <span class="dt">runlength =</span> <span class="dv">9</span>,
-                <span class="dt">chart_title =</span> <span class="st">"facet test 2"</span>,
-                <span class="dt">chart_subtitle =</span> <span class="st">" 2 column trellis using facet_wrap"</span>, 
-                <span class="dt">direction =</span> <span class="st">"below"</span>,
-                <span class="dt">faceted =</span> <span class="ot">TRUE</span>,
-                <span class="dt">facet_cols =</span> <span class="dv">2</span>)
+              <span class="dt">chart_title =</span> <span class="st">"facet test 2"</span>,
+              <span class="dt">chart_subtitle =</span> <span class="st">" 2 column trellis using facet_wrap"</span>, 
+              <span class="dt">facet_cols =</span> <span class="dv">2</span>)
 <span class="co">#&gt; $runchart</span></code></pre></div>
 <p><img src="runcharter_files/figure-html/unnamed-chunk-3-1.png" width="576"></p>
 <pre><code>#&gt; 
@@ -241,6 +237,7 @@
 <a href="#i-dont-like-the-default-chart-colours-or-axis-limits" class="anchor"></a>I don’t like the default chart colours or axis limits</h2>
 <p>Use the package to do the analysis, take the outputs, and build your own plots. Or save the output to a variable, retrieve the runchart component, and pass further ggplot2 syntax to amend the limits, labels etc.</p>
 </div>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -248,10 +245,14 @@
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+<li>
+<a href="#function-arguments-and-defaults">Function arguments and defaults</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#faceted-plots---1-column">Faceted plots - 1 column</a></li>
       <li><a href="#design-decisions">Design decisions</a></li>
       <li><a href="#were-not-supposed-to-do-this">We’re not supposed to do this</a></li>
       <li><a href="#i-dont-like-the-default-chart-colours-or-axis-limits">I don’t like the default chart colours or axis limits</a></li>
+      </ul>
+</li>
       </ul>
 </div>
       </div>
