@@ -25,7 +25,6 @@ knitr::opts_chunk$set(
 We've seen how to create a single runchart. What if we have several, or many, that we want to analyse and plot individually?
 We can take use the purrr and dplyr packages to assist with this task
 
-## Runs below
 
 Here we take the built-in dataset 'signals' and create  a nested dataframe using tidyr's nest() function.
 Because the "grp" column is used internally in the runcharter function, we create a dummy, outer grouping variable using it, purely for nesting purposes. We group by this dummy variable, create a nested dataframe, and use purrr::map to apply the runcharter function to each individual group in turn.
@@ -61,30 +60,5 @@ The function will print the plots, and return a  nested  dataframe containing:
 The latter 3 items can be retrieved from the list and used to create new plots (if, for example, you would like different plot themes or colours from the package defaults), or to create a faceted plot. 
 
 
-## Runs above the median
 
-
-It is not recommended to use very short runs as a basis for evidencing improvement. The following example is used only to demonstrate that the runcharter function will find multiple successive runs in the desired direction
-
-```{r, fig.show='hold'}
-
-library(runcharter)
-library(tidyr)
-library(purrr)
-library(dplyr)
-
- by_ward_above <- signals %>%
-    mutate(out_group = grp) %>%
-    group_by(out_group) %>%
-    tidyr::nest() %>% 
-    mutate(runcharts = purrr::map(data,runcharter,
-                                  med_rows = 3,
-                                  runlength = 3,
-                                  chart_title = NULL,
-                                  chart_subtitle = NULL,
-                                  direction = "above", 
-                                  faceted = FALSE))
-
-
-```
 
