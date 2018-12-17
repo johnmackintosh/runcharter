@@ -177,9 +177,9 @@ The latter 3 items can be retrieved from the list and used to create new plots (
 Don't try this at home - setting runlength of 3 to show that successive runs are identified:
 
 ``` r
-
+library(dplyr)
 signals %>% 
-  dplyr::filter(date <= '2016-12-01') %>% 
+  dplyr::filter(date <= '2015-12-01') %>% 
   runcharter(med_rows = 3,
              runlength = 3, 
              direction = "above",
