@@ -148,6 +148,7 @@ Don't try this at home - setting runlength of 3 to show that successive runs are
 ```{r fig.height=5, fig.width =8}
 
 signals %>% 
+  dplyr::filter(date <= '2016-12-01') %>% 
   runcharter(med_rows = 3,
              runlength = 3, 
              direction = "above",
