@@ -6,7 +6,7 @@ Authors@R:
            family = "MacKintosh",
            role = c("aut", "cre"),
            email = "johnmackintosh.jm@gmail.com")
-Description: Plot multiple runcharts, finding successive signals of improvement, and rebasing medians .
+Description: Plots multiple runcharts, finds successive signals of improvement, and rebases medians.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
