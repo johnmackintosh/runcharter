@@ -17,6 +17,11 @@ You can install runcharter from github with:
 ``` r
 # install.packages("devtools")
 devtools::install_github("johnmackintosh/runcharter")
+
+# to ensure the vignettes are built or ensure latest version is installed:
+
+devtools::install_github("johnmackintosh/runcharter", 
+                         build_vignettes = TRUE, force = TRUE)
 ```
 
 Rationale

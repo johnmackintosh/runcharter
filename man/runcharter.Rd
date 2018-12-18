@@ -41,7 +41,7 @@ It will also return a dataframe showing the improvment data
 \examples{
 \donttest{
 runcharter(signals, med_rows = 13, runlength = 9, chart_title = "Automated runs analysis",
-direction = "above", faceted = TRUE, facet_cols = 2, save_plot = TRUE, plot_extension = "pdf")
+direction = "above", faceted = TRUE, facet_cols = 2, save_plot = TRUE, plot_extension = "png")
 }
 
 
