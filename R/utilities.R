@@ -413,7 +413,7 @@ build_facet <- function(df, mr, rl,ct,cs,direct, n_facets,sp, plot_extension, ..
 
   runchart <- ggplot2::ggplot(data, aes(date, y, group = 1)) +
     ggplot2::geom_line(colour = "#005EB8", size = 1.1)  +
-    ggplot2::geom_point(shape = 21 , colour = "#005EB8", fill = "white", size = 2.5) +
+    ggplot2::geom_point(shape = 21 , colour = "#005EB8", fill = "#005EB8", size = 2.5) +
     ggplot2::theme_minimal(base_size = 10) +
     ggplot2::theme(axis.text.y = element_text(angle = 0)) +
     ggplot2::theme(axis.text.x = element_text(angle = 90)) +
