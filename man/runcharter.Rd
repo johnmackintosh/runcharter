@@ -32,7 +32,7 @@ runcharter(df, med_rows = 13, runlength = 9, chart_title = NULL,
 \item{...}{further arguments passed on to function}
 }
 \value{
-runchart and a dataframe showing sustained run data if appropriate
+run chart(s) and a dataframe showing sustained run data if appropriate
 }
 \description{
 This will plot the original dataframe, with highlighted runs of improvement.

@@ -84,7 +84,7 @@
       <h1>How to create multiple runcharts</h1>
                         <h4 class="author">John MacKintosh</h4>
             
-            <h4 class="date">2018-12-21</h4>
+            <h4 class="date">2019-01-14</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/johnmackintosh/runcharter/blob/master/vignettes/how-to-create-multiple-runcharts.Rmd"><code>vignettes/how-to-create-multiple-runcharts.Rmd</code></a></small>
       <div class="hidden name"><code>how-to-create-multiple-runcharts.Rmd</code></div>
@@ -96,13 +96,14 @@
 <div id="plot-multiple-charts-in-sequence" class="section level2">
 <h2 class="hasAnchor">
 <a href="#plot-multiple-charts-in-sequence" class="anchor"></a>Plot multiple charts in sequence</h2>
-<p>We’ve seen how to create a single runchart. What if we have several, or many, that we want to analyse and plot individually? We can take use the purrr and dplyr packages to assist with this task</p>
+<p>We’ve seen how to create a single run chart. What if we have several, or many, that we want to analyse and plot individually? We can take use the purrr and dplyr packages to assist with this task</p>
 <p>Here we take the built-in dataset ‘signals’ and create a nested dataframe using tidyr’s nest() function. Because the “grp” column is used internally in the runcharter function, we create a dummy, outer grouping variable using it, purely for nesting purposes. We group by this dummy variable, create a nested dataframe, and use purrr::map to apply the runcharter function to each individual group in turn.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(runcharter)
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(tidyr)
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(purrr)
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr,<span class="dt">quietly =</span> <span class="ot">TRUE</span>,<span class="dt">warn.conflicts =</span> <span class="ot">FALSE</span>)
+<span class="co">#&gt; Warning: package 'dplyr' was built under R version 3.5.2</span>
 
 
  multiple_by_ward &lt;-<span class="st"> </span>signals <span class="op">%&gt;%</span>
@@ -151,7 +152,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
 </div>
       </footer>
 </div>

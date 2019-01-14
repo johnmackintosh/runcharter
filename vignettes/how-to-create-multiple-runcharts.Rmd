@@ -4,7 +4,7 @@ author: "John MacKintosh"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{How to create multiple runcharts in sequence}
+  %\VignetteIndexEntry{How to create multiple run charts in sequence}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 
 ## Plot multiple charts in sequence
 
-We've seen how to create a single runchart. What if we have several, or many, that we want to analyse and plot individually?
+We've seen how to create a single run chart. What if we have several, or many, that we want to analyse and plot individually?
 We can take use the purrr and dplyr packages to assist with this task
 
 

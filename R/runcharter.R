@@ -20,7 +20,7 @@ utils::globalVariables(c("Baseline", "Date", "EndDate", "StartBaseline", "baseli
 #' @param plot_extension one of "png","pdf" or other valid extension for saving ggplot2 plots. Used in the call to ggsave.
 #' @param ... further arguments passed on to function
 #'
-#' @return runchart and a dataframe showing sustained run data if appropriate
+#' @return run chart(s) and a dataframe showing sustained run data if appropriate
 #'
 #' @import ggplot2
 #' @import dplyr
