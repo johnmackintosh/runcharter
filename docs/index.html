@@ -89,7 +89,7 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#runcharter" class="anchor"></a>runcharter <img src="reference/figures/logo.png" width="160px" align="right">
 </h1></div>
-<p>Automated analysis and re-basing of runcharts at scale.</p>
+<p>Automated analysis and re-basing of run charts at scale.</p>
 <p>Online documentation and vignettes : <a href="https://www.johnmackintosh.com/runcharter/">runcharter</a></p>
 <p><a href="https://travis-ci.org/johnmackintosh/runcharter"><img src="https://travis-ci.org/johnmackintosh/runcharter.svg?branch=Master" alt="Build Status"></a> <a href="https://www.repostatus.org/#wip"><img src="https://www.repostatus.org/badges/latest/wip.svg" alt="Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public."></a> <a href="https://codecov.io/github/johnmackintosh/runcharter?branch=master"><img src="https://codecov.io/gh/johnmackintosh/runcharter/branch/master/graph/badge.svg" alt="Coverage status"></a></p>
 <div id="installation" class="section level2">
@@ -107,8 +107,8 @@ devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumen
 <div id="rationale" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rationale" class="anchor"></a>Rationale</h2>
-<p>Runcharts are easy to create and analyse on an individual basis, hence they are widely used in healthcare quality improvement.</p>
-<p>A runchart is a regular line chart, with a central reference line.</p>
+<p>Run charts are easy to create and analyse on an individual basis, hence they are widely used in healthcare quality improvement.</p>
+<p>A run chart is a regular line chart, with a central reference line.</p>
 <p>This central line, calculated using the median of a number of values over a baseline period, allows the QI team to assess if any statistically significant improvement is taking place, as a result of their improvement initiatives.</p>
 <p>These improvements are denoted by certain patterns, or signals, within the plotted data points, in relation to the median line. The main signal is a run of 9 or more consecutive values on the desired side of the median line.</p>
 <p>If this signal occurs as a result of improvement activities, but performance is not yet at the target level, a new median line can be plotted.</p>
@@ -118,7 +118,7 @@ devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumen
 <p>This package automatically creates rebased run charts, based on the run chart rule for sustained improvement commonly used in healthcare ( 9 consecutive points on the desired side of the median).</p>
 <p>All sustained runs of improvement, in the desired direction, will be highlighted and the median re-phased, using the points that contributed to the run.</p>
 <p>Non useful observations (points on the median) are ignored and are not highlighted.</p>
-<p>The main motivation is to analyse many charts at once, but you can also create and analyse a single runchart, or iterate, plot and save many individual charts.</p>
+<p>The main motivation is to analyse many charts at once, but you can also create and analyse a single run chart, or iterate, plot and save many individual charts.</p>
 </div>
 <div id="the-runcharter-function---input" class="section level2">
 <h2 class="hasAnchor">
@@ -140,7 +140,7 @@ devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumen
 <li>chart_title : The main title for the chart</li>
 <li>chart_subtitle : A subtitle for the chart</li>
 <li>direction : “above” or “below” the median. The function will only look for successive runs in one direction at a time. It will not look for alternating runs in both directions.</li>
-<li>faceted : defaults to TRUE. Set to FALSE if you only need to plot a single runchart.</li>
+<li>faceted : defaults to TRUE. Set to FALSE if you only need to plot a single run chart.</li>
 <li>facet_cols : the number of columns in a faceted plot - only required if faceted is set to TRUE, otherwise ignored</li>
 <li>save_plot : Calls ggsave if TRUE, saving in the current working directory</li>
 <li>plot_extension : one of “png”,“pdf” or other valid extension for saving ggplot2 plots. Used in the call to ggsave.</li>
