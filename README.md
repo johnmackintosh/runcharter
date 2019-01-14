@@ -3,7 +3,7 @@
 runcharter <img src="man/figures/logo.png" width="160px" align="right" />
 =========================================================================
 
-Automated analysis and re-basing of runcharts at scale.
+Automated analysis and re-basing of run charts at scale.
 
 Online documentation and vignettes : [runcharter](https://www.johnmackintosh.com/runcharter/)
 
@@ -27,9 +27,9 @@ devtools::install_github("johnmackintosh/runcharter",
 Rationale
 ---------
 
-Runcharts are easy to create and analyse on an individual basis, hence they are widely used in healthcare quality improvement.
+Run charts are easy to create and analyse on an individual basis, hence they are widely used in healthcare quality improvement.
 
-A runchart is a regular line chart, with a central reference line.
+A run chart is a regular line chart, with a central reference line.
 
 This central line, calculated using the median of a number of values over a baseline period, allows the QI team to assess if any statistically significant improvement is taking place, as a result of their improvement initiatives.
 
@@ -49,7 +49,7 @@ All sustained runs of improvement, in the desired direction, will be highlighted
 
 Non useful observations (points on the median) are ignored and are not highlighted.
 
-The main motivation is to analyse many charts at once, but you can also create and analyse a single runchart, or iterate, plot and save many individual charts.
+The main motivation is to analyse many charts at once, but you can also create and analyse a single run chart, or iterate, plot and save many individual charts.
 
 The runcharter function - input
 -------------------------------
@@ -69,7 +69,7 @@ runcharter function arguments
 -   chart\_title : The main title for the chart
 -   chart\_subtitle : A subtitle for the chart
 -   direction : "above" or "below" the median. The function will only look for successive runs in one direction at a time. It will not look for alternating runs in both directions.
--   faceted : defaults to TRUE. Set to FALSE if you only need to plot a single runchart.
+-   faceted : defaults to TRUE. Set to FALSE if you only need to plot a single run chart.
 -   facet\_cols : the number of columns in a faceted plot - only required if faceted is set to TRUE, otherwise ignored
 -   save\_plot : Calls ggsave if TRUE, saving in the current working directory
 -   plot\_extension : one of "png","pdf" or other valid extension for saving ggplot2 plots. Used in the call to ggsave.
@@ -80,6 +80,7 @@ example plot
 ``` r
 library(runcharter)
 library(dplyr)
+#> Warning: package 'dplyr' was built under R version 3.5.2
 #> 
 #> Attaching package: 'dplyr'
 #> The following objects are masked from 'package:stats':
