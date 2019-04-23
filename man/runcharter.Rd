@@ -5,8 +5,9 @@
 \title{Create run chart with highlighted improvements where applicable}
 \usage{
 runcharter(df, med_rows = 13, runlength = 9, chart_title = NULL,
-  chart_subtitle = NULL, direction = "below", faceted = TRUE,
-  facet_cols = NULL, save_plot = FALSE, plot_extension = "png", ...)
+  chart_subtitle = NULL, direction = c("below", "above"),
+  faceted = TRUE, facet_cols = NULL, save_plot = FALSE,
+  plot_extension = "png", ...)
 }
 \arguments{
 \item{df}{dataframe containing columns "date", "y", "grp"}
