@@ -83,7 +83,7 @@ The function requires a simple three column dataframe, with the following column
 The median will be rebased using all useful observations (points on the median are not useful, and are ignored). 
 - chart_title : The main title for the chart
 - chart_subtitle : A subtitle for the chart
-- direction :  "above" or "below" the median. The function will only look for successive runs in one direction at a time. It will not look for alternating runs in both directions.
+- direction :  "above" or "below" the median. The function will only look for successive runs in one direction at a time. It does not *currently* look for alternating runs in both directions (this is in progress).
 - faceted : defaults to TRUE. Set to FALSE if you only need to plot a single run chart.
 - facet_cols : the number of columns in a faceted plot -  only required if faceted is set to TRUE, otherwise ignored
 - save_plot : Calls ggsave if TRUE, saving in the current working directory
@@ -115,7 +115,7 @@ faceted =  FALSE)
 - `med_rows` defines the initial baseline period. In the example below, the first 13 points are used to calculate the initial median. This is represented with a solid orange horizontal line.
 This median is then used as a reference for the remaining values, denoted by the extending orange dashed line
 
-- `runlength` specifies the length of run to be identified. Along with `direction`, which specifies which side of median represents improvement,  the runlength is your target number of successive points on the desired side of the median (points on the median are ignored as they do not make or break a run).
+- `runlength` specifies the length of run to be identified. Along with `direction`, which specifies which side of median represents improvement,  the runlength is your target number of successive points on the desired side of the median (points on the median are ignored as they do not make or break a run).You can currently set the `direction` as either "above" or "below" the line. Searching for runs in "both" directions at once is in development. 
 
 
 If a run is identified, the points are highlighted (the purple coloured points),  and a new median is calculated using them.  The median is also  plotted and extended into the future for further run chart rules analysis, with a new set of solid and dashed horizontal lines.
@@ -133,7 +133,7 @@ By default the function returns a faceted plot, highlighting successive runs bel
 
 ```{r fig.height=5, fig.width =8}
 library(runcharter)
-runcharter(signals, facet_cols = 2)
+runcharter(signals, direction = "below",facet_cols = 2)
 
 ```
 

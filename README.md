@@ -68,7 +68,7 @@ runcharter function arguments
 -   runlength : How long a run of consecutive points do you want to find, before you rebase the median? The median will be rebased using all useful observations (points on the median are not useful, and are ignored).
 -   chart\_title : The main title for the chart
 -   chart\_subtitle : A subtitle for the chart
--   direction : "above" or "below" the median. The function will only look for successive runs in one direction at a time. It will not look for alternating runs in both directions.
+-   direction : "above" or "below" the median. The function will only look for successive runs in one direction at a time. It does not *currently* look for alternating runs in both directions (this is in progress).
 -   faceted : defaults to TRUE. Set to FALSE if you only need to plot a single run chart.
 -   facet\_cols : the number of columns in a faceted plot - only required if faceted is set to TRUE, otherwise ignored
 -   save\_plot : Calls ggsave if TRUE, saving in the current working directory
@@ -108,7 +108,7 @@ Plot explanation
 
 -   `med_rows` defines the initial baseline period. In the example below, the first 13 points are used to calculate the initial median. This is represented with a solid orange horizontal line. This median is then used as a reference for the remaining values, denoted by the extending orange dashed line
 
--   `runlength` specifies the length of run to be identified. Along with `direction`, which specifies which side of median represents improvement, the runlength is your target number of successive points on the desired side of the median (points on the median are ignored as they do not make or break a run).
+-   `runlength` specifies the length of run to be identified. Along with `direction`, which specifies which side of median represents improvement, the runlength is your target number of successive points on the desired side of the median (points on the median are ignored as they do not make or break a run).You can currently set the `direction` as either "above" or "below" the line. Searching for runs in "both" directions at once is in development.
 
 If a run is identified, the points are highlighted (the purple coloured points), and a new median is calculated using them. The median is also plotted and extended into the future for further run chart rules analysis, with a new set of solid and dashed horizontal lines.
 
@@ -121,7 +121,7 @@ By default the function returns a faceted plot, highlighting successive runs bel
 
 ``` r
 library(runcharter)
-runcharter(signals, facet_cols = 2)
+runcharter(signals, direction = "below",facet_cols = 2)
 #> $runchart
 ```
 
@@ -145,28 +145,44 @@ runcharter(signals, facet_cols = 2)
     #> # ... with 42 more rows
     #> 
     #> $sustained
-    #> # A tibble: 18 x 10
-    #>    grp       y date        flag rungroup cusum improve startdate 
-    #>    <chr> <int> <date>     <dbl>    <dbl> <dbl>   <int> <date>    
-    #>  1 WardX     7 2016-12-01    -1        1    -1       6 2016-12-01
-    #>  2 WardX     5 2017-01-01    -1        1    -2       6 2016-12-01
-    #>  3 WardX     4 2017-02-01    -1        1    -3       6 2016-12-01
-    #>  4 WardX    10 2017-03-01    -1        1    -4       6 2016-12-01
-    #>  5 WardX     4 2017-04-01    -1        1    -5       6 2016-12-01
-    #>  6 WardX     9 2017-05-01    -1        1    -6       6 2016-12-01
-    #>  7 WardX     4 2017-06-01    -1        1    -7       6 2016-12-01
-    #>  8 WardX     8 2017-07-01    -1        1    -8       6 2016-12-01
-    #>  9 WardX     6 2017-08-01    -1        1    -9       6 2016-12-01
-    #> 10 WardY     7 2017-10-01    -1        1    -1       8 2017-10-01
-    #> 11 WardY     3 2017-11-01    -1        1    -2       8 2017-10-01
-    #> 12 WardY     8 2017-12-01    -1        1    -3       8 2017-10-01
-    #> 13 WardY    11 2018-01-01    -1        1    -4       8 2017-10-01
-    #> 14 WardY     7 2018-02-01    -1        1    -5       8 2017-10-01
-    #> 15 WardY     9 2018-03-01    -1        1    -6       8 2017-10-01
-    #> 16 WardY     8 2018-04-01    -1        1    -7       8 2017-10-01
-    #> 17 WardY     8 2018-05-01    -1        1    -8       8 2017-10-01
-    #> 18 WardY     7 2018-06-01    -1        1    -9       8 2017-10-01
-    #> # ... with 2 more variables: enddate <date>, lastdate <date>
+    #>      grp  y       date flag rungroup cusum improve  startdate    enddate
+    #> 1  WardX  7 2016-12-01   -1        1    -1       6 2016-12-01 2017-08-01
+    #> 2  WardX  5 2017-01-01   -1        1    -2       6 2016-12-01 2017-08-01
+    #> 3  WardX  4 2017-02-01   -1        1    -3       6 2016-12-01 2017-08-01
+    #> 4  WardX 10 2017-03-01   -1        1    -4       6 2016-12-01 2017-08-01
+    #> 5  WardX  4 2017-04-01   -1        1    -5       6 2016-12-01 2017-08-01
+    #> 6  WardX  9 2017-05-01   -1        1    -6       6 2016-12-01 2017-08-01
+    #> 7  WardX  4 2017-06-01   -1        1    -7       6 2016-12-01 2017-08-01
+    #> 8  WardX  8 2017-07-01   -1        1    -8       6 2016-12-01 2017-08-01
+    #> 9  WardX  6 2017-08-01   -1        1    -9       6 2016-12-01 2017-08-01
+    #> 10 WardY  7 2017-10-01   -1        1    -1       8 2017-10-01 2018-06-01
+    #> 11 WardY  3 2017-11-01   -1        1    -2       8 2017-10-01 2018-06-01
+    #> 12 WardY  8 2017-12-01   -1        1    -3       8 2017-10-01 2018-06-01
+    #> 13 WardY 11 2018-01-01   -1        1    -4       8 2017-10-01 2018-06-01
+    #> 14 WardY  7 2018-02-01   -1        1    -5       8 2017-10-01 2018-06-01
+    #> 15 WardY  9 2018-03-01   -1        1    -6       8 2017-10-01 2018-06-01
+    #> 16 WardY  8 2018-04-01   -1        1    -7       8 2017-10-01 2018-06-01
+    #> 17 WardY  8 2018-05-01   -1        1    -8       8 2017-10-01 2018-06-01
+    #> 18 WardY  7 2018-06-01   -1        1    -9       8 2017-10-01 2018-06-01
+    #>      lastdate
+    #> 1  2018-07-01
+    #> 2  2018-07-01
+    #> 3  2018-07-01
+    #> 4  2018-07-01
+    #> 5  2018-07-01
+    #> 6  2018-07-01
+    #> 7  2018-07-01
+    #> 8  2018-07-01
+    #> 9  2018-07-01
+    #> 10 2018-07-01
+    #> 11 2018-07-01
+    #> 12 2018-07-01
+    #> 13 2018-07-01
+    #> 14 2018-07-01
+    #> 15 2018-07-01
+    #> 16 2018-07-01
+    #> 17 2018-07-01
+    #> 18 2018-07-01
     #> 
     #> $StartBaseline
     #> [1] 11 13  4  7
@@ -215,21 +231,56 @@ signals %>%
     #> 12 WardV     3 2014-03-01        3
     #> 
     #> $sustained
-    #> # A tibble: 24 x 10
-    #>    grp       y date        flag rungroup cusum improve startdate 
-    #>    <chr> <int> <date>     <dbl>    <dbl> <dbl>   <int> <date>    
-    #>  1 WardY    14 2014-04-01     1        1     1      14 2014-04-01
-    #>  2 WardY    12 2014-05-01     1        1     2      14 2014-04-01
-    #>  3 WardY    14 2014-06-01     1        1     3      14 2014-04-01
-    #>  4 WardY    16 2014-12-01     1        2     1      18 2014-12-01
-    #>  5 WardY    19 2015-01-01     1        2     2      18 2014-12-01
-    #>  6 WardY    18 2015-02-01     1        2     3      18 2014-12-01
-    #>  7 WardY    20 2015-03-01     1        3     1      19 2015-03-01
-    #>  8 WardY    19 2015-04-01     1        3     2      19 2015-03-01
-    #>  9 WardY    19 2015-05-01     1        3     3      19 2015-03-01
-    #> 10 WardZ     4 2014-04-01     1        1     1       5 2014-04-01
-    #> # ... with 14 more rows, and 2 more variables: enddate <date>,
-    #> #   lastdate <date>
+    #>      grp  y       date flag rungroup cusum improve  startdate    enddate
+    #> 1  WardY 14 2014-04-01    1        1     1      14 2014-04-01 2014-06-01
+    #> 2  WardY 12 2014-05-01    1        1     2      14 2014-04-01 2014-06-01
+    #> 3  WardY 14 2014-06-01    1        1     3      14 2014-04-01 2014-06-01
+    #> 4  WardY 16 2014-12-01    1        2     1      18 2014-12-01 2015-02-01
+    #> 5  WardY 19 2015-01-01    1        2     2      18 2014-12-01 2015-02-01
+    #> 6  WardY 18 2015-02-01    1        2     3      18 2014-12-01 2015-02-01
+    #> 7  WardY 20 2015-03-01    1        3     1      19 2015-03-01 2015-05-01
+    #> 8  WardY 19 2015-04-01    1        3     2      19 2015-03-01 2015-05-01
+    #> 9  WardY 19 2015-05-01    1        3     3      19 2015-03-01 2015-05-01
+    #> 10 WardZ  4 2014-04-01    1        1     1       5 2014-04-01 2014-06-01
+    #> 11 WardZ  5 2014-05-01    1        1     2       5 2014-04-01 2014-06-01
+    #> 12 WardZ  9 2014-06-01    1        1     3       5 2014-04-01 2014-06-01
+    #> 13 WardZ  6 2015-02-01    1        2     1       9 2015-02-01 2015-04-01
+    #> 14 WardZ  9 2015-03-01    1        2     2       9 2015-02-01 2015-04-01
+    #> 15 WardZ 11 2015-04-01    1        2     3       9 2015-02-01 2015-04-01
+    #> 16 WardV  7 2014-06-01    1        1     1      10 2014-06-01 2014-08-01
+    #> 17 WardV 13 2014-07-01    1        1     2      10 2014-06-01 2014-08-01
+    #> 18 WardV 10 2014-08-01    1        1     3      10 2014-06-01 2014-08-01
+    #> 19 WardV 19 2014-09-01    1        2     1      14 2014-09-01 2014-11-01
+    #> 20 WardV 13 2014-10-01    1        2     2      14 2014-09-01 2014-11-01
+    #> 21 WardV 14 2014-11-01    1        2     3      14 2014-09-01 2014-11-01
+    #> 22 WardV 17 2015-03-01    1        3     1      15 2015-03-01 2015-05-01
+    #> 23 WardV 15 2015-04-01    1        3     2      15 2015-03-01 2015-05-01
+    #> 24 WardV 15 2015-05-01    1        3     3      15 2015-03-01 2015-05-01
+    #>      lastdate
+    #> 1  2015-12-01
+    #> 2  2015-12-01
+    #> 3  2015-12-01
+    #> 4  2015-12-01
+    #> 5  2015-12-01
+    #> 6  2015-12-01
+    #> 7  2015-12-01
+    #> 8  2015-12-01
+    #> 9  2015-12-01
+    #> 10 2015-12-01
+    #> 11 2015-12-01
+    #> 12 2015-12-01
+    #> 13 2015-12-01
+    #> 14 2015-12-01
+    #> 15 2015-12-01
+    #> 16 2015-12-01
+    #> 17 2015-12-01
+    #> 18 2015-12-01
+    #> 19 2015-12-01
+    #> 20 2015-12-01
+    #> 21 2015-12-01
+    #> 22 2015-12-01
+    #> 23 2015-12-01
+    #> 24 2015-12-01
     #> 
     #> $StartBaseline
     #> [1] 19 11  3  3
