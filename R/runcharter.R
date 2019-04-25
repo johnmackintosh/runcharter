@@ -68,7 +68,7 @@ runcharter <-
            runlength = 9,
            chart_title = NULL,
            chart_subtitle = NULL,
-           direction = c("below","above"),
+           direction = "below",
            faceted = TRUE,
            facet_cols = NULL,
            save_plot = FALSE,
