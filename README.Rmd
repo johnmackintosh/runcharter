@@ -83,8 +83,8 @@ The function requires a simple three column dataframe, with the following column
 The median will be rebased using all useful observations (points on the median are not useful, and are ignored). 
 - chart_title : The main title for the chart
 - chart_subtitle : A subtitle for the chart
-- direction :  "above" or "below" the median. The function will only look for successive runs in one direction at a time. It does not *currently* look for alternating runs in both directions (this is in progress).
-- faceted : defaults to TRUE. Set to FALSE if you only need to plot a single run chart.
+- direction :  "above" or "below" the median, or "both". The function can nowlook for alternating runs in both directions,using "both".
+- faceted : defaults to TRUE. Set to FALSE if you only need to plot a single run chart. This will ensure the chart plots correctly
 - facet_cols : the number of columns in a faceted plot -  only required if faceted is set to TRUE, otherwise ignored
 - save_plot : Calls ggsave if TRUE, saving in the current working directory
 - plot_extension : one of "png","pdf" or other valid extension for saving ggplot2 plots. Used in the call to ggsave.
@@ -115,7 +115,7 @@ faceted =  FALSE)
 - `med_rows` defines the initial baseline period. In the example below, the first 13 points are used to calculate the initial median. This is represented with a solid orange horizontal line.
 This median is then used as a reference for the remaining values, denoted by the extending orange dashed line
 
-- `runlength` specifies the length of run to be identified. Along with `direction`, which specifies which side of median represents improvement,  the runlength is your target number of successive points on the desired side of the median (points on the median are ignored as they do not make or break a run).You can currently set the `direction` as either "above" or "below" the line. Searching for runs in "both" directions at once is in development. 
+- `runlength` specifies the length of run to be identified. Along with `direction`, which specifies which side of median represents improvement,  the runlength is your target number of successive points on the desired side of the median (points on the median are ignored as they do not make or break a run).You can currently set the `direction` as either "above" or "below" the line. Searching for runs in "both" directions at once is also possible. 
 
 
 If a run is identified, the points are highlighted (the purple coloured points),  and a new median is calculated using them.  The median is also  plotted and extended into the future for further run chart rules analysis, with a new set of solid and dashed horizontal lines.
@@ -153,12 +153,11 @@ Don't try this at home - setting runlength of 3 to show that successive runs are
 ```{r fig.height=5, fig.width =8}
 library(dplyr)
 signals %>% 
-  dplyr::filter(date <= '2015-12-01') %>% 
+  dplyr::filter(date <= '2015-12-01',grp == "WardX") %>% 
   runcharter(med_rows = 3,
              runlength = 3, 
-             direction = "above",
-             faceted = TRUE,
-              facet_cols = 2)
+             direction = "both",
+             faceted = FALSE)
 ```
 
 
