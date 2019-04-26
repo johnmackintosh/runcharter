@@ -5,14 +5,13 @@
 \title{Create run chart with highlighted improvements where applicable}
 \usage{
 runcharter(df, med_rows = 13, runlength = 9, chart_title = NULL,
-  chart_subtitle = NULL, direction = c("below", "above"),
-  faceted = TRUE, facet_cols = NULL, save_plot = FALSE,
-  plot_extension = "png", ...)
+  chart_subtitle = NULL, direction = "below", faceted = TRUE,
+  facet_cols = NULL, save_plot = FALSE, plot_extension = "png", ...)
 }
 \arguments{
 \item{df}{dataframe containing columns "date", "y", "grp"}
 
-\item{med_rows}{the number of rows you wish to base the initial median calculation over}
+\item{med_rows}{number of rows to base the initial median calculation over}
 
 \item{runlength}{how long a run of consecutive points should be before re-basing the median}
 
@@ -20,7 +19,7 @@ runcharter(df, med_rows = 13, runlength = 9, chart_title = NULL,
 
 \item{chart_subtitle}{subtitle for chart}
 
-\item{direction}{look for runs "below" or "above" the median}
+\item{direction}{look for runs "below" or "above" the median, or "both"}
 
 \item{faceted}{if you  dont need a faceted / trellis display set this to FALSE}
 
@@ -41,8 +40,10 @@ It will also return a dataframe showing the improvment data
 }
 \examples{
 \donttest{
-runcharter(signals, med_rows = 13, runlength = 9, chart_title = "Automated runs analysis",
-direction = "above", faceted = TRUE, facet_cols = 2, save_plot = TRUE, plot_extension = "png")
+runcharter(signals, med_rows = 13, runlength = 9,
+chart_title = "Automated runs analysis",
+direction = "above", faceted = TRUE,
+facet_cols = 2, save_plot = TRUE, plot_extension = "png")
 }
 
 
