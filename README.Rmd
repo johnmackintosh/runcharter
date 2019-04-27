@@ -83,7 +83,7 @@ The function requires a simple three column dataframe, with the following column
 The median will be rebased using all useful observations (points on the median are not useful, and are ignored). 
 - chart_title : The main title for the chart
 - chart_subtitle : A subtitle for the chart
-- direction :  "above" or "below" the median, or "both". The function can nowlook for alternating runs in both directions,using "both".
+- direction :  "above" or "below" the median, or "both". The function can now look for alternating runs in both directions,using "both".
 - faceted : defaults to TRUE. Set to FALSE if you only need to plot a single run chart. This will ensure the chart plots correctly
 - facet_cols : the number of columns in a faceted plot -  only required if faceted is set to TRUE, otherwise ignored
 - save_plot : Calls ggsave if TRUE, saving in the current working directory
@@ -137,6 +137,13 @@ runcharter(signals, direction = "below",facet_cols = 2)
 
 ```
 
+You can also look for any run,in any direction
+
+```{r}
+library(runcharter)
+runcharter(signals, direction = "both",facet_cols = 2)
+```
+Note how 2 runs below the median are found with an additional run above the median for Ward Z.
 
  
  The function will print the plot, and return a list, containing:
@@ -153,7 +160,8 @@ Don't try this at home - setting runlength of 3 to show that successive runs are
 ```{r fig.height=5, fig.width =8}
 library(dplyr)
 signals %>% 
-  dplyr::filter(date <= '2015-12-01',grp == "WardX") %>% 
+  dplyr::filter(date <= '2015-12-01',
+                grp == "WardX") %>% 
   runcharter(med_rows = 3,
              runlength = 3, 
              direction = "both",

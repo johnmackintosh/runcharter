@@ -139,7 +139,7 @@ devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumen
 <li>runlength : How long a run of consecutive points do you want to find, before you rebase the median? The median will be rebased using all useful observations (points on the median are not useful, and are ignored).</li>
 <li>chart_title : The main title for the chart</li>
 <li>chart_subtitle : A subtitle for the chart</li>
-<li>direction : “above” or “below” the median, or “both”. The function can nowlook for alternating runs in both directions,using “both”.</li>
+<li>direction : “above” or “below” the median, or “both”. The function can now look for alternating runs in both directions,using “both”.</li>
 <li>faceted : defaults to TRUE. Set to FALSE if you only need to plot a single run chart. This will ensure the chart plots correctly</li>
 <li>facet_cols : the number of columns in a faceted plot - only required if faceted is set to TRUE, otherwise ignored</li>
 <li>save_plot : Calls ggsave if TRUE, saving in the current working directory</li>
@@ -194,8 +194,7 @@ One plot, one run below the median
 <p>By default the function returns a faceted plot, highlighting successive runs below the median:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(runcharter)
 <span class="kw"><a href="reference/runcharter.html">runcharter</a></span>(signals, <span class="dt">direction =</span> <span class="st">"below"</span>,<span class="dt">facet_cols =</span> <span class="dv">2</span>)
-<span class="co">#&gt; $runchart</span>
-<span class="co">#&gt; Warning: Removed 110 rows containing missing values (geom_segment).</span></code></pre></div>
+<span class="co">#&gt; $runchart</span></code></pre></div>
 <p><img src="reference/figures/unnamed-chunk-3-1.png" width="768"></p>
 <pre><code>#&gt; 
 #&gt; $median_rows
@@ -256,6 +255,89 @@ One plot, one run below the median
 #&gt; 
 #&gt; $StartBaseline
 #&gt; [1] 11 13  4  7</code></pre>
+<p>You can also look for any run,in any direction</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(runcharter)
+<span class="kw"><a href="reference/runcharter.html">runcharter</a></span>(signals, <span class="dt">direction =</span> <span class="st">"both"</span>,<span class="dt">facet_cols =</span> <span class="dv">2</span>)
+<span class="co">#&gt; $runchart</span></code></pre></div>
+<p><img src="reference/figures/unnamed-chunk-4-1.png" width="700"></p>
+<pre><code>#&gt; 
+#&gt; $median_rows
+#&gt; # A tibble: 52 x 4
+#&gt;    grp       y date       baseline
+#&gt;    &lt;chr&gt; &lt;int&gt; &lt;date&gt;        &lt;int&gt;
+#&gt;  1 WardX     9 2014-01-01       11
+#&gt;  2 WardX    22 2014-02-01       11
+#&gt;  3 WardX    19 2014-03-01       11
+#&gt;  4 WardX    18 2014-04-01       11
+#&gt;  5 WardX     8 2014-05-01       11
+#&gt;  6 WardX     7 2014-06-01       11
+#&gt;  7 WardX    11 2014-07-01       11
+#&gt;  8 WardX    11 2014-08-01       11
+#&gt;  9 WardX    11 2014-09-01       11
+#&gt; 10 WardX    12 2014-10-01       11
+#&gt; # ... with 42 more rows
+#&gt; 
+#&gt; $sustained
+#&gt;      grp  y       date flag rungroup cusum improve  startdate    enddate
+#&gt; 1  WardX  7 2016-12-01   -1        1     1       6 2016-12-01 2017-08-01
+#&gt; 2  WardX  5 2017-01-01   -1        1     2       6 2016-12-01 2017-08-01
+#&gt; 3  WardX  4 2017-02-01   -1        1     3       6 2016-12-01 2017-08-01
+#&gt; 4  WardX 10 2017-03-01   -1        1     4       6 2016-12-01 2017-08-01
+#&gt; 5  WardX  4 2017-04-01   -1        1     5       6 2016-12-01 2017-08-01
+#&gt; 6  WardX  9 2017-05-01   -1        1     6       6 2016-12-01 2017-08-01
+#&gt; 7  WardX  4 2017-06-01   -1        1     7       6 2016-12-01 2017-08-01
+#&gt; 8  WardX  8 2017-07-01   -1        1     8       6 2016-12-01 2017-08-01
+#&gt; 9  WardX  6 2017-08-01   -1        1     9       6 2016-12-01 2017-08-01
+#&gt; 10 WardY  7 2017-10-01   -1        1     1       8 2017-10-01 2018-06-01
+#&gt; 11 WardY  3 2017-11-01   -1        1     2       8 2017-10-01 2018-06-01
+#&gt; 12 WardY  8 2017-12-01   -1        1     3       8 2017-10-01 2018-06-01
+#&gt; 13 WardY 11 2018-01-01   -1        1     4       8 2017-10-01 2018-06-01
+#&gt; 14 WardY  7 2018-02-01   -1        1     5       8 2017-10-01 2018-06-01
+#&gt; 15 WardY  9 2018-03-01   -1        1     6       8 2017-10-01 2018-06-01
+#&gt; 16 WardY  8 2018-04-01   -1        1     7       8 2017-10-01 2018-06-01
+#&gt; 17 WardY  8 2018-05-01   -1        1     8       8 2017-10-01 2018-06-01
+#&gt; 18 WardY  7 2018-06-01   -1        1     9       8 2017-10-01 2018-06-01
+#&gt; 19 WardZ  6 2017-06-01    1        1     1       9 2017-06-01 2018-03-01
+#&gt; 20 WardZ 10 2017-07-01    1        1     2       9 2017-06-01 2018-03-01
+#&gt; 21 WardZ  9 2017-08-01    1        1     3       9 2017-06-01 2018-03-01
+#&gt; 22 WardZ 12 2017-09-01    1        1     4       9 2017-06-01 2018-03-01
+#&gt; 23 WardZ  9 2017-10-01    1        1     5       9 2017-06-01 2018-03-01
+#&gt; 24 WardZ  7 2017-12-01    1        1     6       9 2017-06-01 2018-03-01
+#&gt; 25 WardZ  6 2018-01-01    1        1     7       9 2017-06-01 2018-03-01
+#&gt; 26 WardZ  5 2018-02-01    1        1     8       9 2017-06-01 2018-03-01
+#&gt; 27 WardZ  9 2018-03-01    1        1     9       9 2017-06-01 2018-03-01
+#&gt;      lastdate
+#&gt; 1  2018-07-01
+#&gt; 2  2018-07-01
+#&gt; 3  2018-07-01
+#&gt; 4  2018-07-01
+#&gt; 5  2018-07-01
+#&gt; 6  2018-07-01
+#&gt; 7  2018-07-01
+#&gt; 8  2018-07-01
+#&gt; 9  2018-07-01
+#&gt; 10 2018-07-01
+#&gt; 11 2018-07-01
+#&gt; 12 2018-07-01
+#&gt; 13 2018-07-01
+#&gt; 14 2018-07-01
+#&gt; 15 2018-07-01
+#&gt; 16 2018-07-01
+#&gt; 17 2018-07-01
+#&gt; 18 2018-07-01
+#&gt; 19 2018-07-01
+#&gt; 20 2018-07-01
+#&gt; 21 2018-07-01
+#&gt; 22 2018-07-01
+#&gt; 23 2018-07-01
+#&gt; 24 2018-07-01
+#&gt; 25 2018-07-01
+#&gt; 26 2018-07-01
+#&gt; 27 2018-07-01
+#&gt; 
+#&gt; $StartBaseline
+#&gt; [1] 11 13  4  7</code></pre>
+<p>Note how 2 runs below the median are found with an additional run above the median for Ward Z.</p>
 <p>The function will print the plot, and return a list, containing:</p>
 <ul>
 <li>a ggplot2 object,<br>
@@ -268,7 +350,8 @@ One plot, one run below the median
 <p>Don’t try this at home - setting runlength of 3 to show that successive runs are identified:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)
 signals <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(date <span class="op">&lt;=</span><span class="st"> '2015-12-01'</span>,grp <span class="op">==</span><span class="st"> "WardX"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span>dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(date <span class="op">&lt;=</span><span class="st"> '2015-12-01'</span>,
+                grp <span class="op">==</span><span class="st"> "WardX"</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw"><a href="reference/runcharter.html">runcharter</a></span>(<span class="dt">med_rows =</span> <span class="dv">3</span>,
              <span class="dt">runlength =</span> <span class="dv">3</span>, 
              <span class="dt">direction =</span> <span class="st">"both"</span>,
@@ -276,9 +359,9 @@ signals <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="co">#&gt; Joining, by = c("grp", "y", "date")</span>
 <span class="co">#&gt; Joining, by = "grp"</span>
 <span class="co">#&gt; all sustained runs found, not enough rows remaining for analysis</span></code></pre></div>
-<p><img src="reference/figures/unnamed-chunk-4-1.png" width="768"></p>
+<p><img src="reference/figures/unnamed-chunk-5-1.png" width="768"></p>
 <pre><code>#&gt; $runchart</code></pre>
-<p><img src="reference/figures/unnamed-chunk-4-2.png" width="768"></p>
+<p><img src="reference/figures/unnamed-chunk-5-2.png" width="768"></p>
 <pre><code>#&gt; 
 #&gt; $sustained
 #&gt; # A tibble: 15 x 10

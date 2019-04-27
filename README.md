@@ -68,7 +68,7 @@ runcharter function arguments
 -   runlength : How long a run of consecutive points do you want to find, before you rebase the median? The median will be rebased using all useful observations (points on the median are not useful, and are ignored).
 -   chart\_title : The main title for the chart
 -   chart\_subtitle : A subtitle for the chart
--   direction : "above" or "below" the median, or "both". The function can nowlook for alternating runs in both directions,using "both".
+-   direction : "above" or "below" the median, or "both". The function can now look for alternating runs in both directions,using "both".
 -   faceted : defaults to TRUE. Set to FALSE if you only need to plot a single run chart. This will ensure the chart plots correctly
 -   facet\_cols : the number of columns in a faceted plot - only required if faceted is set to TRUE, otherwise ignored
 -   save\_plot : Calls ggsave if TRUE, saving in the current working directory
@@ -125,7 +125,6 @@ By default the function returns a faceted plot, highlighting successive runs bel
 library(runcharter)
 runcharter(signals, direction = "below",facet_cols = 2)
 #> $runchart
-#> Warning: Removed 110 rows containing missing values (geom_segment).
 ```
 
 ![](man/figures/unnamed-chunk-3-1.png)
@@ -190,6 +189,96 @@ runcharter(signals, direction = "below",facet_cols = 2)
     #> $StartBaseline
     #> [1] 11 13  4  7
 
+You can also look for any run,in any direction
+
+``` r
+library(runcharter)
+runcharter(signals, direction = "both",facet_cols = 2)
+#> $runchart
+```
+
+![](man/figures/unnamed-chunk-4-1.png)
+
+    #> 
+    #> $median_rows
+    #> # A tibble: 52 x 4
+    #>    grp       y date       baseline
+    #>    <chr> <int> <date>        <int>
+    #>  1 WardX     9 2014-01-01       11
+    #>  2 WardX    22 2014-02-01       11
+    #>  3 WardX    19 2014-03-01       11
+    #>  4 WardX    18 2014-04-01       11
+    #>  5 WardX     8 2014-05-01       11
+    #>  6 WardX     7 2014-06-01       11
+    #>  7 WardX    11 2014-07-01       11
+    #>  8 WardX    11 2014-08-01       11
+    #>  9 WardX    11 2014-09-01       11
+    #> 10 WardX    12 2014-10-01       11
+    #> # ... with 42 more rows
+    #> 
+    #> $sustained
+    #>      grp  y       date flag rungroup cusum improve  startdate    enddate
+    #> 1  WardX  7 2016-12-01   -1        1     1       6 2016-12-01 2017-08-01
+    #> 2  WardX  5 2017-01-01   -1        1     2       6 2016-12-01 2017-08-01
+    #> 3  WardX  4 2017-02-01   -1        1     3       6 2016-12-01 2017-08-01
+    #> 4  WardX 10 2017-03-01   -1        1     4       6 2016-12-01 2017-08-01
+    #> 5  WardX  4 2017-04-01   -1        1     5       6 2016-12-01 2017-08-01
+    #> 6  WardX  9 2017-05-01   -1        1     6       6 2016-12-01 2017-08-01
+    #> 7  WardX  4 2017-06-01   -1        1     7       6 2016-12-01 2017-08-01
+    #> 8  WardX  8 2017-07-01   -1        1     8       6 2016-12-01 2017-08-01
+    #> 9  WardX  6 2017-08-01   -1        1     9       6 2016-12-01 2017-08-01
+    #> 10 WardY  7 2017-10-01   -1        1     1       8 2017-10-01 2018-06-01
+    #> 11 WardY  3 2017-11-01   -1        1     2       8 2017-10-01 2018-06-01
+    #> 12 WardY  8 2017-12-01   -1        1     3       8 2017-10-01 2018-06-01
+    #> 13 WardY 11 2018-01-01   -1        1     4       8 2017-10-01 2018-06-01
+    #> 14 WardY  7 2018-02-01   -1        1     5       8 2017-10-01 2018-06-01
+    #> 15 WardY  9 2018-03-01   -1        1     6       8 2017-10-01 2018-06-01
+    #> 16 WardY  8 2018-04-01   -1        1     7       8 2017-10-01 2018-06-01
+    #> 17 WardY  8 2018-05-01   -1        1     8       8 2017-10-01 2018-06-01
+    #> 18 WardY  7 2018-06-01   -1        1     9       8 2017-10-01 2018-06-01
+    #> 19 WardZ  6 2017-06-01    1        1     1       9 2017-06-01 2018-03-01
+    #> 20 WardZ 10 2017-07-01    1        1     2       9 2017-06-01 2018-03-01
+    #> 21 WardZ  9 2017-08-01    1        1     3       9 2017-06-01 2018-03-01
+    #> 22 WardZ 12 2017-09-01    1        1     4       9 2017-06-01 2018-03-01
+    #> 23 WardZ  9 2017-10-01    1        1     5       9 2017-06-01 2018-03-01
+    #> 24 WardZ  7 2017-12-01    1        1     6       9 2017-06-01 2018-03-01
+    #> 25 WardZ  6 2018-01-01    1        1     7       9 2017-06-01 2018-03-01
+    #> 26 WardZ  5 2018-02-01    1        1     8       9 2017-06-01 2018-03-01
+    #> 27 WardZ  9 2018-03-01    1        1     9       9 2017-06-01 2018-03-01
+    #>      lastdate
+    #> 1  2018-07-01
+    #> 2  2018-07-01
+    #> 3  2018-07-01
+    #> 4  2018-07-01
+    #> 5  2018-07-01
+    #> 6  2018-07-01
+    #> 7  2018-07-01
+    #> 8  2018-07-01
+    #> 9  2018-07-01
+    #> 10 2018-07-01
+    #> 11 2018-07-01
+    #> 12 2018-07-01
+    #> 13 2018-07-01
+    #> 14 2018-07-01
+    #> 15 2018-07-01
+    #> 16 2018-07-01
+    #> 17 2018-07-01
+    #> 18 2018-07-01
+    #> 19 2018-07-01
+    #> 20 2018-07-01
+    #> 21 2018-07-01
+    #> 22 2018-07-01
+    #> 23 2018-07-01
+    #> 24 2018-07-01
+    #> 25 2018-07-01
+    #> 26 2018-07-01
+    #> 27 2018-07-01
+    #> 
+    #> $StartBaseline
+    #> [1] 11 13  4  7
+
+Note how 2 runs below the median are found with an additional run above the median for Ward Z.
+
 The function will print the plot, and return a list, containing:
 
 -   a ggplot2 object,
@@ -204,7 +293,8 @@ Don't try this at home - setting runlength of 3 to show that successive runs are
 ``` r
 library(dplyr)
 signals %>% 
-  dplyr::filter(date <= '2015-12-01',grp == "WardX") %>% 
+  dplyr::filter(date <= '2015-12-01',
+                grp == "WardX") %>% 
   runcharter(med_rows = 3,
              runlength = 3, 
              direction = "both",
@@ -214,11 +304,11 @@ signals %>%
 #> all sustained runs found, not enough rows remaining for analysis
 ```
 
-![](man/figures/unnamed-chunk-4-1.png)
+![](man/figures/unnamed-chunk-5-1.png)
 
     #> $runchart
 
-![](man/figures/unnamed-chunk-4-2.png)
+![](man/figures/unnamed-chunk-5-2.png)
 
     #> 
     #> $sustained
