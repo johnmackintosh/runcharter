@@ -257,6 +257,8 @@ runcharter <-
     extractor <- function(df = working_df){
       testdata <- df[which(df[["date"]] > enddate), ]
       testdata <- testdata[which(testdata[["y"]] != Baseline), ]
+      testdata <- testdata %>% 
+        dplyr::select(grp,y,date)
 
     }
 
