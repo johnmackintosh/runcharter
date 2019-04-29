@@ -208,14 +208,15 @@ runcharter <-
         size = 1.05
       )
 
-      remaining <- dplyr::anti_join(df,sustained)
+      remaining <- dplyr::anti_join(df,sustained, 
+                                    by = c("grp", "y", "date"))
       temp_summary_sustained <- summary_sustained %>%
         group_by(grp) %>%
         filter(startdate == min(startdate)) %>%
         select(grp,startdate)
 
-      finalrows <- dplyr::left_join(remaining, temp_summary_sustained)
-
+      finalrows <- dplyr::left_join(remaining, temp_summary_sustained,
+                                    by = "grp")
 
       runchart <- runchart  + ggplot2::geom_segment(
         data = finalrows,
@@ -230,7 +231,8 @@ runcharter <-
       )
 
       runchart <-
-        runchart + ggplot2::ggtitle(label = chart_title, subtitle = chart_subtitle)
+        runchart + ggplot2::ggtitle(label = chart_title, 
+                                    subtitle = chart_subtitle)
       return(runchart)
     }
 
@@ -238,7 +240,8 @@ runcharter <-
 
       sustained <- sustained %>%
         dplyr::arrange(date) %>%
-        dplyr::mutate(rungroup = cumsum_with_reset_group(abs(flag), abs(flag_reset)))
+        dplyr::mutate(rungroup = cumsum_with_reset_group(abs(flag), 
+                                                         abs(flag_reset)))
 
       sustained <- sustained %>%
         dplyr::group_by(grp, rungroup) %>%
@@ -344,7 +347,7 @@ runcharter <-
       if (dim(testdata)[1] < 1) {
         runchart <- baseplot(df, chart_title, chart_subtitle)
         if (!faceted) {
-          print(runchart)
+          #print(runchart)
           if (save_plot) {
             ggsave(filename)
           }
@@ -370,7 +373,7 @@ runcharter <-
       if (startrow < 1) {
         runchart <- baseplot(df, chart_title, chart_subtitle)
         if (!faceted) {
-          print(runchart)
+          #print(runchart)
           if (save_plot) {
             ggsave(filename)
           }
@@ -415,12 +418,12 @@ runcharter <-
 
         runchart <- susplot(df, sustained)
         if (!faceted) {
-          print(runchart)
+          #print(runchart)
           if (save_plot) {
             ggsave(filename)
           }
 
-          message("Improvements noted, not enough rows remaining for further analysis")
+  message("Improvements noted, not enough rows remaining for further analysis")
         }
 
         results <- list(
@@ -454,11 +457,11 @@ runcharter <-
 
             runchart <- susplot(df, sustained)
             if (!facet_cols) {
-              print(runchart)
+             # print(runchart)
               if (save_plot) {
                 ggsave(filename)
               }
-              message("Improvements noted, not enough rows remaining for further analysis")
+  message("Improvements noted, not enough rows remaining for further analysis")
             }
             results <-
               list(
@@ -491,12 +494,12 @@ runcharter <-
             runchart <-
               susplot(df, sustained, chart_title, chart_subtitle)
             if (!faceted) {
-              print(runchart)
+              #print(runchart)
               if (save_plot) {
                 ggsave(filename)
               }
 
-              message("all sustained runs found, not enough rows remaining for analysis")
+    message("all sustained runs found, not enough rows remaining for analysis")
             }
             results <-
               list(
@@ -535,13 +538,13 @@ runcharter <-
             runchart <-
               susplot(df, sustained, chart_title, chart_subtitle)
             if (!faceted) {
-              print(runchart)
+              #print(runchart)
 
               if (save_plot) {
                 ggsave(filename)
               }
 
-              message("all sustained runs found, not enough rows remaining for analysis")
+    message("all sustained runs found, not enough rows remaining for analysis")
             }
             results <-
               list(
