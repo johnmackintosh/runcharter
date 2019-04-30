@@ -290,11 +290,13 @@ runcharter <-
 
     }
 
+    group_count <-  df %>% 
+      dplyr::select(grp) %>% 
+      dplyr::n_distinct()
 
 
 
-
-    if (faceted == TRUE) {
+    if (faceted == TRUE & group_count > 1) {
       build_facet(
         df,
         mr = med_rows,
