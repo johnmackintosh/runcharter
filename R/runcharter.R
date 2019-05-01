@@ -80,7 +80,9 @@ runcharter <-
            save_plot = FALSE,
            plot_extension = "png",
            ...) {
-    baseplot <- function(df, chart_title, chart_subtitle, ...) {
+
+    baseplot <- function(df, chart_title, chart_subtitle,
+                         draw_start_baseline = TRUE, ...) {
       runchart <- ggplot2::ggplot(df, aes(date, y, group = 1)) +
         ggplot2::geom_line(colour = "#005EB8", size = 1.1)  +
         ggplot2::geom_point(
@@ -97,56 +99,26 @@ runcharter <-
         ggplot2::ggtitle(label = chart_title,
                          subtitle = chart_subtitle) +
         ggplot2::labs(x = "", y = "") +
-        theme(legend.position = "bottom")
-
-      runchart <-
-        runchart + ggplot2::geom_line(
+        theme(legend.position = "bottom") +
+        
+        ggplot2::geom_line(
           data = median_rows,
           aes(x = date, y = baseline, group = 1),
           colour = "#E87722",
           size = 1.05,
           linetype = 1
         )
-      runchart <-
-        runchart + ggplot2::geom_line(
-          data = df,
-          aes(x = date, y = StartBaseline, group = 1),
-          colour = "#E87722",
-          size = 1.05,
-          linetype = 2
-        )
 
-
-      return(runchart)
-    }
-
-    baseplot2 <- function(df, chart_title, chart_subtitle, ...) {
-      runchart <- ggplot2::ggplot(df, aes(date, y, group = 1)) +
-        ggplot2::geom_line(colour = "#005EB8", size = 1.1)  +
-        ggplot2::geom_point(
-          shape = 21 ,
-          colour = "#005EB8",
-          fill = "#005EB8",
-          size = 2.5
-        ) +
-        ggplot2::theme_minimal(base_size = 10) +
-        theme(axis.text.y = element_text(angle = 0)) +
-        theme(axis.text.x = element_text(angle = 90)) +
-        theme(panel.grid.minor = element_blank(),
-              panel.grid.major = element_blank()) +
-        ggplot2::ggtitle(label = chart_title,
-                         subtitle = chart_subtitle) +
-        ggplot2::labs(x = "", y = "") +
-        theme(legend.position = "bottom")
-
-      runchart <-
-        runchart + ggplot2::geom_line(
-          data = median_rows,
-          aes(x = date, y = baseline, group = 1),
-          colour = "#E87722",
-          size = 1.05,
-          linetype = 1
-        )
+      if (draw_start_baseline) {
+        runchart <-
+          runchart + ggplot2::geom_line(
+            data = df,
+            aes(x = date, y = StartBaseline, group = 1),
+            colour = "#E87722",
+            size = 1.05,
+            linetype = 2
+          )
+      }
 
       return(runchart)
     }
@@ -164,12 +136,8 @@ runcharter <-
                       (!is.na(runend) ~ runend,
                         TRUE~ lastdate))
 
-
-
-
-      runchart <- baseplot2(df, chart_title, chart_subtitle, ...)
-
-
+      runchart <- baseplot(df, chart_title, chart_subtitle,
+                            draw_start_baseline = FALSE,...)
 
       runchart <-
         runchart + ggplot2::geom_point(
