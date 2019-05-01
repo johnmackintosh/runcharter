@@ -80,15 +80,19 @@ runcharter <-
            save_plot = FALSE,
            plot_extension = "png",
            ...) {
-
+    
+    median_baseline_colour = "#E87722" # Light orange
+    runchart_line_colour = "#005EB8" # Royal blue
+    runchart_rebasing_dots_colour = "#DB1884" # Magenta
+    
     baseplot <- function(df, chart_title, chart_subtitle,
                          draw_start_baseline = TRUE, ...) {
       runchart <- ggplot2::ggplot(df, aes(date, y, group = 1)) +
-        ggplot2::geom_line(colour = "#005EB8", size = 1.1)  +
+        ggplot2::geom_line(colour = runchart_line_colour, size = 1.1)  +
         ggplot2::geom_point(
           shape = 21 ,
-          colour = "#005EB8",
-          fill = "#005EB8",
+          colour = runchart_line_colour,
+          fill = runchart_line_colour,
           size = 2.5
         ) +
         ggplot2::theme_minimal(base_size = 10) +
@@ -104,7 +108,7 @@ runcharter <-
         ggplot2::geom_line(
           data = median_rows,
           aes(x = date, y = baseline, group = 1),
-          colour = "#E87722",
+          colour = median_baseline_colour,
           size = 1.05,
           linetype = 1
         )
@@ -114,7 +118,7 @@ runcharter <-
           runchart + ggplot2::geom_line(
             data = df,
             aes(x = date, y = StartBaseline, group = 1),
-            colour = "#E87722",
+            colour = median_baseline_colour,
             size = 1.05,
             linetype = 2
           )
@@ -144,8 +148,8 @@ runcharter <-
           data = susdf,
           aes(x = date, y = y, group = rungroup),
           shape = 21,
-          colour = "#005EB8",
-          fill = "#DB1884" ,
+          colour = runchart_line_colour,
+          fill = runchart_rebasing_dots_colour ,
           size = 2.7
         )
 
@@ -157,7 +161,7 @@ runcharter <-
               y = improve,
               yend = improve,
               group = rungroup),
-          colour = "#E87722",
+          colour = median_baseline_colour,
           linetype = 1,
           size = 1.05
         )
@@ -171,7 +175,7 @@ runcharter <-
           yend = improve,
           group = rungroup
         ),
-        colour = "#E87722",
+        colour = median_baseline_colour,
         linetype = 2,
         size = 1.05
       )
@@ -193,7 +197,7 @@ runcharter <-
             y = StartBaseline,
             yend = StartBaseline,
             group = grp),
-        colour = "#E87722",
+        colour = median_baseline_colour,
         linetype = 2,
         size = 1.05
       )
