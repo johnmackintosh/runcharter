@@ -351,6 +351,7 @@ runcharter_facet <-
            save_plot = FALSE,
            plot_extension = "png",
            ...) {
+    
     df <- df %>% arrange(date) %>%
       dplyr::select(grp,y,date)
 
@@ -360,7 +361,8 @@ runcharter_facet <-
 
     working_df <- df %>% filter(grp %in% keep)
 
-    enddate <- working_df[["date"]][med_rows]
+    enddate <- getenddate(working_df,x = "date",
+                          y = med_rows)
 
     median_rows <- head(working_df, med_rows)
     median_rows[["baseline"]] <- median(median_rows[["y"]])
@@ -376,23 +378,7 @@ runcharter_facet <-
     results <- list()
     i <- 1
 
-    # sustained_processing <- function(sustained) {
-    #
-    #   sustained <- sustained %>%
-    #     dplyr::arrange(date) %>%
-    #     dplyr::mutate(rungroup = cumsum_with_reset_group(abs(flag),
-    #                                                      abs(flag_reset)))
-    #
-    #   sustained <- sustained %>%
-    #     dplyr::group_by(grp, rungroup) %>%
-    #     dplyr::mutate(
-    #       startdate = min(date),
-    #       enddate = max(date),
-    #       lastdate = max(df[["date"]])
-    #     ) %>%
-    #     dplyr::ungroup()
-    #   sustained
-    # }
+   
 
     extractor <- function(df = working_df){
       testdata <- df[which(df[["date"]] > enddate), ]
@@ -468,7 +454,7 @@ runcharter_facet <-
 
 
     startdate <- testdata[["date"]][startrow]
-    enddate <-  testdata[["date"]][breakrow]
+    enddate <-   getenddate(testdata,x = "date", y = breakrow)
     tempdata <- testdata[startrow:breakrow, ]
     tempdata[["improve"]] <- median(tempdata[["y"]])
     saved_sustained[[i]] <- tempdata
@@ -546,7 +532,7 @@ runcharter_facet <-
           # else, carry on with processing the latest sustained run
 
           startdate <- testdata[["date"]][startrow]
-          enddate <-  testdata[["date"]][breakrow]
+          enddate <-  getenddate(testdata,x = "date", y = breakrow)
           tempdata <- testdata[startrow:breakrow, ]
           tempdata[["improve"]] <- median(tempdata[["y"]])
           saved_sustained[[i]] <- tempdata
@@ -744,7 +730,7 @@ build_facet <-
         dplyr::ungroup() %>%
         dplyr::mutate(runend = case_when
                       (!is.na(runend) ~ runend,
-                        TRUE~ lastdate))
+                        TRUE ~ max(plot_data$date)))
 
       runchart <- ggplot2::ggplot(plot_data, aes(date, y, group = 1)) +
         ggplot2::geom_line(colour = "#005EB8", size = 1.1)  +
@@ -789,6 +775,7 @@ build_facet <-
       runchart <-
         runchart + ggplot2::facet_wrap(vars(grp), ncol = n_facets)
 
+      # sustained median lines
       runchart <-
         runchart + ggplot2::geom_segment(
           data = summary_sustained,
@@ -803,6 +790,7 @@ build_facet <-
           size = 1.05
         )
 
+      # extended baseline from last improvement to end
       runchart <-
         runchart +  ggplot2::geom_segment(
           data = summary_sustained,
@@ -829,10 +817,13 @@ build_facet <-
       temp_summary_sustained <- summary_sustained %>%
         dplyr::group_by(grp) %>%
         dplyr::filter(startdate == min(startdate)) %>%
-        dplyr::select(grp,startdate)
+        dplyr::select(grp,startdate) %>% 
+        ungroup()
 
       finalrows <- dplyr::left_join(remaining, temp_summary_sustained,
                                     by = "grp")
+      
+      
 
       sus_grps <- temp_summary_sustained %>%
         select(grp) %>%
@@ -841,6 +832,7 @@ build_facet <-
       non_sus_grps <- finalrows %>%
         filter(!grp %in% sus_grps)
 
+      
       runchart <- runchart  + ggplot2::geom_segment(
         data = finalrows,
         na.rm = TRUE,

@@ -375,7 +375,7 @@ runcharter <-
           # else, carry on with processing the latest sustained run
 
           startdate <- testdata[["date"]][startrow]
-          enddate <-  testdata[["date"]][breakrow]
+          enddate <-   getenddate(testdata,x = "date", y = breakrow)
           tempdata <- testdata[startrow:breakrow, ]
           tempdata[["improve"]] <- median(tempdata[["y"]])
           saved_sustained[[i]] <- tempdata
