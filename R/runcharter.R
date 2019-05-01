@@ -1,38 +1,3 @@
-#utils::globalVariables(
-#  c(
-#    "Baseline",
-#    "cusum_hi",
-#    "cusum_lo",
-#    "Date",
-#    "EndDate",
-#    "StartBaseline",
-#    "baseline",
-#    "chart_title",
-#    "df",
-#    "date_format",
-#    "enddate",
-#    "EndDate",
-#    "grp",
-#    "flag",
-#    "runlength",
-#    "improve",
-#    "lastdate",
-#    "median",
-#    "med_rows",
-#    "median_rows",
-#    "out_group",
-#    "runend",
-#    "runcharts",
-#    "runchart",
-#    "rungroup",
-#    "runlength",
-#    "startdate",
-#    "sustained",
-#    "tmpdata",
-#    "y"
-#  )
-#)
-
 #' Create run chart with highlighted improvements where applicable
 #'
 #'This will plot the original dataframe, with highlighted runs of improvement.
@@ -152,6 +117,27 @@ runcharter <-
         list(
           runchart = runchart,
           sustained = sustained,
+          median_rows = median_rows,
+          StartBaseline = StartBaseline
+        )
+      return(results)
+    }
+    
+    no_runs_results_as_list <-function (df,
+                                        chart_title = NULL,
+                                        chart_subtitle = NULL) {
+      runchart <- baseplot(df, chart_title, chart_subtitle)
+      if (!faceted) {
+        if (save_plot) {
+          ggsave(filename)
+        }
+        if (verbose) {
+          message("no sustained runs found")
+        }
+      }
+      results <-
+        list(
+          runchart = runchart,
           median_rows = median_rows,
           StartBaseline = StartBaseline
         )
@@ -339,23 +325,9 @@ runcharter <-
       testdata <- extractor(working_df)
 
       if (dim(testdata)[1] < 1) {
-        runchart <- baseplot(df, chart_title, chart_subtitle)
-        if (!faceted) {
-          #print(runchart)
-          if (save_plot) {
-            ggsave(filename)
-          }
-          if (verbose) {
-            message("no sustained runs found")
-          }
-        }
-        results <-
-          list(
-            runchart = runchart,
-            median_rows = median_rows,
-            StartBaseline = StartBaseline
-          )
-        return(results)
+        return(no_runs_results_as_list(df,
+                                       chart_title = NULL,
+                                       chart_subtitle = NULL))
       }
 
       testdata <- testdata_setup(testdata)
@@ -367,25 +339,10 @@ runcharter <-
 
 
       if (startrow < 1) {
-        runchart <- baseplot(df, chart_title, chart_subtitle)
-        if (!faceted) {
-          #print(runchart)
-          if (save_plot) {
-            ggsave(filename)
-          }
-          if (verbose) {
-            message("no sustained runs found")
-          }
-        }
-        results <-
-          list(
-            runchart = runchart,
-            median_rows = median_rows,
-            StartBaseline = StartBaseline
-          )
-        return(results)
+        return(no_runs_results_as_list(df,
+                                       chart_title = NULL,
+                                       chart_subtitle = NULL))
       }
-
 
       #   if  we get to this point there is at least one run
       #   save the current sustained run, and the end date for future subsetting
