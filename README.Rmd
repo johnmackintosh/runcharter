@@ -83,11 +83,11 @@ The function requires a simple three column dataframe, with the following column
 The median will be rebased using all useful observations (points on the median are not useful, and are ignored). 
 - chart_title : The main title for the chart
 - chart_subtitle : A subtitle for the chart
-- direction :  "above" or "below" the median, or "both". The function can now look for alternating runs in both directions,using "both".
+- direction :  "above" or "below" the median, or "both". Use "both" if you want to rebase the run chart any time a run of the desired length occurs, even if it is on the "wrong" side of the median line. 
 - faceted : defaults to TRUE. Set to FALSE if you only need to plot a single run chart. This will ensure the chart plots correctly
 - facet_cols : the number of columns in a faceted plot -  only required if faceted is set to TRUE, otherwise ignored
 - save_plot : Calls ggsave if TRUE, saving in the current working directory
-- plot_extension : one of "png","pdf" or other valid extension for saving ggplot2 plots. Used in the call to ggsave.
+- plot_extension : one of "png", "pdf" or other valid extension for saving ggplot2 plots. Used in the call to ggsave.
 
 
 
@@ -99,14 +99,14 @@ The median will be rebased using all useful observations (points on the median a
 library(runcharter)
 library(dplyr)
 
-single <- signals %>%
+signals %>%
 dplyr::filter(grp == "WardX") %>%
 runcharter(med_rows = 13,
 runlength = 9,
 chart_title = "Analysis of runs below median",
 chart_subtitle = "Ward X",
 direction = "below",
-faceted =  FALSE)
+faceted = FALSE)
 
 ```
 
@@ -115,7 +115,8 @@ faceted =  FALSE)
 - `med_rows` defines the initial baseline period. In the example below, the first 13 points are used to calculate the initial median. This is represented with a solid orange horizontal line.
 This median is then used as a reference for the remaining values, denoted by the extending orange dashed line
 
-- `runlength` specifies the length of run to be identified. Along with `direction`, which specifies which side of median represents improvement,  the runlength is your target number of successive points on the desired side of the median (points on the median are ignored as they do not make or break a run).You can currently set the `direction` as either "above" or "below" the line. Searching for runs in "both" directions at once is also possible. 
+- `runlength` specifies the length of run to be identified. Along with `direction`, which specifies which side of median represents improvement,  the runlength is your target number of successive points on the desired side of the median (points on the median are ignored as they do not make or break a run). You can set the `direction` as either "above" or "below" the line, to evidence improvement in a specific direction. 
+Searching for runs in "both" directions is also possible. This might be more applicable for long term monitoring, rather than improvement purposes.
 
 
 If a run is identified, the points are highlighted (the purple coloured points),  and a new median is calculated using them.  The median is also  plotted and extended into the future for further run chart rules analysis, with a new set of solid and dashed horizontal lines.
@@ -133,17 +134,21 @@ By default the function returns a faceted plot, highlighting successive runs bel
 
 ```{r fig.height=5, fig.width =8}
 library(runcharter)
-runcharter(signals, direction = "below",facet_cols = 2)
+runcharter(signals, 
+           direction = "below",
+           facet_cols = 2)
 
 ```
 
-You can also look for any run,in any direction
+You can also look for any run, in any direction
 
 ```{r}
 library(runcharter)
-runcharter(signals, direction = "both",facet_cols = 2)
+runcharter(signals, 
+           direction = "both",
+           facet_cols = 2)
 ```
-Note how 2 runs below the median are found with an additional run above the median for Ward Z.
+Note how runs below the median are found for Wards X and Y, while a run above the median is highlighted for Ward Z.
 
  
  The function will print the plot, and return a list, containing:
@@ -155,17 +160,14 @@ Note how 2 runs below the median are found with an additional run above the medi
 
 The latter 3 items can be retrieved from the list and used to create new plots (if, for example, you would like different plot themes or colours from the package defaults)
 
-Don't try this at home - setting runlength of 3 to show that successive runs are identified:
+Don't try this at home - setting runlength of 6 and searching in both directions to confirm that successive runs are identified:
 
 ```{r fig.height=5, fig.width =8}
 library(dplyr)
 signals %>% 
-  dplyr::filter(date <= '2015-12-01',
-                grp == "WardX") %>% 
-  runcharter(med_rows = 3,
-             runlength = 3, 
-             direction = "both",
-             faceted = FALSE)
+  runcharter(med_rows = 6,
+             runlength = 6, 
+             direction = "both")
 ```
 
 

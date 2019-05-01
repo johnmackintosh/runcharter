@@ -30,7 +30,7 @@ knitr::opts_chunk$set(
 ```
 
 Here are the function arguments and defaults. 
-A default run of 9 is specified as that is the length of run used by the IHI for it's patient safety initiatives worldwide. 
+A default run of 9 is specified as that is the length of run used by the IHI for its patient safety initiatives worldwide. 
 
 # Function arguments and defaults
 
@@ -85,7 +85,7 @@ runcharter(signals,
 
 ## Runs in both directions
 
-By popular request (two people), finding runs in both directions is now implemented:
+Finding runs in both directions is now implemented:
 
 ```{r}
 library(runcharter)
@@ -108,13 +108,18 @@ signals %>%
 This package makes no attempt to identify or highlight 'trends' (consecutively increasing or decreasing points) or shorter 'shifts' of runs below the median.
 In 8 years of working with QI data, I very rarely see trends, and when they do appear, they tend to result after a period of process degradation, when the process begins to return back to its natural median state. 
 
-Research by qicharts2 author Jacob Anheoj shows that the trend rule is not reliable.
+In addition, [research by qicharts2 author Jacob Anheoj shows that the trend rule is not reliable](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0121349). There are no plans to add tests to identify trends to the package functionality.
 
-The package now allows for finding runs in both directions (above and below the median). 
-However, for improvement purposes, you would nearly always only need to identify runs in one direction at a time. 
+If you want to apply the rules for trend , in addition to rebasing run charts, then you should consider using [the runchart package by Joseph Adams](https://github.com/jsphdms/runchart).
+
+## Identify runs in both directions
+Th package now allows for finding runs in both directions (above and below the median). 
+Generally, for improvement purposes, you would only need to identify runs in one direction at a time. 
 In other words, if you are trying to reduce adverse events, improvement will be evidenced with a run below the median. Therefore, you would not rebase the median if a run of points above the median was observed. 
 
-If you want to apply the rules for trend then you should consider using Joseph Adam's 'runchart' package.
+However, for longer term monitoring, it may be necessary to identify and 'reset' a median if a sustained deterioration in performance occurs. Ideally, you should move to using SPC charts for monitoring purposes.
+
+
 
 ## We're not supposed to do this
 

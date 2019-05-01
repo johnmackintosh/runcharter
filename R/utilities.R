@@ -1,4 +1,4 @@
-utils::globalVariables(
+  utils::globalVariables(
   c(
     "Baseline",
     "cusum_hi",
@@ -150,7 +150,8 @@ runcharter_facet <-
            save_plot = FALSE,
            plot_extension = "png",
            ...) {
-    df <- df %>% arrange(date)
+    df <- df %>% arrange(date) %>% 
+      dplyr::select(grp,y,date)
 
     keep <- df %>% group_by(grp) %>% dplyr::count()
     keep <- keep %>% filter(n > (med_rows + runlength))
@@ -177,7 +178,8 @@ runcharter_facet <-
 
       sustained <- sustained %>%
         dplyr::arrange(date) %>%
-        dplyr::mutate(rungroup = cumsum_with_reset_group(abs(flag), abs(flag_reset)))
+        dplyr::mutate(rungroup = cumsum_with_reset_group(abs(flag), 
+                                                         abs(flag_reset)))
 
       sustained <- sustained %>%
         dplyr::group_by(grp, rungroup) %>%
@@ -193,6 +195,8 @@ runcharter_facet <-
     extractor <- function(df = working_df){
       testdata <- df[which(df[["date"]] > enddate), ]
       testdata <- testdata[which(testdata[["y"]] != Baseline), ]
+      testdata <- testdata %>% 
+        dplyr::select(grp,y,date)
 
     }
 
