@@ -125,6 +125,38 @@ runcharter <-
 
       return(runchart)
     }
+    
+    sustained_runs_results_as_list <-function (df,
+                                        saved_sustained,
+                                        chart_title = NULL,
+                                        chart_subtitle = NULL,
+                                        verbose_message) {
+      sustained <- bind_rows(saved_sustained)
+      sustained <- sustained_processing(sustained)
+      
+      runchart <- if (is.null(chart_title)) {
+        susplot(df, sustained)
+      } else {
+        susplot(df, sustained, chart_title, chart_subtitle)
+      }
+
+      if (!faceted) {
+        if (save_plot) {
+          ggsave(filename)
+        }
+        if (verbose) {
+          message(verbose_message)
+        }
+      }
+      results <-
+        list(
+          runchart = runchart,
+          sustained = sustained,
+          median_rows = median_rows,
+          StartBaseline = StartBaseline
+        )
+      return(results)
+    }
 
     susplot <- function(df, susdf, ...) {
 
@@ -173,7 +205,7 @@ runcharter <-
           linetype = 2,
           size = 1.05)
 
-      remaining <- dplyr::anti_join(df,sustained, 
+      remaining <- dplyr::anti_join(df,susdf, 
                                     by = c("grp", "y", "date"))
       temp_summary_sustained <- summary_sustained %>%
         group_by(grp) %>%
@@ -379,29 +411,13 @@ runcharter <-
       # return the sustained dataframe
 
       if (remaining_rows < abs(runlength)) {
-        sustained <- bind_rows(saved_sustained)
-
-        sustained <- sustained_processing(sustained)
-
-        runchart <- susplot(df, sustained)
-        if (!faceted) {
-          #print(runchart)
-          if (save_plot) {
-            ggsave(filename)
-          }
-          if (verbose) {
-            message("Improvements noted, not enough rows remaining for further analysis")
-          }
-        }
-
-        results <- list(
-          runchart = runchart,
-          sustained = sustained,
-          median_rows = median_rows,
-          StartBaseline = StartBaseline
+        return(
+          sustained_runs_results_as_list(df,
+                                         saved_sustained,
+                                         NULL,
+                                         NULL,
+                                         "Improvements noted, not enough rows remaining for further analysis")
         )
-        return(results)
-
       }
       i <- i + 1
 
@@ -419,28 +435,13 @@ runcharter <-
 
 
           if (dim(testdata)[1] < 1) {
-            sustained <- bind_rows(saved_sustained)
-
-            sustained <- sustained_processing(sustained)
-
-            runchart <- susplot(df, sustained)
-            if (!facet_cols) {
-             # print(runchart)
-              if (save_plot) {
-                ggsave(filename)
-              }
-              if (verbose) {
-                message("Improvements noted, not enough rows remaining for further analysis")
-              }
-            }
-            results <-
-              list(
-                runchart = runchart,
-                sustained = sustained,
-                median_rows = median_rows,
-                StartBaseline = StartBaseline
-              )
-            return(results)
+            return(
+              sustained_runs_results_as_list(df,
+                saved_sustained,
+                NULL,
+                NULL,
+                "Improvements noted, not enough rows remaining for further analysis")
+            )
           }
 
 
@@ -455,31 +456,13 @@ runcharter <-
           # print sustained chart and quit
 
           if (startrow < 1) {
-            #need to unlist the sustained rows
-            sustained <- dplyr::bind_rows(saved_sustained)
-
-            sustained <- sustained_processing(sustained)
-
-            #now do sustained plot
-            runchart <-
-              susplot(df, sustained, chart_title, chart_subtitle)
-            if (!faceted) {
-              #print(runchart)
-              if (save_plot) {
-                ggsave(filename)
-              }
-              if (verbose) {
-                message("all sustained runs found, not enough rows remaining for analysis")
-              }
-            }
-            results <-
-              list(
-                runchart = runchart,
-                sustained = sustained,
-                median_rows = median_rows,
-                StartBaseline = StartBaseline
-              )
-            return(results)
+            return(
+              sustained_runs_results_as_list(df,
+                saved_sustained,
+                chart_title,
+                chart_subtitle,
+                "all sustained runs found, not enough rows remaining for analysis")
+            )
             break
           }
 
@@ -501,31 +484,13 @@ runcharter <-
           # print the current sustained chart
 
           if (remaining_rows < abs(runlength)) {
-            sustained <- bind_rows(saved_sustained)
-
-            sustained <- sustained_processing(sustained)
-
-
-            runchart <-
-              susplot(df, sustained, chart_title, chart_subtitle)
-            if (!faceted) {
-              #print(runchart)
-
-              if (save_plot) {
-                ggsave(filename)
-              }
-              if (verbose) {
-                message("all sustained runs found, not enough rows remaining for analysis")
-              }
-            }
-            results <-
-              list(
-                runchart = runchart,
-                sustained = sustained,
-                median_rows = median_rows,
-                StartBaseline = StartBaseline
-              )
-            return(results)
+            return(
+              sustained_runs_results_as_list(df,
+                                             saved_sustained,
+                                             chart_title,
+                                             chart_subtitle,
+            "all sustained runs found, not enough rows remaining for analysis")
+            )
             break
           }
           remaining_rows <- dim(testdata)[1]
@@ -535,8 +500,5 @@ runcharter <-
           break
         }
       }
-
-
     }
-
   }
