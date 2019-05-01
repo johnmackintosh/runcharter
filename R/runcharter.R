@@ -79,6 +79,7 @@ runcharter <-
            facet_cols = NULL,
            save_plot = FALSE,
            plot_extension = "png",
+           verbose = FALSE,
            ...) {
     
     median_baseline_colour = "#E87722" # Light orange
@@ -254,8 +255,6 @@ runcharter <-
       dplyr::select(grp) %>% 
       dplyr::n_distinct()
 
-
-
     if (faceted == TRUE & group_count > 1) {
       build_facet(
         df,
@@ -315,7 +314,9 @@ runcharter <-
           if (save_plot) {
             ggsave(filename)
           }
-          message("no sustained runs found")
+          if (verbose) {
+            message("no sustained runs found")
+          }
         }
         results <-
           list(
@@ -341,7 +342,9 @@ runcharter <-
           if (save_plot) {
             ggsave(filename)
           }
-          message("no sustained runs found")
+          if (verbose) {
+            message("no sustained runs found")
+          }
         }
         results <-
           list(
@@ -386,8 +389,9 @@ runcharter <-
           if (save_plot) {
             ggsave(filename)
           }
-
-  message("Improvements noted, not enough rows remaining for further analysis")
+          if (verbose) {
+            message("Improvements noted, not enough rows remaining for further analysis")
+          }
         }
 
         results <- list(
@@ -425,7 +429,9 @@ runcharter <-
               if (save_plot) {
                 ggsave(filename)
               }
-  message("Improvements noted, not enough rows remaining for further analysis")
+              if (verbose) {
+                message("Improvements noted, not enough rows remaining for further analysis")
+              }
             }
             results <-
               list(
@@ -462,8 +468,9 @@ runcharter <-
               if (save_plot) {
                 ggsave(filename)
               }
-
-    message("all sustained runs found, not enough rows remaining for analysis")
+              if (verbose) {
+                message("all sustained runs found, not enough rows remaining for analysis")
+              }
             }
             results <-
               list(
@@ -507,8 +514,9 @@ runcharter <-
               if (save_plot) {
                 ggsave(filename)
               }
-
-    message("all sustained runs found, not enough rows remaining for analysis")
+              if (verbose) {
+                message("all sustained runs found, not enough rows remaining for analysis")
+              }
             }
             results <-
               list(
@@ -519,7 +527,6 @@ runcharter <-
               )
             return(results)
             break
-
           }
           remaining_rows <- dim(testdata)[1]
         }
