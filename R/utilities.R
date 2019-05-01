@@ -1,4 +1,4 @@
-  utils::globalVariables(
+utils::globalVariables(
   c(
     "Baseline",
     "cusum_hi",
@@ -32,6 +32,203 @@
     "y"
   )
 )
+
+
+
+baseplot <- function(df,med_df, x, y, ct, cs, sb = StartBaseline, ...) {
+  runchart <- ggplot2::ggplot(df, aes(x = date, y = y, group = 1)) +
+    ggplot2::geom_line(colour = "#005EB8", size = 1.1)  +
+    ggplot2::geom_point(
+      shape = 21 ,
+      colour = "#005EB8",
+      fill = "#005EB8",
+      size = 2.5
+    ) +
+    ggplot2::theme_minimal(base_size = 10) +
+    theme(axis.text.y = element_text(angle = 0)) +
+    theme(axis.text.x = element_text(angle = 90)) +
+    theme(panel.grid.minor = element_blank(),
+          panel.grid.major = element_blank()) +
+    ggplot2::ggtitle(label = ct,
+                     subtitle = cs) +
+    ggplot2::labs(x = "", y = "") +
+    theme(legend.position = "bottom")
+
+  runchart <-
+    runchart + ggplot2::geom_line(
+      data = med_df,
+      aes(x = date, y = baseline, group = 1),
+      colour = "#E87722",
+      size = 1.05,
+      linetype = 1
+    )
+  runchart <-
+    runchart + ggplot2::geom_line(
+      data = df,
+      aes(x = date, y = sb, group = 1),
+      colour = "#E87722",
+      size = 1.05,
+      linetype = 2
+    )
+
+
+  return(runchart)
+}
+
+
+baseplot2 <- function(df, med_df, x, y, ct, cs, ...) {
+  runchart <- ggplot2::ggplot(df, aes(x = date, y = y, group = 1)) +
+    ggplot2::geom_line(colour = "#005EB8", size = 1.1)  +
+    ggplot2::geom_point(
+      shape = 21 ,
+      colour = "#005EB8",
+      fill = "#005EB8",
+      size = 2.5
+    ) +
+    ggplot2::theme_minimal(base_size = 10) +
+    theme(axis.text.y = element_text(angle = 0)) +
+    theme(axis.text.x = element_text(angle = 90)) +
+    theme(panel.grid.minor = element_blank(),
+          panel.grid.major = element_blank()) +
+    ggplot2::ggtitle(label = ct,
+                     subtitle = cs) +
+    ggplot2::labs(x = "", y = "") +
+    theme(legend.position = "bottom")
+
+  runchart <-
+    runchart + ggplot2::geom_line(
+      data = med_df,
+      aes(x = date, y = baseline, group = 1),
+      colour = "#E87722",
+      size = 1.05,
+      linetype = 1
+    )
+
+  return(runchart)
+}
+
+
+susplot <- function(df, med_df, susdf, ct, cs, sb = StartBaseline, ...) {
+
+  summary_sustained <- susdf %>%
+    dplyr::group_by(grp,rungroup, improve,startdate,enddate,lastdate) %>%
+    dplyr::summarise() %>%
+    dplyr::ungroup() %>%
+    dplyr::group_by(grp) %>%
+    dplyr::mutate(runend = dplyr::lead(enddate)) %>%
+    dplyr::ungroup() %>%
+    dplyr::mutate(runend = case_when
+                  (!is.na(runend) ~ runend,
+                    TRUE ~ max(df$date)))
+
+
+
+  runchart <- baseplot2(df, med_df,
+                        x = date,  y = y,
+                        ct, cs, ...)
+
+
+  # sustained points
+  runchart <-
+    runchart + ggplot2::geom_point(
+      data = susdf,
+      aes(x = date, y = y, group = rungroup),
+      shape = 21,
+      colour = "#005EB8",
+      fill = "#DB1884" ,
+      size = 2.7
+    )
+
+
+  # new sustained baseline
+  runchart <-
+    runchart + ggplot2::geom_segment(
+      data = summary_sustained,
+      na.rm = TRUE,
+      aes(x = startdate,
+          xend = enddate,
+          y = improve,
+          yend = improve,
+          group = rungroup),
+      colour = "#E87722",
+      linetype = 1,
+      size = 1.05
+    )
+
+  # extended baseline from last improvement to end
+  runchart <- runchart +  ggplot2::geom_segment(
+    data = summary_sustained,
+    na.rm = TRUE,
+    aes(
+      x = enddate,
+      xend = runend,
+      y = improve,
+      yend = improve,
+      group = rungroup
+    ),
+    colour = "#E87722",
+    linetype = 2,
+    size = 1.05
+  )
+
+  remaining <- dplyr::anti_join(df,susdf,
+                                by = c("grp", "y", "date"))
+
+  remaining <- dplyr::anti_join(remaining,med_df,
+                                by = c("grp", "y", "date"))
+
+  temp_summary_sustained <- summary_sustained %>%
+    group_by(grp) %>%
+    filter(startdate == min(startdate)) %>%
+    select(grp,startdate)
+
+  finalrows <- dplyr::left_join(remaining, temp_summary_sustained,
+                                by = "grp")
+
+
+  finalstartx <- finalrows %>%
+    select(date) %>%
+    summarise(mindate = min(date)) %>%
+    pull()
+
+  # intervening rows from original baseline to new baseline
+  runchart <- runchart  + ggplot2::geom_segment(
+    data = finalrows,
+    na.rm = TRUE,
+    aes(x = finalstartx,
+        xend = startdate,
+        y = sb,
+        yend = sb,
+        group = grp),
+    colour = "#E87722",
+    linetype = 2,
+    size = 1.05
+  )
+
+  runchart <-
+    runchart + ggplot2::ggtitle(label = ct,
+                                subtitle = cs)
+  return(runchart)
+}
+
+
+sustained_processing <- function(df,flag,flag_reset) {
+
+  df <- df %>%
+    dplyr::arrange(date) %>%
+    dplyr::mutate(rungroup = cumsum_with_reset_group(abs(flag),
+                                                     abs(flag_reset)))
+
+  df <- df %>%
+    dplyr::group_by(grp, rungroup) %>%
+    dplyr::mutate(
+      startdate = min(date),
+      enddate = max(date),
+      lastdate = max(df[["date"]])
+    ) %>%
+    dplyr::ungroup()
+  df
+}
 
 
 cumsum_with_reset <- function(x, threshold) {
@@ -116,6 +313,10 @@ cumsum_with_reset_group <- function(x, threshold) {
 }
 
 
+getenddate <- function(df, x, y){
+  enddate <- df[[x]][y]
+  return(enddate)
+}
 
 
 myrleid <- function(x) {
@@ -150,7 +351,8 @@ runcharter_facet <-
            save_plot = FALSE,
            plot_extension = "png",
            ...) {
-    df <- df %>% arrange(date) %>% 
+    
+    df <- df %>% arrange(date) %>%
       dplyr::select(grp,y,date)
 
     keep <- df %>% group_by(grp) %>% dplyr::count()
@@ -159,7 +361,8 @@ runcharter_facet <-
 
     working_df <- df %>% filter(grp %in% keep)
 
-    enddate <- working_df[["date"]][med_rows]
+    enddate <- getenddate(working_df,x = "date",
+                          y = med_rows)
 
     median_rows <- head(working_df, med_rows)
     median_rows[["baseline"]] <- median(median_rows[["y"]])
@@ -167,35 +370,20 @@ runcharter_facet <-
     Baseline <- median(head(working_df[["y"]], med_rows))
     StartBaseline <- Baseline
 
-    flag_reset <- ifelse(direction == "below", flag_reset <-
-                           runlength * -1, runlength)
+    flag_reset <- ifelse(direction == "below",
+                         runlength * -1, runlength)
+
     remaining_rows <- dim(working_df)[1] - med_rows
     saved_sustained <- list()
     results <- list()
     i <- 1
 
-    sustained_processing <- function(sustained) {
-
-      sustained <- sustained %>%
-        dplyr::arrange(date) %>%
-        dplyr::mutate(rungroup = cumsum_with_reset_group(abs(flag), 
-                                                         abs(flag_reset)))
-
-      sustained <- sustained %>%
-        dplyr::group_by(grp, rungroup) %>%
-        dplyr::mutate(
-          startdate = min(date),
-          enddate = max(date),
-          lastdate = max(df[["date"]])
-        ) %>%
-        dplyr::ungroup()
-      sustained
-    }
+   
 
     extractor <- function(df = working_df){
       testdata <- df[which(df[["date"]] > enddate), ]
       testdata <- testdata[which(testdata[["y"]] != Baseline), ]
-      testdata <- testdata %>% 
+      testdata <- testdata %>%
         dplyr::select(grp,y,date)
 
     }
@@ -244,7 +432,7 @@ runcharter_facet <-
 
 
     testdata <- testdata_setup(testdata)
-    
+
     breakrow <- which.max(testdata[["cusum"]] == flag_reset)
     startrow <- breakrow - (abs(runlength) - 1)
 
@@ -266,14 +454,14 @@ runcharter_facet <-
 
 
     startdate <- testdata[["date"]][startrow]
-    enddate <-  testdata[["date"]][breakrow]
+    enddate <-   getenddate(testdata,x = "date", y = breakrow)
     tempdata <- testdata[startrow:breakrow, ]
     tempdata[["improve"]] <- median(tempdata[["y"]])
     saved_sustained[[i]] <- tempdata
 
     Baseline <- median(tempdata[["y"]])
     testdata <- extractor(working_df)
-    
+
     remaining_rows <- dim(testdata)[1]
 
     # if not enough rows remaining, print the sustained run chart
@@ -282,7 +470,7 @@ runcharter_facet <-
 
     if (remaining_rows < abs(runlength)) {
       sustained <- bind_rows(saved_sustained)
-      sustained <- sustained_processing(sustained)
+      sustained <- sustained_processing(sustained, flag,flag_reset)
 
 
       results <- list(
@@ -302,15 +490,15 @@ runcharter_facet <-
       {
 
         testdata <- extractor(working_df)
-      
 
-        #check that are still rows remaining in case 
+
+        #check that are still rows remaining in case
         # all rows are equal to the baseline value
 
         if (dim(testdata)[1] < 1) {
           sustained <- bind_rows(saved_sustained)
-          sustained <- sustained_processing(sustained)
-          
+          sustained <- sustained_processing(sustained, flag, flag_reset)
+
 
           results <- list(
             sustained = sustained,
@@ -331,7 +519,7 @@ runcharter_facet <-
         if (startrow < 1) {
           #need to unlist the sustained rows
           sustained <- dplyr::bind_rows(saved_sustained)
-          sustained <- sustained_processing(sustained)
+          sustained <- sustained_processing(sustained, flag, flag_reset)
 
           results <- list(
             sustained = sustained,
@@ -344,7 +532,7 @@ runcharter_facet <-
           # else, carry on with processing the latest sustained run
 
           startdate <- testdata[["date"]][startrow]
-          enddate <-  testdata[["date"]][breakrow]
+          enddate <-  getenddate(testdata,x = "date", y = breakrow)
           tempdata <- testdata[startrow:breakrow, ]
           tempdata[["improve"]] <- median(tempdata[["y"]])
           saved_sustained[[i]] <- tempdata
@@ -360,7 +548,7 @@ runcharter_facet <-
 
         if (remaining_rows < abs(runlength)) {
           sustained <- bind_rows(saved_sustained)
-          sustained <- sustained_processing(sustained)
+          sustained <- sustained_processing(sustained, flag, flag_reset)
 
           results <- list(
             sustained = sustained,
@@ -402,19 +590,19 @@ build_facet <-
            plot_extension,
            ...) {
     df[["grp"]] <-  as.character(df[["grp"]])
-    
+
     keep <- df %>% group_by(grp) %>% dplyr::count()
     keep <- keep %>% filter(n > (mr + rl))
     keep <- keep %>% pull(grp)
-    
+
     working_df <- df %>% filter(grp %in% keep)
-    
+
     by_grp <- working_df %>%
       dplyr::mutate(out_group = grp) %>%
       dplyr::group_by(out_group) %>%
       tidyr::nest()
-    
-    
+
+
     by_grp2 <- by_grp %>%
       dplyr::mutate(
         runcharts = purrr::map(
@@ -430,17 +618,17 @@ build_facet <-
           plot_extension
         )
       )
-    
-    
+
+
     results <-
       by_grp2 %>% tidyr::unnest(out_group, .preserve = runcharts)
-    
+
     median_rows <-
       dplyr::bind_rows(purrr::modify_depth(by_grp2[["runcharts"]], 1, "median_rows"))
     sustained <-
       dplyr::bind_rows(purrr::modify_depth(by_grp2[["runcharts"]], 1,
                                            .f = ~ as.data.frame(.["sustained"])))
-    
+
     colnames(sustained) <-
       c(
         'grp',
@@ -454,25 +642,25 @@ build_facet <-
         'enddate',
         'lastdate'
       )
-    
+
     StartBaseline <-
       unlist(purrr::modify_depth(by_grp2[["runcharts"]], 1, "StartBaseline"))
     grp <- as.character(results[["out_group"]])
     temp <- data.frame(grp, StartBaseline)
     temp[["grp"]] <- as.character(temp[["grp"]])
-    
-    
+
+
     plot_data <- bind_rows(results[["data"]])
     plot_data[["grp"]] <- as.character(plot_data[["grp"]])
     plot_data <- left_join(plot_data, temp, by = "grp")
-    
-    
-    
-    
+
+
+
+
     filename <- paste0("facet_plot", ".", plot_extension)
-    
-    
-    
+
+
+
     runchart <- ggplot2::ggplot(plot_data, aes(date, y, group = 1)) +
       ggplot2::geom_line(colour = "#005EB8", size = 1.1)  +
       ggplot2::geom_point(
@@ -488,7 +676,7 @@ build_facet <-
                      panel.grid.major = element_blank()) +
       ggplot2::labs(x = "", y = "") +
       ggplot2::theme(legend.position = "bottom")
-    
+
     runchart <-
       runchart + ggplot2::geom_line(
         data = median_rows,
@@ -497,8 +685,8 @@ build_facet <-
         size = 1.05,
         linetype = 1
       )
-    
-    
+
+
     runchart <-
       runchart + ggplot2::geom_line(
         data = plot_data,
@@ -508,13 +696,13 @@ build_facet <-
         size = 1.05,
         linetype = 2
       )
-    
-    
+
+
     # if there are no sustained runs, plot now
-    
+
     if (dim(sustained)[1] == 0) {
       runchart <- runchart + ggplot2::ggtitle(label = ct, subtitle = cs)
-      
+
       runchart <-
         runchart + ggplot2::facet_wrap(vars(grp), ncol = n_facets)
       results <-
@@ -523,15 +711,15 @@ build_facet <-
           median_rows = median_rows,
           StartBaseline = StartBaseline
         )
-      
+
       if (sp) {
         ggsave(filename)
       }
-      
+
       return(results)
     } else {
-      
-      
+
+
       # summarise sustained dataframe for plotting
       summary_sustained <- sustained %>%
         dplyr::group_by(grp,rungroup, improve,startdate,enddate,lastdate) %>%
@@ -542,8 +730,8 @@ build_facet <-
         dplyr::ungroup() %>%
         dplyr::mutate(runend = case_when
                       (!is.na(runend) ~ runend,
-                        TRUE~ lastdate))
-      
+                        TRUE ~ max(plot_data$date)))
+
       runchart <- ggplot2::ggplot(plot_data, aes(date, y, group = 1)) +
         ggplot2::geom_line(colour = "#005EB8", size = 1.1)  +
         ggplot2::geom_point(
@@ -559,7 +747,7 @@ build_facet <-
                        panel.grid.major = element_blank()) +
         ggplot2::labs(x = "", y = "") +
         ggplot2::theme(legend.position = "bottom")
-      
+
       runchart <-
         runchart + ggplot2::geom_line(
           data = median_rows,
@@ -568,8 +756,8 @@ build_facet <-
           size = 1.05,
           linetype = 1
         )
-      
-      
+
+
       runchart <-
         runchart + ggplot2::geom_point(
           data = sustained,
@@ -579,14 +767,15 @@ build_facet <-
           fill = "#DB1884" ,
           size = 2.7
         )
-      
-      
+
+
       runchart <-
         runchart + ggplot2::ggtitle(label = ct, subtitle = cs)
-      
+
       runchart <-
         runchart + ggplot2::facet_wrap(vars(grp), ncol = n_facets)
-      
+
+      # sustained median lines
       runchart <-
         runchart + ggplot2::geom_segment(
           data = summary_sustained,
@@ -600,7 +789,8 @@ build_facet <-
           linetype = 1,
           size = 1.05
         )
-      
+
+      # extended baseline from last improvement to end
       runchart <-
         runchart +  ggplot2::geom_segment(
           data = summary_sustained,
@@ -616,24 +806,32 @@ build_facet <-
           linetype = 2,
           size = 1.05
         )
-      
+
       remaining <- dplyr::anti_join(plot_data,sustained,
                                     by = c("grp", "y", "date"))
-      
+
+      #experimental
+      remaining <- dplyr::anti_join(remaining,median_rows,
+                                    by = c("grp", "y", "date"))
+
       temp_summary_sustained <- summary_sustained %>%
         dplyr::group_by(grp) %>%
         dplyr::filter(startdate == min(startdate)) %>%
-        dplyr::select(grp,startdate)
-      
+        dplyr::select(grp,startdate) %>% 
+        ungroup()
+
       finalrows <- dplyr::left_join(remaining, temp_summary_sustained,
                                     by = "grp")
       
-      sus_grps <- temp_summary_sustained %>% 
-        select(grp) %>% 
-        pull
       
-      non_sus_grps <- finalrows %>% 
+
+      sus_grps <- temp_summary_sustained %>%
+        select(grp) %>%
+        pull
+
+      non_sus_grps <- finalrows %>%
         filter(!grp %in% sus_grps)
+
       
       runchart <- runchart  + ggplot2::geom_segment(
         data = finalrows,
@@ -647,7 +845,7 @@ build_facet <-
         linetype = 2,
         size = 1.05
       )
-      
+
       runchart <- runchart  + ggplot2::geom_line(
         data = non_sus_grps,
         aes(x = date,
@@ -657,9 +855,9 @@ build_facet <-
         linetype = 2,
         size = 1.05
       )
-      
-      
-      
+
+
+
       results <-
         list(
           runchart = runchart,
@@ -667,13 +865,13 @@ build_facet <-
           sustained = sustained,
           StartBaseline = StartBaseline
         )
-      
-      
+
+
       if (sp) {
         ggsave(filename)
       }
-      
-      
+
+
       return(results)
     }
   }
