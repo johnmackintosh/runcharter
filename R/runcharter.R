@@ -1,37 +1,37 @@
-utils::globalVariables(
-  c(
-    "Baseline",
-    "cusum_hi",
-    "cusum_lo",
-    "Date",
-    "EndDate",
-    "StartBaseline",
-    "baseline",
-    "chart_title",
-    "df",
-    "date_format",
-    "enddate",
-    "EndDate",
-    "grp",
-    "flag",
-    "runlength",
-    "improve",
-    "lastdate",
-    "median",
-    "med_rows",
-    "median_rows",
-    "out_group",
-    "runend",
-    "runcharts",
-    "runchart",
-    "rungroup",
-    "runlength",
-    "startdate",
-    "sustained",
-    "tmpdata",
-    "y"
-  )
-)
+#utils::globalVariables(
+#  c(
+#    "Baseline",
+#    "cusum_hi",
+#    "cusum_lo",
+#    "Date",
+#    "EndDate",
+#    "StartBaseline",
+#    "baseline",
+#    "chart_title",
+#    "df",
+#    "date_format",
+#    "enddate",
+#    "EndDate",
+#    "grp",
+#    "flag",
+#    "runlength",
+#    "improve",
+#    "lastdate",
+#    "median",
+#    "med_rows",
+#    "median_rows",
+#    "out_group",
+#    "runend",
+#    "runcharts",
+#    "runchart",
+#    "rungroup",
+#    "runlength",
+#    "startdate",
+#    "sustained",
+#    "tmpdata",
+#    "y"
+#  )
+#)
 
 #' Create run chart with highlighted improvements where applicable
 #'
@@ -230,7 +230,6 @@ runcharter <-
     }
 
     sustained_processing <- function(sustained) {
-
       sustained <- sustained %>%
         dplyr::arrange(date) %>%
         dplyr::mutate(rungroup = cumsum_with_reset_group(abs(flag), 
