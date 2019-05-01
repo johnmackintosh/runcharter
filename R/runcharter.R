@@ -93,8 +93,8 @@ runcharter <-
           shape = 21 ,
           colour = runchart_line_colour,
           fill = runchart_line_colour,
-          size = 2.5
-        ) +
+          size = 2.5) +
+
         ggplot2::theme_minimal(base_size = 10) +
         theme(axis.text.y = element_text(angle = 0)) +
         theme(axis.text.x = element_text(angle = 90)) +
@@ -110,8 +110,7 @@ runcharter <-
           aes(x = date, y = baseline, group = 1),
           colour = median_baseline_colour,
           size = 1.05,
-          linetype = 1
-        )
+          linetype = 1)
 
       if (draw_start_baseline) {
         runchart <-
@@ -120,8 +119,7 @@ runcharter <-
             aes(x = date, y = StartBaseline, group = 1),
             colour = median_baseline_colour,
             size = 1.05,
-            linetype = 2
-          )
+            linetype = 2)
       }
 
       return(runchart)
@@ -143,18 +141,16 @@ runcharter <-
       runchart <- baseplot(df, chart_title, chart_subtitle,
                             draw_start_baseline = FALSE,...)
 
-      runchart <-
-        runchart + ggplot2::geom_point(
+      runchart <- runchart +
+        ggplot2::geom_point(
           data = susdf,
           aes(x = date, y = y, group = rungroup),
           shape = 21,
           colour = runchart_line_colour,
           fill = runchart_rebasing_dots_colour ,
-          size = 2.7
-        )
+          size = 2.7) +
 
-      runchart <-
-        runchart + ggplot2::geom_segment(
+        ggplot2::geom_segment(
           data = summary_sustained,
           aes(x = startdate,
               xend = enddate,
@@ -163,22 +159,18 @@ runcharter <-
               group = rungroup),
           colour = median_baseline_colour,
           linetype = 1,
-          size = 1.05
-        )
+          size = 1.05) +
 
-      runchart <- runchart +  ggplot2::geom_segment(
-        data = summary_sustained,
-        aes(
-          x = enddate,
-          xend = runend,
-          y = improve,
-          yend = improve,
-          group = rungroup
-        ),
-        colour = median_baseline_colour,
-        linetype = 2,
-        size = 1.05
-      )
+        ggplot2::geom_segment(
+          data = summary_sustained,
+          aes(x = enddate,
+              xend = runend,
+              y = improve,
+              yend = improve,
+              group = rungroup),
+          colour = median_baseline_colour,
+          linetype = 2,
+          size = 1.05)
 
       remaining <- dplyr::anti_join(df,sustained, 
                                     by = c("grp", "y", "date"))
@@ -190,22 +182,18 @@ runcharter <-
       finalrows <- dplyr::left_join(remaining, temp_summary_sustained,
                                     by = "grp")
 
-      runchart <- runchart  + ggplot2::geom_segment(
-        data = finalrows,
-        aes(x = min(finalrows$date),
+      runchart <- runchart +
+        ggplot2::geom_segment(data = finalrows,
+          aes(x = min(finalrows$date),
             xend = startdate,
             y = StartBaseline,
             yend = StartBaseline,
             group = grp),
-        colour = median_baseline_colour,
-        linetype = 2,
-        size = 1.05
-      )
-
-      runchart <-
-        runchart + ggplot2::ggtitle(label = chart_title, 
-                                    subtitle = chart_subtitle)
-      return(runchart)
+          colour = median_baseline_colour,
+          linetype = 2,
+          size = 1.05) +
+        ggplot2::ggtitle(label = chart_title, 
+                         subtitle = chart_subtitle)
     }
 
     sustained_processing <- function(sustained) {
