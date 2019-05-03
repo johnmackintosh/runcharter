@@ -1,0 +1,21 @@
+utils::globalVariables(
+  c(
+    "baseline",
+    "cusum_hi",
+    "cusum_lo",
+    "data",
+    "enddate",
+    "flag",
+    "grp",
+    "improve",
+    "lastdate",
+    "out_group",
+    "runcharts",
+    "runend",
+    "rungroup",
+    "StartBaseline",
+    "startdate",
+    "working_df",
+    "y"
+  )
+)
