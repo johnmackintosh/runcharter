@@ -12,7 +12,7 @@ build_facet <-
     df[["grp"]] <-  as.character(df[["grp"]])
     
     keep_df <- df %>% dplyr::group_by(grp) %>% dplyr::count()
-    keep_df <- keep_df %>% dplyr::filter(.data[["n"]] > (mr + rl))
+    keep_df <- keep_df %>% dplyr::filter(n > (mr + rl))
     keep_df <- keep_df %>% dplyr::pull(grp)
     
     working_df <- df %>% dplyr::filter(grp %in% keep_df)
@@ -74,10 +74,10 @@ build_facet <-
         size = 2.5
       ) +
       ggplot2::theme_minimal(base_size = 10) +
-      ggplot2::theme(axis.text.y = element_text(angle = 0)) +
-      ggplot2::theme(axis.text.x = element_text(angle = 90)) +
-      ggplot2::theme(panel.grid.minor = element_blank(),
-                     panel.grid.major = element_blank()) +
+      ggplot2::theme(axis.text.y = ggplot2::element_text(angle = 0)) +
+      ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90)) +
+      ggplot2::theme(panel.grid.minor = ggplot2::element_blank(),
+                     panel.grid.major = ggplot2::element_blank()) +
       ggplot2::labs(x = "", y = "") +
       ggplot2::theme(legend.position = "bottom")
     
@@ -158,10 +158,10 @@ build_facet <-
           size = 2.5
         ) +
         ggplot2::theme_minimal(base_size = 10) +
-        ggplot2::theme(axis.text.y = element_text(angle = 0)) +
-        ggplot2::theme(axis.text.x = element_text(angle = 90)) +
-        ggplot2::theme(panel.grid.minor = element_blank(),
-                       panel.grid.major = element_blank()) +
+        ggplot2::theme(axis.text.y = ggplot2::element_text(angle = 0)) +
+        ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90)) +
+        ggplot2::theme(panel.grid.minor = ggplot2::element_blank(),
+                       panel.grid.major = ggplot2::element_blank()) +
         ggplot2::labs(x = "", y = "") +
         ggplot2::theme(legend.position = "bottom")
       

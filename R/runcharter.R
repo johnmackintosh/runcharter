@@ -19,7 +19,7 @@
 #'
 #' @return run chart(s) and a dataframe showing sustained run data if appropriate
 #'
-#' @import ggplot2
+#' 
 #' @importFrom utils head
 #' @importFrom stats median
 #' @export
