@@ -131,6 +131,10 @@ Truth is, sometimes, there is too much information being collected, or the task 
 Ultimately, I built this for me, to make my job easier. 
 I believe other healthcare analysts, who work with QI data, will also find it beneficial.
 
+Obviously, there is no guarantee that any run that is identified is a genuine improvement. The user needs to verify this, however, the package aims to save time in identifying these signals in the first place. 
+
+You can use the package to identify *potential* runs, and  if necessary, modify the outputs (e.g. the sustained dataframe) to remove any false signals, and rebuild the plot manually. 
+
 
 ## I don't like the default chart colours or axis limits
 
