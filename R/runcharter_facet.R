@@ -27,7 +27,7 @@ runcharter_facet <-
     keep <- keep %>% dplyr::pull(grp)
     
     working_df <- df %>% dplyr::filter(grp %in% keep)
->>>>>>> d523ccf5c3ee96f5bb124f65b925a51d8296b476
+
     
     enddate <- getenddate(working_df,x = "date",
                           y = med_rows)
@@ -211,4 +211,5 @@ runcharter_facet <-
     }
     
   }
+
 
