@@ -11,22 +11,24 @@ runcharter_facet <-
            plot_extension = "png",
            ...) {
     
-    df <- df %>% arrange(date) %>%
+    df <- df %>% dplyr::arrange(date) %>%
       dplyr::select(grp,y,date)
     
-    keep <- df %>% group_by(grp) %>% dplyr::count()
-    keep <- keep %>% filter(n > (med_rows + runlength))
-    keep <- keep %>% pull(grp)
+    keep <- df %>% dplyr::group_by(grp) %>% dplyr::count()
+    keep <- keep %>% dplyr::filter(n > (med_rows + runlength))
+    keep <- keep %>% dplyr::pull(grp)
     
-    working_df <- df %>% filter(grp %in% keep)
+    working_df <- df %>% dplyr::filter(grp %in% keep)
     
     enddate <- getenddate(working_df,x = "date",
                           y = med_rows)
     
-    median_rows <- head(working_df, med_rows)
-    median_rows[["baseline"]] <- median(median_rows[["y"]], na.rm = TRUE)
+    median_rows <- utils::head(working_df, med_rows)
+    median_rows[["baseline"]] <- stats::median(median_rows[["y"]], 
+                                               na.rm = TRUE)
     
-    Baseline <- median(head(working_df[["y"]],med_rows),na.rm = TRUE)
+    Baseline <- stats::median(utils::head(working_df[["y"]],med_rows),
+                              na.rm = TRUE)
     StartBaseline <- Baseline
     
     flag_reset <- ifelse(direction == "below",
@@ -199,4 +201,3 @@ runcharter_facet <-
     }
     
   }
-
