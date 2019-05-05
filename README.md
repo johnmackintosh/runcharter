@@ -66,11 +66,14 @@ runcharter function arguments
 -   df : a three column dataframe with columns named 'grp', 'date' and 'y' as specified above
 -   med\_rows : How many rows / data points should the initial baseline median be calculated over?
 -   runlength : How long a run of consecutive points do you want to find, before you rebase the median? The median will be rebased using all useful observations (points on the median are not useful, and are ignored).
+-   line\_colr : Colour for run chart lines
+-   point\_colr : Colour for run chart points
+-   median\_colr : Colour for solid and extended median lines
+-   sus\_fill : Fill colour to highlight points in a sustained run
 -   chart\_title : The main title for the chart
 -   chart\_subtitle : A subtitle for the chart
 -   direction : "above" or "below" the median, or "both". Use "both" if you want to rebase the run chart any time a run of the desired length occurs, even if it is on the "wrong" side of the median line.
--   faceted : defaults to TRUE. Set to FALSE if you only need to plot a single run chart. This will ensure the chart plots correctly
--   facet\_cols : the number of columns in a faceted plot - only required if faceted is set to TRUE, otherwise ignored
+-   facet\_cols : the number of columns in the final faceted plot
 -   save\_plot : Calls ggsave if TRUE, saving in the current working directory
 -   plot\_extension : one of "png", "pdf" or other valid extension for saving ggplot2 plots. Used in the call to ggsave.
 
@@ -96,25 +99,8 @@ runcharter(med_rows = 13,
 runlength = 9,
 chart_title = "Analysis of runs below median",
 chart_subtitle = "Ward X",
-direction = "below",
-faceted = FALSE)
-#> all sustained runs found, not enough rows remaining for analysis
+direction = "below")
 #> $runchart
-#> 
-#> $sustained
-#> # A tibble: 9 x 10
-#>   grp       y date        flag rungroup cusum improve startdate  enddate   
-#>   <chr> <int> <date>     <dbl>    <dbl> <dbl>   <int> <date>     <date>    
-#> 1 WardX     7 2016-12-01    -1        1    -1       6 2016-12-01 2017-08-01
-#> 2 WardX     5 2017-01-01    -1        1    -2       6 2016-12-01 2017-08-01
-#> 3 WardX     4 2017-02-01    -1        1    -3       6 2016-12-01 2017-08-01
-#> 4 WardX    10 2017-03-01    -1        1    -4       6 2016-12-01 2017-08-01
-#> 5 WardX     4 2017-04-01    -1        1    -5       6 2016-12-01 2017-08-01
-#> 6 WardX     9 2017-05-01    -1        1    -6       6 2016-12-01 2017-08-01
-#> 7 WardX     4 2017-06-01    -1        1    -7       6 2016-12-01 2017-08-01
-#> 8 WardX     8 2017-07-01    -1        1    -8       6 2016-12-01 2017-08-01
-#> 9 WardX     6 2017-08-01    -1        1    -9       6 2016-12-01 2017-08-01
-#> # ... with 1 more variable: lastdate <date>
 #> 
 #> $median_rows
 #> # A tibble: 13 x 4
@@ -133,6 +119,28 @@ faceted = FALSE)
 #> 11 WardX     2 2014-11-01       11
 #> 12 WardX     8 2014-12-01       11
 #> 13 WardX     9 2015-01-01       11
+#> 
+#> $sustained
+#>     grp  y       date flag rungroup cusum improve  startdate    enddate
+#> 1 WardX  7 2016-12-01   -1        1    -1       6 2016-12-01 2017-08-01
+#> 2 WardX  5 2017-01-01   -1        1    -2       6 2016-12-01 2017-08-01
+#> 3 WardX  4 2017-02-01   -1        1    -3       6 2016-12-01 2017-08-01
+#> 4 WardX 10 2017-03-01   -1        1    -4       6 2016-12-01 2017-08-01
+#> 5 WardX  4 2017-04-01   -1        1    -5       6 2016-12-01 2017-08-01
+#> 6 WardX  9 2017-05-01   -1        1    -6       6 2016-12-01 2017-08-01
+#> 7 WardX  4 2017-06-01   -1        1    -7       6 2016-12-01 2017-08-01
+#> 8 WardX  8 2017-07-01   -1        1    -8       6 2016-12-01 2017-08-01
+#> 9 WardX  6 2017-08-01   -1        1    -9       6 2016-12-01 2017-08-01
+#>     lastdate
+#> 1 2017-08-01
+#> 2 2017-08-01
+#> 3 2017-08-01
+#> 4 2017-08-01
+#> 5 2017-08-01
+#> 6 2017-08-01
+#> 7 2017-08-01
+#> 8 2017-08-01
+#> 9 2017-08-01
 #> 
 #> $StartBaseline
 #> [1] 11

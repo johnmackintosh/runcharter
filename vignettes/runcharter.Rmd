@@ -39,11 +39,14 @@ A default run of 9 is specified as that is the length of run used by the IHI for
 library(runcharter)
 runcharter(df = signals,
           med_rows = 13,
-          runlength = 9, 
+          runlength = 9,
+          line_colr = "#005EB8",
+          point_colr ="#005EB8",
+          median_colr = "#E87722",
+          sus_fill = "#DB1884",
           chart_title = NULL,
           chart_subtitle = NULL, 
           direction = "below",
-          faceted = TRUE,
           facet_cols = NULL,
           save_plot = FALSE,
           plot_extension = "png")
@@ -95,7 +98,6 @@ signals %>%
   runcharter(med_rows = 6, 
              runlength = 6,
              direction = "both",
-             faceted =  FALSE,
              chart_title = "Runs in both directions",
              chart_subtitle = "Runs of 6, from median calculated over first 6 rows")
 
@@ -136,11 +138,10 @@ Obviously, there is no guarantee that any run that is identified is a genuine im
 You can use the package to identify *potential* runs, and  if necessary, modify the outputs (e.g. the sustained dataframe) to remove any false signals, and rebuild the plot manually. 
 
 
-## I don't like the default chart colours or axis limits
+## I don't like the final plot
 
-This will be editable in the future. 
-In the meantime, use the package to do the analysis, take the outputs, and build your own plots.
-Or save the output to a variable, retrieve the runchart component, and pass further ggplot2 syntax to amend the limits, labels etc.
+You can use the package to do the analysis, take the outputs, and build your own plots.
+Or save the output to a variable, retrieve the runchart component, and pass further ggplot2 syntax to amend the colours, limits, labels etc.
 
 
 

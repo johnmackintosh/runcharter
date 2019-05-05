@@ -19,8 +19,7 @@ Imports:
     utils,
     tidyr,
     purrr,
-    magrittr,
-    tibble
+    magrittr
 Exports: runcharter
 Suggests: 
     knitr,

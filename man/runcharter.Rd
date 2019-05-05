@@ -4,9 +4,11 @@
 \alias{runcharter}
 \title{Create run chart with highlighted improvements where applicable}
 \usage{
-runcharter(df, med_rows = 13, runlength = 9, chart_title = NULL,
-  chart_subtitle = NULL, direction = "below", faceted = TRUE,
-  facet_cols = NULL, save_plot = FALSE, plot_extension = "png", ...)
+runcharter(df, med_rows = 13, runlength = 9, line_colr = "#005EB8",
+  point_colr = "#005EB8", median_colr = "#E87722",
+  sus_fill = "#DB1884", chart_title = NULL, chart_subtitle = NULL,
+  direction = "below", facet_cols = NULL, save_plot = FALSE,
+  plot_extension = "png", ...)
 }
 \arguments{
 \item{df}{dataframe containing columns "date", "y", "grp"}
@@ -15,13 +17,19 @@ runcharter(df, med_rows = 13, runlength = 9, chart_title = NULL,
 
 \item{runlength}{how long a run of consecutive points should be before re-basing the median}
 
+\item{line_colr}{colour for runchart lines}
+
+\item{point_colr}{colour for runchart points}
+
+\item{median_colr}{colour for solid and extended median lines}
+
+\item{sus_fill}{fill value for highlighting points in a sustained run}
+
 \item{chart_title}{title for the  final chart}
 
 \item{chart_subtitle}{subtitle for chart}
 
 \item{direction}{look for runs "below" or "above" the median, or "both"}
-
-\item{faceted}{if you  dont need a faceted / trellis display set this to FALSE}
 
 \item{facet_cols}{the number of columns required for a faceted plot. Ignored if faceted is set to FALSE}
 
@@ -42,8 +50,8 @@ It will also return a dataframe showing the improvment data
 \donttest{
 runcharter(signals, med_rows = 13, runlength = 9,
 chart_title = "Automated runs analysis",
-direction = "above", faceted = TRUE,
-facet_cols = 2, save_plot = TRUE, plot_extension = "png")
+direction = "above",facet_cols = 2,
+save_plot = TRUE, plot_extension = "png")
 }
 
 

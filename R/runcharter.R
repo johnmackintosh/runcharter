@@ -8,10 +8,13 @@
 #' @param df  dataframe containing columns "date", "y", "grp"
 #' @param med_rows   number of rows to base the initial median calculation over
 #' @param runlength how long a run of consecutive points should be before re-basing the median
+#' @param line_colr colour for runchart lines
+#' @param point_colr colour for runchart points
+#' @param median_colr colour for solid and extended median lines
+#' @param sus_fill fill value for highlighting points in a sustained run
 #' @param chart_title title for the  final chart
 #' @param chart_subtitle subtitle for chart
 #' @param direction look for runs "below" or "above" the median, or "both"
-#' @param faceted if you  dont need a faceted / trellis display set this to FALSE
 #' @param facet_cols the number of columns required for a faceted plot. Ignored if faceted is set to FALSE
 #' @param save_plot should the plot be saved?  Calls ggsave on the last plot, saving in the current directory, if TRUE.
 #' @param plot_extension one of "png","pdf" or other valid extension for saving ggplot2 plots. Used in the call to ggsave.
@@ -19,7 +22,7 @@
 #'
 #' @return run chart(s) and a dataframe showing sustained run data if appropriate
 #'
-#' 
+#'
 #' @importFrom utils head
 #' @importFrom stats median
 #' @export
@@ -28,8 +31,8 @@
 #'\donttest{
 #'runcharter(signals, med_rows = 13, runlength = 9,
 #'chart_title = "Automated runs analysis",
-#'direction = "above", faceted = TRUE,
-#'facet_cols = 2, save_plot = TRUE, plot_extension = "png")
+#'direction = "above",facet_cols = 2,
+#'save_plot = TRUE, plot_extension = "png")
 #'}
 #'
 #'
@@ -38,24 +41,310 @@ runcharter <-
   function(df,
            med_rows = 13,
            runlength = 9,
+           line_colr = "#005EB8",
+           point_colr ="#005EB8",
+           median_colr = "#E87722",
+           sus_fill = "#DB1884",
            chart_title = NULL,
            chart_subtitle = NULL,
            direction = "below",
-           faceted = TRUE,
            facet_cols = NULL,
            save_plot = FALSE,
            plot_extension = "png",
            ...) {
     
-      build_facet(df,
-        mr = med_rows,
-        rl = runlength,
-        ct = chart_title,
-        cs = chart_subtitle,
-        direct = direction,
-        faceted = TRUE,
-        n_facets = facet_cols,
-        sp = save_plot,
-        pe = plot_extension
+    df[["grp"]] <-  as.character(df[["grp"]])
+    
+    keep_df <- df %>% dplyr::group_by(grp) %>% dplyr::count()
+    keep_df <- keep_df %>% dplyr::filter(n > (med_rows + runlength))
+    keep_df <- keep_df %>% dplyr::pull(grp)
+    
+    working_df <- df %>% dplyr::filter(grp %in% keep_df)
+    
+    by_grp <- working_df %>%
+      dplyr::mutate(out_group = grp) %>%
+      dplyr::group_by(out_group) %>%
+      tidyr::nest()
+    
+    
+    by_grp2 <- by_grp %>%
+      dplyr::mutate(
+        runcharts = purrr::map(
+          data,
+          runcharter_facet,
+          med_rows,
+          runlength,
+          chart_title,
+          chart_subtitle,
+          direction,
+          facet_cols,
+          save_plot,
+          plot_extension
+        )
       )
+    
+    
+    results <-
+      by_grp2 %>% tidyr::unnest(out_group, .preserve = runcharts)
+    
+    median_rows <-
+      dplyr::bind_rows(purrr::modify_depth(by_grp2[["runcharts"]], 
+                                           1, "median_rows"))
+    sustained <-
+      dplyr::bind_rows(purrr::modify_depth(by_grp2[["runcharts"]], 1,
+                                        .f = ~ as.data.frame(.["sustained"])))
+    StartBaseline <-
+      unlist(purrr::modify_depth(by_grp2[["runcharts"]], 1, "StartBaseline"))
+    grp <- as.character(results[["out_group"]])
+    temp <- data.frame(grp, StartBaseline)
+    temp[["grp"]] <- as.character(temp[["grp"]])
+    
+    plot_data <- dplyr::bind_rows(results[["data"]])
+    plot_data[["grp"]] <- as.character(plot_data[["grp"]])
+    plot_data <- dplyr::left_join(plot_data, temp, by = "grp")
+    
+    
+    filename <- paste0("facet_plot", ".", plot_extension)
+    
+    # base plot - lines and points
+    
+    runchart <- ggplot2::ggplot(plot_data, ggplot2::aes(date, y, group = 1)) +
+      ggplot2::geom_line(colour = line_colr, size = 1.1)  +
+      ggplot2::geom_point(
+        shape = 21 ,
+        colour = point_colr,
+        fill = point_colr,
+        size = 2.5
+      ) +
+      ggplot2::theme_minimal(base_size = 10) +
+      ggplot2::theme(axis.text.y = ggplot2::element_text(angle = 0)) +
+      ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90)) +
+      ggplot2::theme(panel.grid.minor = ggplot2::element_blank(),
+                     panel.grid.major = ggplot2::element_blank()) +
+      ggplot2::labs(x = "", y = "") +
+      ggplot2::theme(legend.position = "bottom")
+    
+    # add solid initial median line
+    runchart <- runchart + 
+      ggplot2::geom_line(
+        data = median_rows,
+        ggplot2::aes(x = date, y = baseline, group = grp),
+        colour = median_colr,
+        size = 1.05,
+        linetype = 1
+      )
+    
+    # extended median line
+    runchart <-
+      runchart + ggplot2::geom_line(
+        data = plot_data,
+        ggplot2::aes(x = date, y = StartBaseline,
+                     group = grp),
+        colour = median_colr,
+        size = 1.05,
+        linetype = 2
+      )
+    
+    
+    # if there are no sustained runs, plot now
+    
+    if (dim(sustained)[1] == 0) {
+      runchart <- runchart + ggplot2::ggtitle(label = chart_title, 
+                                              subtitle = chart_subtitle)
+      
+      runchart <-
+        runchart + ggplot2::facet_wrap(ggplot2::vars(grp), ncol = facet_cols)
+      results <-
+        list(
+          runchart = runchart,
+          median_rows = median_rows,
+          StartBaseline = StartBaseline
+        )
+      
+      if (save_plot) {
+        ggplot2::ggsave(filename)
+      }
+      
+      return(results)
+    } else {
+      
+      colnames(sustained) <-
+        c(
+          'grp',
+          'y',
+          'date',
+          'flag',
+          'rungroup',
+          'cusum',
+          'improve',
+          'startdate',
+          'enddate',
+          'lastdate'
+        )
+      
+      # summarise sustained dataframe for plotting
+      summary_sustained <- sustained %>%
+        dplyr::group_by(grp,rungroup, improve,startdate,enddate,lastdate) %>%
+        dplyr::summarise() %>%
+        dplyr::ungroup() %>%
+        dplyr::group_by(grp) %>%
+        dplyr::mutate(runend = dplyr::lead(enddate)) %>%
+        dplyr::ungroup() %>%
+        dplyr::mutate(runend = dplyr::case_when
+                      (!is.na(runend) ~ runend,
+                        TRUE ~ max(plot_data$date)))
+      
+      
+      # base plot
+      runchart <- ggplot2::ggplot(plot_data, ggplot2::aes(date, y, group = 1)) +
+        ggplot2::geom_line(colour = line_colr, size = 1.1)  +
+        ggplot2::geom_point(
+          shape = 21 ,
+          colour = point_colr,
+          fill = point_colr,
+          size = 2.5
+        ) +
+        ggplot2::theme_minimal(base_size = 10) +
+        ggplot2::theme(axis.text.y = ggplot2::element_text(angle = 0)) +
+        ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90)) +
+        ggplot2::theme(panel.grid.minor = ggplot2::element_blank(),
+                       panel.grid.major = ggplot2::element_blank()) +
+        ggplot2::labs(x = "", y = "") +
+        ggplot2::theme(legend.position = "bottom")
+      
+       # solid original median line
+      
+      runchart <-
+        runchart + ggplot2::geom_line(
+          data = median_rows,
+          ggplot2::aes(x = date, y = baseline, group = grp),
+          colour = median_colr,
+          size = 1.05,
+          linetype = 1
+        )
+      
+      
+      # highlight sustained points
+      
+      runchart <-
+        runchart + ggplot2::geom_point(
+          data = sustained,
+          ggplot2::aes(x = date, y = y, group = rungroup),
+          shape = 21,
+          colour = point_colr,
+          fill = sus_fill ,
+          size = 2.7
+        )
+      
+      
+      
+      runchart <-
+        runchart + ggplot2::ggtitle(label = chart_title, 
+                                    subtitle = chart_subtitle)
+      
+      runchart <-
+        runchart + ggplot2::facet_wrap(ggplot2::vars(grp), ncol = facet_cols)
+      
+      # sustained median lines
+      runchart <-
+        runchart + ggplot2::geom_segment(
+          data = summary_sustained,
+          na.rm = TRUE,
+          ggplot2::aes(x = startdate,
+                       xend = enddate,
+                       y = improve,
+                       yend = improve,
+                       group = rungroup),
+          colour = median_colr,
+          linetype = 1,
+          size = 1.05
+        )
+      
+      # extended baseline from last improvement to end
+      runchart <-
+        runchart +  ggplot2::geom_segment(
+          data = summary_sustained,
+          na.rm = TRUE,
+          ggplot2::aes(
+            x = enddate,
+            xend = runend,
+            y = improve,
+            yend = improve,
+            group = rungroup
+          ),
+          colour = median_colr,
+          linetype = 2,
+          size = 1.05
+        )
+      
+      remaining <- dplyr::anti_join(plot_data,sustained,
+                                    by = c("grp", "y", "date"))
+      
+      
+      remaining <- dplyr::anti_join(remaining,median_rows,
+                                    by = c("grp", "y", "date"))
+      
+      temp_summary_sustained <- summary_sustained %>%
+        dplyr::group_by(grp) %>%
+        dplyr::filter(startdate == min(startdate)) %>%
+        dplyr::select(grp,startdate) %>% 
+        dplyr::ungroup()
+      
+      finalrows <- dplyr::left_join(remaining, temp_summary_sustained,
+                                    by = "grp")
+      
+      
+      
+      sus_grps <- temp_summary_sustained %>%
+        dplyr::select(grp) %>%
+        dplyr::pull(grp)
+      
+      non_sus_grps <- finalrows %>%
+        dplyr::filter(!grp %in% sus_grps)
+      
+      
+      # extended median from first baseline to first improvement
+      runchart <- runchart  + ggplot2::geom_segment(
+        data = finalrows,
+        na.rm = TRUE,
+        ggplot2::aes(x = min(finalrows$date),
+                     xend = startdate,
+                     y = StartBaseline,
+                     yend = StartBaseline,
+                     group = grp),
+        colour = median_colr,
+        linetype = 2,
+        size = 1.05
+      )
+      
+      runchart <- runchart  + ggplot2::geom_line(
+        data = non_sus_grps,
+        ggplot2::aes(x = date,
+                     y = StartBaseline,
+                     group = grp),
+        colour = median_colr,
+        linetype = 2,
+        size = 1.05
+      )
+      
+      
+      
+      results <-
+        list(
+          runchart = runchart,
+          median_rows = median_rows,
+          sustained = sustained,
+          StartBaseline = StartBaseline
+        )
+      
+      
+      if (save_plot) {
+        ggplot2::ggsave(filename)
+      }
+      
+      
+      return(results)
+    }
+    
+    
   }
