@@ -9,6 +9,7 @@ utils::globalVariables(
     "grp",
     "improve",
     "lastdate",
+    "n",
     "out_group",
     "runcharts",
     "runend",

@@ -80,12 +80,15 @@ The function requires a simple three column dataframe, with the following column
 - df : a three column dataframe with columns named 'grp', 'date' and 'y' as specified above
 - med_rows :  How many rows / data points should the initial baseline median be calculated over? 
 - runlength : How long a run of consecutive points do you want to find, before you rebase the median? 
-The median will be rebased using all useful observations (points on the median are not useful, and are ignored). 
+The median will be rebased using all useful observations (points on the median are not useful, and are ignored).
+- line_colr : Colour for run chart lines
+- point_colr : Colour for run chart points
+- median_colr : Colour for solid and extended median lines
+- sus_fill : Fill colour to highlight points in a sustained run
 - chart_title : The main title for the chart
 - chart_subtitle : A subtitle for the chart
 - direction :  "above" or "below" the median, or "both". Use "both" if you want to rebase the run chart any time a run of the desired length occurs, even if it is on the "wrong" side of the median line. 
-- faceted : defaults to TRUE. Set to FALSE if you only need to plot a single run chart. This will ensure the chart plots correctly
-- facet_cols : the number of columns in a faceted plot -  only required if faceted is set to TRUE, otherwise ignored
+- facet_cols : the number of columns in the final faceted plot
 - save_plot : Calls ggsave if TRUE, saving in the current working directory
 - plot_extension : one of "png", "pdf" or other valid extension for saving ggplot2 plots. Used in the call to ggsave.
 
@@ -105,8 +108,7 @@ runcharter(med_rows = 13,
 runlength = 9,
 chart_title = "Analysis of runs below median",
 chart_subtitle = "Ward X",
-direction = "below",
-faceted = FALSE)
+direction = "below")
 
 ```
 
@@ -119,7 +121,7 @@ This median is then used as a reference for the remaining values, denoted by the
 Searching for runs in "both" directions is also possible. This might be more applicable for long term monitoring, rather than improvement purposes.
 
 
-If a run is identified, the points are highlighted (the purple coloured points),  and a new median is calculated using them.  The median is also  plotted and extended into the future for further run chart rules analysis, with a new set of solid and dashed horizontal lines.
+If a run is identified, the points are highlighted (the purple coloured points), and a new median is calculated using them.  The median is also  plotted and extended into the future for further run chart rules analysis, with a new set of solid and dashed horizontal lines.
 
 The analysis continues, rebasing any further runs, until no more runs are found or there are not enough data points remaining.
 

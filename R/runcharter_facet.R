@@ -5,7 +5,6 @@ runcharter_facet <-
            chart_title = NULL,
            chart_subtitle = NULL,
            direction = "below",
-           faceted = TRUE,
            facet_cols = NULL,
            save_plot = FALSE,
            plot_extension = "png",
@@ -13,12 +12,14 @@ runcharter_facet <-
     
     df <- df %>% dplyr::arrange(date) %>%
       dplyr::select(grp,y,date)
-    
-    keep <- df %>% dplyr::group_by(grp) %>% dplyr::count()
-    keep <- keep %>% dplyr::filter(n > (med_rows + runlength))
-    keep <- keep %>% dplyr::pull(grp)
-    
-    working_df <- df %>% dplyr::filter(grp %in% keep)
+
+
+    keep_df <- df %>% dplyr::group_by(grp) %>% dplyr::count()
+    keep_df <- keep_df %>% dplyr::filter(n > (med_rows + runlength))
+    keep_df <- keep_df %>% dplyr::pull(grp)
+
+    working_df <- df %>% dplyr::filter(grp %in% keep_df)
+
     
     enddate <- getenddate(working_df,x = "date",
                           y = med_rows)
@@ -98,7 +99,7 @@ runcharter_facet <-
     # return the sustained dataframe
     
     if (remaining_rows < abs(runlength)) {
-      sustained <- bind_rows(saved_sustained)
+      sustained <- dplyr::bind_rows(saved_sustained)
       sustained <- sustained_processing(sustained, flag,flag_reset)
       
       
@@ -124,7 +125,7 @@ runcharter_facet <-
         # all rows are equal to the baseline value
         
         if (dim(testdata)[1] < 1) {
-          sustained <- bind_rows(saved_sustained)
+          sustained <- dplyr::bind_rows(saved_sustained)
           sustained <- sustained_processing(sustained, flag, flag_reset)
           
           
@@ -146,7 +147,8 @@ runcharter_facet <-
         startrow <- breakrow - (abs(runlength) - 1)
         
         # if we get to this point, there is at least one sustained run
-        #if there are no more runs of the required length, print sustained chart and quit
+        #if there are no more runs of the required length, 
+        # print sustained chart and quit
         
         if (startrow < 1) {
           #need to unlist the sustained rows
@@ -179,7 +181,7 @@ runcharter_facet <-
         # print the current sustained chart
         
         if (remaining_rows < abs(runlength)) {
-          sustained <- bind_rows(saved_sustained)
+          sustained <- dplyr::bind_rows(saved_sustained)
           sustained <- sustained_processing(sustained, flag, flag_reset)
           
           results <- list(
@@ -201,3 +203,5 @@ runcharter_facet <-
     }
     
   }
+
+

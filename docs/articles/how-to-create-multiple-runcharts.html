@@ -84,7 +84,7 @@
       <h1>How to create multiple runcharts</h1>
                         <h4 class="author">John MacKintosh</h4>
             
-            <h4 class="date">2019-05-01</h4>
+            <h4 class="date">2019-05-05</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/johnmackintosh/runcharter/blob/master/vignettes/how-to-create-multiple-runcharts.Rmd"><code>vignettes/how-to-create-multiple-runcharts.Rmd</code></a></small>
       <div class="hidden name"><code>how-to-create-multiple-runcharts.Rmd</code></div>
@@ -111,17 +111,13 @@
 <span class="st">    </span><span class="kw">mutate</span>(<span class="dt">out_group =</span> grp) <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">group_by</span>(out_group) <span class="op">%&gt;%</span>
 <span class="st">    </span>tidyr<span class="op">::</span><span class="kw"><a href="https://tidyr.tidyverse.org/reference/nest.html">nest</a></span>() <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">runcharts =</span> purrr<span class="op">::</span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(data,runcharter,
+<span class="st">    </span><span class="kw">mutate</span>(<span class="dt">runcharts =</span> purrr<span class="op">::</span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(data,
+                                  runcharter,
                                   <span class="dt">med_rows =</span> <span class="dv">13</span>,
                                   <span class="dt">runlength =</span> <span class="dv">9</span>,
                                   <span class="dt">chart_title =</span> <span class="ot">NULL</span>,
                                   <span class="dt">chart_subtitle =</span> <span class="ot">NULL</span>,
-                                  <span class="dt">direction =</span> <span class="st">"below"</span>,
-                                  <span class="dt">faceted =</span> <span class="ot">FALSE</span>))
-<span class="co">#&gt; all sustained runs found, not enough rows remaining for analysis</span>
-<span class="co">#&gt; Improvements noted, not enough rows remaining for further analysis</span>
-<span class="co">#&gt; no sustained runs found</span>
-<span class="co">#&gt; no sustained runs found</span></code></pre></div>
+                                  <span class="dt">direction =</span> <span class="st">"below"</span>))</code></pre></div>
 <p>The function will print the plots, and return a nested dataframe containing:</p>
 <ul>
 <li>the dummy grouping variable you specify (out-group in the example above),<br>

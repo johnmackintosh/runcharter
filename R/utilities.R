@@ -61,7 +61,7 @@ cumsum_with_reset <- function(x, threshold) {
   group <- 1
   result <- numeric()
   
-  for (i in 1:length(x)) {
+  for (i in seq_along(x)) {
     cumsum <- cumsum + x[i]
     
     if (cumsum > threshold) {
@@ -69,7 +69,8 @@ cumsum_with_reset <- function(x, threshold) {
       cumsum <- x[i]
     }
     
-    result = c(result, cumsum)
+    #result = c(result, cumsum)
+    result <-  c(result, cumsum)
     
   }
   
@@ -82,7 +83,7 @@ cumsum_with_reset_neg <- function(x, threshold) {
   group <- 1
   result <- numeric()
   
-  for (i in 1:length(x)) {
+  for (i in seq_along(x)) {
     cumsum <- cumsum + x[i]
     
     if (cumsum < threshold) {
@@ -90,7 +91,8 @@ cumsum_with_reset_neg <- function(x, threshold) {
       cumsum <- x[i]
     }
     
-    result = c(result, cumsum)
+    #result = c(result, cumsum)
+    result <-  c(result, cumsum)
     
   }
   
@@ -102,7 +104,7 @@ cumsum_with_reset_group_neg <- function(x, threshold) {
   group <- 1
   result <- numeric()
   
-  for (i in 1:length(x)) {
+  for (i in 1:seq_along(x)) {
     cumsum <- cumsum + x[i]
     
     if (cumsum < threshold) {
@@ -110,7 +112,8 @@ cumsum_with_reset_group_neg <- function(x, threshold) {
       cumsum <- x[i]
     }
     
-    result = c(result, group)
+    #result = c(result, group)
+    result <-  c(result, group)
     
   }
   
@@ -122,7 +125,7 @@ cumsum_with_reset_group <- function(x, threshold) {
   group <- 1
   result <- numeric()
   
-  for (i in 1:length(x)) {
+  for (i in seq_along(x)) {
     cumsum <- cumsum + x[i]
     
     if (cumsum > threshold) {
@@ -130,7 +133,8 @@ cumsum_with_reset_group <- function(x, threshold) {
       cumsum <- x[i]
     }
     
-    result = c(result, group)
+    #result = c(result, group)
+    result <-  c(result, group)
     
   }
   

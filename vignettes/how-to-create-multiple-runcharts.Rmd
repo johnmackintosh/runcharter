@@ -41,13 +41,13 @@ library(dplyr,quietly = TRUE,warn.conflicts = FALSE)
     mutate(out_group = grp) %>%
     group_by(out_group) %>%
     tidyr::nest() %>% 
-    mutate(runcharts = purrr::map(data,runcharter,
+    mutate(runcharts = purrr::map(data,
+                                  runcharter,
                                   med_rows = 13,
                                   runlength = 9,
                                   chart_title = NULL,
                                   chart_subtitle = NULL,
-                                  direction = "below",
-                                  faceted = FALSE))
+                                  direction = "below"))
 ```
 
 The function will print the plots, and return a  nested  dataframe containing:
@@ -58,7 +58,6 @@ The function will print the plots, and return a  nested  dataframe containing:
  - 'StartBaseline' which is simply the original median value, used internally for plotting purposes
 
 The latter 3 items can be retrieved from the list and used to create new plots (if, for example, you would like different plot themes or colours from the package defaults), or to create a faceted plot. 
-
 
 
 
