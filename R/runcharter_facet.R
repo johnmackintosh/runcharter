@@ -15,10 +15,10 @@ runcharter_facet <-
 
 
     keep_df <- df %>% dplyr::group_by(grp) %>% dplyr::count()
-    keep_df <- keep_df %>% dplyr::filter(n > (med_rows + runlength))
-    keep_df <- keep_df %>% dplyr::pull(grp)
+    keep_grp <- keep_df %>% dplyr::filter(n > (med_rows + runlength))
+    keep_grp <- keep_grp %>% dplyr::pull(grp)
 
-    working_df <- df %>% dplyr::filter(grp %in% keep_df)
+    working_df <- df %>% dplyr::filter(grp %in% keep_grp)
 
     
     enddate <- getenddate(working_df,x = "date",
