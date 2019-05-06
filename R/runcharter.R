@@ -1,8 +1,8 @@
 
-#' Create run chart with highlighted improvements where applicable
+#' Create run chart with highlighted improvements where applicable.
 #'
 #'This will plot the original dataframe, with highlighted runs of improvement.
-#'It will also return a dataframe showing the improvment data
+#'It will also return a dataframe showing the improvement data.
 #'
 #'
 #' @param df  dataframe containing columns "date", "y", "grp"
