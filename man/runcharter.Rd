@@ -2,7 +2,7 @@
 % Please edit documentation in R/runcharter.R
 \name{runcharter}
 \alias{runcharter}
-\title{Create run chart with highlighted improvements where applicable}
+\title{Create run chart with highlighted improvements where applicable.}
 \usage{
 runcharter(df, med_rows = 13, runlength = 9, line_colr = "#005EB8",
   point_colr = "#005EB8", median_colr = "#E87722",
@@ -44,7 +44,7 @@ run chart(s) and a dataframe showing sustained run data if appropriate
 }
 \description{
 This will plot the original dataframe, with highlighted runs of improvement.
-It will also return a dataframe showing the improvment data
+It will also return a dataframe showing the improvement data.
 }
 \examples{
 \donttest{
