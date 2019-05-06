@@ -2,8 +2,8 @@
 
 export("%>%")
 export(RunChartMedians)
+export(geom_runchart)
 export(runcharter)
-export(stat_runchart_medians)
 import(dplyr)
 import(ggplot2)
 importFrom(magrittr,"%>%")

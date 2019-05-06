@@ -25,7 +25,6 @@ RunChartMedians <-
                 x = data$x[first_point],
                 y = new_median,
                 xend = data$x[last_point],
-                yend = new_median,
                 last_point = last_point)
             }
             
@@ -37,7 +36,7 @@ RunChartMedians <-
             # the last median using proj_point as a pointer.
             proj_point <- df_medians$last_point[df_medians_last]
             
-            while(proj_point <= (length(data$y) - run_length)) {
+            while (proj_point <= (length(data$y) - run_length)) {
 
               # If the next point if NA or equals the median,
               # extend the run
@@ -55,8 +54,8 @@ RunChartMedians <-
                 # Then check the whole run of medians between the
                 # next point and the run length - is the minimum still
                 # above our median?
-                if (min(data$y[proj_point:
-                              (proj_point + run_length - 1)]) > 
+                if (min(data$y[
+                  proj_point:(proj_point + run_length - 1)]) > 
                   df_medians$y[df_medians_last]) {
                     # If so, reset the median
                     df_medians <- rbind(df_medians,
@@ -78,8 +77,8 @@ RunChartMedians <-
                 # Then check the whole run of medians between the
                 # next point and the run length - is the maximum still
                 # below our median?
-                if (max(data$y[(proj_point):
-                               (proj_point + run_length)]) < 
+                if (max(data$y[
+                  (proj_point):(proj_point + run_length)]) < 
                     df_medians$y[df_medians_last]) {
                   # If so, reset the median
                   df_medians <- rbind(df_medians,
@@ -94,10 +93,41 @@ RunChartMedians <-
               }
               proj_point <- proj_point + 1
             }
+            
             return(df_medians)
           },
 
           required_aes = c("x", "y")
+)
+
+GeomChartMedians <- ggproto("GeomChartMedians", Geom,
+  required_aes = c("x", "y"),
+  default_aes = aes(colour = "blue"),
+
+  draw_panel = function(data, panel_params, coord) {
+    browser()
+    coords <- coord$transform(data, panel_params)
+    proj_coords <- coords
+    proj_coords$x <- c(coords$xend[-length(coords$xend)], NA)
+    proj_coords$xend <- c(coords$x[-1], NA)
+    proj_coords <- proj_coords[-length(proj_coords$x), ]
+    
+    grid::gList(
+      grid::segmentsGrob(x0 = coords$x,
+                         y0 = coords$y,
+                         x1 = coords$xend,
+                         y1 = coords$y,
+                         gp = grid::gpar(col = coords$colour,
+                                         lty = 1)),
+      
+      grid::segmentsGrob(x0 = proj_coords$xend,
+                         y0 = proj_coords$y,
+                         x1 = proj_coords$x,
+                         y1 = proj_coords$y,
+                         gp = grid::gpar(col = proj_coords$colour,
+                                         lty = 2))
+    )
+  }
 )
 
 #' @export
@@ -106,17 +136,23 @@ RunChartMedians <-
 #' median.
 #' @param run_length Number of points above or below a median before a
 #' new baseline needs to be calculated.
-stat_runchart_medians <- function(mapping = NULL, data = NULL, geom = "polygon",
-                       position = "identity", na.rm = FALSE,
-                       show.legend = NA, 
-                       inherit.aes = TRUE,
-                       median_rows = 13,
-                       run_length = 9, ...) {
-  layer(
-    stat = RunChartMedians, data = data, mapping = mapping, geom = geom, 
-    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(median_rows = median_rows,
-                  run_length = run_length,
-                  na.rm = na.rm, ...)
+geom_runchart <- function(mapping = NULL,
+                          data = NULL,
+                          position = "identity",
+                          na.rm = FALSE,
+                          show.legend = NA, 
+                          inherit.aes = TRUE,
+                          median_rows = 13,
+                          run_length = 9, ...) {
+  layer(stat = RunChartMedians,
+        geom = GeomChartMedians,
+        data = data,
+        mapping = mapping,
+        position = position,
+        show.legend = show.legend,
+        inherit.aes = inherit.aes,
+        params = list(median_rows = median_rows,
+                      run_length = run_length,
+                      na.rm = na.rm, ...)
   )
 }
