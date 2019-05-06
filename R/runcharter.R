@@ -87,32 +87,14 @@ runcharter <-
     results <-
       by_grp2 %>% tidyr::unnest(out_group, .preserve = runcharts)
     
-    # median_rows <-
-    #   dplyr::bind_rows(purrr::modify_depth(by_grp2[["runcharts"]], 
-    #                                        1, "median_rows"))
-    
-    median_rows <- 
-      dplyr::bind_rows(unlist(lapply(results$runcharts,
-                                                  `[`, "median_rows"), 
-                                                           recursive = FALSE))
-    
-    # sustained <-
-    #   dplyr::bind_rows(purrr::modify_depth(by_grp2[["runcharts"]], 1,
-    #                                     .f = ~ as.data.frame(.["sustained"])))
-    
-    sustained <- 
-      dplyr::bind_rows(unlist(lapply(results$runcharts,
-                                     `[`, "sustained"), 
-                                             recursive = FALSE))
-    
+    median_rows <-
+      dplyr::bind_rows(purrr::modify_depth(by_grp2[["runcharts"]], 
+                                           1, "median_rows"))
+    sustained <-
+      dplyr::bind_rows(purrr::modify_depth(by_grp2[["runcharts"]], 1,
+                                        .f = ~ as.data.frame(.["sustained"])))
     StartBaseline <-
       unlist(purrr::modify_depth(by_grp2[["runcharts"]], 1, "StartBaseline"))
-    
-    # StartBaseline <-
-    # unlist(lapply(results$runcharts,
-    #                                  `[`, "StartBaseline"), 
-    #                                               recursive = TRUE)
-    
     grp <- as.character(results[["out_group"]])
     temp <- data.frame(grp, StartBaseline)
     temp[["grp"]] <- as.character(temp[["grp"]])
@@ -186,19 +168,19 @@ runcharter <-
       return(results)
     } else {
       
-      # colnames(sustained) <-
-      #   c(
-      #     'grp',
-      #     'y',
-      #     'date',
-      #     'flag',
-      #     'rungroup',
-      #     'cusum',
-      #     'improve',
-      #     'startdate',
-      #     'enddate',
-      #     'lastdate'
-      #   )
+      colnames(sustained) <-
+        c(
+          'grp',
+          'y',
+          'date',
+          'flag',
+          'rungroup',
+          'cusum',
+          'improve',
+          'startdate',
+          'enddate',
+          'lastdate'
+        )
       
       # summarise sustained dataframe for plotting
       summary_sustained <- sustained %>%
@@ -345,8 +327,7 @@ runcharter <-
         size = 1.05
       )
       
-      sustained <- sustained %>%
-        dplyr::select(-flag, -cusum)
+      
       
       results <-
         list(
