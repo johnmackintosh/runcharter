@@ -290,19 +290,29 @@ runcharter <-
       df <- df %>% dplyr::arrange(date)
       df[["grp"]] <-  as.character(df[["grp"]])
 
+      # Find the number of observations in each group.
+      # Only keep those who are longer than our runlength + median rows (default 20)
+      # Drop the length and keep just the group names
       keep <- df %>% group_by(grp) %>% dplyr::count()
       keep <- keep %>% filter(n >= (med_rows + runlength))
       keep <- keep %>% pull(grp)
 
+      # working_df is a dataframe of only the groups with enough
+      # observations
       working_df <- df %>% filter(grp %in% keep)
 
+      # Set enddate to be the date of the 13th row (the first date beyond our first median line)
       enddate <- working_df[["date"]][med_rows]
 
+      # Make a new dataframe, median_rows, containing only the first 13 rows.
       median_rows <- head(working_df, med_rows)
+      # Create a new column, 'baseline', which contains the median 
       median_rows[["baseline"]] <- median(median_rows[["y"]])
 
+      # Calculate the median of the 'y' column in the median_rows dataframe
       Baseline <- median(head(working_df[["y"]], med_rows))
 
+      # Duplicate this value as 'StartBaseline'
       StartBaseline <- Baseline
 
       flag_reset <-
