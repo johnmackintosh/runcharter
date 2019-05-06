@@ -3,6 +3,7 @@ utils::globalVariables(
     "baseline",
     "cusum_hi",
     "cusum_lo",
+    "cusum",
     "data",
     "enddate",
     "flag",
