@@ -137,16 +137,17 @@ devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumen
 <li>df : a three column dataframe with columns named ‘grp’, ‘date’ and ‘y’ as specified above</li>
 <li>med_rows : How many rows / data points should the initial baseline median be calculated over?</li>
 <li>runlength : How long a run of consecutive points do you want to find, before you rebase the median? The median will be rebased using all useful observations (points on the median are not useful, and are ignored).</li>
+<li>direction : “above” or “below” the median, or “both”. Use “both” if you want to rebase the run chart any time a run of the desired length occurs, even if it is on the “wrong” side of the median line.</li>
+<li>facet_cols : the number of columns in the final faceted plot</li>
+<li>chart_title : The main title for the chart</li>
+<li>chart_subtitle : A subtitle for the chart</li>
+<li>save_plot : Calls ggsave if TRUE, saving in the current working directory</li>
+<li>plot_extension : one of “png”, “pdf” or other valid extension for saving ggplot2 plots. Used in the call to ggsave.</li>
 <li>line_colr : Colour for run chart lines</li>
 <li>point_colr : Colour for run chart points</li>
 <li>median_colr : Colour for solid and extended median lines</li>
 <li>sus_fill : Fill colour to highlight points in a sustained run</li>
-<li>chart_title : The main title for the chart</li>
-<li>chart_subtitle : A subtitle for the chart</li>
-<li>direction : “above” or “below” the median, or “both”. Use “both” if you want to rebase the run chart any time a run of the desired length occurs, even if it is on the “wrong” side of the median line.</li>
-<li>facet_cols : the number of columns in the final faceted plot</li>
-<li>save_plot : Calls ggsave if TRUE, saving in the current working directory</li>
-<li>plot_extension : one of “png”, “pdf” or other valid extension for saving ggplot2 plots. Used in the call to ggsave.</li>
+<li>… : further arguments passed on to function</li>
 </ul>
 </div>
 <div id="example-plot" class="section level2">
@@ -174,39 +175,16 @@ dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse
 <span class="co">#&gt; $runchart</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $median_rows</span>
-<span class="co">#&gt; # A tibble: 13 x 4</span>
-<span class="co">#&gt;    grp       y date       baseline</span>
-<span class="co">#&gt;    &lt;chr&gt; &lt;int&gt; &lt;date&gt;        &lt;int&gt;</span>
-<span class="co">#&gt;  1 WardX     9 2014-01-01       11</span>
-<span class="co">#&gt;  2 WardX    22 2014-02-01       11</span>
-<span class="co">#&gt;  3 WardX    19 2014-03-01       11</span>
-<span class="co">#&gt;  4 WardX    18 2014-04-01       11</span>
-<span class="co">#&gt;  5 WardX     8 2014-05-01       11</span>
-<span class="co">#&gt;  6 WardX     7 2014-06-01       11</span>
-<span class="co">#&gt;  7 WardX    11 2014-07-01       11</span>
-<span class="co">#&gt;  8 WardX    11 2014-08-01       11</span>
-<span class="co">#&gt;  9 WardX    11 2014-09-01       11</span>
-<span class="co">#&gt; 10 WardX    12 2014-10-01       11</span>
-<span class="co">#&gt; 11 WardX     2 2014-11-01       11</span>
-<span class="co">#&gt; 12 WardX     8 2014-12-01       11</span>
-<span class="co">#&gt; 13 WardX     9 2015-01-01       11</span>
+<span class="co">#&gt; # A tibble: 1 x 4</span>
+<span class="co">#&gt;   grp   startdate  enddate    StartBaseline</span>
+<span class="co">#&gt;   &lt;chr&gt; &lt;date&gt;     &lt;date&gt;             &lt;int&gt;</span>
+<span class="co">#&gt; 1 WardX 2014-01-01 2015-01-01            11</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $sustained</span>
-<span class="co">#&gt; # A tibble: 9 x 8</span>
-<span class="co">#&gt;   grp       y date       rungroup improve startdate  enddate    lastdate  </span>
-<span class="co">#&gt;   &lt;chr&gt; &lt;int&gt; &lt;date&gt;        &lt;dbl&gt;   &lt;int&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    </span>
-<span class="co">#&gt; 1 WardX     7 2016-12-01        1       6 2016-12-01 2017-08-01 2017-08-01</span>
-<span class="co">#&gt; 2 WardX     5 2017-01-01        1       6 2016-12-01 2017-08-01 2017-08-01</span>
-<span class="co">#&gt; 3 WardX     4 2017-02-01        1       6 2016-12-01 2017-08-01 2017-08-01</span>
-<span class="co">#&gt; 4 WardX    10 2017-03-01        1       6 2016-12-01 2017-08-01 2017-08-01</span>
-<span class="co">#&gt; 5 WardX     4 2017-04-01        1       6 2016-12-01 2017-08-01 2017-08-01</span>
-<span class="co">#&gt; 6 WardX     9 2017-05-01        1       6 2016-12-01 2017-08-01 2017-08-01</span>
-<span class="co">#&gt; 7 WardX     4 2017-06-01        1       6 2016-12-01 2017-08-01 2017-08-01</span>
-<span class="co">#&gt; 8 WardX     8 2017-07-01        1       6 2016-12-01 2017-08-01 2017-08-01</span>
-<span class="co">#&gt; 9 WardX     6 2017-08-01        1       6 2016-12-01 2017-08-01 2017-08-01</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $StartBaseline</span>
-<span class="co">#&gt; [1] 11</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 1 x 5</span>
+<span class="co">#&gt;   grp   improve startdate  enddate    runend    </span>
+<span class="co">#&gt;   &lt;chr&gt;   &lt;int&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    </span>
+<span class="co">#&gt; 1 WardX       6 2016-12-01 2017-08-01 2018-07-01</span></code></pre></div>
 <div class="figure">
 <img src="reference/figures/unnamed-chunk-2-1.png" alt="One plot, one run below the median" width="700"><p class="caption">
 One plot, one run below the median
@@ -235,46 +213,20 @@ One plot, one run below the median
 <p><img src="reference/figures/unnamed-chunk-3-1.png" width="768"></p>
 <pre><code>#&gt; 
 #&gt; $median_rows
-#&gt; # A tibble: 52 x 4
-#&gt;    grp       y date       baseline
-#&gt;    &lt;chr&gt; &lt;int&gt; &lt;date&gt;        &lt;int&gt;
-#&gt;  1 WardX     9 2014-01-01       11
-#&gt;  2 WardX    22 2014-02-01       11
-#&gt;  3 WardX    19 2014-03-01       11
-#&gt;  4 WardX    18 2014-04-01       11
-#&gt;  5 WardX     8 2014-05-01       11
-#&gt;  6 WardX     7 2014-06-01       11
-#&gt;  7 WardX    11 2014-07-01       11
-#&gt;  8 WardX    11 2014-08-01       11
-#&gt;  9 WardX    11 2014-09-01       11
-#&gt; 10 WardX    12 2014-10-01       11
-#&gt; # ... with 42 more rows
+#&gt; # A tibble: 4 x 4
+#&gt;   grp   startdate  enddate    StartBaseline
+#&gt;   &lt;chr&gt; &lt;date&gt;     &lt;date&gt;             &lt;int&gt;
+#&gt; 1 WardV 2014-01-01 2015-01-01             7
+#&gt; 2 WardX 2014-01-01 2015-01-01            11
+#&gt; 3 WardY 2014-01-01 2015-01-01            13
+#&gt; 4 WardZ 2014-01-01 2015-01-01             4
 #&gt; 
 #&gt; $sustained
-#&gt; # A tibble: 18 x 8
-#&gt;    grp       y date       rungroup improve startdate  enddate    lastdate  
-#&gt;    &lt;chr&gt; &lt;int&gt; &lt;date&gt;        &lt;dbl&gt;   &lt;int&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
-#&gt;  1 WardX     7 2016-12-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt;  2 WardX     5 2017-01-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt;  3 WardX     4 2017-02-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt;  4 WardX    10 2017-03-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt;  5 WardX     4 2017-04-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt;  6 WardX     9 2017-05-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt;  7 WardX     4 2017-06-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt;  8 WardX     8 2017-07-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt;  9 WardX     6 2017-08-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt; 10 WardY     7 2017-10-01        1       8 2017-10-01 2018-06-01 2018-06-01
-#&gt; 11 WardY     3 2017-11-01        1       8 2017-10-01 2018-06-01 2018-06-01
-#&gt; 12 WardY     8 2017-12-01        1       8 2017-10-01 2018-06-01 2018-06-01
-#&gt; 13 WardY    11 2018-01-01        1       8 2017-10-01 2018-06-01 2018-06-01
-#&gt; 14 WardY     7 2018-02-01        1       8 2017-10-01 2018-06-01 2018-06-01
-#&gt; 15 WardY     9 2018-03-01        1       8 2017-10-01 2018-06-01 2018-06-01
-#&gt; 16 WardY     8 2018-04-01        1       8 2017-10-01 2018-06-01 2018-06-01
-#&gt; 17 WardY     8 2018-05-01        1       8 2017-10-01 2018-06-01 2018-06-01
-#&gt; 18 WardY     7 2018-06-01        1       8 2017-10-01 2018-06-01 2018-06-01
-#&gt; 
-#&gt; $StartBaseline
-#&gt; [1] 11 13  4  7</code></pre>
+#&gt; # A tibble: 2 x 5
+#&gt;   grp   improve startdate  enddate    runend    
+#&gt;   &lt;chr&gt;   &lt;int&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
+#&gt; 1 WardX       6 2016-12-01 2017-08-01 2018-07-01
+#&gt; 2 WardY       8 2017-10-01 2018-06-01 2018-07-01</code></pre>
 <p>You can also look for any run, in any direction</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(runcharter)
 <span class="kw"><a href="reference/runcharter.html">runcharter</a></span>(signals, 
@@ -284,49 +236,29 @@ One plot, one run below the median
 <p><img src="reference/figures/unnamed-chunk-4-1.png" width="700"></p>
 <pre><code>#&gt; 
 #&gt; $median_rows
-#&gt; # A tibble: 52 x 4
-#&gt;    grp       y date       baseline
-#&gt;    &lt;chr&gt; &lt;int&gt; &lt;date&gt;        &lt;int&gt;
-#&gt;  1 WardX     9 2014-01-01       11
-#&gt;  2 WardX    22 2014-02-01       11
-#&gt;  3 WardX    19 2014-03-01       11
-#&gt;  4 WardX    18 2014-04-01       11
-#&gt;  5 WardX     8 2014-05-01       11
-#&gt;  6 WardX     7 2014-06-01       11
-#&gt;  7 WardX    11 2014-07-01       11
-#&gt;  8 WardX    11 2014-08-01       11
-#&gt;  9 WardX    11 2014-09-01       11
-#&gt; 10 WardX    12 2014-10-01       11
-#&gt; # ... with 42 more rows
+#&gt; # A tibble: 4 x 4
+#&gt;   grp   startdate  enddate    StartBaseline
+#&gt;   &lt;chr&gt; &lt;date&gt;     &lt;date&gt;             &lt;int&gt;
+#&gt; 1 WardV 2014-01-01 2015-01-01             7
+#&gt; 2 WardX 2014-01-01 2015-01-01            11
+#&gt; 3 WardY 2014-01-01 2015-01-01            13
+#&gt; 4 WardZ 2014-01-01 2015-01-01             4
 #&gt; 
 #&gt; $sustained
-#&gt; # A tibble: 27 x 8
-#&gt;    grp       y date       rungroup improve startdate  enddate    lastdate  
-#&gt;    &lt;chr&gt; &lt;int&gt; &lt;date&gt;        &lt;dbl&gt;   &lt;int&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
-#&gt;  1 WardX     7 2016-12-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt;  2 WardX     5 2017-01-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt;  3 WardX     4 2017-02-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt;  4 WardX    10 2017-03-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt;  5 WardX     4 2017-04-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt;  6 WardX     9 2017-05-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt;  7 WardX     4 2017-06-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt;  8 WardX     8 2017-07-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt;  9 WardX     6 2017-08-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt; 10 WardY     7 2017-10-01        1       8 2017-10-01 2018-06-01 2018-06-01
-#&gt; # ... with 17 more rows
-#&gt; 
-#&gt; $StartBaseline
-#&gt; [1] 11 13  4  7</code></pre>
+#&gt; # A tibble: 3 x 5
+#&gt;   grp   improve startdate  enddate    runend    
+#&gt;   &lt;chr&gt;   &lt;int&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
+#&gt; 1 WardX       6 2016-12-01 2017-08-01 2018-07-01
+#&gt; 2 WardY       8 2017-10-01 2018-06-01 2018-07-01
+#&gt; 3 WardZ       9 2017-06-01 2018-03-01 2018-07-01</code></pre>
 <p>Note how runs below the median are found for Wards X and Y, while a run above the median is highlighted for Ward Z.</p>
 <p>The function will print the plot, and return a list, containing:</p>
 <ul>
-<li>a ggplot2 object,<br>
+<li>the plot as a ggplot2 object,<br>
 </li>
-<li>a dataframe / tibble containing the rows of data used to calculate the baseline median</li>
-<li>if applicable, a dataframe / tibble showing the points in each sustained period of improvement.</li>
-<li>the initial baseline median value</li>
+<li>a dataframe / tibble summarising the rows of data used to calculate the baseline median</li>
+<li>if applicable, a dataframe / tibble summarising each sustained period of improvement.</li>
 </ul>
-<p>The latter 3 items can be retrieved from the list and used to create new plots (if, for example, you would like different plot themes or colours from the package defaults)</p>
 <p>Don’t try this at home - setting runlength of 6 and searching in both directions to confirm that successive runs are identified:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)
 signals <span class="op">%&gt;%</span><span class="st"> </span>
@@ -337,39 +269,31 @@ signals <span class="op">%&gt;%</span><span class="st"> </span>
 <p><img src="reference/figures/unnamed-chunk-5-1.png" width="768"></p>
 <pre><code>#&gt; 
 #&gt; $median_rows
-#&gt; # A tibble: 24 x 4
-#&gt;    grp       y date       baseline
-#&gt;    &lt;chr&gt; &lt;int&gt; &lt;date&gt;        &lt;dbl&gt;
-#&gt;  1 WardX     9 2014-01-01     13.5
-#&gt;  2 WardX    22 2014-02-01     13.5
-#&gt;  3 WardX    19 2014-03-01     13.5
-#&gt;  4 WardX    18 2014-04-01     13.5
-#&gt;  5 WardX     8 2014-05-01     13.5
-#&gt;  6 WardX     7 2014-06-01     13.5
-#&gt;  7 WardY    11 2014-01-01     13  
-#&gt;  8 WardY    18 2014-02-01     13  
-#&gt;  9 WardY     5 2014-03-01     13  
-#&gt; 10 WardY    14 2014-04-01     13  
-#&gt; # ... with 14 more rows
+#&gt; # A tibble: 4 x 4
+#&gt;   grp   startdate  enddate    StartBaseline
+#&gt;   &lt;chr&gt; &lt;date&gt;     &lt;date&gt;             &lt;dbl&gt;
+#&gt; 1 WardV 2014-01-01 2014-06-01           4  
+#&gt; 2 WardX 2014-01-01 2014-06-01          13.5
+#&gt; 3 WardY 2014-01-01 2014-06-01          13  
+#&gt; 4 WardZ 2014-01-01 2014-06-01           4.5
 #&gt; 
 #&gt; $sustained
-#&gt; # A tibble: 78 x 8
-#&gt;    grp       y date       rungroup improve startdate  enddate    lastdate  
-#&gt;    &lt;chr&gt; &lt;int&gt; &lt;date&gt;        &lt;dbl&gt;   &lt;dbl&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
-#&gt;  1 WardX    11 2014-07-01        1      11 2014-07-01 2014-12-01 2017-06-01
-#&gt;  2 WardX    11 2014-08-01        1      11 2014-07-01 2014-12-01 2017-06-01
-#&gt;  3 WardX    11 2014-09-01        1      11 2014-07-01 2014-12-01 2017-06-01
-#&gt;  4 WardX    12 2014-10-01        1      11 2014-07-01 2014-12-01 2017-06-01
-#&gt;  5 WardX     2 2014-11-01        1      11 2014-07-01 2014-12-01 2017-06-01
-#&gt;  6 WardX     8 2014-12-01        1      11 2014-07-01 2014-12-01 2017-06-01
-#&gt;  7 WardX    21 2015-07-01        2      17 2015-07-01 2015-12-01 2017-06-01
-#&gt;  8 WardX    12 2015-08-01        2      17 2015-07-01 2015-12-01 2017-06-01
-#&gt;  9 WardX    21 2015-09-01        2      17 2015-07-01 2015-12-01 2017-06-01
-#&gt; 10 WardX    12 2015-10-01        2      17 2015-07-01 2015-12-01 2017-06-01
-#&gt; # ... with 68 more rows
-#&gt; 
-#&gt; $StartBaseline
-#&gt; [1] 13.5 13.0  4.5  4.0</code></pre>
+#&gt; # A tibble: 13 x 5
+#&gt;    grp   improve startdate  enddate    runend    
+#&gt;    &lt;chr&gt;   &lt;dbl&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
+#&gt;  1 WardV    15   2015-01-01 2015-06-01 2016-03-01
+#&gt;  2 WardV     9   2015-10-01 2016-03-01 2018-07-01
+#&gt;  3 WardX    11   2014-07-01 2014-12-01 2015-12-01
+#&gt;  4 WardX    17   2015-07-01 2015-12-01 2016-06-01
+#&gt;  5 WardX     6.5 2016-01-01 2016-06-01 2016-12-01
+#&gt;  6 WardX    11   2016-07-01 2016-12-01 2017-06-01
+#&gt;  7 WardX     4.5 2017-01-01 2017-06-01 2018-07-01
+#&gt;  8 WardY    19   2014-12-01 2015-05-01 2015-11-01
+#&gt;  9 WardY    13   2015-06-01 2015-11-01 2018-03-01
+#&gt; 10 WardY     7.5 2017-10-01 2018-03-01 2018-07-01
+#&gt; 11 WardZ     8   2015-01-01 2015-06-01 2016-05-01
+#&gt; 12 WardZ     4   2015-12-01 2016-05-01 2017-12-01
+#&gt; 13 WardZ     9   2017-06-01 2017-12-01 2018-07-01</code></pre>
 </div>
 </div>
   </div>

@@ -51,7 +51,7 @@ It will also return a dataframe showing the improvement data.
 runcharter(signals, med_rows = 13, runlength = 9,
 chart_title = "Automated runs analysis",
 direction = "above",facet_cols = 2,
-save_plot = TRUE, plot_extension = "png")
+save_plot = FALSE, plot_extension = "png")
 }
 
 

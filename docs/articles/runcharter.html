@@ -84,7 +84,7 @@
       <h1>runcharter</h1>
                         <h4 class="author">John MacKintosh</h4>
             
-            <h4 class="date">2019-05-07</h4>
+            <h4 class="date">2019-05-15</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/johnmackintosh/runcharter/blob/master/vignettes/runcharter.Rmd"><code>vignettes/runcharter.Rmd</code></a></small>
       <div class="hidden name"><code>runcharter.Rmd</code></div>
@@ -127,46 +127,20 @@
 <p><img src="runcharter_files/figure-html/unnamed-chunk-2-1.png" width="576"></p>
 <pre><code>#&gt; 
 #&gt; $median_rows
-#&gt; # A tibble: 52 x 4
-#&gt;    grp       y date       baseline
-#&gt;    &lt;chr&gt; &lt;int&gt; &lt;date&gt;        &lt;int&gt;
-#&gt;  1 WardX     9 2014-01-01       11
-#&gt;  2 WardX    22 2014-02-01       11
-#&gt;  3 WardX    19 2014-03-01       11
-#&gt;  4 WardX    18 2014-04-01       11
-#&gt;  5 WardX     8 2014-05-01       11
-#&gt;  6 WardX     7 2014-06-01       11
-#&gt;  7 WardX    11 2014-07-01       11
-#&gt;  8 WardX    11 2014-08-01       11
-#&gt;  9 WardX    11 2014-09-01       11
-#&gt; 10 WardX    12 2014-10-01       11
-#&gt; # ... with 42 more rows
+#&gt; # A tibble: 4 x 4
+#&gt;   grp   startdate  enddate    StartBaseline
+#&gt;   &lt;chr&gt; &lt;date&gt;     &lt;date&gt;             &lt;int&gt;
+#&gt; 1 WardV 2014-01-01 2015-01-01             7
+#&gt; 2 WardX 2014-01-01 2015-01-01            11
+#&gt; 3 WardY 2014-01-01 2015-01-01            13
+#&gt; 4 WardZ 2014-01-01 2015-01-01             4
 #&gt; 
 #&gt; $sustained
-#&gt; # A tibble: 18 x 8
-#&gt;    grp       y date       rungroup improve startdate  enddate    lastdate  
-#&gt;    &lt;chr&gt; &lt;int&gt; &lt;date&gt;        &lt;dbl&gt;   &lt;int&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
-#&gt;  1 WardX     7 2016-12-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt;  2 WardX     5 2017-01-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt;  3 WardX     4 2017-02-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt;  4 WardX    10 2017-03-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt;  5 WardX     4 2017-04-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt;  6 WardX     9 2017-05-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt;  7 WardX     4 2017-06-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt;  8 WardX     8 2017-07-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt;  9 WardX     6 2017-08-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt; 10 WardY     7 2017-10-01        1       8 2017-10-01 2018-06-01 2018-06-01
-#&gt; 11 WardY     3 2017-11-01        1       8 2017-10-01 2018-06-01 2018-06-01
-#&gt; 12 WardY     8 2017-12-01        1       8 2017-10-01 2018-06-01 2018-06-01
-#&gt; 13 WardY    11 2018-01-01        1       8 2017-10-01 2018-06-01 2018-06-01
-#&gt; 14 WardY     7 2018-02-01        1       8 2017-10-01 2018-06-01 2018-06-01
-#&gt; 15 WardY     9 2018-03-01        1       8 2017-10-01 2018-06-01 2018-06-01
-#&gt; 16 WardY     8 2018-04-01        1       8 2017-10-01 2018-06-01 2018-06-01
-#&gt; 17 WardY     8 2018-05-01        1       8 2017-10-01 2018-06-01 2018-06-01
-#&gt; 18 WardY     7 2018-06-01        1       8 2017-10-01 2018-06-01 2018-06-01
-#&gt; 
-#&gt; $StartBaseline
-#&gt; [1] 11 13  4  7</code></pre>
+#&gt; # A tibble: 2 x 5
+#&gt;   grp   improve startdate  enddate    runend    
+#&gt;   &lt;chr&gt;   &lt;int&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
+#&gt; 1 WardX       6 2016-12-01 2017-08-01 2018-07-01
+#&gt; 2 WardY       8 2017-10-01 2018-06-01 2018-07-01</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(runcharter)
 
@@ -179,46 +153,20 @@
 <p><img src="runcharter_files/figure-html/unnamed-chunk-3-1.png" width="576"></p>
 <pre><code>#&gt; 
 #&gt; $median_rows
-#&gt; # A tibble: 52 x 4
-#&gt;    grp       y date       baseline
-#&gt;    &lt;chr&gt; &lt;int&gt; &lt;date&gt;        &lt;int&gt;
-#&gt;  1 WardX     9 2014-01-01       11
-#&gt;  2 WardX    22 2014-02-01       11
-#&gt;  3 WardX    19 2014-03-01       11
-#&gt;  4 WardX    18 2014-04-01       11
-#&gt;  5 WardX     8 2014-05-01       11
-#&gt;  6 WardX     7 2014-06-01       11
-#&gt;  7 WardX    11 2014-07-01       11
-#&gt;  8 WardX    11 2014-08-01       11
-#&gt;  9 WardX    11 2014-09-01       11
-#&gt; 10 WardX    12 2014-10-01       11
-#&gt; # ... with 42 more rows
+#&gt; # A tibble: 4 x 4
+#&gt;   grp   startdate  enddate    StartBaseline
+#&gt;   &lt;chr&gt; &lt;date&gt;     &lt;date&gt;             &lt;int&gt;
+#&gt; 1 WardV 2014-01-01 2015-01-01             7
+#&gt; 2 WardX 2014-01-01 2015-01-01            11
+#&gt; 3 WardY 2014-01-01 2015-01-01            13
+#&gt; 4 WardZ 2014-01-01 2015-01-01             4
 #&gt; 
 #&gt; $sustained
-#&gt; # A tibble: 18 x 8
-#&gt;    grp       y date       rungroup improve startdate  enddate    lastdate  
-#&gt;    &lt;chr&gt; &lt;int&gt; &lt;date&gt;        &lt;dbl&gt;   &lt;int&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
-#&gt;  1 WardX     7 2016-12-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt;  2 WardX     5 2017-01-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt;  3 WardX     4 2017-02-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt;  4 WardX    10 2017-03-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt;  5 WardX     4 2017-04-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt;  6 WardX     9 2017-05-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt;  7 WardX     4 2017-06-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt;  8 WardX     8 2017-07-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt;  9 WardX     6 2017-08-01        1       6 2016-12-01 2017-08-01 2017-08-01
-#&gt; 10 WardY     7 2017-10-01        1       8 2017-10-01 2018-06-01 2018-06-01
-#&gt; 11 WardY     3 2017-11-01        1       8 2017-10-01 2018-06-01 2018-06-01
-#&gt; 12 WardY     8 2017-12-01        1       8 2017-10-01 2018-06-01 2018-06-01
-#&gt; 13 WardY    11 2018-01-01        1       8 2017-10-01 2018-06-01 2018-06-01
-#&gt; 14 WardY     7 2018-02-01        1       8 2017-10-01 2018-06-01 2018-06-01
-#&gt; 15 WardY     9 2018-03-01        1       8 2017-10-01 2018-06-01 2018-06-01
-#&gt; 16 WardY     8 2018-04-01        1       8 2017-10-01 2018-06-01 2018-06-01
-#&gt; 17 WardY     8 2018-05-01        1       8 2017-10-01 2018-06-01 2018-06-01
-#&gt; 18 WardY     7 2018-06-01        1       8 2017-10-01 2018-06-01 2018-06-01
-#&gt; 
-#&gt; $StartBaseline
-#&gt; [1] 11 13  4  7</code></pre>
+#&gt; # A tibble: 2 x 5
+#&gt;   grp   improve startdate  enddate    runend    
+#&gt;   &lt;chr&gt;   &lt;int&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
+#&gt; 1 WardX       6 2016-12-01 2017-08-01 2018-07-01
+#&gt; 2 WardY       8 2017-10-01 2018-06-01 2018-07-01</code></pre>
 </div>
 <div id="runs-in-both-directions" class="section level2">
 <h2 class="hasAnchor">
@@ -246,34 +194,20 @@ signals <span class="op">%&gt;%</span><span class="st"> </span>
 <p><img src="runcharter_files/figure-html/unnamed-chunk-4-1.png" width="576"></p>
 <pre><code>#&gt; 
 #&gt; $median_rows
-#&gt; # A tibble: 6 x 4
-#&gt;   grp       y date       baseline
-#&gt;   &lt;chr&gt; &lt;int&gt; &lt;date&gt;        &lt;dbl&gt;
-#&gt; 1 WardX     9 2014-01-01     13.5
-#&gt; 2 WardX    22 2014-02-01     13.5
-#&gt; 3 WardX    19 2014-03-01     13.5
-#&gt; 4 WardX    18 2014-04-01     13.5
-#&gt; 5 WardX     8 2014-05-01     13.5
-#&gt; 6 WardX     7 2014-06-01     13.5
+#&gt; # A tibble: 1 x 4
+#&gt;   grp   startdate  enddate    StartBaseline
+#&gt;   &lt;chr&gt; &lt;date&gt;     &lt;date&gt;             &lt;dbl&gt;
+#&gt; 1 WardX 2014-01-01 2014-06-01          13.5
 #&gt; 
 #&gt; $sustained
-#&gt; # A tibble: 30 x 8
-#&gt;    grp       y date       rungroup improve startdate  enddate    lastdate  
-#&gt;    &lt;chr&gt; &lt;int&gt; &lt;date&gt;        &lt;dbl&gt;   &lt;dbl&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
-#&gt;  1 WardX    11 2014-07-01        1      11 2014-07-01 2014-12-01 2017-06-01
-#&gt;  2 WardX    11 2014-08-01        1      11 2014-07-01 2014-12-01 2017-06-01
-#&gt;  3 WardX    11 2014-09-01        1      11 2014-07-01 2014-12-01 2017-06-01
-#&gt;  4 WardX    12 2014-10-01        1      11 2014-07-01 2014-12-01 2017-06-01
-#&gt;  5 WardX     2 2014-11-01        1      11 2014-07-01 2014-12-01 2017-06-01
-#&gt;  6 WardX     8 2014-12-01        1      11 2014-07-01 2014-12-01 2017-06-01
-#&gt;  7 WardX    21 2015-07-01        2      17 2015-07-01 2015-12-01 2017-06-01
-#&gt;  8 WardX    12 2015-08-01        2      17 2015-07-01 2015-12-01 2017-06-01
-#&gt;  9 WardX    21 2015-09-01        2      17 2015-07-01 2015-12-01 2017-06-01
-#&gt; 10 WardX    12 2015-10-01        2      17 2015-07-01 2015-12-01 2017-06-01
-#&gt; # ... with 20 more rows
-#&gt; 
-#&gt; $StartBaseline
-#&gt; [1] 13.5</code></pre>
+#&gt; # A tibble: 5 x 5
+#&gt;   grp   improve startdate  enddate    runend    
+#&gt;   &lt;chr&gt;   &lt;dbl&gt; &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    
+#&gt; 1 WardX    11   2014-07-01 2014-12-01 2015-12-01
+#&gt; 2 WardX    17   2015-07-01 2015-12-01 2016-06-01
+#&gt; 3 WardX     6.5 2016-01-01 2016-06-01 2016-12-01
+#&gt; 4 WardX    11   2016-07-01 2016-12-01 2017-06-01
+#&gt; 5 WardX     4.5 2017-01-01 2017-06-01 2018-07-01</code></pre>
 </div>
 <div id="design-decisions" class="section level2">
 <h2 class="hasAnchor">

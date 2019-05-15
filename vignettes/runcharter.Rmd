@@ -40,16 +40,16 @@ library(runcharter)
 runcharter(df = signals,
           med_rows = 13,
           runlength = 9,
-          line_colr = "#005EB8",
-          point_colr ="#005EB8",
-          median_colr = "#E87722",
-          sus_fill = "#DB1884",
-          chart_title = NULL,
-          chart_subtitle = NULL, 
           direction = "below",
           facet_cols = NULL,
+          chart_title = NULL,
+          chart_subtitle = NULL, 
           save_plot = FALSE,
-          plot_extension = "png")
+          plot_extension = "png"
+          line_colr = "#005EB8", # blue
+          point_colr ="#005EB8", # blue
+          median_colr = "#E87722", # orange
+          sus_fill = "#DB1884") # magenta
 
 ```
 

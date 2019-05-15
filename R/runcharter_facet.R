@@ -1,5 +1,5 @@
 runcharter_facet <-
-  function(df,
+  function(working_df,
            med_rows = 13,
            runlength = 9,
            chart_title = NULL,
@@ -10,16 +10,6 @@ runcharter_facet <-
            plot_extension = "png",
            ...) {
     
-    df <- df %>% dplyr::arrange(date) %>%
-      dplyr::select(grp,y,date)
-
-
-    keep_df <- df %>% dplyr::group_by(grp) %>% dplyr::count()
-    keep_grp <- keep_df %>% dplyr::filter(n > (med_rows + runlength))
-    keep_grp <- keep_grp %>% dplyr::pull(grp)
-
-    working_df <- df %>% dplyr::filter(grp %in% keep_grp)
-
     
     enddate <- getenddate(working_df,x = "date",
                           y = med_rows)
@@ -66,9 +56,7 @@ runcharter_facet <-
     breakrow <- which.max(testdata[["cusum"]] == flag_reset)
     startrow <- breakrow - (abs(runlength) - 1)
     
-    #  if no runs at all - print the chart
-    #   return the chart object  so it can be modified by the user
-    
+    #  if no runs at all - escape
     
     if (startrow < 1) {
       results <-
@@ -79,7 +67,6 @@ runcharter_facet <-
     
     #   if  we get to this point there is at least one run
     #   save the current sustained run, and the end date for future subsetting
-    #   return the chart object  so it can be modified by the user
     #   return the sustained dataframe also
     
     
@@ -95,7 +82,6 @@ runcharter_facet <-
     remaining_rows <- dim(testdata)[1]
     
     # if not enough rows remaining, print the sustained run chart
-    # return the run chart object
     # return the sustained dataframe
     
     if (remaining_rows < abs(runlength)) {
@@ -147,8 +133,8 @@ runcharter_facet <-
         startrow <- breakrow - (abs(runlength) - 1)
         
         # if we get to this point, there is at least one sustained run
-        #if there are no more runs of the required length, 
-        # print sustained chart and quit
+        # if there are no more runs of the required length , quit
+        
         
         if (startrow < 1) {
           #need to unlist the sustained rows
@@ -178,7 +164,7 @@ runcharter_facet <-
         }
         
         # if not enough rows remaining now,  no need to analyse further
-        # print the current sustained chart
+        # so get out
         
         if (remaining_rows < abs(runlength)) {
           sustained <- dplyr::bind_rows(saved_sustained)
@@ -203,5 +189,4 @@ runcharter_facet <-
     }
     
   }
-
 

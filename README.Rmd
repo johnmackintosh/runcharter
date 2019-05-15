@@ -81,19 +81,17 @@ The function requires a simple three column dataframe, with the following column
 - med_rows :  How many rows / data points should the initial baseline median be calculated over? 
 - runlength : How long a run of consecutive points do you want to find, before you rebase the median? 
 The median will be rebased using all useful observations (points on the median are not useful, and are ignored).
+- direction :  "above" or "below" the median, or "both". Use "both" if you want to rebase the run chart any time a run of the desired length occurs, even if it is on the "wrong" side of the median line. 
+- facet_cols : the number of columns in the final faceted plot
+- chart_title : The main title for the chart
+- chart_subtitle : A subtitle for the chart
+- save_plot : Calls ggsave if TRUE, saving in the current working directory
+- plot_extension : one of "png", "pdf" or other valid extension for saving ggplot2 plots. Used in the call to ggsave.
 - line_colr : Colour for run chart lines
 - point_colr : Colour for run chart points
 - median_colr : Colour for solid and extended median lines
 - sus_fill : Fill colour to highlight points in a sustained run
-- chart_title : The main title for the chart
-- chart_subtitle : A subtitle for the chart
-- direction :  "above" or "below" the median, or "both". Use "both" if you want to rebase the run chart any time a run of the desired length occurs, even if it is on the "wrong" side of the median line. 
-- facet_cols : the number of columns in the final faceted plot
-- save_plot : Calls ggsave if TRUE, saving in the current working directory
-- plot_extension : one of "png", "pdf" or other valid extension for saving ggplot2 plots. Used in the call to ggsave.
-
-
-
+- ... : further arguments passed on to function
 
 
 ## example plot
@@ -155,12 +153,10 @@ Note how runs below the median are found for Wards X and Y, while a run above th
  
  The function will print the plot, and return a list, containing:
 
-- a ggplot2 object,  
-- a dataframe / tibble containing the rows of data used to calculate the baseline median
-- if applicable, a  dataframe / tibble  showing the points in each sustained period of improvement.
-- the initial baseline median value
+- the plot as a ggplot2 object,  
+- a dataframe / tibble summarising the rows of data used to calculate the baseline median
+- if applicable, a  dataframe / tibble summarising each sustained period of improvement.
 
-The latter 3 items can be retrieved from the list and used to create new plots (if, for example, you would like different plot themes or colours from the package defaults)
 
 Don't try this at home - setting runlength of 6 and searching in both directions to confirm that successive runs are identified:
 
