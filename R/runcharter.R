@@ -8,16 +8,16 @@
 #' @param df  dataframe containing columns "date", "y", "grp"
 #' @param med_rows   number of rows to base the initial median calculation over
 #' @param runlength how long a run of consecutive points should be before re-basing the median
+#' @param direction look for runs "below" or "above" the median, or "both"
+#' @param facet_cols the number of columns required for a faceted plot. Ignored if faceted is set to FALSE
+#' @param chart_title title for the  final chart
+#' @param chart_subtitle subtitle for chart
+#' @param save_plot should the plot be saved?  Calls ggsave on the last plot, saving in the current directory, if TRUE.
+#' @param plot_extension one of "png","pdf" or other valid extension for saving ggplot2 plots. Used in the call to ggsave.
 #' @param line_colr colour for runchart lines
 #' @param point_colr colour for runchart points
 #' @param median_colr colour for solid and extended median lines
 #' @param sus_fill fill value for highlighting points in a sustained run
-#' @param chart_title title for the  final chart
-#' @param chart_subtitle subtitle for chart
-#' @param direction look for runs "below" or "above" the median, or "both"
-#' @param facet_cols the number of columns required for a faceted plot. Ignored if faceted is set to FALSE
-#' @param save_plot should the plot be saved?  Calls ggsave on the last plot, saving in the current directory, if TRUE.
-#' @param plot_extension one of "png","pdf" or other valid extension for saving ggplot2 plots. Used in the call to ggsave.
 #' @param ... further arguments passed on to function
 #'
 #' @return run chart(s) and a dataframe showing sustained run data if appropriate
@@ -32,7 +32,7 @@
 #'runcharter(signals, med_rows = 13, runlength = 9,
 #'chart_title = "Automated runs analysis",
 #'direction = "above",facet_cols = 2,
-#'save_plot = TRUE, plot_extension = "png")
+#'save_plot = FALSE, plot_extension = "png")
 #'}
 #'
 #'
@@ -92,26 +92,26 @@ runcharter <-
     #                                        1, "median_rows"))
     
     median_rows <- 
-      dplyr::bind_rows(unlist(lapply(results$runcharts,
-                                                  `[`, "median_rows"), 
-                                                           recursive = FALSE))
+      dplyr::bind_rows(unlist(lapply(results[["runcharts"]],
+                                     `[`, "median_rows"), 
+                              recursive = FALSE))
     
     # sustained <-
     #   dplyr::bind_rows(purrr::modify_depth(by_grp2[["runcharts"]], 1,
     #                                     .f = ~ as.data.frame(.["sustained"])))
     
     sustained <- 
-      dplyr::bind_rows(unlist(lapply(results$runcharts,
+      dplyr::bind_rows(unlist(lapply(results[["runcharts"]],
                                      `[`, "sustained"), 
-                                             recursive = FALSE))
-    
-    StartBaseline <-
-      unlist(purrr::modify_depth(by_grp2[["runcharts"]], 1, "StartBaseline"))
+                              recursive = FALSE))
     
     # StartBaseline <-
-    # unlist(lapply(results$runcharts,
-    #                                  `[`, "StartBaseline"), 
-    #                                               recursive = TRUE)
+    #   unlist(purrr::modify_depth(by_grp2[["runcharts"]], 1, "StartBaseline"))
+    
+    StartBaseline <-
+      unlist(lapply(results[["runcharts"]],
+                    `[[`, "StartBaseline"),
+             recursive = TRUE)
     
     grp <- as.character(results[["out_group"]])
     temp <- data.frame(grp, StartBaseline)
@@ -186,20 +186,6 @@ runcharter <-
       return(results)
     } else {
       
-      # colnames(sustained) <-
-      #   c(
-      #     'grp',
-      #     'y',
-      #     'date',
-      #     'flag',
-      #     'rungroup',
-      #     'cusum',
-      #     'improve',
-      #     'startdate',
-      #     'enddate',
-      #     'lastdate'
-      #   )
-      
       # summarise sustained dataframe for plotting
       summary_sustained <- sustained %>%
         dplyr::group_by(grp,rungroup, improve,startdate,enddate,lastdate) %>%
@@ -230,7 +216,7 @@ runcharter <-
         ggplot2::labs(x = "", y = "") +
         ggplot2::theme(legend.position = "bottom")
       
-       # solid original median line
+      # solid original median line
       
       runchart <-
         runchart + ggplot2::geom_line(
@@ -345,15 +331,23 @@ runcharter <-
         size = 1.05
       )
       
-      sustained <- sustained %>%
-        dplyr::select(-flag, -cusum)
+      
+      
+      median_rows <- median_rows %>% 
+        dplyr::group_by(grp) %>% 
+        dplyr::summarise(startdate = min(date), 
+                         enddate = max(date), 
+                         StartBaseline = median(y)) %>% 
+        dplyr::ungroup()
+      
+      sustained <- summary_sustained %>%
+        dplyr::select(-rungroup, -lastdate)
       
       results <-
         list(
           runchart = runchart,
           median_rows = median_rows,
-          sustained = sustained,
-          StartBaseline = StartBaseline
+          sustained = sustained
         )
       
       
