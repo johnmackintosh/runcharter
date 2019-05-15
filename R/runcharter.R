@@ -41,16 +41,16 @@ runcharter <-
   function(df,
            med_rows = 13,
            runlength = 9,
+           direction = "below",
+           facet_cols = NULL,
+           chart_title = NULL,
+           chart_subtitle = NULL,
+           save_plot = FALSE,
+           plot_extension = "png",
            line_colr = "#005EB8",
            point_colr ="#005EB8",
            median_colr = "#E87722",
            sus_fill = "#DB1884",
-           chart_title = NULL,
-           chart_subtitle = NULL,
-           direction = "below",
-           facet_cols = NULL,
-           save_plot = FALSE,
-           plot_extension = "png",
            ...) {
     
     df[["grp"]] <-  as.character(df[["grp"]])

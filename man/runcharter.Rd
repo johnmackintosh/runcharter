@@ -4,11 +4,11 @@
 \alias{runcharter}
 \title{Create run chart with highlighted improvements where applicable.}
 \usage{
-runcharter(df, med_rows = 13, runlength = 9, line_colr = "#005EB8",
+runcharter(df, med_rows = 13, runlength = 9, direction = "below",
+  facet_cols = NULL, chart_title = NULL, chart_subtitle = NULL,
+  save_plot = FALSE, plot_extension = "png", line_colr = "#005EB8",
   point_colr = "#005EB8", median_colr = "#E87722",
-  sus_fill = "#DB1884", chart_title = NULL, chart_subtitle = NULL,
-  direction = "below", facet_cols = NULL, save_plot = FALSE,
-  plot_extension = "png", ...)
+  sus_fill = "#DB1884", ...)
 }
 \arguments{
 \item{df}{dataframe containing columns "date", "y", "grp"}
@@ -17,6 +17,18 @@ runcharter(df, med_rows = 13, runlength = 9, line_colr = "#005EB8",
 
 \item{runlength}{how long a run of consecutive points should be before re-basing the median}
 
+\item{direction}{look for runs "below" or "above" the median, or "both"}
+
+\item{facet_cols}{the number of columns required for a faceted plot. Ignored if faceted is set to FALSE}
+
+\item{chart_title}{title for the  final chart}
+
+\item{chart_subtitle}{subtitle for chart}
+
+\item{save_plot}{should the plot be saved?  Calls ggsave on the last plot, saving in the current directory, if TRUE.}
+
+\item{plot_extension}{one of "png","pdf" or other valid extension for saving ggplot2 plots. Used in the call to ggsave.}
+
 \item{line_colr}{colour for runchart lines}
 
 \item{point_colr}{colour for runchart points}
@@ -24,18 +36,6 @@ runcharter(df, med_rows = 13, runlength = 9, line_colr = "#005EB8",
 \item{median_colr}{colour for solid and extended median lines}
 
 \item{sus_fill}{fill value for highlighting points in a sustained run}
-
-\item{chart_title}{title for the  final chart}
-
-\item{chart_subtitle}{subtitle for chart}
-
-\item{direction}{look for runs "below" or "above" the median, or "both"}
-
-\item{facet_cols}{the number of columns required for a faceted plot. Ignored if faceted is set to FALSE}
-
-\item{save_plot}{should the plot be saved?  Calls ggsave on the last plot, saving in the current directory, if TRUE.}
-
-\item{plot_extension}{one of "png","pdf" or other valid extension for saving ggplot2 plots. Used in the call to ggsave.}
 
 \item{...}{further arguments passed on to function}
 }
