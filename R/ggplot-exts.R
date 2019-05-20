@@ -1,14 +1,19 @@
 # Take in a dataframe containing our x and y values.
 
 #' @export
-RunChartMedians <-
-  ggproto("RunChartMedians",
+StatAutoBaselinedRunChartMedians <-
+  ggproto("StatAutoBaselinedRunChartMedians",
           Stat,
           compute_group = function(data,
                                    scales,
                                    median_rows = 13,
                                    run_length = 9) {
-
+            
+            # This stat will add the baseline and xend parameters
+            data$baseline <- NA_real_
+            data$xend <- NA_real_
+            data$baseline_mark_improved <- NA
+            
             # set_median is a subfunction to create a row of
             # median data in a dataframe for the output. It
             # calculates the median between first_point and
@@ -16,52 +21,52 @@ RunChartMedians <-
             # respectively. It also sets up xprojected and yprojected
             # as the same values as xend and yend which we then amend
             # on subsequent passes.
+            
             set_median <- function(first_point) {
               last_point <- min(first_point + median_rows,
                                 length(data$y))
-              new_median = median(data$y[first_point:last_point])
-
-              data.frame(
-                x = data$x[first_point],
-                y = new_median,
-                xend = data$x[last_point],
+              data$baseline[first_point] <-
+                median(data$y[first_point:last_point])
+              data$baseline_mark_improved[first_point:last_point] <- TRUE
+              data$xend[first_point] <- data$x[last_point]
+              return(list(
+                data = data,
+                median = data$baseline[first_point],
                 last_point = last_point)
+              )
             }
             
             # Set the first median
-            df_medians <- set_median(1)
-            df_medians_last <- 1
+            current_median <- set_median(1)
+            data <- current_median$data
 
             # Start checking the rest of the points from the end of
             # the last median using proj_point as a pointer.
-            proj_point <- df_medians$last_point[df_medians_last]
+            proj_point <- current_median[["last_point"]]
             
             while (proj_point <= (length(data$y) - run_length)) {
 
               # If the next point if NA or equals the median,
               # extend the run
               if (is.na(data$y[proj_point]) |
-                  (data$y[proj_point] == 
-                   df_medians$y[df_medians_last])) {
+                  (data$y[proj_point] == current_median[["median"]])) {
                 proj_point <- proj_point + 1
                 next
               }
               
               # If it's greater than the median (and we are looking for >) then check
-              if (data$y[proj_point] >
-                  df_medians$y[df_medians_last]) {
+              if (data$y[proj_point] > current_median[["median"]]) {
                 
                 # Then check the whole run of medians between the
                 # next point and the run length - is the minimum still
                 # above our median?
                 if (min(data$y[
                   proj_point:(proj_point + run_length - 1)]) > 
-                  df_medians$y[df_medians_last]) {
+                  current_median[["median"]]) {
                     # If so, reset the median
-                    df_medians <- rbind(df_medians,
-                      set_median(proj_point))
-                    df_medians_last <- df_medians_last + 1
-                  proj_point <- proj_point + median_rows
+                    current_median <- set_median(proj_point)
+                    data <- current_median$data
+                    proj_point <- current_median[["last_point"]]
                   next
                 }
                 
@@ -71,20 +76,18 @@ RunChartMedians <-
 
               
               # If it's less than the median (and we are looking for >) then check
-              if (data$y[proj_point] <
-                  df_medians$y[df_medians_last]) {
+              if (data$y[proj_point] < current_median[["median"]]) {
                 
                 # Then check the whole run of medians between the
                 # next point and the run length - is the maximum still
                 # below our median?
                 if (max(data$y[
                   (proj_point):(proj_point + run_length)]) < 
-                    df_medians$y[df_medians_last]) {
+                  current_median[["median"]]) {
                   # If so, reset the median
-                  df_medians <- rbind(df_medians,
-                                      set_median(proj_point))
-                  df_medians_last <- df_medians_last + 1
-                  proj_point <- proj_point + median_rows
+                  current_median <- set_median(proj_point)
+                  data <- current_median$data
+                  proj_point <- current_median[["last_point"]]
                   next
                 }
                 
@@ -94,41 +97,50 @@ RunChartMedians <-
               proj_point <- proj_point + 1
             }
             
-            return(df_medians)
+            return(data)
           },
 
           required_aes = c("x", "y")
 )
 
+
 GeomChartMedians <- ggproto("GeomChartMedians", Geom,
   required_aes = c("x", "y"),
-  default_aes = aes(colour = "blue"),
-
+  default_aes = aes(baseline_colour = "orange"),
+                            
   draw_panel = function(data, panel_params, coord) {
-    browser()
-    coords <- coord$transform(data, panel_params)
-    proj_coords <- coords
-    proj_coords$x <- c(coords$xend[-length(coords$xend)], NA)
-    proj_coords$xend <- c(coords$x[-1], NA)
-    proj_coords <- proj_coords[-length(proj_coords$x), ]
-    
-    grid::gList(
-      grid::segmentsGrob(x0 = coords$x,
-                         y0 = coords$y,
-                         x1 = coords$xend,
-                         y1 = coords$y,
-                         gp = grid::gpar(col = coords$colour,
-                                         lty = 1)),
-      
-      grid::segmentsGrob(x0 = proj_coords$xend,
-                         y0 = proj_coords$y,
-                         x1 = proj_coords$x,
-                         y1 = proj_coords$y,
-                         gp = grid::gpar(col = proj_coords$colour,
-                                         lty = 2))
-    )
-  }
+                              data <- coord$transform(data, panel_params)
+                              baseline_coords <- na.omit(data)
+                              proj_coords <- baseline_coords
+                              proj_coords$x <- c(baseline_coords$xend[-length(baseline_coords$xend)], NA)
+                              proj_coords$xend <- c(baseline_coords$x[-1], NA)
+                              proj_coords <- proj_coords[-length(proj_coords$x), ]
+                              
+                              grid::gList(
+                                grid::polylineGrob(x = data$x,
+                                                   y = data$y),
+                                grid::pointsGrob(x = data$x,
+                                                 y = data$y,
+                                                 pch = 21,
+                                                 size = grid::unit(2.5, units="points"),
+                                                 gp = grid::gpar()),
+                                grid::segmentsGrob(x0 = baseline_coords$x,
+                                                   y0 = baseline_coords$y,
+                                                   x1 = baseline_coords$xend,
+                                                   y1 = baseline_coords$y,
+                                                   gp = grid::gpar(col = baseline_coords$baseline_colour,
+                                                                   lty = 1)),
+                                
+                                grid::segmentsGrob(x0 = proj_coords$xend,
+                                                   y0 = proj_coords$y,
+                                                   x1 = proj_coords$x,
+                                                   y1 = proj_coords$y,
+                                                   gp = grid::gpar(col = proj_coords$baseline_colour,
+                                                                   lty = 2))
+                              )
+                            }
 )
+
 
 #' @export
 #' @inheritParams ggplot2::stat_identity
@@ -144,7 +156,7 @@ geom_runchart <- function(mapping = NULL,
                           inherit.aes = TRUE,
                           median_rows = 13,
                           run_length = 9, ...) {
-  layer(stat = RunChartMedians,
+  layer(stat = StatAutoBaselinedRunChartMedians,
         geom = GeomChartMedians,
         data = data,
         mapping = mapping,
