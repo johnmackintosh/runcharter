@@ -25,9 +25,13 @@ StatAutoBaselinedRunChartMedians <-
             set_median <- function(first_point) {
               last_point <- min(first_point + median_rows,
                                 length(data$y))
+              last_run_length <- min(first_point + run_length,
+                                     length(data$y))
               data$baseline[first_point] <-
                 median(data$y[first_point:last_point])
-              data$baseline_mark_improved[first_point:last_point] <- TRUE
+              if (first_point != 1) {
+                data$baseline_mark_improved[first_point:last_run_length] <- TRUE
+              }
               data$xend[first_point] <- data$x[last_point]
               return(list(
                 data = data,
@@ -110,6 +114,9 @@ GeomChartMedians <- ggproto("GeomChartMedians", Geom,
                             
   draw_panel = function(data, panel_params, coord) {
                               data <- coord$transform(data, panel_params)
+                              improved_points <- dplyr::filter(data,
+                                !is.na(baseline_mark_improved))
+                              data$baseline_mark_improved <- NULL
                               baseline_coords <- na.omit(data)
                               proj_coords <- baseline_coords
                               proj_coords$x <- c(baseline_coords$xend[-length(baseline_coords$xend)], NA)
@@ -124,6 +131,15 @@ GeomChartMedians <- ggproto("GeomChartMedians", Geom,
                                                  pch = 21,
                                                  size = grid::unit(2.5, units="points"),
                                                  gp = grid::gpar()),
+                                if (length(improved_points$x) > 0) {
+                                  grid::pointsGrob(x = improved_points$x,
+                                                   y = improved_points$y,
+                                                   pch = 21,
+                                                   size = grid::unit(2.5, units="points"),
+                                                   gp = grid::gpar(col = "red"))
+                                } else {
+                                  grid::nullGrob()
+                                },
                                 grid::segmentsGrob(x0 = baseline_coords$x,
                                                    y0 = baseline_coords$y,
                                                    x1 = baseline_coords$xend,
