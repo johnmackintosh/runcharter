@@ -1,0 +1,22 @@
+utils::globalVariables(
+  c(
+    ".",
+    "cusum",
+    "cusum_shift",
+    "direction",
+    "end_date",
+    "extend_to",
+    "flag",
+    "grp",
+    "keepgroup",
+    "lookback",
+    "N",
+    "roll_median",
+    "run_end",
+    "run_start",
+    "run_type",
+    "rungroup",
+    "runlength",
+    "y"
+  )
+)

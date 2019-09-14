@@ -1,0 +1,9 @@
+^codecov\.yml$
+^docs$
+^_pkgdown\.yml$
+^data-raw$
+^\.travis\.yml$
+^runcharter\.Rproj$
+^\.Rproj\.user$
+^README\.Rmd$
+^README-.*\.png$
