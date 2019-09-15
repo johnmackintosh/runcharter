@@ -93,7 +93,7 @@ runcharter <- function(df,
   data.table::setkey(masterDT, grp, date)
 
   keepgroup <- masterDT[,.N, by = .(grp)
-                        ][N > (med_rows + runlength),.SD,
+                        ][N >= (med_rows + runlength),.SD,
                           .SDcols = "N", by = list(grp)
                           ][,unique(grp)]
 

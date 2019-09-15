@@ -23,8 +23,6 @@ Online documentation and vignettes : [runcharter](https://www.johnmackintosh.com
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![Coverage status](https://codecov.io/gh/johnmackintosh/runcharter/branch/master/graph/badge.svg)](https://codecov.io/github/johnmackintosh/runcharter?branch=master)
 
-
-
 ## Installation
 
 You can install runcharter from github with:
@@ -39,141 +37,131 @@ devtools::install_github("johnmackintosh/runcharter",
                          build_vignettes = TRUE, force = TRUE)
 ```
 
-## Rationale
-
-Run charts are easy to create and analyse on an individual basis, hence they are widely used in healthcare quality improvement.
-
-A run chart is a regular line chart, with a central reference line. 
-
-This central line, calculated using the median of a number of values over a baseline period, allows the QI team to assess if any statistically significant improvement is taking place, as a result of their improvement initiatives.
-
-These improvements are denoted by certain patterns, or signals, within the plotted data points, in relation to the median line. The main signal is a run of 9 or more consecutive values on the desired side of the median line. 
+The rationale for the package is to analyse multiple run charts at once.
+More importantly, the package will identify a run of n successive points on the desired side of the median line, and will recalculate / rebase the median accordingly.
+Each time a run occurs, the median will be rebased.
+This helps to track improvements over time. 
 
 
-If this signal occurs as a result of improvement activities, but performance is not yet at the target level,  a new median  line can be plotted. 
-
-This is  calculated using the median of the points that contributed to the signal. The aim is to then continue to work on improvement, measure and plot data, and look for the next sustained signal, until the improvement initiative is operating at its target level. 
-
-While this 'rebasing' (calculating new medians) is manageable for a few charts, it quickly becomes labour intensive as QI initiatives expand or further QI programmes are launched. 
-
-While enterprise level database software can be used to store the raw data, their associated reporting systems are usually ill suited to the task of analysing QI data using run chart rules.
+The default is to plot a faceted plot, allowing ggplot2 to handle the axis limits. 
+You can specify the number of columns in the faceted plot, or let ggplot2 do its thing.
 
 
-This package automatically creates rebased run charts, based on the run chart rule for sustained improvement commonly used in healthcare ( 9 consecutive points on the desired side of the median).
 
-All sustained runs of improvement, in the desired direction, will be highlighted and the median re-phased, using the points that contributed to the run. 
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 6,
+  fig.height = 5
+)
+```
 
-Non useful observations (points on the median) are ignored and are not highlighted. 
+Here are the function arguments and defaults. 
+A default run of 9 is specified as that is the length of run used by the IHI for its patient safety initiatives worldwide. 
 
-The main motivation is to analyse many charts at once, but you can also create and analyse a single run chart, or iterate, plot and save many individual charts.
+# Function arguments and defaults
 
-## The runcharter function - input
+```{r, eval=FALSE}
 
-The function requires a simple three column dataframe, with the following column names
-
-- datecol : a column of type 'date'. 
-- grpvar : a character column indicating a grouping variable to identify each individual run chart and for faceted plots
-- yval :  the variable / value to plot. 
-
-## runcharter function arguments
-
-- df : a three column dataframe or data table with columns specifying  a grouping variable -'grpvar', a date column  -'datecol' and 'yvar' as the value to plot on the y axis. The grouping variable should be a character column, however if a factor column is passed to the function it will be converted to character. Data frames will be converted to data.table
-- med_rows :  How many rows / data points should the initial baseline median be calculated over? 
-- runlength : How long a run of consecutive points do you want to find, before you rebase the median? 
-The median will be rebased using all useful observations (points on the median are not useful, and are ignored).
-- direction :  "above" or "below" the median, or "both". Use "both" if you want to rebase the run chart any time a run of the desired length occurs, even if it is on the "wrong" side of the median line.
-- datecol : the name of the date column
-- grpvar : a character vector specifying the grouping variable used to facet the plots
-- yval : a numeric column to be plotted on the y-axis. Integers will be converted to numeric
-- facet_cols : the number of columns in the final faceted plot
-- chart_title : The main title for the chart
-- chart_subtitle : A subtitle for the chart
-- chart_caption : A caption for the chart
-- chart_breaks : character string defining desired x-axis date breaks e.g. "3 months"
-- line_colr : Colour for run chart lines
-- point_colr : Colour for run chart points
-- median_colr : Colour for solid and extended median lines
-- highlight_fill : Fill colour to highlight points in a sustained run
-- ... : further arguments passed on to function
-
-The package exports the magrittr pipe, so you can chain commands using data.table syntax, or alternatively, use dplyr syntax and chain to the runcharter function
-
-
-## example plot
-
-```{r, fig.show='hold',fig.cap = "One location showing a run below the median"}
 library(runcharter)
-runcharter(signals ,med_rows = 13,
-runlength = 9,
-direction = "below",
-datecol = "date",
-grpvar = "grp",
-yval = "y",
-chart_title = "Analysis of runs below median",
-chart_subtitle = "Example plot",
-chart_caption = "analysed with runcharter",
-chart_breaks = "6 months")
+runcharter(df = signals,
+          med_rows = 13,
+          runlength = 9,
+          direction = "below",
+          datecol = NULL,
+          grpvar = NULL,
+          yval = NULL,
+          facet_cols = NULL,
+          chart_title = NULL,
+          chart_subtitle = NULL,
+          chart_caption = NULL,
+          chart_breaks = NULL,
+          line_colr = "#005EB8", # blue
+          point_colr ="#005EB8", # blue
+          median_colr = "#E87722", # orange
+          sus_fill = "#DB1884") # magenta
 
 ```
 
-## Plot explanation
-
-- `med_rows` defines the initial baseline period. In the example below, the first 13 points are used to calculate the initial median. This is represented with a solid orange horizontal line.
-This median is then used as a reference for the remaining values, denoted by the extending orange dashed line
-
-- `runlength` specifies the length of run to be identified. Along with `direction`, which specifies which side of median represents improvement,  the runlength is your target number of successive points on the desired side of the median (points on the median are ignored as they do not make or break a run). You can set the `direction` as either "above" or "below" the line, to evidence improvement in a specific direction. 
-Searching for runs in "both" directions is also possible. This might be more applicable for long term monitoring, rather than improvement purposes.
+The function will return a plot and a summary table showing the original baseline medians, and any sustained runs of improvement beyond the baseline period.
 
 
-If a run is identified, the points are highlighted (the purple coloured points), and a new median is calculated using them.  The median is also  plotted and extended into the future for further run chart rules analysis, with a new set of solid and dashed horizontal lines.
+```{r}
 
-The analysis continues, rebasing any further runs, until no more runs are found or there are not enough data points remaining.
-
-
-
-## Runs above the median
-
-
-```{r fig.height=5, fig.width =8}
 library(runcharter)
+
 runcharter(signals,
-           direction = "above",
-           datecol = "date",
-           grpvar = "grp", 
-           yval = "y",
-           facet_cols = 2)
+           direction = "below",
+           datecol = "date", 
+           grpvar = "grp",
+           yval = "y", 
+          chart_title = " Runs identified",
+          chart_subtitle = "Runs below the median signalling improvement")
 
 ```
 
-You can also look for any run, in any direction. Note we can pipe, even though dplyr is not used within the package
+
+
+## Runs in both directions
+
+Th package now allows for finding runs in both directions (above and below the median). 
+Generally, for improvement purposes, you would only need to identify runs in one direction at a time. 
+In other words, if you are trying to reduce adverse events, improvement will be evidenced with a run below the median. Therefore, you would not rebase the median if a run of points above the median was observed. 
+
+However, for longer term monitoring, it may be necessary to identify and 'reset' a median if a sustained deterioration in performance occurs. Ideally, you should move to using SPC charts for monitoring purposes.
 
 ```{r}
 library(runcharter)
-signals %>% runcharter(
-           direction = "both",
-           datecol = "date",
-           grpvar = "grp", 
-           yval = "y",
-           facet_cols = 2)
-```
-Note that runs below the median are found for Wards X and Y, while a run above the median is highlighted for Ward Z.
-
- 
- The function will print the plot, and return a list, containing:
-
-- the plot as a ggplot2 object,  
-- a datatable summarising the baseline median and each sustained period of improvement.
-
-
-Don't try this at home - setting runlength of 7 and searching in both directions to confirm that successive runs are identified:
-
-```{r fig.height=5, fig.width =8}
 signals %>% 
-  runcharter(med_rows = 7,
-             runlength = 5, 
-             datecol = "date",
-              grpvar = "grp", 
-              yval = "y",
-             direction = "both")
+  runcharter(med_rows = 7, 
+             runlength = 5,
+             direction = "both",
+             datecol = "date", 
+              grpvar = "grp",
+              yval = "y", 
+             chart_title = "Runs in both directions",
+             chart_subtitle = "Runs of 6, from median calculated over first 7 data points in each location")
+
 ```
+
+
+
+## Design decisions and similar packages
+
+This package makes no attempt to identify or highlight 'trends' (consecutively increasing or decreasing points) or shorter 'shifts' of runs below the median.
+In 8 years of working with QI data, I very rarely see trends, and when they do appear, they tend to result after a period of process degradation, when the process begins to return back to its natural median state. 
+
+In addition, [research by qicharts2 author Jacob Anheoj shows that the trend rule is not reliable](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0121349). There are no plans to add tests to identify trends to the package functionality.
+
+If you want to apply the rules for trend , in addition to rebasing run charts, then you should consider using [the runchart package by Joseph Adams](https://github.com/jsphdms/runchart).
+
+
+[qicharts2](https://github.com/anhoej/qicharts2) creates run and SPC charts. These can be rebased, but you must specify when to do so. Also, the analysis is based on the author's own rules and not the rules typically used in healthcare (e.g. the rules promoted by the IHI).
+
+## We're not supposed to do this
+
+"But [insert QI expert name here] says you should not automatically rebase the median unless you know the signal is genuine".
+
+Yes, and no. 
+
+Truth is, sometimes, there is too much information being collected, or the task of manually performing this analysis is very time consuming, especially if you have to make manual adjustments to spreadsheets / databases / graphical outputs, to deadlines, whilst battling traditional BI tools that were only ever designed for bar and pie charts.
+Ultimately, I built this for me, to make my job easier. 
+I believe other healthcare analysts, who work with QI data, will also find it beneficial.
+
+Obviously, there is no guarantee that any run that is identified is a genuine improvement. The user needs to verify this, however, the package aims to save time in identifying these signals in the first place. 
+
+You can use the package to identify *potential* runs, and  if necessary, modify the outputs (e.g. the sustained dataframe) to remove any false signals, and rebuild the plot manually. 
+
+
+## I don't like the final plot
+
+You can use the package to do the analysis, take the outputs, and build your own plots.
+Or save the output to a variable, retrieve the runchart component, and pass further ggplot2 syntax to amend it to your requirements.
+
+
+
+
+
+
 

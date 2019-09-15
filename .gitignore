@@ -3,3 +3,4 @@
 .Rproj.user
 inst/doc
 runcharter.Rproj
+docs/*.
