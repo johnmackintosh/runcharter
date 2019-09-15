@@ -67,18 +67,14 @@ testdf <- signals # rename the built in data set
 
 class(testdf) # note class of tibble, tbl_df and dataframe
 
-p <- testdf %>% runcharter(
+testdf %>% runcharter(
            direction = "both",
            datecol = "date",
            grpvar = "grp", 
            yval = "y",
            facet_cols = 2)
 
-p$runchart # display the plot
-
-class(p$sustained) # results are class data.table and dataframe
-p$sustained
-
+# results class data.table
 ```
 
 
@@ -108,7 +104,7 @@ The package exports the magrittr pipe, so you can chain commands using data.tabl
 
 ## Function outputs
 
-```{r, fig.height=5, fig.width =8, fig.show='hold',fig.cap = "One location showing a run below the median"}
+```{r, fig.height=5, fig.width =8,fig.cap = "One location showing a run below the median"}
 library(runcharter)
 runcharter(signals ,med_rows = 13,
 runlength = 9,

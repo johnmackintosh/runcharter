@@ -80,7 +80,7 @@
       <h1>runcharter</h1>
                         <h4 class="author">John MacKintosh</h4>
             
-            <h4 class="date">2019-09-15</h4>
+            <h4 class="date">2019-09-16</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/johnmackintosh/runcharter/blob/master/vignettes/runcharter.Rmd"><code>vignettes/runcharter.Rmd</code></a></small>
       <div class="hidden name"><code>runcharter.Rmd</code></div>
@@ -89,67 +89,109 @@
 
     
     
-<p>The rationale for the package is to analyse multiple run charts at once. More importantly, the package will identify a run of n successive points on the desired side of the median line, and will recalculate / rebase the median accordingly. Each time a run occurs, the median will be rebased. This helps to track improvements over time.</p>
-<p>The default is to plot a faceted plot, allowing ggplot2 to handle the axis limits. You can specify the number of columns in the faceted plot, or let ggplot2 do its thing.</p>
-<p>Here are the function arguments and defaults. A default run of 9 is specified as that is the length of run used by the IHI for its patient safety initiatives worldwide.</p>
-<div id="function-arguments-and-defaults" class="section level1">
-<h1 class="hasAnchor">
-<a href="#function-arguments-and-defaults" class="anchor"></a>Function arguments and defaults</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"></a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(runcharter)</a>
-<a class="sourceLine" id="cb1-3" title="3"><span class="kw"><a href="../reference/runcharter.html">runcharter</a></span>(<span class="dt">df =</span> signals,</a>
-<a class="sourceLine" id="cb1-4" title="4">          <span class="dt">med_rows =</span> <span class="dv">13</span>,</a>
-<a class="sourceLine" id="cb1-5" title="5">          <span class="dt">runlength =</span> <span class="dv">9</span>,</a>
-<a class="sourceLine" id="cb1-6" title="6">          <span class="dt">direction =</span> <span class="st">"below"</span>,</a>
-<a class="sourceLine" id="cb1-7" title="7">          <span class="dt">datecol =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb1-8" title="8">          <span class="dt">grpvar =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb1-9" title="9">          <span class="dt">yval =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb1-10" title="10">          <span class="dt">facet_cols =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb1-11" title="11">          <span class="dt">chart_title =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb1-12" title="12">          <span class="dt">chart_subtitle =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb1-13" title="13">          <span class="dt">chart_caption =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb1-14" title="14">          <span class="dt">chart_breaks =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb1-15" title="15">          <span class="dt">line_colr =</span> <span class="st">"#005EB8"</span>, <span class="co"># blue</span></a>
-<a class="sourceLine" id="cb1-16" title="16">          <span class="dt">point_colr =</span><span class="st">"#005EB8"</span>, <span class="co"># blue</span></a>
-<a class="sourceLine" id="cb1-17" title="17">          <span class="dt">median_colr =</span> <span class="st">"#E87722"</span>, <span class="co"># orange</span></a>
-<a class="sourceLine" id="cb1-18" title="18">          <span class="dt">sus_fill =</span> <span class="st">"#DB1884"</span>) <span class="co"># magenta</span></a></code></pre></div>
-<div id="faceted-plots---1-column" class="section level2">
+<div id="rationale" class="section level2">
 <h2 class="hasAnchor">
-<a href="#faceted-plots---1-column" class="anchor"></a>Faceted plots - 1 column</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(runcharter)</a>
-<a class="sourceLine" id="cb2-2" title="2"><span class="co">#&gt; Loading required package: data.table</span></a>
-<a class="sourceLine" id="cb2-3" title="3"><span class="kw"><a href="../reference/runcharter.html">runcharter</a></span>(signals, </a>
-<a class="sourceLine" id="cb2-4" title="4">           <span class="dt">direction =</span> <span class="st">"below"</span>,</a>
-<a class="sourceLine" id="cb2-5" title="5">           <span class="dt">datecol =</span> <span class="st">"date"</span>, </a>
-<a class="sourceLine" id="cb2-6" title="6">           <span class="dt">grpvar =</span> <span class="st">"grp"</span>,</a>
-<a class="sourceLine" id="cb2-7" title="7">           <span class="dt">yval =</span> <span class="st">"y"</span>, </a>
-<a class="sourceLine" id="cb2-8" title="8">           <span class="dt">chart_title =</span> <span class="st">"facet test 1"</span>,</a>
-<a class="sourceLine" id="cb2-9" title="9">          <span class="dt">chart_subtitle =</span> <span class="st">" 1 column trellis using facet_wrap"</span>, </a>
-<a class="sourceLine" id="cb2-10" title="10">          <span class="dt">facet_cols =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb2-11" title="11"><span class="co">#&gt; $runchart</span></a></code></pre></div>
-<p><img src="runcharter_files/figure-html/unnamed-chunk-2-1.png" width="576"></p>
+<a href="#rationale" class="anchor"></a>Rationale</h2>
+<p>Run charts are easy to create and analyse on an individual basis, hence they are widely used in healthcare quality improvement.</p>
+<p>A run chart is a regular line chart, with a central reference line.</p>
+<p>This central line, calculated using the median of a number of values over a baseline period, allows the QI team to assess if any statistically significant improvement is taking place, as a result of their improvement initiatives.</p>
+<p>These improvements are denoted by certain patterns, or signals, within the plotted data points, in relation to the median line. The main signal is a run of 9 or more consecutive values on the desired side of the median line.</p>
+<p>If this signal occurs as a result of improvement activities, but performance is not yet at the target level, a new median line can be plotted.</p>
+<p>This is calculated using the median of the points that contributed to the signal. The aim is to then continue to work on improvement, measure and plot data, and look for the next sustained signal, until the improvement initiative is operating at its target level.</p>
+<p>While this ‘rebasing’ (calculating new medians) is manageable for a few charts, it quickly becomes labour intensive as QI initiatives expand or further QI programmes are launched.</p>
+<p>While enterprise level database software can be used to store the raw data, their associated reporting systems are usually ill suited to the task of analysing QI data using run chart rules.</p>
+<p>This package automatically creates rebased run charts, based on the run chart rule for sustained improvement commonly used in healthcare ( 9 consecutive points on the desired side of the median).</p>
+<p>All sustained runs of improvement, in the desired direction, will be highlighted and the median re-phased, using the points that contributed to the run.</p>
+<p>Non useful observations (points on the median) are ignored and are not highlighted.</p>
+<p>The main motivation is to analyse many charts at once, but you can also create and analyse a single run chart, or iterate, plot and save many individual charts.</p>
+</div>
+<div id="the-runcharter-function---input" class="section level2">
+<h2 class="hasAnchor">
+<a href="#the-runcharter-function---input" class="anchor"></a>The runcharter function - input</h2>
+<p>The function requires a simple three column dataframe, with the following column names:</p>
+<ul>
+<li>datecol : a column, typically of type ‘date’, but can be an integer representing individual patient IDs (for example).</li>
+<li>grpvar : a character column indicating a grouping variable to identify each individual run chart and for faceted plots. Factors will be converted to character.</li>
+<li>yval : the variable / value to plot.</li>
+</ul>
+</div>
+<div id="dataframe-or-data-table-and-use-of-the-pipe" class="section level2">
+<h2 class="hasAnchor">
+<a href="#dataframe-or-data-table-and-use-of-the-pipe" class="anchor"></a>Dataframe or data.table and use of the pipe</h2>
+<p>You can pass a dataframe, tibble or data.table to the function. It will be converted to data.table. You do not need to know data.table to use this package. The magrittr pipe is exported, so you can continue to use dplyr style syntax for data manipulation prior to using the function</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(runcharter)</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="co">#&gt; Loading required package: data.table</span></a>
+<a class="sourceLine" id="cb1-3" title="3"></a>
+<a class="sourceLine" id="cb1-4" title="4">testdf &lt;-<span class="st"> </span>signals <span class="co"># rename the built in data set</span></a>
+<a class="sourceLine" id="cb1-5" title="5"></a>
+<a class="sourceLine" id="cb1-6" title="6"><span class="kw"><a href="https://rdrr.io/r/base/class.html">class</a></span>(testdf) <span class="co"># note class of tibble, tbl_df and dataframe</span></a>
+<a class="sourceLine" id="cb1-7" title="7"><span class="co">#&gt; [1] "tbl_df"     "tbl"        "data.frame"</span></a>
+<a class="sourceLine" id="cb1-8" title="8"></a>
+<a class="sourceLine" id="cb1-9" title="9">testdf <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/runcharter.html">runcharter</a></span>(</a>
+<a class="sourceLine" id="cb1-10" title="10">           <span class="dt">direction =</span> <span class="st">"both"</span>,</a>
+<a class="sourceLine" id="cb1-11" title="11">           <span class="dt">datecol =</span> <span class="st">"date"</span>,</a>
+<a class="sourceLine" id="cb1-12" title="12">           <span class="dt">grpvar =</span> <span class="st">"grp"</span>, </a>
+<a class="sourceLine" id="cb1-13" title="13">           <span class="dt">yval =</span> <span class="st">"y"</span>,</a>
+<a class="sourceLine" id="cb1-14" title="14">           <span class="dt">facet_cols =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb1-15" title="15"><span class="co">#&gt; $runchart</span></a></code></pre></div>
+<p><img src="man/figures/unnamed-chunk-2-1.png" width="768"></p>
 <pre><code>#&gt; 
 #&gt; $sustained
 #&gt;      grp median start_date   end_date  extend_to  run_type
 #&gt; 1: WardV      7 2014-01-01 2015-01-01 2018-07-01  baseline
 #&gt; 2: WardX     11 2014-01-01 2015-01-01 2016-12-01  baseline
 #&gt; 3: WardY     13 2014-01-01 2015-01-01 2017-10-01  baseline
-#&gt; 4: WardZ      4 2014-01-01 2015-01-01 2018-07-01  baseline
+#&gt; 4: WardZ      4 2014-01-01 2015-01-01 2017-06-01  baseline
 #&gt; 5: WardX      6 2016-12-01 2017-08-01 2018-07-01 sustained
-#&gt; 6: WardY      8 2017-10-01 2018-06-01 2018-07-01 sustained</code></pre>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"></a>
-<a class="sourceLine" id="cb4-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(runcharter)</a>
-<a class="sourceLine" id="cb4-3" title="3"></a>
-<a class="sourceLine" id="cb4-4" title="4"><span class="kw"><a href="../reference/runcharter.html">runcharter</a></span>(signals,</a>
-<a class="sourceLine" id="cb4-5" title="5">           <span class="dt">direction =</span> <span class="st">"below"</span>,</a>
-<a class="sourceLine" id="cb4-6" title="6">           <span class="dt">datecol =</span> <span class="st">"date"</span>, </a>
-<a class="sourceLine" id="cb4-7" title="7">           <span class="dt">grpvar =</span> <span class="st">"grp"</span>,</a>
-<a class="sourceLine" id="cb4-8" title="8">           <span class="dt">yval =</span> <span class="st">"y"</span>, </a>
-<a class="sourceLine" id="cb4-9" title="9">          <span class="dt">chart_title =</span> <span class="st">"facet test 2"</span>,</a>
-<a class="sourceLine" id="cb4-10" title="10">          <span class="dt">chart_subtitle =</span> <span class="st">" 2 column trellis using facet_wrap"</span>, </a>
-<a class="sourceLine" id="cb4-11" title="11">          <span class="dt">facet_cols =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb4-12" title="12"><span class="co">#&gt; $runchart</span></a></code></pre></div>
-<p><img src="runcharter_files/figure-html/unnamed-chunk-3-1.png" width="576"></p>
+#&gt; 6: WardY      8 2017-10-01 2018-06-01 2018-07-01 sustained
+#&gt; 7: WardZ      9 2017-06-01 2018-03-01 2018-07-01 sustained
+
+# results class data.table</code></pre>
+</div>
+<div id="runcharter-function-arguments" class="section level2">
+<h2 class="hasAnchor">
+<a href="#runcharter-function-arguments" class="anchor"></a>runcharter function arguments</h2>
+<ul>
+<li>df : a three column dataframe or data table with columns specifying a grouping variable -‘grpvar’, a date column -‘datecol’ and ‘yvar’ as the value to plot on the y axis. The grouping variable should be a character column, however if a factor column is passed to the function it will be converted to character. Data frames will be converted to data.table</li>
+<li>med_rows : How many rows / data points should the initial baseline median be calculated over?</li>
+<li>runlength : How long a run of consecutive points do you want to find, before you rebase the median? The median will be rebased using all useful observations (points on the median are not useful, and are ignored).</li>
+<li>direction : “above” or “below” the median, or “both”. Use “both” if you want to rebase the run chart any time a run of the desired length occurs, even if it is on the “wrong” side of the median line.</li>
+<li>datecol : the name of the date column</li>
+<li>grpvar : a character vector specifying the grouping variable used to facet the plots</li>
+<li>yval : a numeric column to be plotted on the y-axis. Integers will be converted to numeric</li>
+<li>facet_cols : the number of columns in the final faceted plot</li>
+<li>chart_title : The main title for the chart</li>
+<li>chart_subtitle : A subtitle for the chart</li>
+<li>chart_caption : A caption for the chart</li>
+<li>chart_breaks : character string defining desired x-axis date breaks e.g. “3 months”. Will be ignored if ‘datecol’ is an integer instead of a date value.</li>
+<li>line_colr : Colour for run chart lines</li>
+<li>point_colr : Colour for run chart points</li>
+<li>median_colr : Colour for solid and extended median lines</li>
+<li>highlight_fill : Fill colour to highlight points in a sustained run</li>
+<li>… : further arguments passed on to function</li>
+</ul>
+<p>The package exports the magrittr pipe, so you can chain commands using data.table syntax, or alternatively, use dplyr syntax and chain to the runcharter function</p>
+</div>
+<div id="function-outputs" class="section level2">
+<h2 class="hasAnchor">
+<a href="#function-outputs" class="anchor"></a>Function outputs</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(runcharter)</a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="kw"><a href="../reference/runcharter.html">runcharter</a></span>(signals ,<span class="dt">med_rows =</span> <span class="dv">13</span>,</a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="dt">runlength =</span> <span class="dv">9</span>,</a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="dt">direction =</span> <span class="st">"below"</span>,</a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="dt">datecol =</span> <span class="st">"date"</span>,</a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="dt">grpvar =</span> <span class="st">"grp"</span>,</a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="dt">yval =</span> <span class="st">"y"</span>,</a>
+<a class="sourceLine" id="cb3-8" title="8"><span class="dt">chart_title =</span> <span class="st">"Analysis of runs below median"</span>,</a>
+<a class="sourceLine" id="cb3-9" title="9"><span class="dt">chart_subtitle =</span> <span class="st">"Example plot"</span>,</a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="dt">chart_caption =</span> <span class="st">"analysed with runcharter"</span>,</a>
+<a class="sourceLine" id="cb3-11" title="11"><span class="dt">chart_breaks =</span> <span class="st">"6 months"</span>)</a>
+<a class="sourceLine" id="cb3-12" title="12"><span class="co">#&gt; $runchart</span></a></code></pre></div>
+<div class="figure">
+<img src="man/figures/unnamed-chunk-3-1.png" alt="One location showing a run below the median" width="768"><p class="caption">
+One location showing a run below the median
+</p>
+</div>
 <pre><code>#&gt; 
 #&gt; $sustained
 #&gt;      grp median start_date   end_date  extend_to  run_type
@@ -160,22 +202,73 @@
 #&gt; 5: WardX      6 2016-12-01 2017-08-01 2018-07-01 sustained
 #&gt; 6: WardY      8 2017-10-01 2018-06-01 2018-07-01 sustained</code></pre>
 </div>
-<div id="runs-in-both-directions" class="section level2">
+<div id="plot-explanation" class="section level2">
 <h2 class="hasAnchor">
-<a href="#runs-in-both-directions" class="anchor"></a>Runs in both directions</h2>
-<p>Finding runs in both directions is now implemented:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(runcharter)</a>
-<a class="sourceLine" id="cb6-2" title="2">signals <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb6-3" title="3"><span class="st">  </span><span class="kw"><a href="../reference/runcharter.html">runcharter</a></span>(<span class="dt">med_rows =</span> <span class="dv">7</span>, </a>
-<a class="sourceLine" id="cb6-4" title="4">             <span class="dt">runlength =</span> <span class="dv">5</span>,</a>
-<a class="sourceLine" id="cb6-5" title="5">             <span class="dt">direction =</span> <span class="st">"both"</span>,</a>
-<a class="sourceLine" id="cb6-6" title="6">             <span class="dt">datecol =</span> <span class="st">"date"</span>, </a>
-<a class="sourceLine" id="cb6-7" title="7">              <span class="dt">grpvar =</span> <span class="st">"grp"</span>,</a>
-<a class="sourceLine" id="cb6-8" title="8">              <span class="dt">yval =</span> <span class="st">"y"</span>, </a>
-<a class="sourceLine" id="cb6-9" title="9">             <span class="dt">chart_title =</span> <span class="st">"Runs in both directions"</span>,</a>
-<a class="sourceLine" id="cb6-10" title="10">             <span class="dt">chart_subtitle =</span> <span class="st">"Runs of 6, from median calculated over first 6 rows"</span>)</a>
-<a class="sourceLine" id="cb6-11" title="11"><span class="co">#&gt; $runchart</span></a></code></pre></div>
-<p><img src="runcharter_files/figure-html/unnamed-chunk-4-1.png" width="576"></p>
+<a href="#plot-explanation" class="anchor"></a>Plot explanation</h2>
+<ul>
+<li><p><code>med_rows</code> defines the initial baseline period. In the example below, the first 13 points are used to calculate the initial median. This is represented with a solid orange horizontal line. This median is then used as a reference for the remaining values, denoted by the extending orange dashed line</p></li>
+<li><p><code>runlength</code> specifies the length of run to be identified. Along with <code>direction</code>, which specifies which side of median represents improvement, the runlength is your target number of successive points on the desired side of the median (points on the median are ignored as they do not make or break a run). You can set the <code>direction</code> as either “above” or “below” the line, to evidence improvement in a specific direction. Searching for runs in “both” directions is also possible. This might be more applicable for long term monitoring, rather than improvement purposes.</p></li>
+</ul>
+<p>If a run is identified, the points are highlighted (the purple coloured points), and a new median is calculated using them. The median is also plotted and extended into the future for further run chart rules analysis, with a new set of solid and dashed horizontal lines.</p>
+<p>The analysis continues, rebasing any further runs, until no more runs are found or there are not enough data points remaining.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(runcharter)</a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="kw"><a href="../reference/runcharter.html">runcharter</a></span>(signals,</a>
+<a class="sourceLine" id="cb5-3" title="3">           <span class="dt">direction =</span> <span class="st">"above"</span>,</a>
+<a class="sourceLine" id="cb5-4" title="4">           <span class="dt">datecol =</span> <span class="st">"date"</span>,</a>
+<a class="sourceLine" id="cb5-5" title="5">           <span class="dt">grpvar =</span> <span class="st">"grp"</span>, </a>
+<a class="sourceLine" id="cb5-6" title="6">           <span class="dt">yval =</span> <span class="st">"y"</span>,</a>
+<a class="sourceLine" id="cb5-7" title="7">           <span class="dt">facet_cols =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb5-8" title="8"><span class="co">#&gt; $runchart</span></a></code></pre></div>
+<p><img src="man/figures/unnamed-chunk-4-1.png" width="768"></p>
+<pre><code>#&gt; 
+#&gt; $sustained
+#&gt;      grp median start_date   end_date  extend_to  run_type
+#&gt; 1: WardV      7 2014-01-01 2015-01-01 2018-07-01  baseline
+#&gt; 2: WardX     11 2014-01-01 2015-01-01 2018-07-01  baseline
+#&gt; 3: WardY     13 2014-01-01 2015-01-01 2018-07-01  baseline
+#&gt; 4: WardZ      4 2014-01-01 2015-01-01 2017-06-01  baseline
+#&gt; 5: WardZ      9 2017-06-01 2018-03-01 2018-07-01 sustained</code></pre>
+</div>
+<div id="find-runs-in-both-directions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#find-runs-in-both-directions" class="anchor"></a>Find runs in both directions</h2>
+<p>Typically, you would only look for runs either “above” or “below” the median, depending on the nature of the metric you are studying and what determines an improvement (e.g. below the median for reduced admissions and above the median for increased care bundle compliance). You can also look for any run, occuring on either side of the median, by specifying “both” as the direction.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(runcharter)</a>
+<a class="sourceLine" id="cb7-2" title="2">signals <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/runcharter.html">runcharter</a></span>(</a>
+<a class="sourceLine" id="cb7-3" title="3">           <span class="dt">direction =</span> <span class="st">"both"</span>,</a>
+<a class="sourceLine" id="cb7-4" title="4">           <span class="dt">datecol =</span> <span class="st">"date"</span>,</a>
+<a class="sourceLine" id="cb7-5" title="5">           <span class="dt">grpvar =</span> <span class="st">"grp"</span>, </a>
+<a class="sourceLine" id="cb7-6" title="6">           <span class="dt">yval =</span> <span class="st">"y"</span>,</a>
+<a class="sourceLine" id="cb7-7" title="7">           <span class="dt">facet_cols =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb7-8" title="8"><span class="co">#&gt; $runchart</span></a></code></pre></div>
+<p><img src="man/figures/unnamed-chunk-5-1.png" width="768"></p>
+<pre><code>#&gt; 
+#&gt; $sustained
+#&gt;      grp median start_date   end_date  extend_to  run_type
+#&gt; 1: WardV      7 2014-01-01 2015-01-01 2018-07-01  baseline
+#&gt; 2: WardX     11 2014-01-01 2015-01-01 2016-12-01  baseline
+#&gt; 3: WardY     13 2014-01-01 2015-01-01 2017-10-01  baseline
+#&gt; 4: WardZ      4 2014-01-01 2015-01-01 2017-06-01  baseline
+#&gt; 5: WardX      6 2016-12-01 2017-08-01 2018-07-01 sustained
+#&gt; 6: WardY      8 2017-10-01 2018-06-01 2018-07-01 sustained
+#&gt; 7: WardZ      9 2017-06-01 2018-03-01 2018-07-01 sustained</code></pre>
+<p>Note that runs below the median are found for Wards X and Y, while a run above the median is highlighted for Ward Z.</p>
+<p>The function will print the plot, and return a list, containing:</p>
+<ul>
+<li>the plot as a ggplot2 object,<br>
+</li>
+<li>a datatable summarising the baseline median and each sustained period of improvement.</li>
+</ul>
+<p>Don’t try this at home - setting runlength of 5 and searching in both directions to confirm that successive runs are identified. A run of 5 would not be a statistically significant shift in real life - the package defaults to 9 as the desired run length.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">signals <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="st">  </span><span class="kw"><a href="../reference/runcharter.html">runcharter</a></span>(<span class="dt">med_rows =</span> <span class="dv">7</span>,</a>
+<a class="sourceLine" id="cb9-3" title="3">             <span class="dt">runlength =</span> <span class="dv">5</span>, </a>
+<a class="sourceLine" id="cb9-4" title="4">             <span class="dt">datecol =</span> <span class="st">"date"</span>,</a>
+<a class="sourceLine" id="cb9-5" title="5">              <span class="dt">grpvar =</span> <span class="st">"grp"</span>, </a>
+<a class="sourceLine" id="cb9-6" title="6">              <span class="dt">yval =</span> <span class="st">"y"</span>,</a>
+<a class="sourceLine" id="cb9-7" title="7">             <span class="dt">direction =</span> <span class="st">"both"</span>)</a>
+<a class="sourceLine" id="cb9-8" title="8"><span class="co">#&gt; $runchart</span></a></code></pre></div>
+<p><img src="man/figures/unnamed-chunk-6-1.png" width="768"></p>
 <pre><code>#&gt; 
 #&gt; $sustained
 #&gt;       grp median start_date   end_date  extend_to  run_type
@@ -196,34 +289,6 @@
 #&gt; 15: WardZ      9 2017-06-01 2017-10-01 2018-07-01 sustained
 #&gt; 16: WardX      7 2018-02-01 2018-06-01 2018-07-01 sustained</code></pre>
 </div>
-<div id="design-decisions" class="section level2">
-<h2 class="hasAnchor">
-<a href="#design-decisions" class="anchor"></a>Design decisions</h2>
-<p>This package makes no attempt to identify or highlight ‘trends’ (consecutively increasing or decreasing points) or shorter ‘shifts’ of runs below the median. In 8 years of working with QI data, I very rarely see trends, and when they do appear, they tend to result after a period of process degradation, when the process begins to return back to its natural median state.</p>
-<p>In addition, <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0121349">research by qicharts2 author Jacob Anheoj shows that the trend rule is not reliable</a>. There are no plans to add tests to identify trends to the package functionality.</p>
-<p>If you want to apply the rules for trend , in addition to rebasing run charts, then you should consider using <a href="https://github.com/jsphdms/runchart">the runchart package by Joseph Adams</a>.</p>
-</div>
-<div id="identify-runs-in-both-directions" class="section level2">
-<h2 class="hasAnchor">
-<a href="#identify-runs-in-both-directions" class="anchor"></a>Identify runs in both directions</h2>
-<p>Th package now allows for finding runs in both directions (above and below the median). Generally, for improvement purposes, you would only need to identify runs in one direction at a time. In other words, if you are trying to reduce adverse events, improvement will be evidenced with a run below the median. Therefore, you would not rebase the median if a run of points above the median was observed.</p>
-<p>However, for longer term monitoring, it may be necessary to identify and ‘reset’ a median if a sustained deterioration in performance occurs. Ideally, you should move to using SPC charts for monitoring purposes.</p>
-</div>
-<div id="were-not-supposed-to-do-this" class="section level2">
-<h2 class="hasAnchor">
-<a href="#were-not-supposed-to-do-this" class="anchor"></a>We’re not supposed to do this</h2>
-<p>“But [insert QI expert name here] says you should not automatically rebase the median unless you know the signal is genuine”.</p>
-<p>Yes, and no.</p>
-<p>Truth is, sometimes, there is too much information being collected, or the task of manually performing this analysis is very time consuming, especially if you have to make manual adjustments to spreadsheets / databases / graphical outputs, to deadlines, whilst battling traditional BI tools that were only ever designed for bar and pie charts. Ultimately, I built this for me, to make my job easier. I believe other healthcare analysts, who work with QI data, will also find it beneficial.</p>
-<p>Obviously, there is no guarantee that any run that is identified is a genuine improvement. The user needs to verify this, however, the package aims to save time in identifying these signals in the first place.</p>
-<p>You can use the package to identify <em>potential</em> runs, and if necessary, modify the outputs (e.g. the sustained dataframe) to remove any false signals, and rebuild the plot manually.</p>
-</div>
-<div id="i-dont-like-the-final-plot" class="section level2">
-<h2 class="hasAnchor">
-<a href="#i-dont-like-the-final-plot" class="anchor"></a>I don’t like the final plot</h2>
-<p>You can use the package to do the analysis, take the outputs, and build your own plots. Or save the output to a variable, retrieve the runchart component, and pass further ggplot2 syntax to amend the colours, limits, labels etc.</p>
-</div>
-</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -232,16 +297,13 @@
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li>
-<a href="#function-arguments-and-defaults">Function arguments and defaults</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#faceted-plots---1-column">Faceted plots - 1 column</a></li>
-      <li><a href="#runs-in-both-directions">Runs in both directions</a></li>
-      <li><a href="#design-decisions">Design decisions</a></li>
-      <li><a href="#identify-runs-in-both-directions">Identify runs in both directions</a></li>
-      <li><a href="#were-not-supposed-to-do-this">We’re not supposed to do this</a></li>
-      <li><a href="#i-dont-like-the-final-plot">I don’t like the final plot</a></li>
-      </ul>
-</li>
+<li><a href="#rationale">Rationale</a></li>
+      <li><a href="#the-runcharter-function---input">The runcharter function - input</a></li>
+      <li><a href="#dataframe-or-data-table-and-use-of-the-pipe">Dataframe or data.table and use of the pipe</a></li>
+      <li><a href="#runcharter-function-arguments">runcharter function arguments</a></li>
+      <li><a href="#function-outputs">Function outputs</a></li>
+      <li><a href="#plot-explanation">Plot explanation</a></li>
+      <li><a href="#find-runs-in-both-directions">Find runs in both directions</a></li>
       </ul>
 </div>
       </div>
