@@ -183,15 +183,12 @@ analysis, with a new set of solid and dashed horizontal lines.
 The analysis continues, rebasing any further runs, until no more runs
 are found or there are not enough data points remaining.
 
-## Example
-
-By default the function returns a faceted plot, highlighting successive
-runs below the median:
+## Runs above the median
 
 ``` r
 library(runcharter)
-runcharter(signals, 
-           direction = "below",
+runcharter(signals,
+           direction = "above",
            datecol = "date",
            grpvar = "grp", 
            yval = "y",
@@ -205,11 +202,10 @@ runcharter(signals,
     #> $sustained
     #>      grp median start_date   end_date  extend_to  run_type
     #> 1: WardV      7 2014-01-01 2015-01-01 2018-07-01  baseline
-    #> 2: WardX     11 2014-01-01 2015-01-01 2016-12-01  baseline
-    #> 3: WardY     13 2014-01-01 2015-01-01 2017-10-01  baseline
-    #> 4: WardZ      4 2014-01-01 2015-01-01 2018-07-01  baseline
-    #> 5: WardX      6 2016-12-01 2017-08-01 2018-07-01 sustained
-    #> 6: WardY      8 2017-10-01 2018-06-01 2018-07-01 sustained
+    #> 2: WardX     11 2014-01-01 2015-01-01 2018-07-01  baseline
+    #> 3: WardY     13 2014-01-01 2015-01-01 2018-07-01  baseline
+    #> 4: WardZ      4 2014-01-01 2015-01-01 2017-06-01  baseline
+    #> 5: WardZ      9 2017-06-01 2018-03-01 2018-07-01 sustained
 
 You can also look for any run, in any direction. Note we can pipe, even
 though dplyr is not used within the package

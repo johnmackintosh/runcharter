@@ -87,9 +87,8 @@ runcharter(signals,
            datecol = "date", 
            grpvar = "grp",
            yval = "y", 
-          chart_title = "facet test 2",
-          chart_subtitle = " 2 column trellis using facet_wrap", 
-          facet_cols = 2)
+          chart_title = " automatic facets",
+          chart_subtitle = " facets handled by ggplot2 ")
 
 ```
 

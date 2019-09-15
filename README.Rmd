@@ -131,17 +131,13 @@ The analysis continues, rebasing any further runs, until no more runs are found 
 
 
 
-
-
-## Example
-
-By default the function returns a faceted plot, highlighting successive runs below the median:
+## Runs above the median
 
 
 ```{r fig.height=5, fig.width =8}
 library(runcharter)
-runcharter(signals, 
-           direction = "below",
+runcharter(signals,
+           direction = "above",
            datecol = "date",
            grpvar = "grp", 
            yval = "y",

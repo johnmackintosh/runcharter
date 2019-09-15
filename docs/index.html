@@ -6,9 +6,16 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Automatically plot, analyse and rebase multiple run charts • runcharter</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Automatically plot, analyse and rebase multiple run charts">
 <meta property="og:description" content="Plots multiple run charts, finds successive signals of improvement, and rebases medians.">
 <meta property="og:image" content="/logo.png">
@@ -19,7 +26,7 @@
 <![endif]-->
 </head>
 <body>
-    <div class="container template-article">
+    <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -31,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">runcharter</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -39,7 +46,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -49,23 +56,11 @@
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="articles/how-to-create-multiple-runcharts.html">How to create multiple runcharts</a>
-    </li>
-  </ul>
-</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/johnmackintosh/runcharter">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -78,16 +73,12 @@
 <!--/.navbar -->
 
       
-      </header><div class="row">
-  <div class="col-md-9 contents">
-    
 
-    
-    
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-<div id="runcharter" class="section level1">
+      </header><div class="row">
+  <div class="contents col-md-9">
+<div id="runcharter-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#runcharter" class="anchor"></a>runcharter <img src="reference/figures/logo.png" width="160px" align="right">
+<a href="#runcharter-" class="anchor"></a>runcharter <img src="reference/figures/logo.png" width="160px" align="right">
 </h1></div>
 <p>Automated analysis and re-basing of run charts at scale.</p>
 <p>Online documentation and vignettes : <a href="https://www.johnmackintosh.com/runcharter/">runcharter</a></p>
@@ -96,13 +87,13 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install runcharter from github with:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
-devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"johnmackintosh/runcharter"</span>)
-
-<span class="co"># to ensure the vignettes are built or ensure latest version is installed:</span>
-
-devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"johnmackintosh/runcharter"</span>, 
-                         <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>, <span class="dt">force =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="co"># install.packages("devtools")</span></a>
+<a class="sourceLine" id="cb1-2" title="2">devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"johnmackintosh/runcharter"</span>)</a>
+<a class="sourceLine" id="cb1-3" title="3"></a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="co"># to ensure the vignettes are built or ensure latest version is installed:</span></a>
+<a class="sourceLine" id="cb1-5" title="5"></a>
+<a class="sourceLine" id="cb1-6" title="6">devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"johnmackintosh/runcharter"</span>, </a>
+<a class="sourceLine" id="cb1-7" title="7">                         <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>, <span class="dt">force =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 <div id="rationale" class="section level2">
 <h2 class="hasAnchor">
@@ -125,64 +116,61 @@ devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumen
 <a href="#the-runcharter-function---input" class="anchor"></a>The runcharter function - input</h2>
 <p>The function requires a simple three column dataframe, with the following column names</p>
 <ul>
-<li>grp : a character column indicating a grouping variable to identify each individual run chart and for faceted plots</li>
-<li>date : a column of type ‘date’.</li>
-<li>y : the variable / value to plot.</li>
+<li>datecol : a column of type ‘date’.</li>
+<li>grpvar : a character column indicating a grouping variable to identify each individual run chart and for faceted plots</li>
+<li>yval : the variable / value to plot.</li>
 </ul>
 </div>
 <div id="runcharter-function-arguments" class="section level2">
 <h2 class="hasAnchor">
 <a href="#runcharter-function-arguments" class="anchor"></a>runcharter function arguments</h2>
 <ul>
-<li>df : a three column dataframe with columns named ‘grp’, ‘date’ and ‘y’ as specified above</li>
+<li>df : a three column dataframe or data table with columns specifying a grouping variable -‘grpvar’, a date column -‘datecol’ and ‘yvar’ as the value to plot on the y axis. The grouping variable should be a character column, however if a factor column is passed to the function it will be converted to character. Data frames will be converted to data.table</li>
 <li>med_rows : How many rows / data points should the initial baseline median be calculated over?</li>
 <li>runlength : How long a run of consecutive points do you want to find, before you rebase the median? The median will be rebased using all useful observations (points on the median are not useful, and are ignored).</li>
 <li>direction : “above” or “below” the median, or “both”. Use “both” if you want to rebase the run chart any time a run of the desired length occurs, even if it is on the “wrong” side of the median line.</li>
+<li>datecol : the name of the date column</li>
+<li>grpvar : a character vector specifying the grouping variable used to facet the plots</li>
+<li>yval : a numeric column to be plotted on the y-axis. Integers will be converted to numeric</li>
 <li>facet_cols : the number of columns in the final faceted plot</li>
 <li>chart_title : The main title for the chart</li>
 <li>chart_subtitle : A subtitle for the chart</li>
+<li>chart_caption : A caption for the chart</li>
+<li>chart_breaks : character string defining desired x-axis date breaks e.g. “3 months”</li>
 <li>line_colr : Colour for run chart lines</li>
 <li>point_colr : Colour for run chart points</li>
 <li>median_colr : Colour for solid and extended median lines</li>
-<li>sus_fill : Fill colour to highlight points in a sustained run</li>
+<li>highlight_fill : Fill colour to highlight points in a sustained run</li>
 <li>… : further arguments passed on to function</li>
 </ul>
+<p>The package exports the magrittr pipe, so you can chain commands using data.table syntax, or alternatively, use dplyr syntax and chain to the runcharter function</p>
 </div>
 <div id="example-plot" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example-plot" class="anchor"></a>example plot</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(runcharter)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)
-<span class="co">#&gt; Warning: package 'dplyr' was built under R version 3.5.2</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'dplyr'</span>
-<span class="co">#&gt; The following objects are masked from 'package:stats':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     filter, lag</span>
-<span class="co">#&gt; The following objects are masked from 'package:base':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     intersect, setdiff, setequal, union</span>
-
-signals <span class="op">%&gt;%</span>
-dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(grp <span class="op">==</span><span class="st"> "WardX"</span>) <span class="op">%&gt;%</span>
-<span class="kw"><a href="reference/runcharter.html">runcharter</a></span>(<span class="dt">med_rows =</span> <span class="dv">13</span>,
-<span class="dt">runlength =</span> <span class="dv">9</span>,
-<span class="dt">chart_title =</span> <span class="st">"Analysis of runs below median"</span>,
-<span class="dt">chart_subtitle =</span> <span class="st">"Ward X"</span>,
-<span class="dt">direction =</span> <span class="st">"below"</span>)
-<span class="co">#&gt; $runchart</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; $sustained</span>
-<span class="co">#&gt; # A tibble: 1 x 8</span>
-<span class="co">#&gt;   grp   median_start median_end baseline new_median run_start  run_end   </span>
-<span class="co">#&gt;   &lt;chr&gt; &lt;date&gt;       &lt;date&gt;        &lt;int&gt;      &lt;int&gt; &lt;date&gt;     &lt;date&gt;    </span>
-<span class="co">#&gt; 1 WardX 2014-01-01   2015-01-01       11          6 2016-12-01 2017-08-01</span>
-<span class="co">#&gt; # ... with 1 more variable: lastdate &lt;date&gt;</span></code></pre></div>
-<div class="figure">
-<img src="reference/figures/unnamed-chunk-2-1.png" alt="One plot, one run below the median" width="700"><p class="caption">
-One plot, one run below the median
-</p>
-</div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(runcharter)</a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="co">#&gt; Loading required package: data.table</span></a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="kw"><a href="reference/runcharter.html">runcharter</a></span>(signals ,<span class="dt">med_rows =</span> <span class="dv">13</span>,</a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="dt">runlength =</span> <span class="dv">9</span>,</a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="dt">direction =</span> <span class="st">"below"</span>,</a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="dt">datecol =</span> <span class="st">"date"</span>,</a>
+<a class="sourceLine" id="cb2-7" title="7"><span class="dt">grpvar =</span> <span class="st">"grp"</span>,</a>
+<a class="sourceLine" id="cb2-8" title="8"><span class="dt">yval =</span> <span class="st">"y"</span>,</a>
+<a class="sourceLine" id="cb2-9" title="9"><span class="dt">chart_title =</span> <span class="st">"Analysis of runs below median"</span>,</a>
+<a class="sourceLine" id="cb2-10" title="10"><span class="dt">chart_subtitle =</span> <span class="st">"Example plot"</span>,</a>
+<a class="sourceLine" id="cb2-11" title="11"><span class="dt">chart_caption =</span> <span class="st">"analysed with runcharter"</span>,</a>
+<a class="sourceLine" id="cb2-12" title="12"><span class="dt">chart_breaks =</span> <span class="st">"6 months"</span>)</a>
+<a class="sourceLine" id="cb2-13" title="13"><span class="co">#&gt; $runchart</span></a>
+<a class="sourceLine" id="cb2-14" title="14"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-15" title="15"><span class="co">#&gt; $sustained</span></a>
+<a class="sourceLine" id="cb2-16" title="16"><span class="co">#&gt;      grp median start_date   end_date  extend_to  run_type</span></a>
+<a class="sourceLine" id="cb2-17" title="17"><span class="co">#&gt; 1: WardV      7 2014-01-01 2015-01-01 2018-07-01  baseline</span></a>
+<a class="sourceLine" id="cb2-18" title="18"><span class="co">#&gt; 2: WardX     11 2014-01-01 2015-01-01 2016-12-01  baseline</span></a>
+<a class="sourceLine" id="cb2-19" title="19"><span class="co">#&gt; 3: WardY     13 2014-01-01 2015-01-01 2017-10-01  baseline</span></a>
+<a class="sourceLine" id="cb2-20" title="20"><span class="co">#&gt; 4: WardZ      4 2014-01-01 2015-01-01 2018-07-01  baseline</span></a>
+<a class="sourceLine" id="cb2-21" title="21"><span class="co">#&gt; 5: WardX      6 2016-12-01 2017-08-01 2018-07-01 sustained</span></a>
+<a class="sourceLine" id="cb2-22" title="22"><span class="co">#&gt; 6: WardY      8 2017-10-01 2018-06-01 2018-07-01 sustained</span></a></code></pre></div>
+<p><img src="reference/figures/unnamed-chunk-2-1.png" alt="One location showing a run below the median"></p>
 </div>
 <div id="plot-explanation" class="section level2">
 <h2 class="hasAnchor">
@@ -198,70 +186,79 @@ One plot, one run below the median
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
 <p>By default the function returns a faceted plot, highlighting successive runs below the median:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(runcharter)
-<span class="kw"><a href="reference/runcharter.html">runcharter</a></span>(signals, 
-           <span class="dt">direction =</span> <span class="st">"below"</span>,
-           <span class="dt">facet_cols =</span> <span class="dv">2</span>)
-<span class="co">#&gt; $runchart</span></code></pre></div>
-<p><img src="reference/figures/unnamed-chunk-3-1.png" width="768"></p>
-<pre><code>#&gt; 
-#&gt; $sustained
-#&gt; # A tibble: 2 x 8
-#&gt;   grp   median_start median_end baseline new_median run_start  run_end   
-#&gt;   &lt;chr&gt; &lt;date&gt;       &lt;date&gt;        &lt;int&gt;      &lt;int&gt; &lt;date&gt;     &lt;date&gt;    
-#&gt; 1 WardX 2014-01-01   2015-01-01       11          6 2016-12-01 2017-08-01
-#&gt; 2 WardY 2014-01-01   2015-01-01       13          8 2017-10-01 2018-06-01
-#&gt; # ... with 1 more variable: lastdate &lt;date&gt;</code></pre>
-<p>You can also look for any run, in any direction</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(runcharter)
-<span class="kw"><a href="reference/runcharter.html">runcharter</a></span>(signals, 
-           <span class="dt">direction =</span> <span class="st">"both"</span>,
-           <span class="dt">facet_cols =</span> <span class="dv">2</span>)
-<span class="co">#&gt; $runchart</span></code></pre></div>
-<p><img src="reference/figures/unnamed-chunk-4-1.png" width="700"></p>
-<pre><code>#&gt; 
-#&gt; $sustained
-#&gt; # A tibble: 3 x 8
-#&gt;   grp   median_start median_end baseline new_median run_start  run_end   
-#&gt;   &lt;chr&gt; &lt;date&gt;       &lt;date&gt;        &lt;int&gt;      &lt;int&gt; &lt;date&gt;     &lt;date&gt;    
-#&gt; 1 WardX 2014-01-01   2015-01-01       11          6 2016-12-01 2017-08-01
-#&gt; 2 WardY 2014-01-01   2015-01-01       13          8 2017-10-01 2018-06-01
-#&gt; 3 WardZ 2014-01-01   2015-01-01        4          9 2017-06-01 2018-03-01
-#&gt; # ... with 1 more variable: lastdate &lt;date&gt;</code></pre>
-<p>Note how runs below the median are found for Wards X and Y, while a run above the median is highlighted for Ward Z.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(runcharter)</a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="kw"><a href="reference/runcharter.html">runcharter</a></span>(signals, </a>
+<a class="sourceLine" id="cb3-3" title="3">           <span class="dt">direction =</span> <span class="st">"above"</span>,</a>
+<a class="sourceLine" id="cb3-4" title="4">           <span class="dt">datecol =</span> <span class="st">"date"</span>,</a>
+<a class="sourceLine" id="cb3-5" title="5">           <span class="dt">grpvar =</span> <span class="st">"grp"</span>, </a>
+<a class="sourceLine" id="cb3-6" title="6">           <span class="dt">yval =</span> <span class="st">"y"</span>,</a>
+<a class="sourceLine" id="cb3-7" title="7">           <span class="dt">facet_cols =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb3-8" title="8"><span class="co">#&gt; $runchart</span></a></code></pre></div>
+<p><img src="reference/figures/unnamed-chunk-3-1.png"><!-- --></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="co">#&gt; $sustained</span></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="co">#&gt;      grp median start_date   end_date  extend_to  run_type</span></a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="co">#&gt; 1: WardV      7 2014-01-01 2015-01-01 2018-07-01  baseline</span></a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="co">#&gt; 2: WardX     11 2014-01-01 2015-01-01 2018-07-01  baseline</span></a>
+<a class="sourceLine" id="cb4-6" title="6"><span class="co">#&gt; 3: WardY     13 2014-01-01 2015-01-01 2018-07-01  baseline</span></a>
+<a class="sourceLine" id="cb4-7" title="7"><span class="co">#&gt; 4: WardZ      4 2014-01-01 2015-01-01 2017-06-01  baseline</span></a>
+<a class="sourceLine" id="cb4-8" title="8"><span class="co">#&gt; 5: WardZ      9 2017-06-01 2018-03-01 2018-07-01 sustained</span></a></code></pre></div>
+<p>You can also look for any run, in any direction. Note we can pipe, even though dplyr is not used within the package</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(runcharter)</a>
+<a class="sourceLine" id="cb5-2" title="2">signals <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="reference/runcharter.html">runcharter</a></span>(</a>
+<a class="sourceLine" id="cb5-3" title="3">           <span class="dt">direction =</span> <span class="st">"both"</span>,</a>
+<a class="sourceLine" id="cb5-4" title="4">           <span class="dt">datecol =</span> <span class="st">"date"</span>,</a>
+<a class="sourceLine" id="cb5-5" title="5">           <span class="dt">grpvar =</span> <span class="st">"grp"</span>, </a>
+<a class="sourceLine" id="cb5-6" title="6">           <span class="dt">yval =</span> <span class="st">"y"</span>,</a>
+<a class="sourceLine" id="cb5-7" title="7">           <span class="dt">facet_cols =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb5-8" title="8"><span class="co">#&gt; $runchart</span></a></code></pre></div>
+<p><img src="reference/figures/unnamed-chunk-4-1.png"><!-- --></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="co">#&gt; $sustained</span></a>
+<a class="sourceLine" id="cb6-3" title="3"><span class="co">#&gt;      grp median start_date   end_date  extend_to  run_type</span></a>
+<a class="sourceLine" id="cb6-4" title="4"><span class="co">#&gt; 1: WardV      7 2014-01-01 2015-01-01 2018-07-01  baseline</span></a>
+<a class="sourceLine" id="cb6-5" title="5"><span class="co">#&gt; 2: WardX     11 2014-01-01 2015-01-01 2016-12-01  baseline</span></a>
+<a class="sourceLine" id="cb6-6" title="6"><span class="co">#&gt; 3: WardY     13 2014-01-01 2015-01-01 2017-10-01  baseline</span></a>
+<a class="sourceLine" id="cb6-7" title="7"><span class="co">#&gt; 4: WardZ      4 2014-01-01 2015-01-01 2017-06-01  baseline</span></a>
+<a class="sourceLine" id="cb6-8" title="8"><span class="co">#&gt; 5: WardX      6 2016-12-01 2017-08-01 2018-07-01 sustained</span></a>
+<a class="sourceLine" id="cb6-9" title="9"><span class="co">#&gt; 6: WardY      8 2017-10-01 2018-06-01 2018-07-01 sustained</span></a>
+<a class="sourceLine" id="cb6-10" title="10"><span class="co">#&gt; 7: WardZ      9 2017-06-01 2018-03-01 2018-07-01 sustained</span></a></code></pre></div>
+<p>Note that runs below the median are found for Wards X and Y, while a run above the median is highlighted for Ward Z.</p>
 <p>The function will print the plot, and return a list, containing:</p>
 <ul>
 <li>the plot as a ggplot2 object,<br>
 </li>
-<li>a dataframe / tibble summarising the baseline median and each sustained period of improvement.</li>
+<li>a datatable summarising the baseline median and each sustained period of improvement.</li>
 </ul>
-<p>Don’t try this at home - setting runlength of 6 and searching in both directions to confirm that successive runs are identified:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)
-signals <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw"><a href="reference/runcharter.html">runcharter</a></span>(<span class="dt">med_rows =</span> <span class="dv">6</span>,
-             <span class="dt">runlength =</span> <span class="dv">6</span>, 
-             <span class="dt">direction =</span> <span class="st">"both"</span>)
-<span class="co">#&gt; $runchart</span></code></pre></div>
-<p><img src="reference/figures/unnamed-chunk-5-1.png" width="768"></p>
-<pre><code>#&gt; 
-#&gt; $sustained
-#&gt; # A tibble: 13 x 8
-#&gt;    grp   median_start median_end baseline new_median run_start  run_end   
-#&gt;    &lt;chr&gt; &lt;date&gt;       &lt;date&gt;        &lt;dbl&gt;      &lt;dbl&gt; &lt;date&gt;     &lt;date&gt;    
-#&gt;  1 WardV 2014-01-01   2014-06-01      4         15   2015-01-01 2015-06-01
-#&gt;  2 WardV 2014-01-01   2014-06-01      4          9   2015-10-01 2016-03-01
-#&gt;  3 WardX 2014-01-01   2014-06-01     13.5       11   2014-07-01 2014-12-01
-#&gt;  4 WardX 2014-01-01   2014-06-01     13.5       17   2015-07-01 2015-12-01
-#&gt;  5 WardX 2014-01-01   2014-06-01     13.5        6.5 2016-01-01 2016-06-01
-#&gt;  6 WardX 2014-01-01   2014-06-01     13.5       11   2016-07-01 2016-12-01
-#&gt;  7 WardX 2014-01-01   2014-06-01     13.5        4.5 2017-01-01 2017-06-01
-#&gt;  8 WardY 2014-01-01   2014-06-01     13         19   2014-12-01 2015-05-01
-#&gt;  9 WardY 2014-01-01   2014-06-01     13         13   2015-06-01 2015-11-01
-#&gt; 10 WardY 2014-01-01   2014-06-01     13          7.5 2017-10-01 2018-03-01
-#&gt; 11 WardZ 2014-01-01   2014-06-01      4.5        8   2015-01-01 2015-06-01
-#&gt; 12 WardZ 2014-01-01   2014-06-01      4.5        4   2015-12-01 2016-05-01
-#&gt; 13 WardZ 2014-01-01   2014-06-01      4.5        9   2017-06-01 2017-12-01
-#&gt; # ... with 1 more variable: lastdate &lt;date&gt;</code></pre>
+<p>Don’t try this at home - setting runlength of 7 and searching in both directions to confirm that successive runs are identified:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">signals <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="st">  </span><span class="kw"><a href="reference/runcharter.html">runcharter</a></span>(<span class="dt">med_rows =</span> <span class="dv">7</span>,</a>
+<a class="sourceLine" id="cb7-3" title="3">             <span class="dt">runlength =</span> <span class="dv">5</span>, </a>
+<a class="sourceLine" id="cb7-4" title="4">             <span class="dt">datecol =</span> <span class="st">"date"</span>,</a>
+<a class="sourceLine" id="cb7-5" title="5">              <span class="dt">grpvar =</span> <span class="st">"grp"</span>, </a>
+<a class="sourceLine" id="cb7-6" title="6">              <span class="dt">yval =</span> <span class="st">"y"</span>,</a>
+<a class="sourceLine" id="cb7-7" title="7">             <span class="dt">direction =</span> <span class="st">"both"</span>)</a>
+<a class="sourceLine" id="cb7-8" title="8"><span class="co">#&gt; $runchart</span></a></code></pre></div>
+<p><img src="reference/figures/unnamed-chunk-5-1.png"><!-- --></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="co">#&gt; $sustained</span></a>
+<a class="sourceLine" id="cb8-3" title="3"><span class="co">#&gt;       grp median start_date   end_date  extend_to  run_type</span></a>
+<a class="sourceLine" id="cb8-4" title="4"><span class="co">#&gt;  1: WardV      5 2014-01-01 2014-07-01 2015-01-01  baseline</span></a>
+<a class="sourceLine" id="cb8-5" title="5"><span class="co">#&gt;  2: WardX     11 2014-01-01 2014-07-01 2014-11-01  baseline</span></a>
+<a class="sourceLine" id="cb8-6" title="6"><span class="co">#&gt;  3: WardY     14 2014-01-01 2014-07-01 2014-12-01  baseline</span></a>
+<a class="sourceLine" id="cb8-7" title="7"><span class="co">#&gt;  4: WardZ      4 2014-01-01 2014-07-01 2015-01-01  baseline</span></a>
+<a class="sourceLine" id="cb8-8" title="8"><span class="co">#&gt;  5: WardV     15 2015-01-01 2015-05-01 2015-10-01 sustained</span></a>
+<a class="sourceLine" id="cb8-9" title="9"><span class="co">#&gt;  6: WardX      7 2014-11-01 2015-03-01 2015-04-01 sustained</span></a>
+<a class="sourceLine" id="cb8-10" title="10"><span class="co">#&gt;  7: WardY     19 2014-12-01 2015-04-01 2015-06-01 sustained</span></a>
+<a class="sourceLine" id="cb8-11" title="11"><span class="co">#&gt;  8: WardZ      7 2015-01-01 2015-05-01 2015-12-01 sustained</span></a>
+<a class="sourceLine" id="cb8-12" title="12"><span class="co">#&gt;  9: WardV     11 2015-10-01 2016-02-01 2018-07-01 sustained</span></a>
+<a class="sourceLine" id="cb8-13" title="13"><span class="co">#&gt; 10: WardX     11 2015-04-01 2015-08-01 2016-12-01 sustained</span></a>
+<a class="sourceLine" id="cb8-14" title="14"><span class="co">#&gt; 11: WardY     15 2015-06-01 2015-10-01 2017-10-01 sustained</span></a>
+<a class="sourceLine" id="cb8-15" title="15"><span class="co">#&gt; 12: WardZ      4 2015-12-01 2016-04-01 2017-06-01 sustained</span></a>
+<a class="sourceLine" id="cb8-16" title="16"><span class="co">#&gt; 13: WardX      5 2016-12-01 2017-04-01 2018-02-01 sustained</span></a>
+<a class="sourceLine" id="cb8-17" title="17"><span class="co">#&gt; 14: WardY      7 2017-10-01 2018-02-01 2018-07-01 sustained</span></a>
+<a class="sourceLine" id="cb8-18" title="18"><span class="co">#&gt; 15: WardZ      9 2017-06-01 2017-10-01 2018-07-01 sustained</span></a>
+<a class="sourceLine" id="cb8-19" title="19"><span class="co">#&gt; 16: WardX      7 2018-02-01 2018-06-01 2018-07-01 sustained</span></a></code></pre></div>
 </div>
 </div>
   </div>
@@ -289,8 +286,7 @@ signals <span class="op">%&gt;%</span><span class="st"> </span>
 </ul>
 </div>
 
-      </div>
-
+  </div>
 </div>
 
 
@@ -299,12 +295,14 @@ signals <span class="op">%&gt;%</span><span class="st"> </span>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.0.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

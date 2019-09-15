@@ -17,7 +17,8 @@ Exports: runcharter
 Suggests: 
     knitr,
     rmarkdown,
-    covr
+    covr,
+    pkgdown
 VignetteBuilder: knitr
 URL: https://github.com/johnmackintosh/runcharter
 BugReports: https://github.com/johnmackintosh/runcharter/issues
