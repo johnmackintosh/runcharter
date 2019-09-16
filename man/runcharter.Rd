@@ -61,9 +61,11 @@ specified using the appropriate character string e.g. "3 months"
 }
 \examples{
 \donttest{
-runcharter(signals, med_rows = 13, runlength = 9, direction = "above",
-datecol = "date", grpvar ="grp", yval ="y",facet_cols = 2,
-chart_breaks = "6 months")
+runcharter(signals, med_rows = 13, runlength = 9,
+direction = "above", datecol = "date", grpvar ="grp", yval ="y",
+facet_cols = 2,chart_title = "Automated runs analysis",
+chart_subtitle = " some runs found", chart_caption = "powered by R",
+chart_breaks = " 6 months")
 }
 
 

@@ -31,7 +31,7 @@
 #'
 #' @import data.table
 #' @importFrom stats median
-#' @importFrom zoo rollapply
+#' @importFrom zoo rollapplyr
 #' @importFrom ggplot2 aes ggplot geom_line geom_point geom_segment
 #' @importFrom ggplot2 theme element_text element_blank labs
 #' @importFrom ggplot2 ggtitle facet_wrap vars scale_x_date
@@ -39,9 +39,11 @@
 #'
 #' @examples
 #' \donttest{
-#'runcharter(signals, med_rows = 13, runlength = 9, direction = "above",
-#'datecol = "date", grpvar ="grp", yval ="y",facet_cols = 2,
-#'chart_breaks = "6 months")
+#'runcharter(signals, med_rows = 13, runlength = 9,
+#'direction = "above", datecol = "date", grpvar ="grp", yval ="y",
+#' facet_cols = 2,chart_title = "Automated runs analysis",
+#'chart_subtitle = " some runs found", chart_caption = "powered by R",
+#'chart_breaks = " 6 months")
 #' }
 #'
 #'
@@ -63,59 +65,139 @@ runcharter <- function(df,
                        median_colr = "#E87722",
                        highlight_fill = "#DB1884",
                        ...) {
-
+  
+  # error checks
+  
+  # direction
+  if (length(direction) > 1) {
+    stop('"Too many values passed to "direction" argument.
+         Please set direction to one of "above", "below", or "both"',
+         call. = FALSE)
+  }
+  
+  
+  # mising arguments
+  # df
+  if (!length(df)) {
+    stop('"Please provide the dataframe / tibble / data.table name"')
+  }
+  
+  # datecol , grpvar and yval
+  if (!length(datecol) & !length(grpvar) & !length(yval)) {
+    stop('"Please check and provide values for the "datecol", "grpvar"  and "yval" arguments"')
+  }
+  
+  
+  # datecol and grpvar
+  if (!length(datecol) & !length(grpvar)) {
+    stop('"Please check and provide values for the "datecol"  and "grpvar" arguments"')
+  }
+  
+  # datecol and yval
+  if (!length(datecol) & !length(yval)) {
+    stop('"Please check and provide values for the "datecol"  and "yval" arguments"')
+  }
+  
+  
+  # grpvar and yval
+  if (!length(grpvar) & !length(yval)) {
+    stop('"Please check and provide a value for the "grpvar"  and "yval" arguments"')
+  }
+  
+  
+  # datecol
+  if (!length(datecol)) {
+    stop('"Please check and provide a value for the "datecol" argument"')
+  }
+  
+  # grpvar
+  if (!length(grpvar)) {
+    stop('"Please provide a value for "grpvar" argument"')
+  }
+  
+  # yval
+  if (!length(yval)) {
+    stop('"Please provide a value for the "yval" argument"')
+  }
+  
   stopifnot(exprs = {!is.null(datecol)
     !is.null(grpvar)
     !is.null(yval)})
-
+  
   start_date <- NULL
   end_date <- NULL
   keepgroup <- character()
-
-
+  
+  
   flag_reset <- if (direction == "below") {
     runlength * -1
   } else {
     runlength
   }
-
-
+  
+  
+  
   masterDT <- data.table::copy(df)
   data.table::setDT(masterDT)
-
+  
   masterDT <- data.table::setnames(masterDT,
                                    old = c(datecol,grpvar,yval),
                                    new = c("date","grp","y"))
-
+  
+  
+  # is grpvar a factor
+  factorcheck <- is.factor(masterDT[["grp"]])
+  
+  if (factorcheck) {
+    keeplevels <- levels(masterDT[["grp"]])
+  }
+  
+  
   masterDT[["grp"]] <- as.character(masterDT[["grp"]])
   masterDT[["y"]] <- as.numeric(masterDT[["y"]])
-
+  
   data.table::setkey(masterDT, grp, date)
-
-  keepgroup <- masterDT[,.N, by = .(grp)
-                        ][N >= (med_rows + runlength),.SD,
-                          .SDcols = "N", by = list(grp)
-                          ][,unique(grp)]
-
-  median_rows <- masterDT[grp %chin% keepgroup,.SD[1:med_rows], by = grp
+  
+  keepgroup <- masterDT[,.N, by = .(grp)]
+  
+  keeptest <- all(keepgroup[["N"]]) < (runlength + med_rows)
+  
+  if (!keeptest) {
+    stop("None of the groups have enough rows of data beyond the specified baseline period, for the desired runlength.
+        Please check the values of the med_rows and runlength arguments.
+        Currently they exceed the number of rows for each group")
+  } else {
+    keepgroup <-  masterDT[,.N, by = .(grp)
+                           ][N >= (med_rows + runlength),.SD,
+                             .SDcols = "N", by = list(grp)
+                             ][,unique(grp)] }
+  
+  if (length(keepgroup) == 0) {
+    stop("None of the groups have enough rows of data beyond the specified baseline period, for the desired runlength.
+        Please check the values of the med_rows and runlength arguments.
+        Currently they exceed the number of rows for each group")
+  }
+  
+  # every grp should appear in med rows
+  median_rows <- masterDT[,.SD[1:med_rows], by = grp
                           ][, median := stats::median(utils::head(y,med_rows),na.rm = TRUE), by = grp
                             ][, start_date := min(date), by = grp
                               ][,end_date := max(date), by = grp]
-
+  
   medians <- median_rows[,utils::head(.SD,1), by = grp,
                          .SDcols = c("median","start_date","end_date")
                          ][,`:=`(run_type = "baseline", rungroup = 1)]
-
+  
   med_lookup <- medians[,c("grp","median","end_date")]
-
-
-
+  
+  
+  
   tempDT <- med_lookup[masterDT,.(grp,y,date, median, end_date), on = "grp"
                        ][date > end_date,][]
-
+  
   tempDT <- tempDT[,end_date := NULL][]
-
-
+  
+  
   # function begins from here
   tempDT <- basic_processing(DT = tempDT, kg = keepgroup,runlength)
   run_start <- get_run_dates(direction,DT = tempDT, target_vec = "cusum_shift",
@@ -126,21 +208,21 @@ runcharter <- function(df,
   sustained <- get_sustained(DT1 = run_start,
                              DT2 = run_end)
   tempDT <- update_tempDT(sustained,tempDT)
-
+  
   bindlist <- if (!exists("bindlist")) {
     bindlist <- list(medians, sustained)
   } else {
     bindlist <- c(bindlist,sustained)
   }
-
+  
   medians <- data.table::rbindlist(bindlist, use.names = TRUE, fill = TRUE)
-
+  
   keepgroup <- tempDT[,.N,.(grp)
                       ][N >= (runlength),.SD,.SDcols = "N",by = list(grp)
                         ][,unique(grp)]
-
+  
   # if keepgroup > 0 , repeat, else
-
+  
   while (length(keepgroup)) {
     tempDT <- basic_processing(DT = tempDT, kg = keepgroup, runlength)
     run_start <- get_run_dates(direction, DT = tempDT, target_vec = "cusum_shift",
@@ -153,33 +235,38 @@ runcharter <- function(df,
     bindlist <- list(medians,sustained)
     medians <- data.table::rbindlist(bindlist, use.names = TRUE, fill = TRUE)
   }
-
+  
   # modify the final medians DT for plotting purposes
-
+  
   medians[,extend_to := shift(start_date,type = "lead"), by = "grp"]
   medians[,extend_to := ifelse(is.na(extend_to),
                                max(masterDT[["date"]]),extend_to), by = "grp"]
   median_rows <- medians[!is.na(end_date) & run_type == "baseline",]
-
+  
   sustained_rows <- medians[!is.na(end_date) & run_type == "sustained",]
   sustained_rows <- sustained_rows[order(grp,start_date)
                                    ][,rungroup := NULL
                                      ][,rungroup := .GRP, by = list(grp,start_date)]
-
-
-
+  
+  
+  
   data.table::setkey(sustained_rows,grp,start_date,end_date)
-
+  
   highlights <- merge(masterDT, sustained_rows, by = "grp",
                       allow.cartesian = TRUE)
-
+  
   highlights <- highlights[data.table::between(date,start_date,end_date),]
-
-
-
-
+  
+  
+  if (factorcheck) {
+    masterDT[,grp := factor(grp,levels = keeplevels,ordered = TRUE)]
+    medians[,grp := factor(grp,levels = keeplevels,ordered = TRUE)]
+    sustained_rows[,grp := factor(grp,levels = keeplevels,ordered = TRUE)]
+    highlights[,grp := factor(grp,levels = keeplevels,ordered = TRUE)]
+  }
+  
   # base plot - lines and points
-
+  
   runchart <- ggplot2::ggplot(masterDT, ggplot2::aes(date, y, group = 1)) +
     ggplot2::geom_line(colour = line_colr, size = 1.1)  +
     ggplot2::geom_point(shape = 21 ,colour = point_colr,fill = point_colr, size = 2.5) +
@@ -190,38 +277,42 @@ runcharter <- function(df,
                    panel.grid.major = ggplot2::element_blank()) +
     ggplot2::labs(x = "", y = "", caption = chart_caption) +
     ggplot2::theme(legend.position = "bottom")
-
-
+  
+  
   # solid original median line
-
+  
   runchart <- runchart +
-    ggplot2::geom_segment(data = median_rows,
+    ggplot2::geom_segment(data = median_rows,na.rm = TRUE,
                           ggplot2::aes(x = start_date, xend = end_date,
                                        y = median, yend = median, group = rungroup),
                           colour = median_colr,size = 1.05, linetype = 1)
-
-
+  
+  
   #  highlight sustained points
-
+  
   runchart <- runchart +
     ggplot2::geom_point(data = highlights, ggplot2::aes(x = date, y = y, group = rungroup),
                         shape = 21, colour = point_colr, fill = highlight_fill , size = 2.7)
-
-
+  
+  
   # sustained median lines
   runchart <- runchart +
     ggplot2::geom_segment(data = sustained_rows, na.rm = TRUE,
                           ggplot2::aes(x = start_date, xend = end_date, y = median, yend = median,
                                        group = rungroup),colour = median_colr, linetype = 1, size = 1.05)
-
-
-  runchart <- runchart +
-    ggplot2::ggtitle(label = chart_title, subtitle = chart_subtitle)
-
-  runchart <- runchart +
-    ggplot2::facet_wrap(ggplot2::vars(grp), ncol = facet_cols)
-
-
+  
+  
+  runchart <- runchart + ggplot2::ggtitle(label = chart_title, subtitle = chart_subtitle)
+  
+  if (factorcheck) {
+    runchart <- runchart + ggplot2::facet_wrap(ggplot2::vars(factor(grp)), ncol = facet_cols)
+  } else {
+    runchart <- runchart + ggplot2::facet_wrap(ggplot2::vars(grp), ncol = facet_cols)
+  }
+  
+  
+  
+  
   # extended baseline from last improvement date to next run or end
   runchart <- runchart +
     ggplot2::geom_segment(data = medians, na.rm = TRUE,
@@ -233,20 +324,20 @@ runcharter <- function(df,
                           colour = median_colr,
                           linetype = 2,
                           size = 1.05)
-
+  
   if (!is.null(chart_breaks)) {
     runchart <- runchart + ggplot2::scale_x_date(breaks = chart_breaks)
   }
-
+  
   # tidy up the medians DT and reapply original column names
-
+  
   medians <- medians[,.SD,.SDcols = c("grp","median","start_date","end_date",
                                       "extend_to","run_type")]
-
+  
   setnames(medians, old = "grp",new = grpvar)
-
+  
   results <- list( runchart = runchart, sustained = medians[!is.na(end_date),])
-
+  
   return(results)
-
+  
 }
