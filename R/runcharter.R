@@ -64,9 +64,58 @@ runcharter <- function(df,
                        highlight_fill = "#DB1884",
                        ...) {
 
-  stopifnot(exprs = {!is.null(datecol)
-    !is.null(grpvar)
-    !is.null(yval)})
+  # stopifnot(exprs = {!is.null(datecol)
+  #   !is.null(grpvar)
+  #   !is.null(yval)})
+  
+  # error checks
+  
+  # direction
+  if (length(direction) > 1) {
+    stop('"Too many values passed to "direction" argument.
+         Please set direction to one of "above", "below", or "both"',
+         call. = FALSE)
+  }
+  # mising arguments
+  
+  # datecol , grpvar and yval
+  if (!length(datecol) & !length(grpvar) & !length(yval)) {
+    stop('"Please check and provide values for the "datecol", "grpvar"  and "yval" arguments')
+  }
+  
+  
+  # datecol and grpvar
+  if (!length(datecol) & !length(grpvar)) {
+    stop('"Please check and provide values for the "datecol"  and "grpvar" arguments')
+  }
+  
+  # datecol and yval
+  if (!length(datecol) & !length(yval)) {
+    stop('"Please check and provide values for the "datecol"  and "yval" arguments')
+  }
+  
+  
+  # grpvar and yval
+  if (!length(grpvar) & !length(yval)) {
+    stop('"Please check and provide a value for the "grpvar"  and "yval" arguments')
+  }
+  
+  
+  # datecol
+  if (!length(datecol)) {
+    stop('"Please check and provide a value for the "datecol" argument')
+  }
+  
+  # grpvar
+  if (!length(grpvar)) {
+    stop('"Please provide a value for "grpvar" argument')
+  }
+  
+  # yval
+  if (!length(yval)) {
+    stop('"Please provide a value for the "yval" argument')
+  }
+  
 
   start_date <- NULL
   end_date <- NULL
@@ -87,6 +136,14 @@ runcharter <- function(df,
                                    old = c(datecol,grpvar,yval),
                                    new = c("date","grp","y"))
 
+  # is grpvar a factor
+  factorcheck <- is.factor(masterDT[["grp"]])
+  
+  if (factorcheck) {
+    keeplevels <- levels(masterDT[["grp"]])
+  }
+  
+  
   masterDT[["grp"]] <- as.character(masterDT[["grp"]])
   masterDT[["y"]] <- as.numeric(masterDT[["y"]])
 
@@ -174,8 +231,16 @@ runcharter <- function(df,
                       allow.cartesian = TRUE)
 
   highlights <- highlights[data.table::between(date,start_date,end_date),]
+  
 
-
+  if (factorcheck) {
+    masterDT[,grp := factor(grp,levels = keeplevels,ordered = TRUE)][]
+    medians[,grp := factor(grp,levels = keeplevels,ordered = TRUE)][]
+    sustained_rows[,grp := factor(grp,levels = keeplevels,ordered = TRUE)][]
+    highlights[,grp := factor(grp,levels = keeplevels,ordered = TRUE)][]
+  }
+  
+  
 
 
   # base plot - lines and points
@@ -195,7 +260,7 @@ runcharter <- function(df,
   # solid original median line
 
   runchart <- runchart +
-    ggplot2::geom_segment(data = median_rows,
+    ggplot2::geom_segment(data = median_rows,na.rm = TRUE,
                           ggplot2::aes(x = start_date, xend = end_date,
                                        y = median, yend = median, group = rungroup),
                           colour = median_colr,size = 1.05, linetype = 1)
@@ -211,17 +276,21 @@ runcharter <- function(df,
   # sustained median lines
   runchart <- runchart +
     ggplot2::geom_segment(data = sustained_rows, na.rm = TRUE,
-                          ggplot2::aes(x = start_date, xend = end_date, y = median, yend = median,
-                                       group = rungroup),colour = median_colr, linetype = 1, size = 1.05)
+                          ggplot2::aes(x = start_date, xend = end_date, 
+                                       y = median, yend = median, group = rungroup),
+                          colour = median_colr, linetype = 1, size = 1.05)
 
 
-  runchart <- runchart +
-    ggplot2::ggtitle(label = chart_title, subtitle = chart_subtitle)
+  runchart <- runchart + ggplot2::ggtitle(label = chart_title, 
+                                          subtitle = chart_subtitle)
 
-  runchart <- runchart +
-    ggplot2::facet_wrap(ggplot2::vars(grp), ncol = facet_cols)
-
-
+  if (factorcheck) {
+    runchart <- runchart + ggplot2::facet_wrap(ggplot2::vars(factor(grp)), ncol = facet_cols)
+  } else {
+    runchart <- runchart + ggplot2::facet_wrap(ggplot2::vars(grp), ncol = facet_cols)
+  }
+  
+ 
   # extended baseline from last improvement date to next run or end
   runchart <- runchart +
     ggplot2::geom_segment(data = medians, na.rm = TRUE,
