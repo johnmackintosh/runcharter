@@ -117,12 +117,8 @@ test_that("`runcharter function` works with input and returns expected data.fram
   checkDT4$extend_to <- as.Date(checkDT4$extend_to)
   
   
-  
-<<<<<<< HEAD
+
   p4 <- runcharter(signals,med_rows = 0, runlength = 9,direction = "above",
-=======
-  p4 <- runcharter(signals,med_rows = 0, runlength = 0,direction = "above",
->>>>>>> master
                    datecol = "date",grpvar = "grp",yval = "y")
   
   
