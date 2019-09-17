@@ -56,7 +56,7 @@ test_that(" missing grpvar throws errors", {
 
 
 # missing yval
-test_that(" missing grpvar throws errors", {
+test_that(" missing yval throws errors", {
   
   #  grpvar missing
   expect_that(runcharter(signals,
@@ -92,9 +92,37 @@ test_that(" missing grpvar throws errors", {
                          datecol = ,
                          grpvar = ,
                          yval = "y" ),
-              throws_error('"Please check and provide values for the "datecol"  and "grpvar" arguments"'))
+throws_error('"Please check and provide values for the "datecol"  and "grpvar" arguments"'))
+  
+
+  # missing datecol and yval
+  
+  expect_that(runcharter(signals,
+              med_rows = 9,
+              runlength = 9,
+              direction = c("above"),
+              datecol = ,
+              grpvar = "grp",
+              yval = ),
+  throws_error('"Please check and provide values for the "datecol"  and "yval" arguments"'))
+  
+  
+  # date , grpvar and yval all missing
+  
+  expect_that(runcharter(signals,
+                         med_rows = 9,
+                         runlength = 9,
+                         direction = c("above"),
+                         datecol = ,
+                         grpvar = ,
+                         yval =  ),
+throws_error('"Please check and provide values for the "datecol", "grpvar"  and "yval" arguments"'))
+  
+  
   
 })
+
+
 
 
 # not enough rows remaining
@@ -107,9 +135,27 @@ test_that(" there are enough rows beyond the baseline and runlength period", {
                          datecol = "date",
                          grpvar = "grp",
                          yval = "y"),
-              throws_error("None of the groups have enough rows of data beyond the specified baseline period, for the desired runlength.
+throws_error("None of the groups have enough rows of data beyond the specified baseline period, for the desired runlength.
         Please check the values of the med_rows and runlength arguments.
         Currently they exceed the number of rows for each group"))
+  
+  
+keeptest <- data.table(grp = c("WardV","WardX","WardY","WardZ"),
+N = rep_len(55,4),
+compar = rep_len(59,4),
+result = rep_len(FALSE,4)
+)
+
+expect_that(runcharter(signals,
+                       med_rows = 50,
+                       runlength = 15,
+                       direction = "above",
+                       datecol = "date",
+                       grpvar = "grp",
+                       yval = "y"),
+                       throws_error("None of the groups have enough rows of data beyond the specified baseline period, for the desired runlength.
+        Please check the values of the med_rows and runlength arguments.
+        Currently they exceed the number of rows for each group"))  
   
 })
 

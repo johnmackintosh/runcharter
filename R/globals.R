@@ -1,6 +1,7 @@
 utils::globalVariables(
   c(
     ".",
+    "compar",
     "cusum",
     "cusum_shift",
     "direction",
@@ -11,6 +12,7 @@ utils::globalVariables(
     "keepgroup",
     "lookback",
     "N",
+    "result",
     "roll_median",
     "run_end",
     "run_start",

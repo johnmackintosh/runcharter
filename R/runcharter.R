@@ -120,7 +120,7 @@ runcharter <- function(df,
     stop('"Please provide a value for the "yval" argument"')
   }
   
-
+  
   start_date <- NULL
   end_date <- NULL
   keepgroup <- character()
@@ -157,9 +157,12 @@ runcharter <- function(df,
   
   keepgroup <- masterDT[,.N, by = .(grp)]
   
-  keeptest <- all(keepgroup[["N"]]) < (runlength + med_rows)
+  keeptest <- keepgroup[]
+  keeptest[, compar := (med_rows + runlength)][]
+  keeptest[, result := (N >= compar)][]
+                  
   
-  if (!keeptest) {
+  if (all(keeptest[["result"]] == FALSE)) {
     stop("None of the groups have enough rows of data beyond the specified baseline period, for the desired runlength.
         Please check the values of the med_rows and runlength arguments.
         Currently they exceed the number of rows for each group")
