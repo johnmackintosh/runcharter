@@ -245,7 +245,11 @@ Similarly, you can plot basic line charts by setting 'med_rows' to 0 (zero)
 library(runcharter)
 signals %>% 
   runcharter(med_rows = 0,
+<<<<<<< HEAD
              runlength = 9, 
+=======
+             runlength = 0, 
+>>>>>>> master
              datecol = "date",
               grpvar = "grp", 
               yval = "y",

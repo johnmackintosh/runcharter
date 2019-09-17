@@ -65,6 +65,13 @@ runcharter <- function(df,
                        median_colr = "#E87722",
                        highlight_fill = "#DB1884",
                        ...) {
+<<<<<<< HEAD
+=======
+
+  # stopifnot(exprs = {!is.null(datecol)
+  #   !is.null(grpvar)
+  #   !is.null(yval)})
+>>>>>>> master
   
   # error checks
   
@@ -74,6 +81,7 @@ runcharter <- function(df,
          Please set direction to one of "above", "below", or "both"',
          call. = FALSE)
   }
+<<<<<<< HEAD
   
   
   # mising arguments
@@ -85,38 +93,66 @@ runcharter <- function(df,
   # datecol , grpvar and yval
   if (!length(datecol) & !length(grpvar) & !length(yval)) {
     stop('"Please check and provide values for the "datecol", "grpvar"  and "yval" arguments"')
+=======
+  # mising arguments
+  
+  # datecol , grpvar and yval
+  if (!length(datecol) & !length(grpvar) & !length(yval)) {
+    stop('"Please check and provide values for the "datecol", "grpvar"  and "yval" arguments')
+>>>>>>> master
   }
   
   
   # datecol and grpvar
   if (!length(datecol) & !length(grpvar)) {
+<<<<<<< HEAD
     stop('"Please check and provide values for the "datecol"  and "grpvar" arguments"')
+=======
+    stop('"Please check and provide values for the "datecol"  and "grpvar" arguments')
+>>>>>>> master
   }
   
   # datecol and yval
   if (!length(datecol) & !length(yval)) {
+<<<<<<< HEAD
     stop('"Please check and provide values for the "datecol"  and "yval" arguments"')
+=======
+    stop('"Please check and provide values for the "datecol"  and "yval" arguments')
+>>>>>>> master
   }
   
   
   # grpvar and yval
   if (!length(grpvar) & !length(yval)) {
+<<<<<<< HEAD
     stop('"Please check and provide a value for the "grpvar"  and "yval" arguments"')
+=======
+    stop('"Please check and provide a value for the "grpvar"  and "yval" arguments')
+>>>>>>> master
   }
   
   
   # datecol
   if (!length(datecol)) {
+<<<<<<< HEAD
     stop('"Please check and provide a value for the "datecol" argument"')
+=======
+    stop('"Please check and provide a value for the "datecol" argument')
+>>>>>>> master
   }
   
   # grpvar
   if (!length(grpvar)) {
+<<<<<<< HEAD
     stop('"Please provide a value for "grpvar" argument"')
+=======
+    stop('"Please provide a value for "grpvar" argument')
+>>>>>>> master
   }
   
   # yval
   if (!length(yval)) {
+<<<<<<< HEAD
     stop('"Please provide a value for the "yval" argument"')
   }
   
@@ -124,6 +160,12 @@ runcharter <- function(df,
     !is.null(grpvar)
     !is.null(yval)})
   
+=======
+    stop('"Please provide a value for the "yval" argument')
+  }
+  
+
+>>>>>>> master
   start_date <- NULL
   end_date <- NULL
   keepgroup <- character()
@@ -143,8 +185,12 @@ runcharter <- function(df,
   masterDT <- data.table::setnames(masterDT,
                                    old = c(datecol,grpvar,yval),
                                    new = c("date","grp","y"))
+<<<<<<< HEAD
   
   
+=======
+
+>>>>>>> master
   # is grpvar a factor
   factorcheck <- is.factor(masterDT[["grp"]])
   
@@ -257,6 +303,7 @@ runcharter <- function(df,
   
   highlights <- highlights[data.table::between(date,start_date,end_date),]
   
+<<<<<<< HEAD
   
   if (factorcheck) {
     masterDT[,grp := factor(grp,levels = keeplevels,ordered = TRUE)]
@@ -265,6 +312,19 @@ runcharter <- function(df,
     highlights[,grp := factor(grp,levels = keeplevels,ordered = TRUE)]
   }
   
+=======
+
+  if (factorcheck) {
+    masterDT[,grp := factor(grp,levels = keeplevels,ordered = TRUE)][]
+    medians[,grp := factor(grp,levels = keeplevels,ordered = TRUE)][]
+    sustained_rows[,grp := factor(grp,levels = keeplevels,ordered = TRUE)][]
+    highlights[,grp := factor(grp,levels = keeplevels,ordered = TRUE)][]
+  }
+  
+  
+
+
+>>>>>>> master
   # base plot - lines and points
   
   runchart <- ggplot2::ggplot(masterDT, ggplot2::aes(date, y, group = 1)) +
@@ -298,21 +358,36 @@ runcharter <- function(df,
   # sustained median lines
   runchart <- runchart +
     ggplot2::geom_segment(data = sustained_rows, na.rm = TRUE,
+<<<<<<< HEAD
                           ggplot2::aes(x = start_date, xend = end_date, y = median, yend = median,
                                        group = rungroup),colour = median_colr, linetype = 1, size = 1.05)
   
   
   runchart <- runchart + ggplot2::ggtitle(label = chart_title, subtitle = chart_subtitle)
   
+=======
+                          ggplot2::aes(x = start_date, xend = end_date, 
+                                       y = median, yend = median, group = rungroup),
+                          colour = median_colr, linetype = 1, size = 1.05)
+
+
+  runchart <- runchart + ggplot2::ggtitle(label = chart_title, 
+                                          subtitle = chart_subtitle)
+
+>>>>>>> master
   if (factorcheck) {
     runchart <- runchart + ggplot2::facet_wrap(ggplot2::vars(factor(grp)), ncol = facet_cols)
   } else {
     runchart <- runchart + ggplot2::facet_wrap(ggplot2::vars(grp), ncol = facet_cols)
   }
   
+<<<<<<< HEAD
   
   
   
+=======
+ 
+>>>>>>> master
   # extended baseline from last improvement date to next run or end
   runchart <- runchart +
     ggplot2::geom_segment(data = medians, na.rm = TRUE,
