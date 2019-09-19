@@ -60,7 +60,7 @@ The function requires a simple three column dataframe, with the following column
 You can pass a dataframe, tibble or data.table to the function. It will be converted to data.table. You do not need to know data.table to use this package. The magrittr pipe is exported, so you can continue to use dplyr style syntax for data manipulation prior to using the function
 
 
-```{r, fig.height=5, fig.width =8}
+```{r pipe, fig.height=5, fig.width=8}
 library(runcharter)
 
 testdf <- signals # rename the built in data set
@@ -120,7 +120,7 @@ The package exports the magrittr pipe, so you can chain commands using data.tabl
 
 ## Function outputs
 
-```{r, fig.height=5, fig.width =8,fig.cap = "One location showing a run below the median"}
+```{r run-below, fig.height=5, fig.width=8}
 library(runcharter)
 runcharter(signals ,med_rows = 13,
 runlength = 9,
@@ -148,7 +148,7 @@ If a run is identified, the points are highlighted (the purple coloured points),
 
 The analysis continues, rebasing any further runs, until no more runs are found or there are not enough data points remaining.
 
-```{r fig.height=5, fig.width =8}
+```{r runs-above, fig.height=5, fig.width=8}
 library(runcharter)
 runcharter(signals,
            direction = "above",
@@ -164,7 +164,7 @@ runcharter(signals,
 
 Typically, you would only look for runs either "above" or "below" the median, depending on the nature of the metric you are studying and what determines an improvement (e.g. below the median for reduced admissions and above the median for increased care bundle compliance). You can also look for any run, occuring on either side of the median, by specifying "both" as the direction. 
 
-```{r, fig.height=5, fig.width =8}
+```{r both-directions, fig.height=5, fig.width=8}
 library(runcharter)
 signals %>% runcharter(
            direction = "both",
@@ -185,7 +185,7 @@ Note that runs below the median are found for Wards X and Y, while a run above t
 
 Don't try this at home - setting runlength of 5 and searching in both directions to confirm that successive runs are identified. A run of 5 would not be a statistically significant shift in real life -  the package defaults to 9 as the desired run length.
 
-```{r fig.height=5, fig.width =8}
+```{r multiple-runs, fig.height=5, fig.width=8}
 signals %>% 
   runcharter(med_rows = 7,
              runlength = 5, 
@@ -199,7 +199,7 @@ signals %>%
 
 Factors can cause problems, so they are converted to character prior to processing. However, they are converted back prior to plotting, so that individual facets appear in the correct order.
 
-```{r, fig.height=5, fig.width =8}
+```{r factor-handling, fig.height=5, fig.width=8}
 library(NHSRdatasets)
 library(runcharter)
 
@@ -219,15 +219,12 @@ LOSdata %>% runcharter(med_rows = 9,
 
 
 
-
-
-
 ## Turn off run chart analysis
 
 You can avoid rebasing medians by setting 'runlength' to 0 (zero).
 This will plot the runcharts with the original baseline medians, but no runs analysis will take place.
 
-```{r,fig.height=5, fig.width =8}
+```{r analysis_off, fig.width=8}
 library(runcharter)
 signals %>% 
   runcharter(med_rows = 13,
@@ -241,7 +238,7 @@ signals %>%
 
 Similarly, you can plot basic line charts by setting 'med_rows' to 0 (zero)
 
-```{r,fig.height=5, fig.width =8}
+```{r med_row-0, fig.width=8}
 library(runcharter)
 signals %>% 
   runcharter(med_rows = 0,
@@ -252,4 +249,3 @@ signals %>%
              direction = "both")
 
 ```
-

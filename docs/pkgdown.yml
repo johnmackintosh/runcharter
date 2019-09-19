@@ -1,6 +1,0 @@
-pandoc: '2.6'
-pkgdown: 1.4.0
-pkgdown_sha: ~
-articles:
-  runcharter: runcharter.html
-

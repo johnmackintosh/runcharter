@@ -326,7 +326,7 @@ runcharter <- function(df,
                           size = 1.05)
   
   if (!is.null(chart_breaks)) {
-    runchart <- runchart + ggplot2::scale_x_date(breaks = chart_breaks)
+    runchart <- runchart + ggplot2::scale_x_date(date_breaks = chart_breaks)
   }
   
   # tidy up the medians DT and reapply original column names
