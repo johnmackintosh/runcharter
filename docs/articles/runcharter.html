@@ -6,12 +6,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>runcharter • runcharter</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
@@ -38,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">runcharter</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
       </span>
     </div>
 
@@ -80,7 +74,7 @@
       <h1>runcharter</h1>
                         <h4 class="author">John MacKintosh</h4>
             
-            <h4 class="date">2019-09-16</h4>
+            <h4 class="date">2019-09-19</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/johnmackintosh/runcharter/blob/master/vignettes/runcharter.Rmd"><code>vignettes/runcharter.Rmd</code></a></small>
       <div class="hidden name"><code>runcharter.Rmd</code></div>
@@ -134,7 +128,7 @@
 <a class="sourceLine" id="cb1-13" title="13">           <span class="dt">yval =</span> <span class="st">"y"</span>,</a>
 <a class="sourceLine" id="cb1-14" title="14">           <span class="dt">facet_cols =</span> <span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb1-15" title="15"><span class="co">#&gt; $runchart</span></a></code></pre></div>
-<p><img src="man/figures/unnamed-chunk-2-1.png" width="768"></p>
+<p><img src="man/figures/pipe-1.png" width="768"></p>
 <pre><code>#&gt; 
 #&gt; $sustained
 #&gt;      grp median start_date   end_date  extend_to  run_type
@@ -152,23 +146,23 @@
 <h2 class="hasAnchor">
 <a href="#runcharter-function-arguments" class="anchor"></a>runcharter function arguments</h2>
 <ul>
-<li>df : a three column dataframe or data table with columns specifying a grouping variable -‘grpvar’, a date column -‘datecol’ and ‘yvar’ as the value to plot on the y axis. The grouping variable should be a character column, however if a factor column is passed to the function it will be converted to character. Data frames will be converted to data.table</li>
-<li>med_rows : How many rows / data points should the initial baseline median be calculated over?</li>
-<li>runlength : How long a run of consecutive points do you want to find, before you rebase the median? The median will be rebased using all useful observations (points on the median are not useful, and are ignored).</li>
-<li>direction : “above” or “below” the median, or “both”. Use “both” if you want to rebase the run chart any time a run of the desired length occurs, even if it is on the “wrong” side of the median line.</li>
-<li>datecol : the name of the date column</li>
-<li>grpvar : a character vector specifying the grouping variable used to facet the plots</li>
-<li>yval : a numeric column to be plotted on the y-axis. Integers will be converted to numeric</li>
-<li>facet_cols : the number of columns in the final faceted plot</li>
-<li>chart_title : The main title for the chart</li>
-<li>chart_subtitle : A subtitle for the chart</li>
-<li>chart_caption : A caption for the chart</li>
-<li>chart_breaks : character string defining desired x-axis date breaks e.g. “3 months”. Will be ignored if ‘datecol’ is an integer instead of a date value.</li>
-<li>line_colr : Colour for run chart lines</li>
-<li>point_colr : Colour for run chart points</li>
-<li>median_colr : Colour for solid and extended median lines</li>
-<li>highlight_fill : Fill colour to highlight points in a sustained run</li>
-<li>… : further arguments passed on to function</li>
+<li><p>df : a three column dataframe or data table with columns specifying a grouping variable -‘grpvar’, a date column -‘datecol’ and ‘yvar’ as the value to plot on the y axis. The grouping variable should be a character column, however if a factor column is passed to the function it will be converted to character. Data frames will be converted to data.table</p></li>
+<li><p>med_rows : How many rows / data points should the initial baseline median be calculated over?</p></li>
+<li><p>runlength : How long a run of consecutive points do you want to find, before you rebase the median? The median will be rebased using all useful observations (points on the median are not useful, and are ignored).</p></li>
+<li><p>direction : “above” or “below” the median, or “both”. Use “both” if you want to rebase the run chart any time a run of the desired length occurs, even if it is on the “wrong” side of the median line.</p></li>
+<li><p>datecol : the name of the date column. If you are plotting individual observations in time order, you can also supply an ID value instead of a date.</p></li>
+<li><p>grpvar : a character vector specifying the grouping variable used to facet the plots. Ordered factors will be converted to character during processing, and back to ordered factor prior to plotting.</p></li>
+<li><p>yval : a numeric column to be plotted on the y-axis. Integers will be converted to numeric</p></li>
+<li><p>facet_cols : the number of columns in the final faceted plot</p></li>
+<li><p>chart_title : The main title for the chart</p></li>
+<li><p>chart_subtitle : A subtitle for the chart</p></li>
+<li><p>chart_caption : A caption for the chart</p></li>
+<li><p>chart_breaks : character string defining desired x-axis date breaks e.g. “3 months”. Will be ignored if ‘datecol’ is an integer instead of a date value.</p></li>
+<li><p>line_colr : Colour for run chart lines</p></li>
+<li><p>point_colr : Colour for run chart points</p></li>
+<li><p>median_colr : Colour for solid and extended median lines</p></li>
+<li><p>highlight_fill : Fill colour to highlight points in a sustained run</p></li>
+<li><p>… : further arguments passed on to function</p></li>
 </ul>
 <p>The package exports the magrittr pipe, so you can chain commands using data.table syntax, or alternatively, use dplyr syntax and chain to the runcharter function</p>
 </div>
@@ -187,11 +181,7 @@
 <a class="sourceLine" id="cb3-10" title="10"><span class="dt">chart_caption =</span> <span class="st">"analysed with runcharter"</span>,</a>
 <a class="sourceLine" id="cb3-11" title="11"><span class="dt">chart_breaks =</span> <span class="st">"6 months"</span>)</a>
 <a class="sourceLine" id="cb3-12" title="12"><span class="co">#&gt; $runchart</span></a></code></pre></div>
-<div class="figure">
-<img src="man/figures/unnamed-chunk-3-1.png" alt="One location showing a run below the median" width="768"><p class="caption">
-One location showing a run below the median
-</p>
-</div>
+<p><img src="man/figures/run-below-1.png" width="768"></p>
 <pre><code>#&gt; 
 #&gt; $sustained
 #&gt;      grp median start_date   end_date  extend_to  run_type
@@ -219,7 +209,7 @@ One location showing a run below the median
 <a class="sourceLine" id="cb5-6" title="6">           <span class="dt">yval =</span> <span class="st">"y"</span>,</a>
 <a class="sourceLine" id="cb5-7" title="7">           <span class="dt">facet_cols =</span> <span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb5-8" title="8"><span class="co">#&gt; $runchart</span></a></code></pre></div>
-<p><img src="man/figures/unnamed-chunk-4-1.png" width="768"></p>
+<p><img src="man/figures/runs-above-1.png" width="768"></p>
 <pre><code>#&gt; 
 #&gt; $sustained
 #&gt;      grp median start_date   end_date  extend_to  run_type
@@ -241,7 +231,7 @@ One location showing a run below the median
 <a class="sourceLine" id="cb7-6" title="6">           <span class="dt">yval =</span> <span class="st">"y"</span>,</a>
 <a class="sourceLine" id="cb7-7" title="7">           <span class="dt">facet_cols =</span> <span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb7-8" title="8"><span class="co">#&gt; $runchart</span></a></code></pre></div>
-<p><img src="man/figures/unnamed-chunk-5-1.png" width="768"></p>
+<p><img src="man/figures/both-directions-1.png" width="768"></p>
 <pre><code>#&gt; 
 #&gt; $sustained
 #&gt;      grp median start_date   end_date  extend_to  run_type
@@ -268,7 +258,7 @@ One location showing a run below the median
 <a class="sourceLine" id="cb9-6" title="6">              <span class="dt">yval =</span> <span class="st">"y"</span>,</a>
 <a class="sourceLine" id="cb9-7" title="7">             <span class="dt">direction =</span> <span class="st">"both"</span>)</a>
 <a class="sourceLine" id="cb9-8" title="8"><span class="co">#&gt; $runchart</span></a></code></pre></div>
-<p><img src="man/figures/unnamed-chunk-6-1.png" width="768"></p>
+<p><img src="man/figures/multiple-runs-1.png" width="768"></p>
 <pre><code>#&gt; 
 #&gt; $sustained
 #&gt;       grp median start_date   end_date  extend_to  run_type
@@ -289,6 +279,86 @@ One location showing a run below the median
 #&gt; 15: WardZ      9 2017-06-01 2017-10-01 2018-07-01 sustained
 #&gt; 16: WardX      7 2018-02-01 2018-06-01 2018-07-01 sustained</code></pre>
 </div>
+<div id="factors-instead-of-character-groups" class="section level2">
+<h2 class="hasAnchor">
+<a href="#factors-instead-of-character-groups" class="anchor"></a>Factors instead of character groups</h2>
+<p>Factors can cause problems, so they are converted to character prior to processing. However, they are converted back prior to plotting, so that individual facets appear in the correct order.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(NHSRdatasets)</a>
+<a class="sourceLine" id="cb11-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(runcharter)</a>
+<a class="sourceLine" id="cb11-3" title="3"></a>
+<a class="sourceLine" id="cb11-4" title="4">LOSdata &lt;-<span class="st"> </span>data.table<span class="op">::</span><span class="kw">copy</span>(LOS_model)</a>
+<a class="sourceLine" id="cb11-5" title="5">utils<span class="op">::</span><span class="kw"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(LOSdata) <span class="co"># note that Organisation is an ordered factor, not character</span></a>
+<a class="sourceLine" id="cb11-6" title="6"><span class="co">#&gt; 'data.frame':    300 obs. of  5 variables:</span></a>
+<a class="sourceLine" id="cb11-7" title="7"><span class="co">#&gt;  $ ID          : int  1 2 3 4 5 6 7 8 9 10 ...</span></a>
+<a class="sourceLine" id="cb11-8" title="8"><span class="co">#&gt;  $ Organisation: Ord.factor w/ 10 levels "Trust1"&lt;"Trust2"&lt;..: 1 2 3 4 5 6 7 8 9 10 ...</span></a>
+<a class="sourceLine" id="cb11-9" title="9"><span class="co">#&gt;  $ Age         : int  55 27 93 45 70 60 25 48 51 81 ...</span></a>
+<a class="sourceLine" id="cb11-10" title="10"><span class="co">#&gt;  $ LOS         : int  2 1 12 3 11 7 4 4 7 1 ...</span></a>
+<a class="sourceLine" id="cb11-11" title="11"><span class="co">#&gt;  $ Death       : int  0 0 0 1 0 0 0 0 1 0 ...</span></a>
+<a class="sourceLine" id="cb11-12" title="12"></a>
+<a class="sourceLine" id="cb11-13" title="13">LOSdata <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/runcharter.html">runcharter</a></span>(<span class="dt">med_rows =</span> <span class="dv">9</span>,</a>
+<a class="sourceLine" id="cb11-14" title="14">                   <span class="dt">runlength =</span> <span class="dv">9</span>,</a>
+<a class="sourceLine" id="cb11-15" title="15">                   <span class="dt">direction =</span> <span class="st">"both"</span>,</a>
+<a class="sourceLine" id="cb11-16" title="16">                   <span class="dt">datecol =</span> <span class="st">"ID"</span>,</a>
+<a class="sourceLine" id="cb11-17" title="17">                   <span class="dt">grpvar =</span> <span class="st">"Organisation"</span>,</a>
+<a class="sourceLine" id="cb11-18" title="18">                   <span class="dt">yval =</span> <span class="st">"LOS"</span>)</a>
+<a class="sourceLine" id="cb11-19" title="19"><span class="co">#&gt; $runchart</span></a></code></pre></div>
+<p><img src="man/figures/factor-handling-1.png" width="768"></p>
+<pre><code>#&gt; 
+#&gt; $sustained
+#&gt;     Organisation median start_date end_date extend_to  run_type
+#&gt;  1:       Trust1      7          1       81       171  baseline
+#&gt;  2:      Trust10      3         10       90       300  baseline
+#&gt;  3:       Trust2      2          2       82       202  baseline
+#&gt;  4:       Trust3      5          3       83       300  baseline
+#&gt;  5:       Trust4      4          4       84       300  baseline
+#&gt;  6:       Trust5      7          5       85       300  baseline
+#&gt;  7:       Trust6      7          6       86       300  baseline
+#&gt;  8:       Trust7      3          7       87       300  baseline
+#&gt;  9:       Trust8      4          8       88       300  baseline
+#&gt; 10:       Trust9      3          9       89       300  baseline
+#&gt; 11:       Trust1      3        171      251       300 sustained
+#&gt; 12:       Trust2      4        202      292       300 sustained</code></pre>
+</div>
+<div id="turn-off-run-chart-analysis" class="section level2">
+<h2 class="hasAnchor">
+<a href="#turn-off-run-chart-analysis" class="anchor"></a>Turn off run chart analysis</h2>
+<p>You can avoid rebasing medians by setting ‘runlength’ to 0 (zero). This will plot the runcharts with the original baseline medians, but no runs analysis will take place.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(runcharter)</a>
+<a class="sourceLine" id="cb13-2" title="2">signals <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb13-3" title="3"><span class="st">  </span><span class="kw"><a href="../reference/runcharter.html">runcharter</a></span>(<span class="dt">med_rows =</span> <span class="dv">13</span>,</a>
+<a class="sourceLine" id="cb13-4" title="4">             <span class="dt">runlength =</span> <span class="dv">0</span>, </a>
+<a class="sourceLine" id="cb13-5" title="5">             <span class="dt">datecol =</span> <span class="st">"date"</span>,</a>
+<a class="sourceLine" id="cb13-6" title="6">              <span class="dt">grpvar =</span> <span class="st">"grp"</span>, </a>
+<a class="sourceLine" id="cb13-7" title="7">              <span class="dt">yval =</span> <span class="st">"y"</span>,</a>
+<a class="sourceLine" id="cb13-8" title="8">             <span class="dt">direction =</span> <span class="st">"both"</span>)</a>
+<a class="sourceLine" id="cb13-9" title="9"><span class="co">#&gt; $runchart</span></a></code></pre></div>
+<p><img src="man/figures/analysis_off-1.png" width="768"></p>
+<pre><code>#&gt; 
+#&gt; $sustained
+#&gt;      grp median start_date   end_date  extend_to run_type
+#&gt; 1: WardV      7 2014-01-01 2015-01-01 2018-07-01 baseline
+#&gt; 2: WardX     11 2014-01-01 2015-01-01 2018-07-01 baseline
+#&gt; 3: WardY     13 2014-01-01 2015-01-01 2018-07-01 baseline
+#&gt; 4: WardZ      4 2014-01-01 2015-01-01 2018-07-01 baseline</code></pre>
+<p>Similarly, you can plot basic line charts by setting ‘med_rows’ to 0 (zero)</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(runcharter)</a>
+<a class="sourceLine" id="cb15-2" title="2">signals <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb15-3" title="3"><span class="st">  </span><span class="kw"><a href="../reference/runcharter.html">runcharter</a></span>(<span class="dt">med_rows =</span> <span class="dv">0</span>,</a>
+<a class="sourceLine" id="cb15-4" title="4">             <span class="dt">runlength =</span> <span class="dv">9</span>, </a>
+<a class="sourceLine" id="cb15-5" title="5">             <span class="dt">datecol =</span> <span class="st">"date"</span>,</a>
+<a class="sourceLine" id="cb15-6" title="6">              <span class="dt">grpvar =</span> <span class="st">"grp"</span>, </a>
+<a class="sourceLine" id="cb15-7" title="7">              <span class="dt">yval =</span> <span class="st">"y"</span>,</a>
+<a class="sourceLine" id="cb15-8" title="8">             <span class="dt">direction =</span> <span class="st">"both"</span>)</a>
+<a class="sourceLine" id="cb15-9" title="9"><span class="co">#&gt; $runchart</span></a></code></pre></div>
+<p><img src="man/figures/med_row-0-1.png" width="768"></p>
+<pre><code>#&gt; 
+#&gt; $sustained
+#&gt;      grp median start_date   end_date  extend_to run_type
+#&gt; 1: WardV     NA 2014-01-01 2014-01-01 2018-07-01 baseline
+#&gt; 2: WardX     NA 2014-01-01 2014-01-01 2018-07-01 baseline
+#&gt; 3: WardY     NA 2014-01-01 2014-01-01 2018-07-01 baseline
+#&gt; 4: WardZ     NA 2014-01-01 2014-01-01 2018-07-01 baseline</code></pre>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -304,6 +374,8 @@ One location showing a run below the median
       <li><a href="#function-outputs">Function outputs</a></li>
       <li><a href="#plot-explanation">Plot explanation</a></li>
       <li><a href="#find-runs-in-both-directions">Find runs in both directions</a></li>
+      <li><a href="#factors-instead-of-character-groups">Factors instead of character groups</a></li>
+      <li><a href="#turn-off-run-chart-analysis">Turn off run chart analysis</a></li>
       </ul>
 </div>
       </div>

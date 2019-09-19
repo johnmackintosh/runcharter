@@ -1,3 +1,4 @@
+
 ---
 output: github_document
 ---
@@ -44,7 +45,7 @@ This helps to track improvements over time.
 
 
 The default is to plot a faceted plot, allowing ggplot2 to handle the axis limits. 
-You can specify the number of columns in the faceted plot, or let ggplot2 do its thing.
+You can specify the number of columns in the faceted plot however, and you can also specify the breaks for date labels on the x axis.
 
 
 
@@ -52,15 +53,15 @@ You can specify the number of columns in the faceted plot, or let ggplot2 do its
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.width = 6,
+  fig.width = 8,
   fig.height = 5
 )
 ```
 
-Here are the function arguments and defaults. 
-A default run of 9 is specified as that is the length of run used by the IHI for its patient safety initiatives worldwide. 
 
 # Function arguments and defaults
+
+A default run of 9 is specified as that is the length of run used by the IHI for its patient safety initiatives worldwide. 
 
 ```{r, eval=FALSE}
 
@@ -87,7 +88,7 @@ runcharter(df = signals,
 The function will return a plot and a summary table showing the original baseline medians, and any sustained runs of improvement beyond the baseline period.
 
 
-```{r}
+```{r runs_below, fig.width = 8, fig.height= 5}
 
 library(runcharter)
 
@@ -105,13 +106,13 @@ runcharter(signals,
 
 ## Runs in both directions
 
-Th package now allows for finding runs in both directions (above and below the median). 
+Th package allows for finding runs in both directions (above and below the median). 
 Generally, for improvement purposes, you would only need to identify runs in one direction at a time. 
 In other words, if you are trying to reduce adverse events, improvement will be evidenced with a run below the median. Therefore, you would not rebase the median if a run of points above the median was observed. 
 
 However, for longer term monitoring, it may be necessary to identify and 'reset' a median if a sustained deterioration in performance occurs. Ideally, you should move to using SPC charts for monitoring purposes.
 
-```{r}
+```{r, runs_7_5_both_directions, fig.width = 8, fig.height= 5}
 library(runcharter)
 signals %>% 
   runcharter(med_rows = 7, 
@@ -121,7 +122,7 @@ signals %>%
               grpvar = "grp",
               yval = "y", 
              chart_title = "Runs in both directions",
-             chart_subtitle = "Runs of 6, from median calculated over first 7 data points in each location")
+             chart_subtitle = "Runs of 5, from median calculated over first 7 data points in each location")
 
 ```
 
@@ -139,29 +140,34 @@ If you want to apply the rules for trend , in addition to rebasing run charts, t
 
 [qicharts2](https://github.com/anhoej/qicharts2) creates run and SPC charts. These can be rebased, but you must specify when to do so. Also, the analysis is based on the author's own rules and not the rules typically used in healthcare (e.g. the rules promoted by the IHI).
 
-## We're not supposed to do this
 
-"But [insert QI expert name here] says you should not automatically rebase the median unless you know the signal is genuine".
+## Turn off run chart analysis
 
-Yes, and no. 
+You can avoid rebasing medians by setting 'runlength' to 0 (zero).
+This will plot the runcharts with the original baseline medians, but no runs analysis will take place.
 
-Truth is, sometimes, there is too much information being collected, or the task of manually performing this analysis is very time consuming, especially if you have to make manual adjustments to spreadsheets / databases / graphical outputs, to deadlines, whilst battling traditional BI tools that were only ever designed for bar and pie charts.
-Ultimately, I built this for me, to make my job easier. 
-I believe other healthcare analysts, who work with QI data, will also find it beneficial.
+```{r medians_only, fig.width=8, fig.height=5}
+library(runcharter)
+signals %>% 
+  runcharter(med_rows = 13,
+             runlength = 0, 
+             datecol = "date",
+              grpvar = "grp", 
+              yval = "y",
+             direction = "both")
 
-Obviously, there is no guarantee that any run that is identified is a genuine improvement. The user needs to verify this, however, the package aims to save time in identifying these signals in the first place. 
+```
 
-You can use the package to identify *potential* runs, and  if necessary, modify the outputs (e.g. the sustained dataframe) to remove any false signals, and rebuild the plot manually. 
+Similarly, you can plot basic line charts by setting 'med_rows' to 0 (zero)
 
+```{r lines_only, fig.width=8, fig.height=5}
+library(runcharter)
+signals %>% 
+  runcharter(med_rows = 0,
+             runlength = 9, 
+             datecol = "date",
+              grpvar = "grp", 
+              yval = "y",
+             direction = "both")
 
-## I don't like the final plot
-
-You can use the package to do the analysis, take the outputs, and build your own plots.
-Or save the output to a variable, retrieve the runchart component, and pass further ggplot2 syntax to amend it to your requirements.
-
-
-
-
-
-
-
+```
