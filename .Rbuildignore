@@ -7,3 +7,5 @@
 ^\.Rproj\.user$
 ^README\.Rmd$
 ^README-.*\.png$
+^pkgdown$
+pkgdown/
