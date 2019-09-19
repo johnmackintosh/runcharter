@@ -80,7 +80,7 @@ Re-bases median each time a run is discovered." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">runcharter</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
       </span>
     </div>
 
@@ -221,17 +221,11 @@ specified using the appropriate character string e.g. "3 months"</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-<span class='fu'>runcharter</span>(<span class='no'>signals</span>, <span class='kw'>med_rows</span> <span class='kw'>=</span> <span class='fl'>13</span>, <span class='kw'>runlength</span> <span class='kw'>=</span> <span class='fl'>9</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='st'>"above"</span>,
-<span class='kw'>datecol</span> <span class='kw'>=</span> <span class='st'>"date"</span>, <span class='kw'>grpvar</span> <span class='kw'>=</span><span class='st'>"grp"</span>, <span class='kw'>yval</span> <span class='kw'>=</span><span class='st'>"y"</span>,<span class='kw'>facet_cols</span> <span class='kw'>=</span> <span class='fl'>2</span>,
-<span class='kw'>chart_breaks</span> <span class='kw'>=</span> <span class='st'>"6 months"</span>)</div><div class='output co'>#&gt; $runchart</div><div class='img'><img src='runcharter-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $sustained
-#&gt;      grp median start_date   end_date  extend_to  run_type
-#&gt; 1: WardV      7 2014-01-01 2015-01-01 2018-07-01  baseline
-#&gt; 2: WardX     11 2014-01-01 2015-01-01 2018-07-01  baseline
-#&gt; 3: WardY     13 2014-01-01 2015-01-01 2018-07-01  baseline
-#&gt; 4: WardZ      4 2014-01-01 2015-01-01 2017-06-01  baseline
-#&gt; 5: WardZ      9 2017-06-01 2018-03-01 2018-07-01 sustained
-#&gt; </div><div class='input'># }
+<span class='fu'>runcharter</span>(<span class='no'>signals</span>, <span class='kw'>med_rows</span> <span class='kw'>=</span> <span class='fl'>13</span>, <span class='kw'>runlength</span> <span class='kw'>=</span> <span class='fl'>9</span>,
+<span class='kw'>direction</span> <span class='kw'>=</span> <span class='st'>"above"</span>, <span class='kw'>datecol</span> <span class='kw'>=</span> <span class='st'>"date"</span>, <span class='kw'>grpvar</span> <span class='kw'>=</span><span class='st'>"grp"</span>, <span class='kw'>yval</span> <span class='kw'>=</span><span class='st'>"y"</span>,
+<span class='kw'>facet_cols</span> <span class='kw'>=</span> <span class='fl'>2</span>,<span class='kw'>chart_title</span> <span class='kw'>=</span> <span class='st'>"Automated runs analysis"</span>,
+<span class='kw'>chart_subtitle</span> <span class='kw'>=</span> <span class='st'>" some runs found"</span>, <span class='kw'>chart_caption</span> <span class='kw'>=</span> <span class='st'>"powered by R"</span>,
+<span class='kw'>chart_breaks</span> <span class='kw'>=</span> <span class='st'>" 6 months"</span>)</div><div class='output co'>#&gt; $runchart</div><div class='output co'>#&gt; <span class='error'>Error in cut.Date(date, time, right = TRUE, include.lowest = TRUE): invalid specification of 'breaks'</span></div><div class='img'><img src='runcharter-1.png' alt='' width='700' height='433' /></div><div class='input'># }
 
 
 
