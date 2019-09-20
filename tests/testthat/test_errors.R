@@ -107,6 +107,21 @@ throws_error('"Please check and provide values for the "datecol"  and "grpvar" a
   throws_error('"Please check and provide values for the "datecol"  and "yval" arguments"'))
   
   
+  # 
+  # #wrong date format
+  # 
+  # test_that("wrong dateformat causes error",{
+  #   expect_that(runcharter(med_rows = 13,
+  #                          runlength = 9,
+  #                          direction = "both",
+  #                          datecol = as.character("date"),
+  #                          grpvar = "grp",
+  #                          yval = "y"),
+  #               throws_error())
+  # })
+  
+  
+  
   # date , grpvar and yval all missing
   
   expect_that(runcharter(signals,
@@ -153,7 +168,7 @@ expect_that(runcharter(signals,
                        datecol = "date",
                        grpvar = "grp",
                        yval = "y"),
-                       throws_error("None of the groups have enough rows of data beyond the specified baseline period, for the desired runlength.
+throws_error("None of the groups have enough rows of data beyond the specified baseline period, for the desired runlength.
         Please check the values of the med_rows and runlength arguments.
         Currently they exceed the number of rows for each group"))  
   
@@ -182,3 +197,8 @@ test_that("missing df argument causes error", {
   
   
 })
+
+
+
+
+

@@ -43,7 +43,7 @@
 #'direction = "above", datecol = "date", grpvar ="grp", yval ="y",
 #' facet_cols = 2,chart_title = "Automated runs analysis",
 #'chart_subtitle = " some runs found", chart_caption = "powered by R",
-#'chart_breaks = " 6 months")
+#'chart_breaks = "6 months")
 #' }
 #'
 #'
@@ -74,7 +74,6 @@ runcharter <- function(df,
          Please set direction to one of "above", "below", or "both"',
          call. = FALSE)
   }
-  
   
   # mising arguments
   # df
@@ -120,6 +119,12 @@ runcharter <- function(df,
     stop('"Please provide a value for the "yval" argument"')
   }
   
+  # # datecol in wrong format
+  # 
+  # if (is.character(datecol)) {
+  #   stop("The date column is a character vector.
+  #    Please ensure this is in a date / datetime / numeric format")
+  # }
   
   start_date <- NULL
   end_date <- NULL

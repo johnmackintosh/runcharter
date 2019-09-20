@@ -64,7 +64,7 @@ runcharter(df = signals,
           line_colr = "#005EB8", # blue
           point_colr ="#005EB8", # blue
           median_colr = "#E87722", # orange
-          sus_fill = "#DB1884") # magenta
+          highlight_fill = "#DB1884") # magenta
 ```
 
 The function will return a plot and a summary table showing the original
