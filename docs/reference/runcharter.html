@@ -145,10 +145,10 @@ Re-bases median each time a run is discovered.</p>
 
     <pre class="usage"><span class='fu'>runcharter</span>(<span class='no'>df</span>, <span class='kw'>med_rows</span> <span class='kw'>=</span> <span class='fl'>13</span>, <span class='kw'>runlength</span> <span class='kw'>=</span> <span class='fl'>9</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"above"</span>,
   <span class='st'>"below"</span>, <span class='st'>"both"</span>), <span class='kw'>datecol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>grpvar</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>yval</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>facet_cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>chart_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>chart_subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>chart_caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>chart_breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>line_colr</span> <span class='kw'>=</span> <span class='st'>"#005EB8"</span>,
-  <span class='kw'>point_colr</span> <span class='kw'>=</span> <span class='st'>"#005EB8"</span>, <span class='kw'>median_colr</span> <span class='kw'>=</span> <span class='st'>"#E87722"</span>,
-  <span class='kw'>highlight_fill</span> <span class='kw'>=</span> <span class='st'>"#DB1884"</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>facet_cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>facet_scales</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>, <span class='kw'>chart_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>chart_subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>chart_caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>chart_breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>line_colr</span> <span class='kw'>=</span> <span class='st'>"#005EB8"</span>, <span class='kw'>point_colr</span> <span class='kw'>=</span> <span class='st'>"#005EB8"</span>,
+  <span class='kw'>median_colr</span> <span class='kw'>=</span> <span class='st'>"#E87722"</span>, <span class='kw'>highlight_fill</span> <span class='kw'>=</span> <span class='st'>"#DB1884"</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -184,6 +184,10 @@ Re-bases median each time a run is discovered.</p>
     <tr>
       <th>facet_cols</th>
       <td><p>how many columns are required in the plot facets</p></td>
+    </tr>
+    <tr>
+      <th>facet_scales</th>
+      <td><p>defaults to "fixed". Alternatively, "free_y"</p></td>
     </tr>
     <tr>
       <th>chart_title</th>

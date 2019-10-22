@@ -125,14 +125,15 @@
 <a class="sourceLine" id="cb2-8" title="8">          <span class="dt">grpvar =</span> <span class="ot">NULL</span>,</a>
 <a class="sourceLine" id="cb2-9" title="9">          <span class="dt">yval =</span> <span class="ot">NULL</span>,</a>
 <a class="sourceLine" id="cb2-10" title="10">          <span class="dt">facet_cols =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb2-11" title="11">          <span class="dt">chart_title =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb2-12" title="12">          <span class="dt">chart_subtitle =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb2-13" title="13">          <span class="dt">chart_caption =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb2-14" title="14">          <span class="dt">chart_breaks =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb2-15" title="15">          <span class="dt">line_colr =</span> <span class="st">"#005EB8"</span>, <span class="co"># blue</span></a>
-<a class="sourceLine" id="cb2-16" title="16">          <span class="dt">point_colr =</span><span class="st">"#005EB8"</span>, <span class="co"># blue</span></a>
-<a class="sourceLine" id="cb2-17" title="17">          <span class="dt">median_colr =</span> <span class="st">"#E87722"</span>, <span class="co"># orange</span></a>
-<a class="sourceLine" id="cb2-18" title="18">          <span class="dt">highlight_fill =</span> <span class="st">"#DB1884"</span>) <span class="co"># magenta</span></a></code></pre></div>
+<a class="sourceLine" id="cb2-11" title="11">          <span class="dt">facet_scales =</span> <span class="st">"fixed"</span>,</a>
+<a class="sourceLine" id="cb2-12" title="12">          <span class="dt">chart_title =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb2-13" title="13">          <span class="dt">chart_subtitle =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb2-14" title="14">          <span class="dt">chart_caption =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb2-15" title="15">          <span class="dt">chart_breaks =</span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb2-16" title="16">          <span class="dt">line_colr =</span> <span class="st">"#005EB8"</span>, <span class="co"># blue</span></a>
+<a class="sourceLine" id="cb2-17" title="17">          <span class="dt">point_colr =</span><span class="st">"#005EB8"</span>, <span class="co"># blue</span></a>
+<a class="sourceLine" id="cb2-18" title="18">          <span class="dt">median_colr =</span> <span class="st">"#E87722"</span>, <span class="co"># orange</span></a>
+<a class="sourceLine" id="cb2-19" title="19">          <span class="dt">highlight_fill =</span> <span class="st">"#DB1884"</span>) <span class="co"># magenta</span></a></code></pre></div>
 <p>The function will return a plot and a summary table showing the original baseline medians, and any sustained runs of improvement beyond the baseline period.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"></a>
 <a class="sourceLine" id="cb3-2" title="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(runcharter)</a>

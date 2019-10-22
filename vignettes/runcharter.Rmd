@@ -97,6 +97,8 @@ The median will be rebased using all useful observations (points on the median a
 
 - facet_cols : the number of columns in the final faceted plot
 
+- facet_scales : "fixed" (default), "free_y" or any other ggplot2 scale syntax
+
 - chart_title : The main title for the chart
 
 - chart_subtitle : A subtitle for the chart
