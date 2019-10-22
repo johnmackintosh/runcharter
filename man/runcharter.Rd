@@ -6,10 +6,10 @@
 \usage{
 runcharter(df, med_rows = 13, runlength = 9, direction = c("above",
   "below", "both"), datecol = NULL, grpvar = NULL, yval = NULL,
-  facet_cols = NULL, chart_title = NULL, chart_subtitle = NULL,
-  chart_caption = NULL, chart_breaks = NULL, line_colr = "#005EB8",
-  point_colr = "#005EB8", median_colr = "#E87722",
-  highlight_fill = "#DB1884", ...)
+  facet_cols = NULL, facet_scales = "fixed", chart_title = NULL,
+  chart_subtitle = NULL, chart_caption = NULL, chart_breaks = NULL,
+  line_colr = "#005EB8", point_colr = "#005EB8",
+  median_colr = "#E87722", highlight_fill = "#DB1884", ...)
 }
 \arguments{
 \item{df}{data.frame or data table}
@@ -27,6 +27,8 @@ runcharter(df, med_rows = 13, runlength = 9, direction = c("above",
 \item{yval}{numeric y value}
 
 \item{facet_cols}{how many columns are required in the plot facets}
+
+\item{facet_scales}{defaults to "fixed". Alternatively, "free_y"}
 
 \item{chart_title}{title for the  final chart}
 
