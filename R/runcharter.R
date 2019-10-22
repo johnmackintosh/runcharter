@@ -17,6 +17,7 @@
 #' @param grpvar character vector of grouping variable
 #' @param yval numeric y value
 #' @param facet_cols how many columns are required in the plot facets
+#' @param facet_scales defaults to "fixed". Alternatively, "free_y" 
 #' @param chart_title title for the  final chart
 #' @param chart_subtitle subtitle for chart
 #' @param chart_caption caption for chart
@@ -31,7 +32,7 @@
 #'
 #' @import data.table
 #' @importFrom stats median
-#' @importFrom zoo rollapplyr
+#' @importFrom zoo rollapply
 #' @importFrom ggplot2 aes ggplot geom_line geom_point geom_segment
 #' @importFrom ggplot2 theme element_text element_blank labs
 #' @importFrom ggplot2 ggtitle facet_wrap vars scale_x_date
@@ -56,6 +57,7 @@ runcharter <- function(df,
                        grpvar = NULL,
                        yval = NULL,
                        facet_cols = NULL,
+                       facet_scales = "fixed",
                        chart_title = NULL,
                        chart_subtitle = NULL,
                        chart_caption = NULL,
@@ -274,7 +276,8 @@ runcharter <- function(df,
   
   runchart <- ggplot2::ggplot(masterDT, ggplot2::aes(date, y, group = 1)) +
     ggplot2::geom_line(colour = line_colr, size = 1.1)  +
-    ggplot2::geom_point(shape = 21 ,colour = point_colr,fill = point_colr, size = 2.5) +
+    ggplot2::geom_point(shape = 21 ,colour = point_colr, 
+                        fill = point_colr, size = 2.5) +
     ggplot2::theme_minimal(base_size = 10) +
     ggplot2::theme(axis.text.y = ggplot2::element_text(angle = 0)) +
     ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90)) +
@@ -288,8 +291,11 @@ runcharter <- function(df,
   
   runchart <- runchart +
     ggplot2::geom_segment(data = median_rows,na.rm = TRUE,
-                          ggplot2::aes(x = start_date, xend = end_date,
-                                       y = median, yend = median, group = rungroup),
+                          ggplot2::aes(x = start_date, 
+                                       xend = end_date,
+                                       y = median, 
+                                       yend = median, 
+                                       group = rungroup),
                           colour = median_colr,size = 1.05, linetype = 1)
   
   
@@ -310,9 +316,13 @@ runcharter <- function(df,
   runchart <- runchart + ggplot2::ggtitle(label = chart_title, subtitle = chart_subtitle)
   
   if (factorcheck) {
-    runchart <- runchart + ggplot2::facet_wrap(ggplot2::vars(factor(grp)), ncol = facet_cols)
+    runchart <- runchart + ggplot2::facet_wrap(ggplot2::vars(factor(grp)), 
+                                               ncol = facet_cols,
+                                               scales = facet_scales)
   } else {
-    runchart <- runchart + ggplot2::facet_wrap(ggplot2::vars(grp), ncol = facet_cols)
+    runchart <- runchart + ggplot2::facet_wrap(ggplot2::vars(grp), 
+                                               ncol = facet_cols,
+                                               scales = facet_scales)
   }
   
   
