@@ -32,6 +32,7 @@
 #'
 #' @import data.table
 #' @importFrom stats median
+#' @importFrom zoo rollapply
 #' @importFrom ggplot2 aes ggplot geom_line geom_point geom_segment
 #' @importFrom ggplot2 theme element_text element_blank labs
 #' @importFrom ggplot2 ggtitle facet_wrap vars scale_x_date

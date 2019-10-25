@@ -30,12 +30,11 @@ basic_processing <- function(DT = NULL,
   DT[flag != 0, rungroup := rleidv(flag), by = grp
      ][flag != 0, cusum := cumsum(flag), by = list(grp,rungroup)
        ][flag != 0, cusum_shift := shift(cusum, n = lookback, type = "lead")
-         ][flag != 0, roll_median := frollapply(x = y,
-                                          n = runlength, 
-                                          FUN = median,
-                                          adaptive = TRUE,
-                                          align =  'right',
-                                          na.rm = TRUE), by = list(grp,rungroup)]
+         ][flag != 0, roll_median := zoo::rollapply(y, width = runlength,
+                                                    FUN = median,
+                                                    partial = TRUE,
+                                                    align = "right"),
+                                                      by = list(grp,rungroup)]
 }
 
 
