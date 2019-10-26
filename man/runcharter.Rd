@@ -49,7 +49,7 @@ runcharter(df, med_rows = 13, runlength = 9, direction = c("above",
 \item{...}{further arguments passed on to function}
 }
 \value{
-data.table of all runs, by group, that meet the criteria
+list - faceted plot and data.table showing all identified runs
 }
 \description{
 Finds all runs of desired  length occurring on desired side of median line.

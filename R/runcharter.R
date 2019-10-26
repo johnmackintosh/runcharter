@@ -28,7 +28,7 @@
 #' @param highlight_fill fill colour for highlighting points in a sustained run
 #' @param ...  further arguments passed on to function
 #'
-#' @return data.table of all runs, by group, that meet the criteria
+#' @return list - faceted plot and data.table showing all identified runs
 #'
 #' @import data.table
 #' @importFrom stats median
@@ -161,6 +161,8 @@ runcharter <- function(df,
   masterDT[["y"]] <- as.numeric(masterDT[["y"]])
   
   data.table::setkey(masterDT, grp, date)
+  
+  masterDT <- masterDT[!is.na(date),]
   
   keepgroup <- masterDT[,.N, by = .(grp)]
   
