@@ -38,8 +38,9 @@ rebased. This helps to track improvements over time.
 
 The default is to plot a faceted plot, allowing ggplot2 to handle the
 axis limits. You can specify the number of columns in the faceted plot
-however, and you can also specify the breaks for date labels on the x
-axis.
+however, and you can also specify both the breaks for date labels on the
+x axis, and whether the y axis limits are fixed, or can vary by facet
+panel.
 
 # Function arguments and defaults
 
@@ -101,7 +102,7 @@ runcharter(signals,
 
 ## Runs in both directions
 
-Th package allows for finding runs in both directions (above and below
+The package allows for finding runs in both directions (above and below
 the median). Generally, for improvement purposes, you would only need to
 identify runs in one direction at a time. In other words, if you are
 trying to reduce adverse events, improvement will be evidenced with a

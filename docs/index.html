@@ -108,7 +108,7 @@
 <a class="sourceLine" id="cb1-6" title="6">devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span>(<span class="st">"johnmackintosh/runcharter"</span>, </a>
 <a class="sourceLine" id="cb1-7" title="7">                         <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>, <span class="dt">force =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <p>The rationale for the package is to analyse multiple run charts at once. More importantly, the package will identify a run of n successive points on the desired side of the median line, and will recalculate / rebase the median accordingly. Each time a run occurs, the median will be rebased. This helps to track improvements over time.</p>
-<p>The default is to plot a faceted plot, allowing ggplot2 to handle the axis limits. You can specify the number of columns in the faceted plot however, and you can also specify the breaks for date labels on the x axis.</p>
+<p>The default is to plot a faceted plot, allowing ggplot2 to handle the axis limits. You can specify the number of columns in the faceted plot however, and you can also specify both the breaks for date labels on the x axis, and whether the y axis limits are fixed, or can vary by facet panel.</p>
 </div>
 </div>
 <div id="function-arguments-and-defaults" class="section level1">
@@ -160,7 +160,7 @@
 <div id="runs-in-both-directions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#runs-in-both-directions" class="anchor"></a>Runs in both directions</h2>
-<p>Th package allows for finding runs in both directions (above and below the median). Generally, for improvement purposes, you would only need to identify runs in one direction at a time. In other words, if you are trying to reduce adverse events, improvement will be evidenced with a run below the median. Therefore, you would not rebase the median if a run of points above the median was observed.</p>
+<p>The package allows for finding runs in both directions (above and below the median). Generally, for improvement purposes, you would only need to identify runs in one direction at a time. In other words, if you are trying to reduce adverse events, improvement will be evidenced with a run below the median. Therefore, you would not rebase the median if a run of points above the median was observed.</p>
 <p>However, for longer term monitoring, it may be necessary to identify and ‘reset’ a median if a sustained deterioration in performance occurs. Ideally, you should move to using SPC charts for monitoring purposes.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(runcharter)</a>
 <a class="sourceLine" id="cb5-2" title="2">signals <span class="op">%&gt;%</span><span class="st"> </span></a>
