@@ -24,7 +24,7 @@ test_that(" missing datecol throws errors", {
                          datecol = ,
                          grpvar = "grp",
                          yval = "y"),
-              throws_error('"Please check and provide a value for the "datecol" argument"'))
+              throws_error('"Please check and provide values for the "datecol", "grpvar"  and "yval" arguments'))
   
   # datecol and grpvar missing
   expect_that(runcharter(signals,
@@ -48,7 +48,7 @@ test_that(" missing grpvar throws errors", {
                          datecol = "date",
                          grpvar = ,
                          yval = "y"),
-              throws_error('"Please provide a value for "grpvar" argument"'))
+              throws_error('"Please check and provide values for the "datecol", "grpvar"  and "yval" arguments'))
   
   
   
@@ -66,7 +66,7 @@ test_that(" missing yval throws errors", {
                          datecol = "date",
                          grpvar = "grp",
                          yval = ),
-              throws_error('"Please provide a value for the "yval" argument"'))
+              throws_error('"Please check and provide values for the "datecol", "grpvar"  and "yval" arguments'))
   
 })
 
@@ -81,7 +81,7 @@ test_that(" missing grpvar throws errors", {
                          datecol = "date",
                          grpvar = ,
                          yval = ),
-              throws_error('"Please check and provide a value for the "grpvar"  and "yval" arguments"'))
+              throws_error('"Please check and provide values for the "datecol", "grpvar"  and "yval" arguments'))
   
   
   # grpvar and date
@@ -92,7 +92,7 @@ test_that(" missing grpvar throws errors", {
                          datecol = ,
                          grpvar = ,
                          yval = "y" ),
-throws_error('"Please check and provide values for the "datecol"  and "grpvar" arguments"'))
+throws_error('"Please check and provide values for the "datecol", "grpvar"  and "yval" arguments'))
   
 
   # missing datecol and yval
@@ -104,7 +104,7 @@ throws_error('"Please check and provide values for the "datecol"  and "grpvar" a
               datecol = ,
               grpvar = "grp",
               yval = ),
-  throws_error('"Please check and provide values for the "datecol"  and "yval" arguments"'))
+  throws_error('"Please check and provide values for the "datecol", "grpvar"  and "yval" arguments'))
   
   
   # 

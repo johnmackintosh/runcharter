@@ -84,43 +84,12 @@ runcharter <- function(df,
   }
   
   # datecol , grpvar and yval
-  if (!length(datecol) & !length(grpvar) & !length(yval)) {
+  if (!length(datecol) | !length(grpvar) | !length(yval)) {
     stop('"Please check and provide values for the "datecol", "grpvar"  and "yval" arguments"')
   }
   
-  
-  # datecol and grpvar
-  if (!length(datecol) & !length(grpvar)) {
-    stop('"Please check and provide values for the "datecol"  and "grpvar" arguments"')
-  }
-  
-  # datecol and yval
-  if (!length(datecol) & !length(yval)) {
-    stop('"Please check and provide values for the "datecol"  and "yval" arguments"')
-  }
-  
-  
-  # grpvar and yval
-  if (!length(grpvar) & !length(yval)) {
-    stop('"Please check and provide a value for the "grpvar"  and "yval" arguments"')
-  }
-  
-  
-  # datecol
-  if (!length(datecol)) {
-    stop('"Please check and provide a value for the "datecol" argument"')
-  }
-  
-  # grpvar
-  if (!length(grpvar)) {
-    stop('"Please provide a value for "grpvar" argument"')
-  }
-  
-  # yval
-  if (!length(yval)) {
-    stop('"Please provide a value for the "yval" argument"')
-  }
-  
+
+  # 
   # # datecol in wrong format
   # 
   # if (is.character(datecol)) {
@@ -165,6 +134,9 @@ runcharter <- function(df,
   masterDT <- masterDT[!is.na(date),]
   
   keepgroup <- masterDT[,.N, by = .(grp)]
+  
+  singles <- keepgroup[N == 1,.SD,.SDcols = "N",by = list(grp)
+                      ][,unique(grp)]
   
   keeptest <- keepgroup[]
   keeptest[, compar := (med_rows + runlength)][]
@@ -276,8 +248,23 @@ runcharter <- function(df,
   
   # base plot - lines and points
   
-  runchart <- ggplot2::ggplot(masterDT, ggplot2::aes(date, y, group = 1)) +
-    ggplot2::geom_line(colour = line_colr, size = 1.1)  +
+  runchart <- ggplot2::ggplot(masterDT, ggplot2::aes(date, y, group = grp)) 
+  
+  
+  
+  if (factorcheck) {
+    runchart <- runchart + ggplot2::facet_wrap(ggplot2::vars(factor(grp)), 
+                                               ncol = facet_cols,
+                                               scales = facet_scales)
+  } else {
+    runchart <- runchart + ggplot2::facet_wrap(ggplot2::vars(grp), 
+                                               ncol = facet_cols,
+                                               scales = facet_scales)
+  }
+  
+  
+  runchart <- runchart +
+    #ggplot2::geom_line(colour = line_colr, size = 1.1)  +
     ggplot2::geom_point(shape = 21 ,colour = point_colr, 
                         fill = point_colr, size = 2.5) +
     ggplot2::theme_minimal(base_size = 10) +
@@ -288,6 +275,16 @@ runcharter <- function(df,
     ggplot2::labs(x = "", y = "", caption = chart_caption) +
     ggplot2::theme(legend.position = "bottom")
   
+  
+  if (length(singles)) {
+  masterDT <- masterDT[!grp %chin% singles,]
+  } 
+  
+  runchart <- runchart + ggplot2::geom_line(data = masterDT, na.rm = TRUE,
+                                            ggplot2::aes(x = date, 
+                                                y = y,
+                                                group = grp),
+                                                colour = line_colr, size = 1.1) 
   
   # solid original median line
   
@@ -317,15 +314,7 @@ runcharter <- function(df,
   
   runchart <- runchart + ggplot2::ggtitle(label = chart_title, subtitle = chart_subtitle)
   
-  if (factorcheck) {
-    runchart <- runchart + ggplot2::facet_wrap(ggplot2::vars(factor(grp)), 
-                                               ncol = facet_cols,
-                                               scales = facet_scales)
-  } else {
-    runchart <- runchart + ggplot2::facet_wrap(ggplot2::vars(grp), 
-                                               ncol = facet_cols,
-                                               scales = facet_scales)
-  }
+ 
   
   
   
