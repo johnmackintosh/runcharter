@@ -135,8 +135,9 @@ runcharter <- function(df,
   
   keepgroup <- masterDT[,.N, by = .(grp)]
   
-  singles <- keepgroup[N == 1,.SD,.SDcols = "N",by = list(grp)
-                      ][,unique(grp)]
+  lines_only <- keepgroup[N > 1, .SD, by = .(grp)][, unique(grp)]
+  lines_only <- masterDT[grp %chin% lines_only, ]
+  
   
   keeptest <- keepgroup[]
   keeptest[, compar := (med_rows + runlength)][]
@@ -262,9 +263,8 @@ runcharter <- function(df,
                                                scales = facet_scales)
   }
   
-  
+  # plot all points for all groups
   runchart <- runchart +
-    #ggplot2::geom_line(colour = line_colr, size = 1.1)  +
     ggplot2::geom_point(shape = 21 ,colour = point_colr, 
                         fill = point_colr, size = 2.5) +
     ggplot2::theme_minimal(base_size = 10) +
@@ -276,12 +276,9 @@ runcharter <- function(df,
     ggplot2::theme(legend.position = "bottom")
   
   
-  if (length(singles)) {
-  #masterDT <- masterDT[!grp %chin% singles,]
-   masterDT <- masterDT[!(grp %like% singles)]
-  } 
+ # only plot lines for groups  with N > 1
   
-  runchart <- runchart + ggplot2::geom_line(data = masterDT, na.rm = TRUE,
+  runchart <- runchart + ggplot2::geom_line(data = lines_only, na.rm = TRUE,
                                             ggplot2::aes(x = date, 
                                                 y = y,
                                                 group = grp),
