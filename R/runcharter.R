@@ -277,7 +277,8 @@ runcharter <- function(df,
   
   
   if (length(singles)) {
-  masterDT <- masterDT[!grp %chin% singles,]
+  #masterDT <- masterDT[!grp %chin% singles,]
+   masterDT <- masterDT[!(grp %like% singles)]
   } 
   
   runchart <- runchart + ggplot2::geom_line(data = masterDT, na.rm = TRUE,
