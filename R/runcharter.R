@@ -22,10 +22,14 @@
 #' @param chart_subtitle subtitle for chart
 #' @param chart_caption caption for chart
 #' @param chart_breaks character string defining desired x-axis date breaks
-#' @param line_colr colour for runchart lines
-#' @param point_colr colour for runchart points
+#' @param line_colr colour for run chart lines
+#' @param line_size thickness of connecting lines between run chart points
+#' @param point_colr colour for run chart points
+#' @param point_size size of normal run chart points
 #' @param median_colr colour for solid and extended median lines
+#' @param median_line_size thickness of solid and extended median lines
 #' @param highlight_fill fill colour for highlighting points in a sustained run
+#' @param highlight_point_size size of highlighted points in a sustained run
 #' @param ...  further arguments passed on to function
 #'
 #' @return list - faceted plot and data.table showing all identified runs
@@ -63,9 +67,13 @@ runcharter <- function(df,
                        chart_caption = NULL,
                        chart_breaks = NULL,
                        line_colr = "#005EB8",
+                       line_size = 1.1,
                        point_colr ="#005EB8",
+                       point_size = 2.5,
                        median_colr = "#E87722",
+                       median_line_size = 1.05,
                        highlight_fill = "#DB1884",
+                       highlight_point_size = 2.7,
                        ...) {
   
   # error checks
@@ -266,7 +274,7 @@ runcharter <- function(df,
   # plot all points for all groups
   runchart <- runchart +
     ggplot2::geom_point(shape = 21 ,colour = point_colr, 
-                        fill = point_colr, size = 2.5) +
+                        fill = point_colr, size = point_size) +
     ggplot2::theme_minimal(base_size = 10) +
     ggplot2::theme(axis.text.y = ggplot2::element_text(angle = 0)) +
     ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90)) +
@@ -278,39 +286,61 @@ runcharter <- function(df,
   
  # only plot lines for groups  with N > 1
   
-  runchart <- runchart + ggplot2::geom_line(data = lines_only, na.rm = TRUE,
-                                            ggplot2::aes(x = date, 
-                                                y = y,
-                                                group = grp),
-                                                colour = line_colr, size = 1.1) 
+  runchart <-
+    runchart + ggplot2::geom_line(
+      data = lines_only,
+      na.rm = TRUE,
+      ggplot2::aes(x = date,
+                   y = y,
+                   group = grp),
+      colour = line_colr,
+      size = line_size
+    ) 
   
   # solid original median line
   
   runchart <- runchart +
-    ggplot2::geom_segment(data = median_rows,na.rm = TRUE,
-                          ggplot2::aes(x = start_date, 
-                                       xend = end_date,
-                                       y = median, 
-                                       yend = median, 
-                                       group = rungroup),
-                          colour = median_colr,size = 1.05, linetype = 1)
+    ggplot2::geom_segment(
+      data = median_rows,
+      na.rm = TRUE,
+      ggplot2::aes(
+        x = start_date,
+        xend = end_date,
+        y = median,
+        yend = median,
+        group = rungroup
+      ),
+      colour = median_colr,
+      size = median_line_size,
+      linetype = 1
+    )
   
   
   #  highlight sustained points
   
   runchart <- runchart +
-    ggplot2::geom_point(data = highlights, ggplot2::aes(x = date, y = y, group = rungroup),
-                        shape = 21, colour = point_colr, fill = highlight_fill , size = 2.7)
+    ggplot2::geom_point(data = highlights, 
+                        ggplot2::aes(x = date, y = y, group = rungroup),
+                        shape = 21, 
+                        colour = point_colr, 
+                        fill = highlight_fill,
+                        size = highlight_point_size)
   
   
   # sustained median lines
   runchart <- runchart +
     ggplot2::geom_segment(data = sustained_rows, na.rm = TRUE,
-                          ggplot2::aes(x = start_date, xend = end_date, y = median, yend = median,
-                                       group = rungroup),colour = median_colr, linetype = 1, size = 1.05)
+                          ggplot2::aes(x = start_date, 
+                                       xend = end_date, 
+                                       y = median, 
+                                       yend = median,group = rungroup),
+                          colour = median_colr, 
+                          linetype = 1, 
+                          size = median_line_size)
   
   
-  runchart <- runchart + ggplot2::ggtitle(label = chart_title, subtitle = chart_subtitle)
+  runchart <- runchart + ggplot2::ggtitle(label = chart_title, 
+                                          subtitle = chart_subtitle)
   
  
   
@@ -327,7 +357,7 @@ runcharter <- function(df,
                                        group = rungroup),
                           colour = median_colr,
                           linetype = 2,
-                          size = 1.05)
+                          size = median_line_size)
   
   if (!is.null(chart_breaks)) {
     runchart <- runchart + ggplot2::scale_x_date(date_breaks = chart_breaks)

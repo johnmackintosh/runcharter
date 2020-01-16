@@ -143,12 +143,30 @@ limited use in terms of quality improvement.
 Re-bases median each time a run is discovered.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>runcharter</span>(<span class='no'>df</span>, <span class='kw'>med_rows</span> <span class='kw'>=</span> <span class='fl'>13</span>, <span class='kw'>runlength</span> <span class='kw'>=</span> <span class='fl'>9</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"above"</span>,
-  <span class='st'>"below"</span>, <span class='st'>"both"</span>), <span class='kw'>datecol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>grpvar</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>yval</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>facet_cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>facet_scales</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>, <span class='kw'>chart_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>chart_subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>chart_caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>chart_breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>line_colr</span> <span class='kw'>=</span> <span class='st'>"#005EB8"</span>, <span class='kw'>point_colr</span> <span class='kw'>=</span> <span class='st'>"#005EB8"</span>,
-  <span class='kw'>median_colr</span> <span class='kw'>=</span> <span class='st'>"#E87722"</span>, <span class='kw'>highlight_fill</span> <span class='kw'>=</span> <span class='st'>"#DB1884"</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>runcharter</span>(
+  <span class='no'>df</span>,
+  <span class='kw'>med_rows</span> <span class='kw'>=</span> <span class='fl'>13</span>,
+  <span class='kw'>runlength</span> <span class='kw'>=</span> <span class='fl'>9</span>,
+  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"above"</span>, <span class='st'>"below"</span>, <span class='st'>"both"</span>),
+  <span class='kw'>datecol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>grpvar</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>yval</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>facet_cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>facet_scales</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>,
+  <span class='kw'>chart_title</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>chart_subtitle</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>chart_caption</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>chart_breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>line_colr</span> <span class='kw'>=</span> <span class='st'>"#005EB8"</span>,
+  <span class='kw'>line_size</span> <span class='kw'>=</span> <span class='fl'>1.1</span>,
+  <span class='kw'>point_colr</span> <span class='kw'>=</span> <span class='st'>"#005EB8"</span>,
+  <span class='kw'>point_size</span> <span class='kw'>=</span> <span class='fl'>2.5</span>,
+  <span class='kw'>median_colr</span> <span class='kw'>=</span> <span class='st'>"#E87722"</span>,
+  <span class='kw'>median_line_size</span> <span class='kw'>=</span> <span class='fl'>1.05</span>,
+  <span class='kw'>highlight_fill</span> <span class='kw'>=</span> <span class='st'>"#DB1884"</span>,
+  <span class='kw'>highlight_point_size</span> <span class='kw'>=</span> <span class='fl'>2.7</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -207,19 +225,35 @@ Re-bases median each time a run is discovered.</p>
     </tr>
     <tr>
       <th>line_colr</th>
-      <td><p>colour for runchart lines</p></td>
+      <td><p>colour for run chart lines</p></td>
+    </tr>
+    <tr>
+      <th>line_size</th>
+      <td><p>thickness of connecting lines between run chart points</p></td>
     </tr>
     <tr>
       <th>point_colr</th>
-      <td><p>colour for runchart points</p></td>
+      <td><p>colour for run chart points</p></td>
+    </tr>
+    <tr>
+      <th>point_size</th>
+      <td><p>size of normal run chart points</p></td>
     </tr>
     <tr>
       <th>median_colr</th>
       <td><p>colour for solid and extended median lines</p></td>
     </tr>
     <tr>
+      <th>median_line_size</th>
+      <td><p>thickness of solid and extended median lines</p></td>
+    </tr>
+    <tr>
       <th>highlight_fill</th>
       <td><p>fill colour for highlighting points in a sustained run</p></td>
+    </tr>
+    <tr>
+      <th>highlight_point_size</th>
+      <td><p>size of highlighted points in a sustained run</p></td>
     </tr>
     <tr>
       <th>...</th>

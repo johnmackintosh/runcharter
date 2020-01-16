@@ -109,11 +109,19 @@ The median will be rebased using all useful observations (points on the median a
 
 - line_colr : Colour for run chart lines
 
+- line_size : thickness of connecting lines between run chart points
+
 - point_colr : Colour for run chart points
+
+- point_size : size of normal run chart points
 
 - median_colr : Colour for solid and extended median lines
 
+- median_line_size : thickness of solid and extended median lines
+
 - highlight_fill : Fill colour to highlight points in a sustained run
+
+- highlight_point_size : size of highlighted points in a sustained run
 
 - ... : further arguments passed on to function
 
