@@ -1,6 +1,6 @@
 Package: runcharter
-Title: Automatically plot, analyse and rebase multiple run charts
-Version: 0.0.0.9000
+Title: Automatically Plot, Analyse and Rebase Multiple Run Charts
+Version: 0.0.0.9001
 Authors@R: 
     person(given = "John",
            family = "MacKintosh",
@@ -11,9 +11,8 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.0.2
-Depends: R (>= 2.10), data.table
-Imports: ggplot2, magrittr, zoo
-Exports: runcharter
+Depends: R (>= 2.10)
+Imports: data.table, ggplot2, magrittr, zoo
 Suggests: 
     knitr,
     rmarkdown,

@@ -96,7 +96,7 @@ runcharter <- function(df,
     stop('"Please check and provide values for the "datecol", "grpvar"  and "yval" arguments"')
   }
   
-
+  
   # 
   # # datecol in wrong format
   # 
@@ -118,10 +118,10 @@ runcharter <- function(df,
   
   
   
-  masterDT <- data.table::copy(df)
-  data.table::setDT(masterDT)
+  masterDT <- copy(df)
+  setDT(masterDT)
   
-  masterDT <- data.table::setnames(masterDT,
+  masterDT <- setnames(masterDT,
                                    old = c(datecol,grpvar,yval),
                                    new = c("date","grp","y"))
   
@@ -137,7 +137,7 @@ runcharter <- function(df,
   masterDT[["grp"]] <- as.character(masterDT[["grp"]])
   masterDT[["y"]] <- as.numeric(masterDT[["y"]])
   
-  data.table::setkey(masterDT, grp, date)
+  setkey(masterDT, grp, date)
   
   masterDT <- masterDT[!is.na(date),]
   
@@ -150,7 +150,7 @@ runcharter <- function(df,
   keeptest <- keepgroup[]
   keeptest[, compar := (med_rows + runlength)][]
   keeptest[, result := (N >= compar)][]
-                  
+  
   
   if (all(keeptest[["result"]] == FALSE)) {
     stop("None of the groups have enough rows of data beyond the specified baseline period, for the desired runlength.
@@ -205,7 +205,7 @@ runcharter <- function(df,
     bindlist <- c(bindlist,sustained)
   }
   
-  medians <- data.table::rbindlist(bindlist, use.names = TRUE, fill = TRUE)
+  medians <- rbindlist(bindlist, use.names = TRUE, fill = TRUE)
   
   keepgroup <- tempDT[,.N,.(grp)
                       ][N >= (runlength),.SD,.SDcols = "N",by = list(grp)
@@ -223,7 +223,7 @@ runcharter <- function(df,
     sustained <- get_sustained(DT1 = run_start, DT2 = run_end)
     tempDT <- update_tempDT(sustained,tempDT)
     bindlist <- list(medians,sustained)
-    medians <- data.table::rbindlist(bindlist, use.names = TRUE, fill = TRUE)
+    medians <- rbindlist(bindlist, use.names = TRUE, fill = TRUE)
   }
   
   # modify the final medians DT for plotting purposes
@@ -240,12 +240,12 @@ runcharter <- function(df,
   
   
   
-  data.table::setkey(sustained_rows,grp,start_date,end_date)
+  setkey(sustained_rows,grp,start_date,end_date)
   
   highlights <- merge(masterDT, sustained_rows, by = "grp",
                       allow.cartesian = TRUE)
   
-  highlights <- highlights[data.table::between(date,start_date,end_date),]
+  highlights <- highlights[between(date,start_date,end_date),]
   
   
   if (factorcheck) {
@@ -284,7 +284,7 @@ runcharter <- function(df,
     ggplot2::theme(legend.position = "bottom")
   
   
- # only plot lines for groups  with N > 1
+  # only plot lines for groups  with N > 1
   
   runchart <-
     runchart + ggplot2::geom_line(
@@ -342,7 +342,7 @@ runcharter <- function(df,
   runchart <- runchart + ggplot2::ggtitle(label = chart_title, 
                                           subtitle = chart_subtitle)
   
- 
+  
   
   
   

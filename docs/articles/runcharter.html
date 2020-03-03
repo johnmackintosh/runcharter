@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">runcharter</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9001</span>
       </span>
     </div>
 
@@ -86,13 +86,13 @@
 
       
 
-      </header><script src="runcharter_files/jquery-1.11.3/jquery.min.js"></script><script src="runcharter_files/elevate-section-attrs-2.0/elevate-section-attrs.js"></script><div class="row">
+      </header><script src="runcharter_files/header-attrs-2.1/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>runcharter</h1>
                         <h4 class="author">John MacKintosh</h4>
             
-            <h4 class="date">2020-01-16</h4>
+            <h4 class="date">2020-03-03</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/johnmackintosh/runcharter/blob/master/vignettes/runcharter.Rmd"><code>vignettes/runcharter.Rmd</code></a></small>
       <div class="hidden name"><code>runcharter.Rmd</code></div>
@@ -132,20 +132,19 @@
 <a href="#dataframe-or-data-table-and-use-of-the-pipe" class="anchor"></a>Dataframe or data.table and use of the pipe</h2>
 <p>You can pass a dataframe, tibble or data.table to the function. It will be converted to data.table. You do not need to know data.table to use this package. The magrittr pipe is exported, so you can continue to use dplyr style syntax for data manipulation prior to using the function</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(runcharter)</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="co">#&gt; Loading required package: data.table</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a></span>
-<span id="cb1-4"><a href="#cb1-4"></a>testdf &lt;-<span class="st"> </span>signals <span class="co"># rename the built in data set</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="kw"><a href="https://rdrr.io/r/base/class.html">class</a></span>(testdf) <span class="co"># note class of tibble, tbl_df and dataframe</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="co">#&gt; [1] "tbl_df"     "tbl"        "data.frame"</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a></span>
-<span id="cb1-9"><a href="#cb1-9"></a>testdf <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/runcharter.html">runcharter</a></span>(</span>
-<span id="cb1-10"><a href="#cb1-10"></a>           <span class="dt">direction =</span> <span class="st">"both"</span>,</span>
-<span id="cb1-11"><a href="#cb1-11"></a>           <span class="dt">datecol =</span> <span class="st">"date"</span>,</span>
-<span id="cb1-12"><a href="#cb1-12"></a>           <span class="dt">grpvar =</span> <span class="st">"grp"</span>, </span>
-<span id="cb1-13"><a href="#cb1-13"></a>           <span class="dt">yval =</span> <span class="st">"y"</span>,</span>
-<span id="cb1-14"><a href="#cb1-14"></a>           <span class="dt">facet_cols =</span> <span class="dv">2</span>)</span>
-<span id="cb1-15"><a href="#cb1-15"></a><span class="co">#&gt; $runchart</span></span></code></pre></div>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a>testdf &lt;-<span class="st"> </span>signals <span class="co"># rename the built in data set</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="kw"><a href="https://rdrr.io/r/base/class.html">class</a></span>(testdf) <span class="co"># note class of tibble, tbl_df and dataframe</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co">#&gt; [1] "tbl_df"     "tbl"        "data.frame"</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a></span>
+<span id="cb1-8"><a href="#cb1-8"></a>testdf <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/runcharter.html">runcharter</a></span>(</span>
+<span id="cb1-9"><a href="#cb1-9"></a>           <span class="dt">direction =</span> <span class="st">"both"</span>,</span>
+<span id="cb1-10"><a href="#cb1-10"></a>           <span class="dt">datecol =</span> <span class="st">"date"</span>,</span>
+<span id="cb1-11"><a href="#cb1-11"></a>           <span class="dt">grpvar =</span> <span class="st">"grp"</span>, </span>
+<span id="cb1-12"><a href="#cb1-12"></a>           <span class="dt">yval =</span> <span class="st">"y"</span>,</span>
+<span id="cb1-13"><a href="#cb1-13"></a>           <span class="dt">facet_cols =</span> <span class="dv">2</span>)</span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="co">#&gt; $runchart</span></span></code></pre></div>
 <p><img src="man/figures/pipe-1.png" width="768"></p>
 <pre><code>#&gt; 
 #&gt; $sustained
