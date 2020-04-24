@@ -10,3 +10,4 @@
 ^pkgdown$
 pkgdown/
 ^runcharter\.png
+^cran-comments\.md$
