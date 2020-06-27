@@ -4,12 +4,14 @@
 \name{signals}
 \alias{signals}
 \title{#' 220 grouped observations over time.}
-\format{A data frame with 220 rows and 4 variables:
+\format{
+A data frame with 220 rows and 4 variables:
 \describe{
   \item{grp}{a grouping variable, representing a specific department}
   \item{y}{integers representing counts of an event over time}
   \item{date}{date of the observation, by month}
-}}
+}
+}
 \usage{
 signals
 }

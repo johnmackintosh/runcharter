@@ -1,10 +1,10 @@
 ---
-title: "improvement"
+title: "Monitoring Improvement Analyses"
 author: "John MacKintosh"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{improvement}
+  %\VignetteIndexEntry{Monitoring_Improvement}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -97,7 +97,7 @@ testdf <- testdf[grp == "WardX",head(.SD,30)]
 
 ## On the road to improvement
 
-We have been working hard to deliver our improvement initiative, and we're encouragedby a run of 5 consecutive points below the median.
+We have been working hard to deliver our improvement initiative, and we're encouraged by a run of 5 consecutive points below the median.
 
 ```{r road-to-improvement, fig.height=5, fig.width=8}
 library(runcharter)
