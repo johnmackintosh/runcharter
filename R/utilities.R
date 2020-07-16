@@ -41,11 +41,11 @@ basic_processing <- function(DT = NULL,
 get_runs_DT <- function(DT1 = NULL, #run_start
                         DT2 = NULL, # run_end
                         joinvar = "grp",
-                        instance = "first",
+                        #instance = "first",
                         sdcols = c("grp","date","i.date","i.roll_median"),
                         ... ){
   
-  runs <- DT1[DT2, on = joinvar, mult = instance
+  runs <- DT1[DT2, on = joinvar, mult = "first"
               ][,.SD, .SDcols = sdcols
                 ][,.SD[1], by = joinvar]
   setnames(runs,
@@ -63,6 +63,20 @@ update_tempDT <- function(DT1 = NULL, # sustained
                ][,.SD, .SDcols = sdcols][]
   res
 }
+
+
+
+get_highlights <- function(DT1 = NULL, # sustained
+                          DT2 = NULL, # tempDT
+                          rl = runlength,
+                          joinvar ="grp",
+                          sdcols = c("y","date","median")) {
+  res <- DT1[DT2, on = joinvar
+             ][flag != 0
+               ][1:rl,.SD, by = "grp"][,.SD,.SDcols = sdcols, by = "grp"][]
+  res
+}
+
 
 
 
