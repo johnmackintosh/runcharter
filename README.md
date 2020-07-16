@@ -16,6 +16,9 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 [![Coverage
 status](https://codecov.io/gh/johnmackintosh/runcharter/branch/master/graph/badge.svg)](https://codecov.io/github/johnmackintosh/runcharter?branch=master)
 
+[![R build
+status](https://github.com/johnmackintosh/runcharter/workflows/R-CMD-check/badge.svg)](https://github.com/johnmackintosh/runcharter/actions)
+
 ## Installation
 
 You can install runcharter from github with:
@@ -76,7 +79,6 @@ baseline period.
 ``` r
 
 library(runcharter)
-#> Loading required package: data.table
 
 runcharter(signals,
            direction = "below",

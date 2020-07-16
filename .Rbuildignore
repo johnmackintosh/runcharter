@@ -11,3 +11,4 @@
 pkgdown/
 ^runcharter\.png
 ^cran-comments\.md$
+^\.github$

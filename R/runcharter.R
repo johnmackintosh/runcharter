@@ -195,8 +195,9 @@ runcharter <- function(df,
   keepgroup <- run_start[,.N,.(grp)][,unique(grp)]
   run_end <- get_run_dates(direction,DT = tempDT, target_vec = "cusum",
                            compar_vec = flag_reset, runlength)
-  sustained <- get_sustained(DT1 = run_start,
-                             DT2 = run_end)
+  
+  sustained <- get_sustained(DT1 = run_start, DT2 = run_end)
+  
   tempDT <- update_tempDT(sustained,tempDT)
   
   bindlist <- if (!exists("bindlist")) {
@@ -220,6 +221,7 @@ runcharter <- function(df,
     keepgroup <- run_start[,.N,.(grp)][,unique(grp)]
     run_end <- get_run_dates(direction,DT = tempDT, target_vec = "cusum",
                              compar_vec = flag_reset, runlength)
+    
     sustained <- get_sustained(DT1 = run_start, DT2 = run_end)
     tempDT <- update_tempDT(sustained,tempDT)
     bindlist <- list(medians,sustained)
@@ -228,26 +230,29 @@ runcharter <- function(df,
   
   # modify the final medians DT for plotting purposes
   
+  medians[,prev_median := shift(median, type = "lag"), by = "grp"]
+  
   medians[,extend_to := shift(start_date,type = "lead"), by = "grp"]
   medians[,extend_to := ifelse(is.na(extend_to),
                                max(masterDT[["date"]]),extend_to), by = "grp"]
   median_rows <- medians[!is.na(end_date) & run_type == "baseline",]
   
   sustained_rows <- medians[!is.na(end_date) & run_type == "sustained",]
+ 
   sustained_rows <- sustained_rows[order(grp,start_date)
                                    ][,rungroup := NULL
                                      ][,rungroup := .GRP, by = list(grp,start_date)]
-  
-  
-  
+
   setkey(sustained_rows,grp,start_date,end_date)
   
   highlights <- merge(masterDT, sustained_rows, by = "grp",
-                      allow.cartesian = TRUE)
+                     allow.cartesian = TRUE)
   
   highlights <- highlights[between(date,start_date,end_date),]
   
+  highlights <- highlights[y != prev_median,.SD, by = "grp"][]
   
+
   if (factorcheck) {
     masterDT[,grp := factor(grp,levels = keeplevels,ordered = TRUE)]
     medians[,grp := factor(grp,levels = keeplevels,ordered = TRUE)]
