@@ -66,19 +66,6 @@ update_tempDT <- function(DT1 = NULL, # sustained
 
 
 
-get_highlights <- function(DT1 = NULL, # sustained
-                          DT2 = NULL, # tempDT
-                          rl = runlength,
-                          joinvar ="grp",
-                          sdcols = c("y","date","median")) {
-  res <- DT1[DT2, on = joinvar
-             ][flag != 0
-               ][1:rl,.SD, by = "grp"][,.SD,.SDcols = sdcols, by = "grp"][]
-  res
-}
-
-
-
 
 get_sustained <- function(DT1 = NULL,
                           DT2 = NULL, ...){
