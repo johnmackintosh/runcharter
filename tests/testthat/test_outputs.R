@@ -141,8 +141,6 @@ test_that("`runcharter function` works with input and returns expected data.fram
   
   expect_true(is.factor(p5$sustained$grp))
   
-  
-  
   # check points on median not plotted
   highlights <-
     structure(
@@ -378,5 +376,3 @@ expect_equal(p6$sustained$end_date,checkDT6$end_date)
 expect_equal(p6$sustained$extend_to,checkDT6$extend_to)
   
 })
-
-
