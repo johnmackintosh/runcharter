@@ -1,8 +1,8 @@
-pandoc: 2.9.2
+pandoc: 2.9.1.1
 pkgdown: 1.5.1
 pkgdown_sha: ~
 articles:
   improvement: improvement.html
   runcharter: runcharter.html
-last_built: 2020-04-24T01:23Z
+last_built: 2020-08-07T21:26Z
 

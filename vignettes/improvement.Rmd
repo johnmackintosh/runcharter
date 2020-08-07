@@ -1,10 +1,10 @@
 ---
-title: "Monitoring Improvement Analyses"
+title: "Monitoring Improvement"
 author: "John MacKintosh"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Monitoring_Improvement}
+  %\VignetteIndexEntry{Monitoring Improvement}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
