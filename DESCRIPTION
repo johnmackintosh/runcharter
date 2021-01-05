@@ -1,19 +1,19 @@
 Package: runcharter
-Title: Automatically plot, analyse and rebase multiple run charts
-Version: 0.0.0.9000
+Title: Automatically Plot, Analyse and Rebase Multiple Run Charts
+Version: 0.1.0
 Authors@R: 
     person(given = "John",
            family = "MacKintosh",
            role = c("aut", "cre"),
            email = "johnmackintosh.jm@gmail.com")
-Description: Plots multiple run charts, finds successive signals of improvement, and rebases medians.
+Description: Plots multiple run charts, finds successive signals of 
+    improvement, and rebases medians.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
-Depends: R (>= 2.10), data.table
-Imports: ggplot2, magrittr, zoo
-Exports: runcharter
+RoxygenNote: 7.1.1
+Depends: R (>= 2.10)
+Imports: data.table, ggplot2, magrittr, zoo
 Suggests: 
     knitr,
     rmarkdown,

@@ -10,11 +10,14 @@ Online documentation and vignettes :
 
 [![Build
 Status](https://travis-ci.org/johnmackintosh/runcharter.svg?branch=master)](https://travis-ci.org/johnmackintosh/runcharter)
-[![Project Status: WIP – Initial development is in progress, but there
-has not yet been a stable, usable release suitable for the
-public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+[![Project Status: Active – The project has reached a stable, usable
+state and is being actively
+developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![Coverage
 status](https://codecov.io/gh/johnmackintosh/runcharter/branch/master/graph/badge.svg)](https://codecov.io/github/johnmackintosh/runcharter?branch=master)
+
+[![R build
+status](https://github.com/johnmackintosh/runcharter/workflows/R-CMD-check/badge.svg)](https://github.com/johnmackintosh/runcharter/actions)
 
 ## Installation
 
@@ -38,8 +41,9 @@ rebased. This helps to track improvements over time.
 
 The default is to plot a faceted plot, allowing ggplot2 to handle the
 axis limits. You can specify the number of columns in the faceted plot
-however, and you can also specify the breaks for date labels on the x
-axis.
+however, and you can also specify both the breaks for date labels on the
+x axis, and whether the y axis limits are fixed, or can vary by facet
+panel.
 
 # Function arguments and defaults
 
@@ -75,7 +79,6 @@ baseline period.
 ``` r
 
 library(runcharter)
-#> Loading required package: data.table
 
 runcharter(signals,
            direction = "below",
@@ -101,7 +104,7 @@ runcharter(signals,
 
 ## Runs in both directions
 
-Th package allows for finding runs in both directions (above and below
+The package allows for finding runs in both directions (above and below
 the median). Generally, for improvement purposes, you would only need to
 identify runs in one direction at a time. In other words, if you are
 trying to reduce adverse events, improvement will be evidenced with a

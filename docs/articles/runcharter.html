@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">runcharter</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -64,9 +64,12 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/improvement.html">improvement</a>
+      <a href="../articles/improvement.html">Monitoring Improvement</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -86,14 +89,22 @@
 
       
 
+<<<<<<< HEAD
       </header><script src="runcharter_files/header-attrs-2.5/header-attrs.js"></script><script src="runcharter_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="runcharter_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
 <script src="runcharter_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+=======
+      </header><script src="runcharter_files/header-attrs-2.3/header-attrs.js"></script><script src="runcharter_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+>>>>>>> master
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>runcharter</h1>
                         <h4 class="author">John MacKintosh</h4>
             
+<<<<<<< HEAD
             <h4 class="date">2021-01-05</h4>
+=======
+            <h4 class="date">2020-08-07</h4>
+>>>>>>> master
       
       <small class="dont-index">Source: <a href="https://github.com/johnmackintosh/runcharter/blob/master/vignettes/runcharter.Rmd"><code>vignettes/runcharter.Rmd</code></a></small>
       <div class="hidden name"><code>runcharter.Rmd</code></div>
@@ -132,6 +143,7 @@
 <h2 class="hasAnchor">
 <a href="#dataframe-or-data-table-and-use-of-the-pipe" class="anchor"></a>Dataframe or data.table and use of the pipe</h2>
 <p>You can pass a dataframe, tibble or data.table to the function. It will be converted to data.table. You do not need to know data.table to use this package. The magrittr pipe is exported, so you can continue to use dplyr style syntax for data manipulation prior to using the function</p>
+<<<<<<< HEAD
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johnmackintosh/runcharter">runcharter</a></span><span class="op">)</span>
 <span class="co">#&gt; Loading required package: data.table</span>
@@ -148,6 +160,22 @@
            yval <span class="op">=</span> <span class="st">"y"</span>,
            facet_cols <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>
+=======
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">runcharter</span>)
+
+<span class="no">testdf</span> <span class="kw">&lt;-</span> <span class="no">signals</span> <span class="co"># rename the built in data set</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">testdf</span>) <span class="co"># note class of tibble, tbl_df and dataframe</span>
+<span class="co">#&gt; [1] "tbl_df"     "tbl"        "data.frame"</span>
+
+<span class="no">testdf</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/runcharter.html">runcharter</a></span>(
+           <span class="kw">direction</span> <span class="kw">=</span> <span class="st">"both"</span>,
+           <span class="kw">datecol</span> <span class="kw">=</span> <span class="st">"date"</span>,
+           <span class="kw">grpvar</span> <span class="kw">=</span> <span class="st">"grp"</span>,
+           <span class="kw">yval</span> <span class="kw">=</span> <span class="st">"y"</span>,
+           <span class="kw">facet_cols</span> <span class="kw">=</span> <span class="fl">2</span>)
+<span class="co">#&gt; $runchart</span></pre></body></html></div>
+>>>>>>> master
 <p><img src="man/figures/pipe-1.png" width="768"></p>
 <pre><code>#&gt; 
 #&gt; $sustained
@@ -180,9 +208,13 @@
 <li><p>chart_caption : A caption for the chart</p></li>
 <li><p>chart_breaks : character string defining desired x-axis date breaks e.g. “3 months”. Will be ignored if ‘datecol’ is an integer instead of a date value.</p></li>
 <li><p>line_colr : Colour for run chart lines</p></li>
+<li><p>line_size : thickness of connecting lines between run chart points</p></li>
 <li><p>point_colr : Colour for run chart points</p></li>
+<li><p>point_size : size of normal run chart points</p></li>
 <li><p>median_colr : Colour for solid and extended median lines</p></li>
+<li><p>median_line_size : thickness of solid and extended median lines</p></li>
 <li><p>highlight_fill : Fill colour to highlight points in a sustained run</p></li>
+<li><p>highlight_point_size : size of highlighted points in a sustained run</p></li>
 <li><p>… : further arguments passed on to function</p></li>
 </ul>
 <p>The package exports the magrittr pipe, so you can chain commands using data.table syntax, or alternatively, use dplyr syntax and chain to the runcharter function</p>
@@ -190,6 +222,7 @@
 <div id="function-outputs" class="section level2">
 <h2 class="hasAnchor">
 <a href="#function-outputs" class="anchor"></a>Function outputs</h2>
+<<<<<<< HEAD
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johnmackintosh/runcharter">runcharter</a></span><span class="op">)</span>
 <span class="fu"><a href="../reference/runcharter.html">runcharter</a></span><span class="op">(</span><span class="va">signals</span> ,med_rows <span class="op">=</span> <span class="fl">13</span>,
@@ -203,6 +236,20 @@ chart_subtitle <span class="op">=</span> <span class="st">"Example plot"</span>,
 chart_caption <span class="op">=</span> <span class="st">"analysed with runcharter"</span>,
 chart_breaks <span class="op">=</span> <span class="st">"6 months"</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>
+=======
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">runcharter</span>)
+<span class="fu"><a href="../reference/runcharter.html">runcharter</a></span>(<span class="no">signals</span> ,<span class="kw">med_rows</span> <span class="kw">=</span> <span class="fl">13</span>,
+<span class="kw">runlength</span> <span class="kw">=</span> <span class="fl">9</span>,
+<span class="kw">direction</span> <span class="kw">=</span> <span class="st">"below"</span>,
+<span class="kw">datecol</span> <span class="kw">=</span> <span class="st">"date"</span>,
+<span class="kw">grpvar</span> <span class="kw">=</span> <span class="st">"grp"</span>,
+<span class="kw">yval</span> <span class="kw">=</span> <span class="st">"y"</span>,
+<span class="kw">chart_title</span> <span class="kw">=</span> <span class="st">"Analysis of runs below median"</span>,
+<span class="kw">chart_subtitle</span> <span class="kw">=</span> <span class="st">"Example plot"</span>,
+<span class="kw">chart_caption</span> <span class="kw">=</span> <span class="st">"analysed with runcharter"</span>,
+<span class="kw">chart_breaks</span> <span class="kw">=</span> <span class="st">"6 months"</span>)
+<span class="co">#&gt; $runchart</span></pre></body></html></div>
+>>>>>>> master
 <p><img src="man/figures/run-below-1.png" width="768"></p>
 <pre><code>#&gt; 
 #&gt; $sustained
@@ -223,6 +270,7 @@ chart_breaks <span class="op">=</span> <span class="st">"6 months"</span><span c
 </ul>
 <p>If a run is identified, the points are highlighted (the purple coloured points), and a new median is calculated using them. The median is also plotted and extended into the future for further run chart rules analysis, with a new set of solid and dashed horizontal lines.</p>
 <p>The analysis continues, rebasing any further runs, until no more runs are found or there are not enough data points remaining.</p>
+<<<<<<< HEAD
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johnmackintosh/runcharter">runcharter</a></span><span class="op">)</span>
 <span class="fu"><a href="../reference/runcharter.html">runcharter</a></span><span class="op">(</span><span class="va">signals</span>,
@@ -232,6 +280,16 @@ chart_breaks <span class="op">=</span> <span class="st">"6 months"</span><span c
            yval <span class="op">=</span> <span class="st">"y"</span>,
            facet_cols <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>
+=======
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">runcharter</span>)
+<span class="fu"><a href="../reference/runcharter.html">runcharter</a></span>(<span class="no">signals</span>,
+           <span class="kw">direction</span> <span class="kw">=</span> <span class="st">"above"</span>,
+           <span class="kw">datecol</span> <span class="kw">=</span> <span class="st">"date"</span>,
+           <span class="kw">grpvar</span> <span class="kw">=</span> <span class="st">"grp"</span>,
+           <span class="kw">yval</span> <span class="kw">=</span> <span class="st">"y"</span>,
+           <span class="kw">facet_cols</span> <span class="kw">=</span> <span class="fl">2</span>)
+<span class="co">#&gt; $runchart</span></pre></body></html></div>
+>>>>>>> master
 <p><img src="man/figures/runs-above-1.png" width="768"></p>
 <pre><code>#&gt; 
 #&gt; $sustained
@@ -245,6 +303,7 @@ chart_breaks <span class="op">=</span> <span class="st">"6 months"</span><span c
 <div id="find-runs-in-both-directions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#find-runs-in-both-directions" class="anchor"></a>Find runs in both directions</h2>
+<<<<<<< HEAD
 <p>Typically, you would only look for runs either “above” or “below” the median, depending on the nature of the metric you are studying and what determines an improvement (e.g. below the median for reduced admissions and above the median for increased care bundle compliance). You can also look for any run, occuring on either side of the median, by specifying “both” as the direction.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johnmackintosh/runcharter">runcharter</a></span><span class="op">)</span>
@@ -255,6 +314,17 @@ chart_breaks <span class="op">=</span> <span class="st">"6 months"</span><span c
            yval <span class="op">=</span> <span class="st">"y"</span>,
            facet_cols <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>
+=======
+<p>Typically, you would only look for runs either “above” or “below” the median, depending on the nature of the metric you are studying and what determines an improvement (e.g. below the median for reduced admissions and above the median for increased care bundle compliance). You can also look for any run, occurring on either side of the median, by specifying “both” as the direction.</p>
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">runcharter</span>)
+<span class="no">signals</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/runcharter.html">runcharter</a></span>(
+           <span class="kw">direction</span> <span class="kw">=</span> <span class="st">"both"</span>,
+           <span class="kw">datecol</span> <span class="kw">=</span> <span class="st">"date"</span>,
+           <span class="kw">grpvar</span> <span class="kw">=</span> <span class="st">"grp"</span>,
+           <span class="kw">yval</span> <span class="kw">=</span> <span class="st">"y"</span>,
+           <span class="kw">facet_cols</span> <span class="kw">=</span> <span class="fl">2</span>)
+<span class="co">#&gt; $runchart</span></pre></body></html></div>
+>>>>>>> master
 <p><img src="man/figures/both-directions-1.png" width="768"></p>
 <pre><code>#&gt; 
 #&gt; $sustained
@@ -274,6 +344,7 @@ chart_breaks <span class="op">=</span> <span class="st">"6 months"</span><span c
 <li>a datatable summarising the baseline median and each sustained period of improvement.</li>
 </ul>
 <p>Don’t try this at home - setting runlength of 5 and searching in both directions to confirm that successive runs are identified. A run of 5 would not be a statistically significant shift in real life - the package defaults to 9 as the desired run length.</p>
+<<<<<<< HEAD
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">signals</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/runcharter.html">runcharter</a></span><span class="op">(</span>med_rows <span class="op">=</span> <span class="fl">7</span>,
@@ -283,6 +354,16 @@ chart_breaks <span class="op">=</span> <span class="st">"6 months"</span><span c
               yval <span class="op">=</span> <span class="st">"y"</span>,
              direction <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>
+=======
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">signals</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/runcharter.html">runcharter</a></span>(<span class="kw">med_rows</span> <span class="kw">=</span> <span class="fl">7</span>,
+             <span class="kw">runlength</span> <span class="kw">=</span> <span class="fl">5</span>,
+             <span class="kw">datecol</span> <span class="kw">=</span> <span class="st">"date"</span>,
+              <span class="kw">grpvar</span> <span class="kw">=</span> <span class="st">"grp"</span>,
+              <span class="kw">yval</span> <span class="kw">=</span> <span class="st">"y"</span>,
+             <span class="kw">direction</span> <span class="kw">=</span> <span class="st">"both"</span>)
+<span class="co">#&gt; $runchart</span></pre></body></html></div>
+>>>>>>> master
 <p><img src="man/figures/multiple-runs-1.png" width="768"></p>
 <pre><code>#&gt; 
 #&gt; $sustained
@@ -308,12 +389,20 @@ chart_breaks <span class="op">=</span> <span class="st">"6 months"</span><span c
 <h2 class="hasAnchor">
 <a href="#factors-instead-of-character-groups" class="anchor"></a>Factors instead of character groups</h2>
 <p>Factors can cause problems, so they are converted to character prior to processing. However, they are converted back prior to plotting, so that individual facets appear in the correct order.</p>
+<<<<<<< HEAD
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/nhs-r-community/NHSRdatasets">NHSRdatasets</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johnmackintosh/runcharter">runcharter</a></span><span class="op">)</span>
 
 <span class="va">LOSdata</span> <span class="op">&lt;-</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/copy.html">copy</a></span><span class="op">(</span><span class="va">LOS_model</span><span class="op">)</span>
 <span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">LOSdata</span><span class="op">)</span> <span class="co"># note that Organisation is an ordered factor, not character</span>
+=======
+<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">NHSRdatasets</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">runcharter</span>)
+
+<span class="no">LOSdata</span> <span class="kw">&lt;-</span> <span class="kw pkg">data.table</span><span class="kw ns">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/copy.html">copy</a></span>(<span class="no">LOS_model</span>)
+<span class="kw pkg">utils</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">LOSdata</span>) <span class="co"># note that Organisation is an ordered factor, not character</span>
+>>>>>>> master
 <span class="co">#&gt; tibble [300 x 5] (S3: tbl_df/tbl/data.frame)</span>
 <span class="co">#&gt;  $ ID          : int [1:300] 1 2 3 4 5 6 7 8 9 10 ...</span>
 <span class="co">#&gt;  $ Organisation: Ord.factor w/ 10 levels "Trust1"&lt;"Trust2"&lt;..: 1 2 3 4 5 6 7 8 9 10 ...</span>
@@ -321,6 +410,7 @@ chart_breaks <span class="op">=</span> <span class="st">"6 months"</span><span c
 <span class="co">#&gt;  $ LOS         : int [1:300] 2 1 12 3 11 7 4 4 7 1 ...</span>
 <span class="co">#&gt;  $ Death       : int [1:300] 0 0 0 1 0 0 0 0 1 0 ...</span>
 
+<<<<<<< HEAD
 <span class="va">LOSdata</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/runcharter.html">runcharter</a></span><span class="op">(</span>med_rows <span class="op">=</span> <span class="fl">9</span>,
                    runlength <span class="op">=</span> <span class="fl">9</span>,
                    direction <span class="op">=</span> <span class="st">"both"</span>,
@@ -328,6 +418,15 @@ chart_breaks <span class="op">=</span> <span class="st">"6 months"</span><span c
                    grpvar <span class="op">=</span> <span class="st">"Organisation"</span>,
                    yval <span class="op">=</span> <span class="st">"LOS"</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>
+=======
+<span class="no">LOSdata</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/runcharter.html">runcharter</a></span>(<span class="kw">med_rows</span> <span class="kw">=</span> <span class="fl">9</span>,
+                   <span class="kw">runlength</span> <span class="kw">=</span> <span class="fl">9</span>,
+                   <span class="kw">direction</span> <span class="kw">=</span> <span class="st">"both"</span>,
+                   <span class="kw">datecol</span> <span class="kw">=</span> <span class="st">"ID"</span>,
+                   <span class="kw">grpvar</span> <span class="kw">=</span> <span class="st">"Organisation"</span>,
+                   <span class="kw">yval</span> <span class="kw">=</span> <span class="st">"LOS"</span>)
+<span class="co">#&gt; $runchart</span></pre></body></html></div>
+>>>>>>> master
 <p><img src="man/figures/factor-handling-1.png" width="768"></p>
 <pre><code>#&gt; 
 #&gt; $sustained
@@ -349,6 +448,7 @@ chart_breaks <span class="op">=</span> <span class="st">"6 months"</span><span c
 <h2 class="hasAnchor">
 <a href="#turn-off-run-chart-analysis" class="anchor"></a>Turn off run chart analysis</h2>
 <p>You can avoid rebasing medians by setting ‘runlength’ to 0 (zero). This will plot the runcharts with the original baseline medians, but no runs analysis will take place.</p>
+<<<<<<< HEAD
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johnmackintosh/runcharter">runcharter</a></span><span class="op">)</span>
 <span class="va">signals</span> <span class="op">%&gt;%</span> 
@@ -359,6 +459,17 @@ chart_breaks <span class="op">=</span> <span class="st">"6 months"</span><span c
               yval <span class="op">=</span> <span class="st">"y"</span>,
              direction <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>
+=======
+<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">runcharter</span>)
+<span class="no">signals</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/runcharter.html">runcharter</a></span>(<span class="kw">med_rows</span> <span class="kw">=</span> <span class="fl">13</span>,
+             <span class="kw">runlength</span> <span class="kw">=</span> <span class="fl">0</span>,
+             <span class="kw">datecol</span> <span class="kw">=</span> <span class="st">"date"</span>,
+              <span class="kw">grpvar</span> <span class="kw">=</span> <span class="st">"grp"</span>,
+              <span class="kw">yval</span> <span class="kw">=</span> <span class="st">"y"</span>,
+             <span class="kw">direction</span> <span class="kw">=</span> <span class="st">"both"</span>)
+<span class="co">#&gt; $runchart</span></pre></body></html></div>
+>>>>>>> master
 <p><img src="man/figures/analysis_off-1.png" width="768"></p>
 <pre><code>#&gt; 
 #&gt; $sustained
@@ -368,6 +479,7 @@ chart_breaks <span class="op">=</span> <span class="st">"6 months"</span><span c
 #&gt; 3: WardY     13 2014-01-01 2015-01-01 2018-07-01 baseline
 #&gt; 4: WardZ      4 2014-01-01 2015-01-01 2018-07-01 baseline</code></pre>
 <p>Similarly, you can plot basic line charts by setting ‘med_rows’ to 0 (zero)</p>
+<<<<<<< HEAD
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johnmackintosh/runcharter">runcharter</a></span><span class="op">)</span>
 <span class="va">signals</span> <span class="op">%&gt;%</span> 
@@ -378,6 +490,17 @@ chart_breaks <span class="op">=</span> <span class="st">"6 months"</span><span c
               yval <span class="op">=</span> <span class="st">"y"</span>,
              direction <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>
+=======
+<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">runcharter</span>)
+<span class="no">signals</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="../reference/runcharter.html">runcharter</a></span>(<span class="kw">med_rows</span> <span class="kw">=</span> <span class="fl">0</span>,
+             <span class="kw">runlength</span> <span class="kw">=</span> <span class="fl">9</span>,
+             <span class="kw">datecol</span> <span class="kw">=</span> <span class="st">"date"</span>,
+              <span class="kw">grpvar</span> <span class="kw">=</span> <span class="st">"grp"</span>,
+              <span class="kw">yval</span> <span class="kw">=</span> <span class="st">"y"</span>,
+             <span class="kw">direction</span> <span class="kw">=</span> <span class="st">"both"</span>)
+<span class="co">#&gt; $runchart</span></pre></body></html></div>
+>>>>>>> master
 <p><img src="man/figures/med_row-0-1.png" width="768"></p>
 <pre><code>#&gt; 
 #&gt; $sustained
@@ -404,7 +527,11 @@ chart_breaks <span class="op">=</span> <span class="st">"6 months"</span><span c
 </div>
 
 <div class="pkgdown">
+<<<<<<< HEAD
   <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+=======
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+>>>>>>> master
 </div>
 
       </footer>

@@ -1,10 +1,10 @@
 ---
-title: "improvement"
+title: "Monitoring Improvement"
 author: "John MacKintosh"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{improvement}
+  %\VignetteIndexEntry{Monitoring Improvement}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -25,6 +25,7 @@ Let's mimic the start of an improvement initiative. We have *some* data, but not
 
 ```{r not-enough-data, fig.height=5, fig.width=8}
 library(runcharter)
+library(data.table)
 
 testdf <- signals # rename the built in data set
 setDT(testdf)
@@ -52,6 +53,7 @@ We'll use this for analysis  - future points will be assessed against the median
 
 ```{r baseline-data, fig.height=5, fig.width=8}
 library(runcharter)
+library(data.table)
 
 testdf <- signals # rename the built in data set
 setDT(testdf)
@@ -74,6 +76,7 @@ We have extended our original baseline median, but no signals of improvement are
 
 ```{r random-variation, fig.height=5, fig.width=8}
 library(runcharter)
+library(data.table)
 
 testdf <- signals # rename the built in data set
 setDT(testdf)
@@ -94,10 +97,11 @@ testdf <- testdf[grp == "WardX",head(.SD,30)]
 
 ## On the road to improvement
 
-We have been working hard to deliver our improvement initiative, and we're encouragedby a run of 5 consecutive points below the median.
+We have been working hard to deliver our improvement initiative, and we're encouraged by a run of 5 consecutive points below the median.
 
 ```{r road-to-improvement, fig.height=5, fig.width=8}
 library(runcharter)
+library(data.table)
 
 testdf <- signals # rename the built in data set
 setDT(testdf)
@@ -119,7 +123,7 @@ A new median is calculated using the points from this run:
 
 ```{r run-noted, fig.height=5, fig.width=8}
 testdf <- signals # rename the built in data set
-setDT(testdf)
+data.table::setDT(testdf)
 testdf <- testdf[grp == "WardX",head(.SD,44)]
 
  runcharter(testdf,
@@ -138,7 +142,7 @@ testdf <- testdf[grp == "WardX",head(.SD,44)]
 
 ```{r improvement-noted, fig.height=5, fig.width=8}
 testdf <- signals # rename the built in data set
-setDT(testdf)
+data.table::setDT(testdf)
 
  runcharter(testdf[grp == "WardX",],
   med_rows = 13,

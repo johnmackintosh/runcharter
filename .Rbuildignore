@@ -9,3 +9,6 @@
 ^README-.*\.png$
 ^pkgdown$
 pkgdown/
+^runcharter\.png
+^cran-comments\.md$
+^\.github$

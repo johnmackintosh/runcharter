@@ -4,3 +4,6 @@
 inst/doc
 runcharter.Rproj
 docs/*.
+doc/
+
+Meta/

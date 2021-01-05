@@ -1,8 +1,16 @@
 pandoc: 2.9.1.1
+<<<<<<< HEAD
 pkgdown: 1.6.1
+=======
+pkgdown: 1.5.1
+>>>>>>> master
 pkgdown_sha: ~
 articles:
   improvement: improvement.html
   runcharter: runcharter.html
+<<<<<<< HEAD
 last_built: 2021-01-05T01:15Z
+=======
+last_built: 2020-08-07T21:26Z
+>>>>>>> master
 

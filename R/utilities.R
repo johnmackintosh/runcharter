@@ -10,7 +10,7 @@ get_run_dates <- function(direct = direction,
   } else {
     runlength
   }
-
+  
   if (direct == "both") {
     res <- DT[abs(get(target_vec)) == abs(compar_vec),]
   } else {
@@ -25,7 +25,7 @@ basic_processing <- function(DT = NULL,
                              runlength = runlength,
                              ...) {
   lookback <- (runlength - 1)
-
+  
   DT[grp %chin% kg,flag := sign(y - median)]
   DT[flag != 0, rungroup := rleidv(flag), by = grp
      ][flag != 0, cusum := cumsum(flag), by = list(grp,rungroup)
@@ -34,18 +34,18 @@ basic_processing <- function(DT = NULL,
                                                     FUN = median,
                                                     partial = TRUE,
                                                     align = "right"),
-                                                      by = list(grp,rungroup)]
+           by = list(grp,rungroup)]
 }
 
 
 get_runs_DT <- function(DT1 = NULL, #run_start
                         DT2 = NULL, # run_end
                         joinvar = "grp",
-                        instance = "first",
+                        #instance = "first",
                         sdcols = c("grp","date","i.date","i.roll_median"),
                         ... ){
-
-  runs <- DT1[DT2, on = joinvar, mult = instance
+  
+  runs <- DT1[DT2, on = joinvar, mult = "first"
               ][,.SD, .SDcols = sdcols
                 ][,.SD[1], by = joinvar]
   setnames(runs,
@@ -63,6 +63,7 @@ update_tempDT <- function(DT1 = NULL, # sustained
                ][,.SD, .SDcols = sdcols][]
   res
 }
+
 
 
 

@@ -12,6 +12,7 @@ utils::globalVariables(
     "keepgroup",
     "lookback",
     "N",
+    "prev_median",
     "result",
     "roll_median",
     "run_end",

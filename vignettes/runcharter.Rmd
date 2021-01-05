@@ -109,11 +109,19 @@ The median will be rebased using all useful observations (points on the median a
 
 - line_colr : Colour for run chart lines
 
+- line_size : thickness of connecting lines between run chart points
+
 - point_colr : Colour for run chart points
+
+- point_size : size of normal run chart points
 
 - median_colr : Colour for solid and extended median lines
 
+- median_line_size : thickness of solid and extended median lines
+
 - highlight_fill : Fill colour to highlight points in a sustained run
+
+- highlight_point_size : size of highlighted points in a sustained run
 
 - ... : further arguments passed on to function
 
@@ -164,7 +172,7 @@ runcharter(signals,
 
 ## Find runs in both directions
 
-Typically, you would only look for runs either "above" or "below" the median, depending on the nature of the metric you are studying and what determines an improvement (e.g. below the median for reduced admissions and above the median for increased care bundle compliance). You can also look for any run, occuring on either side of the median, by specifying "both" as the direction. 
+Typically, you would only look for runs either "above" or "below" the median, depending on the nature of the metric you are studying and what determines an improvement (e.g. below the median for reduced admissions and above the median for increased care bundle compliance). You can also look for any run, occurring on either side of the median, by specifying "both" as the direction. 
 
 ```{r both-directions, fig.height=5, fig.width=8}
 library(runcharter)

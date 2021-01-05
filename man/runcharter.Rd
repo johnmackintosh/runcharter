@@ -4,12 +4,30 @@
 \alias{runcharter}
 \title{runcharter}
 \usage{
-runcharter(df, med_rows = 13, runlength = 9, direction = c("above",
-  "below", "both"), datecol = NULL, grpvar = NULL, yval = NULL,
-  facet_cols = NULL, facet_scales = "fixed", chart_title = NULL,
-  chart_subtitle = NULL, chart_caption = NULL, chart_breaks = NULL,
-  line_colr = "#005EB8", point_colr = "#005EB8",
-  median_colr = "#E87722", highlight_fill = "#DB1884", ...)
+runcharter(
+  df,
+  med_rows = 13,
+  runlength = 9,
+  direction = c("above", "below", "both"),
+  datecol = NULL,
+  grpvar = NULL,
+  yval = NULL,
+  facet_cols = NULL,
+  facet_scales = "fixed",
+  chart_title = NULL,
+  chart_subtitle = NULL,
+  chart_caption = NULL,
+  chart_breaks = NULL,
+  line_colr = "#005EB8",
+  line_size = 1.1,
+  point_colr = "#005EB8",
+  point_size = 2.5,
+  median_colr = "#E87722",
+  median_line_size = 1.05,
+  highlight_fill = "#DB1884",
+  highlight_point_size = 2.7,
+  ...
+)
 }
 \arguments{
 \item{df}{data.frame or data table}
@@ -38,13 +56,21 @@ runcharter(df, med_rows = 13, runlength = 9, direction = c("above",
 
 \item{chart_breaks}{character string defining desired x-axis date breaks}
 
-\item{line_colr}{colour for runchart lines}
+\item{line_colr}{colour for run chart lines}
 
-\item{point_colr}{colour for runchart points}
+\item{line_size}{thickness of connecting lines between run chart points}
+
+\item{point_colr}{colour for run chart points}
+
+\item{point_size}{size of normal run chart points}
 
 \item{median_colr}{colour for solid and extended median lines}
 
+\item{median_line_size}{thickness of solid and extended median lines}
+
 \item{highlight_fill}{fill colour for highlighting points in a sustained run}
+
+\item{highlight_point_size}{size of highlighted points in a sustained run}
 
 \item{...}{further arguments passed on to function}
 }
