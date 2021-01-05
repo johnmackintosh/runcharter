@@ -88,7 +88,7 @@ runcharter(signals,
 #> $runchart
 ```
 
-![](man/figures/runs_below-1.png)<!-- -->
+![](man/figures/README-runs_below-1.png)<!-- -->
 
     #> 
     #> $sustained
@@ -127,7 +127,7 @@ signals %>%
 #> $runchart
 ```
 
-![](man/figures/runs_7_5_both_directions-1.png)<!-- -->
+![](man/figures/README-runs_7_5_both_directions-1.png)<!-- -->
 
     #> 
     #> $sustained
@@ -191,7 +191,7 @@ signals %>%
 #> $runchart
 ```
 
-![](man/figures/medians_only-1.png)<!-- -->
+![](man/figures/README-medians_only-1.png)<!-- -->
 
     #> 
     #> $sustained
@@ -216,7 +216,7 @@ signals %>%
 #> $runchart
 ```
 
-![](man/figures/lines_only-1.png)<!-- -->
+![](man/figures/README-lines_only-1.png)<!-- -->
 
     #> 
     #> $sustained
