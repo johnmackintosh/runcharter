@@ -17,11 +17,7 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<<<<<<< HEAD
-<script src="../pkgdown.js"></script><meta property="og:title" content="improvement">
-=======
 <script src="../pkgdown.js"></script><meta property="og:title" content="Monitoring Improvement">
->>>>>>> master
 <meta property="og:description" content="runcharter">
 <meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -93,24 +89,14 @@
 
       
 
-<<<<<<< HEAD
       </header><script src="improvement_files/header-attrs-2.5/header-attrs.js"></script><script src="improvement_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="improvement_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
 <script src="improvement_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header toc-ignore">
-      <h1 data-toc-skip>improvement</h1>
-                        <h4 class="author">John MacKintosh</h4>
-            
-            <h4 class="date">2021-01-05</h4>
-=======
-      </header><script src="improvement_files/header-attrs-2.3/header-attrs.js"></script><script src="improvement_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Monitoring Improvement</h1>
                         <h4 class="author">John MacKintosh</h4>
             
-            <h4 class="date">2020-08-07</h4>
->>>>>>> master
+            <h4 class="date">2021-01-05</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/johnmackintosh/runcharter/blob/master/vignettes/improvement.Rmd"><code>vignettes/improvement.Rmd</code></a></small>
       <div class="hidden name"><code>improvement.Rmd</code></div>
@@ -123,13 +109,12 @@
 <h2 class="hasAnchor">
 <a href="#use-of-the-package-to-monitor-improvement" class="anchor"></a>Use of the package to monitor improvement</h2>
 <p>Let’s mimic the start of an improvement initiative. We have <em>some</em> data, but not enough to derive a meaningful baseline median:</p>
-<<<<<<< HEAD
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johnmackintosh/runcharter">runcharter</a></span><span class="op">)</span>
-<span class="co">#&gt; Loading required package: data.table</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://r-datatable.com">data.table</a></span><span class="op">)</span>
 
 <span class="va">testdf</span> <span class="op">&lt;-</span> <span class="va">signals</span> <span class="co"># rename the built in data set</span>
-<span class="fu">setDT</span><span class="op">(</span><span class="va">testdf</span><span class="op">)</span>
+<span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setDT.html">setDT</a></span><span class="op">(</span><span class="va">testdf</span><span class="op">)</span>
 <span class="va">testdf</span> <span class="op">&lt;-</span> <span class="va">testdf</span><span class="op">[</span><span class="va">grp</span> <span class="op">==</span> <span class="st">"WardX"</span>,<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">.SD</span>,<span class="fl">7</span><span class="op">)</span><span class="op">]</span>
 
  <span class="fu"><a href="../reference/runcharter.html">runcharter</a></span><span class="op">(</span><span class="va">testdf</span>,
@@ -142,25 +127,6 @@
   facet_cols <span class="op">=</span> <span class="fl">1</span>,
   chart_breaks <span class="op">=</span> <span class="op">(</span><span class="st">"1 month"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>
-=======
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">runcharter</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">data.table</span>)
-
-<span class="no">testdf</span> <span class="kw">&lt;-</span> <span class="no">signals</span> <span class="co"># rename the built in data set</span>
-<span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setDT.html">setDT</a></span>(<span class="no">testdf</span>)
-<span class="no">testdf</span> <span class="kw">&lt;-</span> <span class="no">testdf</span>[<span class="no">grp</span> <span class="kw">==</span> <span class="st">"WardX"</span>,<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">.SD</span>,<span class="fl">7</span>)]
-
- <span class="fu"><a href="../reference/runcharter.html">runcharter</a></span>(<span class="no">testdf</span>,
-  <span class="kw">med_rows</span> <span class="kw">=</span> <span class="fl">0</span>,
-  <span class="kw">runlength</span> <span class="kw">=</span> <span class="fl">0</span>,
-  <span class="kw">direction</span> <span class="kw">=</span> <span class="st">"both"</span>,
-  <span class="kw">datecol</span> <span class="kw">=</span> <span class="st">"date"</span>,
-  <span class="kw">grpvar</span> <span class="kw">=</span> <span class="st">"grp"</span>,
-  <span class="kw">yval</span> <span class="kw">=</span> <span class="st">"y"</span>,
-  <span class="kw">facet_cols</span> <span class="kw">=</span> <span class="fl">1</span>,
-  <span class="kw">chart_breaks</span> <span class="kw">=</span> (<span class="st">"1 month"</span>))
-<span class="co">#&gt; $runchart</span></pre></body></html></div>
->>>>>>> master
 <p><img src="man/figures/not-enough-data-1.png" width="768"></p>
 <pre><code>#&gt; 
 #&gt; $sustained
@@ -171,12 +137,12 @@
 <h2 class="hasAnchor">
 <a href="#baseline-data-recorded" class="anchor"></a>Baseline data recorded</h2>
 <p>After 13 data points have been collected, we can calculate our initial median. We’ll use this for analysis - future points will be assessed against the median and we will look for a run of 9 consecutive points below the median.</p>
-<<<<<<< HEAD
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johnmackintosh/runcharter">runcharter</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://r-datatable.com">data.table</a></span><span class="op">)</span>
 
 <span class="va">testdf</span> <span class="op">&lt;-</span> <span class="va">signals</span> <span class="co"># rename the built in data set</span>
-<span class="fu">setDT</span><span class="op">(</span><span class="va">testdf</span><span class="op">)</span>
+<span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setDT.html">setDT</a></span><span class="op">(</span><span class="va">testdf</span><span class="op">)</span>
 <span class="va">testdf</span> <span class="op">&lt;-</span> <span class="va">testdf</span><span class="op">[</span><span class="va">grp</span> <span class="op">==</span> <span class="st">"WardX"</span>,<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">.SD</span>,<span class="fl">13</span><span class="op">)</span><span class="op">]</span>
 
  <span class="fu"><a href="../reference/runcharter.html">runcharter</a></span><span class="op">(</span><span class="va">testdf</span>,
@@ -189,25 +155,6 @@
   facet_cols <span class="op">=</span> <span class="fl">1</span>,
   chart_breaks <span class="op">=</span> <span class="op">(</span><span class="st">"1 month"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>
-=======
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">runcharter</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">data.table</span>)
-
-<span class="no">testdf</span> <span class="kw">&lt;-</span> <span class="no">signals</span> <span class="co"># rename the built in data set</span>
-<span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setDT.html">setDT</a></span>(<span class="no">testdf</span>)
-<span class="no">testdf</span> <span class="kw">&lt;-</span> <span class="no">testdf</span>[<span class="no">grp</span> <span class="kw">==</span> <span class="st">"WardX"</span>,<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">.SD</span>,<span class="fl">13</span>)]
-
- <span class="fu"><a href="../reference/runcharter.html">runcharter</a></span>(<span class="no">testdf</span>,
-  <span class="kw">med_rows</span> <span class="kw">=</span> <span class="fl">13</span>,
-  <span class="kw">runlength</span> <span class="kw">=</span> <span class="fl">0</span>,
-  <span class="kw">direction</span> <span class="kw">=</span> <span class="st">"both"</span>,
-  <span class="kw">datecol</span> <span class="kw">=</span> <span class="st">"date"</span>,
-  <span class="kw">grpvar</span> <span class="kw">=</span> <span class="st">"grp"</span>,
-  <span class="kw">yval</span> <span class="kw">=</span> <span class="st">"y"</span>,
-  <span class="kw">facet_cols</span> <span class="kw">=</span> <span class="fl">1</span>,
-  <span class="kw">chart_breaks</span> <span class="kw">=</span> (<span class="st">"1 month"</span>))
-<span class="co">#&gt; $runchart</span></pre></body></html></div>
->>>>>>> master
 <p><img src="man/figures/baseline-data-1.png" width="768"></p>
 <pre><code>#&gt; 
 #&gt; $sustained
@@ -218,12 +165,12 @@
 <h2 class="hasAnchor">
 <a href="#random-variation" class="anchor"></a>Random variation</h2>
 <p>We have extended our original baseline median, but no signals of improvement are visible yet</p>
-<<<<<<< HEAD
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johnmackintosh/runcharter">runcharter</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://r-datatable.com">data.table</a></span><span class="op">)</span>
 
 <span class="va">testdf</span> <span class="op">&lt;-</span> <span class="va">signals</span> <span class="co"># rename the built in data set</span>
-<span class="fu">setDT</span><span class="op">(</span><span class="va">testdf</span><span class="op">)</span>
+<span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setDT.html">setDT</a></span><span class="op">(</span><span class="va">testdf</span><span class="op">)</span>
 <span class="va">testdf</span> <span class="op">&lt;-</span> <span class="va">testdf</span><span class="op">[</span><span class="va">grp</span> <span class="op">==</span> <span class="st">"WardX"</span>,<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">.SD</span>,<span class="fl">30</span><span class="op">)</span><span class="op">]</span>
 
  <span class="fu"><a href="../reference/runcharter.html">runcharter</a></span><span class="op">(</span><span class="va">testdf</span>,
@@ -236,25 +183,6 @@
   facet_cols <span class="op">=</span> <span class="fl">1</span>,
   chart_breaks <span class="op">=</span> <span class="op">(</span><span class="st">"3 months"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>
-=======
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">runcharter</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">data.table</span>)
-
-<span class="no">testdf</span> <span class="kw">&lt;-</span> <span class="no">signals</span> <span class="co"># rename the built in data set</span>
-<span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setDT.html">setDT</a></span>(<span class="no">testdf</span>)
-<span class="no">testdf</span> <span class="kw">&lt;-</span> <span class="no">testdf</span>[<span class="no">grp</span> <span class="kw">==</span> <span class="st">"WardX"</span>,<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">.SD</span>,<span class="fl">30</span>)]
-
- <span class="fu"><a href="../reference/runcharter.html">runcharter</a></span>(<span class="no">testdf</span>,
-  <span class="kw">med_rows</span> <span class="kw">=</span> <span class="fl">13</span>,
-  <span class="kw">runlength</span> <span class="kw">=</span> <span class="fl">9</span>,
-  <span class="kw">direction</span> <span class="kw">=</span> <span class="st">"below"</span>,
-  <span class="kw">datecol</span> <span class="kw">=</span> <span class="st">"date"</span>,
-  <span class="kw">grpvar</span> <span class="kw">=</span> <span class="st">"grp"</span>,
-  <span class="kw">yval</span> <span class="kw">=</span> <span class="st">"y"</span>,
-  <span class="kw">facet_cols</span> <span class="kw">=</span> <span class="fl">1</span>,
-  <span class="kw">chart_breaks</span> <span class="kw">=</span> (<span class="st">"3 months"</span>))
-<span class="co">#&gt; $runchart</span></pre></body></html></div>
->>>>>>> master
 <p><img src="man/figures/random-variation-1.png" width="768"></p>
 <pre><code>#&gt; 
 #&gt; $sustained
@@ -264,13 +192,13 @@
 <div id="on-the-road-to-improvement" class="section level2">
 <h2 class="hasAnchor">
 <a href="#on-the-road-to-improvement" class="anchor"></a>On the road to improvement</h2>
-<<<<<<< HEAD
-<p>We have been working hard to deliver our improvement initiative, and we’re encouragedby a run of 5 consecutive points below the median.</p>
+<p>We have been working hard to deliver our improvement initiative, and we’re encouraged by a run of 5 consecutive points below the median.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johnmackintosh/runcharter">runcharter</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://r-datatable.com">data.table</a></span><span class="op">)</span>
 
 <span class="va">testdf</span> <span class="op">&lt;-</span> <span class="va">signals</span> <span class="co"># rename the built in data set</span>
-<span class="fu">setDT</span><span class="op">(</span><span class="va">testdf</span><span class="op">)</span>
+<span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setDT.html">setDT</a></span><span class="op">(</span><span class="va">testdf</span><span class="op">)</span>
 <span class="va">testdf</span> <span class="op">&lt;-</span> <span class="va">testdf</span><span class="op">[</span><span class="va">grp</span> <span class="op">==</span> <span class="st">"WardX"</span>,<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">.SD</span>,<span class="fl">40</span><span class="op">)</span><span class="op">]</span>
 
  <span class="fu"><a href="../reference/runcharter.html">runcharter</a></span><span class="op">(</span><span class="va">testdf</span>,
@@ -283,36 +211,15 @@
   facet_cols <span class="op">=</span> <span class="fl">1</span>,
   chart_breaks <span class="op">=</span> <span class="op">(</span><span class="st">"3 months"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>
-=======
-<p>We have been working hard to deliver our improvement initiative, and we’re encouraged by a run of 5 consecutive points below the median.</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">runcharter</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">data.table</span>)
-
-<span class="no">testdf</span> <span class="kw">&lt;-</span> <span class="no">signals</span> <span class="co"># rename the built in data set</span>
-<span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setDT.html">setDT</a></span>(<span class="no">testdf</span>)
-<span class="no">testdf</span> <span class="kw">&lt;-</span> <span class="no">testdf</span>[<span class="no">grp</span> <span class="kw">==</span> <span class="st">"WardX"</span>,<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">.SD</span>,<span class="fl">40</span>)]
-
- <span class="fu"><a href="../reference/runcharter.html">runcharter</a></span>(<span class="no">testdf</span>,
-  <span class="kw">med_rows</span> <span class="kw">=</span> <span class="fl">13</span>,
-  <span class="kw">runlength</span> <span class="kw">=</span> <span class="fl">9</span>,
-  <span class="kw">direction</span> <span class="kw">=</span> <span class="st">"below"</span>,
-  <span class="kw">datecol</span> <span class="kw">=</span> <span class="st">"date"</span>,
-  <span class="kw">grpvar</span> <span class="kw">=</span> <span class="st">"grp"</span>,
-  <span class="kw">yval</span> <span class="kw">=</span> <span class="st">"y"</span>,
-  <span class="kw">facet_cols</span> <span class="kw">=</span> <span class="fl">1</span>,
-  <span class="kw">chart_breaks</span> <span class="kw">=</span> (<span class="st">"3 months"</span>))
-<span class="co">#&gt; $runchart</span></pre></body></html></div>
->>>>>>> master
 <p><img src="man/figures/road-to-improvement-1.png" width="768"></p>
 <pre><code>#&gt; 
 #&gt; $sustained
 #&gt;      grp median start_date   end_date  extend_to run_type
 #&gt; 1: WardX     11 2014-01-01 2015-01-01 2017-04-01 baseline</code></pre>
 <p>Finally, thanks to our ongoing improvement efforts, a run of 9 points on the correct side of the median line is achieved. A new median is calculated using the points from this run:</p>
-<<<<<<< HEAD
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">testdf</span> <span class="op">&lt;-</span> <span class="va">signals</span> <span class="co"># rename the built in data set</span>
-<span class="fu">setDT</span><span class="op">(</span><span class="va">testdf</span><span class="op">)</span>
+<span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setDT.html">setDT</a></span><span class="op">(</span><span class="va">testdf</span><span class="op">)</span>
 <span class="va">testdf</span> <span class="op">&lt;-</span> <span class="va">testdf</span><span class="op">[</span><span class="va">grp</span> <span class="op">==</span> <span class="st">"WardX"</span>,<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">.SD</span>,<span class="fl">44</span><span class="op">)</span><span class="op">]</span>
 
  <span class="fu"><a href="../reference/runcharter.html">runcharter</a></span><span class="op">(</span><span class="va">testdf</span>,
@@ -325,22 +232,6 @@
   facet_cols <span class="op">=</span> <span class="fl">1</span>,
   chart_breaks <span class="op">=</span> <span class="op">(</span><span class="st">"3 months"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>
-=======
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">testdf</span> <span class="kw">&lt;-</span> <span class="no">signals</span> <span class="co"># rename the built in data set</span>
-<span class="kw pkg">data.table</span><span class="kw ns">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setDT.html">setDT</a></span>(<span class="no">testdf</span>)
-<span class="no">testdf</span> <span class="kw">&lt;-</span> <span class="no">testdf</span>[<span class="no">grp</span> <span class="kw">==</span> <span class="st">"WardX"</span>,<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">.SD</span>,<span class="fl">44</span>)]
-
- <span class="fu"><a href="../reference/runcharter.html">runcharter</a></span>(<span class="no">testdf</span>,
-  <span class="kw">med_rows</span> <span class="kw">=</span> <span class="fl">13</span>,
-  <span class="kw">runlength</span> <span class="kw">=</span> <span class="fl">9</span>,
-  <span class="kw">direction</span> <span class="kw">=</span> <span class="st">"below"</span>,
-  <span class="kw">datecol</span> <span class="kw">=</span> <span class="st">"date"</span>,
-  <span class="kw">grpvar</span> <span class="kw">=</span> <span class="st">"grp"</span>,
-  <span class="kw">yval</span> <span class="kw">=</span> <span class="st">"y"</span>,
-  <span class="kw">facet_cols</span> <span class="kw">=</span> <span class="fl">1</span>,
-  <span class="kw">chart_breaks</span> <span class="kw">=</span> (<span class="st">"3 months"</span>))
-<span class="co">#&gt; $runchart</span></pre></body></html></div>
->>>>>>> master
 <p><img src="man/figures/run-noted-1.png" width="768"></p>
 <pre><code>#&gt; 
 #&gt; $sustained
@@ -351,10 +242,9 @@
 <div id="success" class="section level2">
 <h2 class="hasAnchor">
 <a href="#success" class="anchor"></a>Success</h2>
-<<<<<<< HEAD
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">testdf</span> <span class="op">&lt;-</span> <span class="va">signals</span> <span class="co"># rename the built in data set</span>
-<span class="fu">setDT</span><span class="op">(</span><span class="va">testdf</span><span class="op">)</span>
+<span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setDT.html">setDT</a></span><span class="op">(</span><span class="va">testdf</span><span class="op">)</span>
 
  <span class="fu"><a href="../reference/runcharter.html">runcharter</a></span><span class="op">(</span><span class="va">testdf</span><span class="op">[</span><span class="va">grp</span> <span class="op">==</span> <span class="st">"WardX"</span>,<span class="op">]</span>,
   med_rows <span class="op">=</span> <span class="fl">13</span>,
@@ -366,21 +256,6 @@
   facet_cols <span class="op">=</span> <span class="fl">1</span>,
   chart_breaks <span class="op">=</span> <span class="op">(</span><span class="st">"6 months"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>
-=======
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">testdf</span> <span class="kw">&lt;-</span> <span class="no">signals</span> <span class="co"># rename the built in data set</span>
-<span class="kw pkg">data.table</span><span class="kw ns">::</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setDT.html">setDT</a></span>(<span class="no">testdf</span>)
-
- <span class="fu"><a href="../reference/runcharter.html">runcharter</a></span>(<span class="no">testdf</span>[<span class="no">grp</span> <span class="kw">==</span> <span class="st">"WardX"</span>,],
-  <span class="kw">med_rows</span> <span class="kw">=</span> <span class="fl">13</span>,
-  <span class="kw">runlength</span> <span class="kw">=</span> <span class="fl">9</span>,
-  <span class="kw">direction</span> <span class="kw">=</span> <span class="st">"below"</span>,
-  <span class="kw">datecol</span> <span class="kw">=</span> <span class="st">"date"</span>,
-  <span class="kw">grpvar</span> <span class="kw">=</span> <span class="st">"grp"</span>,
-  <span class="kw">yval</span> <span class="kw">=</span> <span class="st">"y"</span>,
-  <span class="kw">facet_cols</span> <span class="kw">=</span> <span class="fl">1</span>,
-  <span class="kw">chart_breaks</span> <span class="kw">=</span> (<span class="st">"6 months"</span>))
-<span class="co">#&gt; $runchart</span></pre></body></html></div>
->>>>>>> master
 <p><img src="man/figures/improvement-noted-1.png" width="768"></p>
 <pre><code>#&gt; 
 #&gt; $sustained
@@ -405,11 +280,7 @@
 </div>
 
 <div class="pkgdown">
-<<<<<<< HEAD
   <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
-=======
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
->>>>>>> master
 </div>
 
       </footer>

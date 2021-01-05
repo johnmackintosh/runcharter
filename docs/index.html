@@ -17,14 +17,9 @@
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<<<<<<< HEAD
-<script src="pkgdown.js"></script><meta property="og:title" content="Automatically plot, analyse and rebase multiple run charts">
-<meta property="og:description" content="Plots multiple run charts, finds successive signals of improvement, and rebases medians.">
-=======
 <script src="pkgdown.js"></script><meta property="og:title" content="Automatically Plot, Analyse and Rebase Multiple Run Charts">
 <meta property="og:description" content="Plots multiple run charts, finds successive signals of 
     improvement, and rebases medians.">
->>>>>>> master
 <meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -110,7 +105,6 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install runcharter from github with:</p>
-<<<<<<< HEAD
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"johnmackintosh/runcharter"</span><span class="op">)</span>
@@ -119,15 +113,6 @@
 
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"johnmackintosh/runcharter"</span>, 
                          build_vignettes <span class="op">=</span> <span class="cn">TRUE</span>, force <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-=======
-<div class="sourceCode" id="cb1"><pre class="r"><span class="co"># install.packages("devtools")</span>
-<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"johnmackintosh/runcharter"</span>)
-
-<span class="co"># to ensure the vignettes are built or ensure latest version is installed:</span>
-
-<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"johnmackintosh/runcharter"</span>,
-                         <span class="kw">build_vignettes</span> <span class="kw">=</span> <span class="fl">TRUE</span>, <span class="kw">force</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></div>
->>>>>>> master
 <p>The rationale for the package is to analyse multiple run charts at once. More importantly, the package will identify a run of n successive points on the desired side of the median line, and will recalculate / rebase the median accordingly. Each time a run occurs, the median will be rebased. This helps to track improvements over time.</p>
 <p>The default is to plot a faceted plot, allowing ggplot2 to handle the axis limits. You can specify the number of columns in the faceted plot however, and you can also specify both the breaks for date labels on the x axis, and whether the y axis limits are fixed, or can vary by facet panel.</p>
 </div>
@@ -136,7 +121,6 @@
 <h1 class="hasAnchor">
 <a href="#function-arguments-and-defaults" class="anchor"></a>Function arguments and defaults</h1>
 <p>A default run of 9 is specified as that is the length of run used by the IHI for its patient safety initiatives worldwide.</p>
-<<<<<<< HEAD
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johnmackintosh/runcharter">runcharter</a></span><span class="op">)</span>
@@ -161,7 +145,6 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johnmackintosh/runcharter">runcharter</a></span><span class="op">)</span>
-<span class="co">#&gt; Loading required package: data.table</span>
 
 <span class="fu"><a href="reference/runcharter.html">runcharter</a></span><span class="op">(</span><span class="va">signals</span>,
            direction <span class="op">=</span> <span class="st">"below"</span>,
@@ -171,39 +154,6 @@
           chart_title <span class="op">=</span> <span class="st">" Runs identified"</span>,
           chart_subtitle <span class="op">=</span> <span class="st">"Runs below the median signalling improvement"</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>
-=======
-<div class="sourceCode" id="cb2"><pre class="r">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">runcharter</span>)
-<span class="fu"><a href="reference/runcharter.html">runcharter</a></span>(<span class="kw">df</span> <span class="kw">=</span> <span class="no">signals</span>,
-          <span class="kw">med_rows</span> <span class="kw">=</span> <span class="fl">13</span>,
-          <span class="kw">runlength</span> <span class="kw">=</span> <span class="fl">9</span>,
-          <span class="kw">direction</span> <span class="kw">=</span> <span class="st">"below"</span>,
-          <span class="kw">datecol</span> <span class="kw">=</span> <span class="kw">NULL</span>,
-          <span class="kw">grpvar</span> <span class="kw">=</span> <span class="kw">NULL</span>,
-          <span class="kw">yval</span> <span class="kw">=</span> <span class="kw">NULL</span>,
-          <span class="kw">facet_cols</span> <span class="kw">=</span> <span class="kw">NULL</span>,
-          <span class="kw">facet_scales</span> <span class="kw">=</span> <span class="st">"fixed"</span>,
-          <span class="kw">chart_title</span> <span class="kw">=</span> <span class="kw">NULL</span>,
-          <span class="kw">chart_subtitle</span> <span class="kw">=</span> <span class="kw">NULL</span>,
-          <span class="kw">chart_caption</span> <span class="kw">=</span> <span class="kw">NULL</span>,
-          <span class="kw">chart_breaks</span> <span class="kw">=</span> <span class="kw">NULL</span>,
-          <span class="kw">line_colr</span> <span class="kw">=</span> <span class="st">"#005EB8"</span>, <span class="co"># blue</span>
-          <span class="kw">point_colr</span> <span class="kw">=</span><span class="st">"#005EB8"</span>, <span class="co"># blue</span>
-          <span class="kw">median_colr</span> <span class="kw">=</span> <span class="st">"#E87722"</span>, <span class="co"># orange</span>
-          <span class="kw">highlight_fill</span> <span class="kw">=</span> <span class="st">"#DB1884"</span>) <span class="co"># magenta</span></pre></div>
-<p>The function will return a plot and a summary table showing the original baseline medians, and any sustained runs of improvement beyond the baseline period.</p>
-<div class="sourceCode" id="cb3"><pre class="r">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">runcharter</span>)
-
-<span class="fu"><a href="reference/runcharter.html">runcharter</a></span>(<span class="no">signals</span>,
-           <span class="kw">direction</span> <span class="kw">=</span> <span class="st">"below"</span>,
-           <span class="kw">datecol</span> <span class="kw">=</span> <span class="st">"date"</span>,
-           <span class="kw">grpvar</span> <span class="kw">=</span> <span class="st">"grp"</span>,
-           <span class="kw">yval</span> <span class="kw">=</span> <span class="st">"y"</span>,
-          <span class="kw">chart_title</span> <span class="kw">=</span> <span class="st">" Runs identified"</span>,
-          <span class="kw">chart_subtitle</span> <span class="kw">=</span> <span class="st">"Runs below the median signalling improvement"</span>)
-<span class="co">#&gt; $runchart</span></pre></div>
->>>>>>> master
 <p><img src="reference/figures/runs_below-1.png"><!-- --></p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">#&gt; </span></span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="co">#&gt; $sustained</span></span>
@@ -219,7 +169,6 @@
 <a href="#runs-in-both-directions" class="anchor"></a>Runs in both directions</h2>
 <p>The package allows for finding runs in both directions (above and below the median). Generally, for improvement purposes, you would only need to identify runs in one direction at a time. In other words, if you are trying to reduce adverse events, improvement will be evidenced with a run below the median. Therefore, you would not rebase the median if a run of points above the median was observed.</p>
 <p>However, for longer term monitoring, it may be necessary to identify and ‘reset’ a median if a sustained deterioration in performance occurs. Ideally, you should move to using SPC charts for monitoring purposes.</p>
-<<<<<<< HEAD
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johnmackintosh/runcharter">runcharter</a></span><span class="op">)</span>
 <span class="va">signals</span> <span class="op">%&gt;%</span> 
@@ -232,19 +181,6 @@
              chart_title <span class="op">=</span> <span class="st">"Runs in both directions"</span>,
              chart_subtitle <span class="op">=</span> <span class="st">"Runs of 5, from median calculated over first 7 data points in each location"</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>
-=======
-<div class="sourceCode" id="cb5"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">runcharter</span>)
-<span class="no">signals</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="reference/runcharter.html">runcharter</a></span>(<span class="kw">med_rows</span> <span class="kw">=</span> <span class="fl">7</span>,
-             <span class="kw">runlength</span> <span class="kw">=</span> <span class="fl">5</span>,
-             <span class="kw">direction</span> <span class="kw">=</span> <span class="st">"both"</span>,
-             <span class="kw">datecol</span> <span class="kw">=</span> <span class="st">"date"</span>,
-              <span class="kw">grpvar</span> <span class="kw">=</span> <span class="st">"grp"</span>,
-              <span class="kw">yval</span> <span class="kw">=</span> <span class="st">"y"</span>,
-             <span class="kw">chart_title</span> <span class="kw">=</span> <span class="st">"Runs in both directions"</span>,
-             <span class="kw">chart_subtitle</span> <span class="kw">=</span> <span class="st">"Runs of 5, from median calculated over first 7 data points in each location"</span>)
-<span class="co">#&gt; $runchart</span></pre></div>
->>>>>>> master
 <p><img src="reference/figures/runs_7_5_both_directions-1.png"><!-- --></p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co">#&gt; </span></span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="co">#&gt; $sustained</span></span>
@@ -278,7 +214,6 @@
 <h2 class="hasAnchor">
 <a href="#turn-off-run-chart-analysis" class="anchor"></a>Turn off run chart analysis</h2>
 <p>You can avoid rebasing medians by setting ‘runlength’ to 0 (zero). This will plot the runcharts with the original baseline medians, but no runs analysis will take place.</p>
-<<<<<<< HEAD
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johnmackintosh/runcharter">runcharter</a></span><span class="op">)</span>
 <span class="va">signals</span> <span class="op">%&gt;%</span> 
@@ -289,17 +224,6 @@
               yval <span class="op">=</span> <span class="st">"y"</span>,
              direction <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>
-=======
-<div class="sourceCode" id="cb7"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">runcharter</span>)
-<span class="no">signals</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="reference/runcharter.html">runcharter</a></span>(<span class="kw">med_rows</span> <span class="kw">=</span> <span class="fl">13</span>,
-             <span class="kw">runlength</span> <span class="kw">=</span> <span class="fl">0</span>,
-             <span class="kw">datecol</span> <span class="kw">=</span> <span class="st">"date"</span>,
-              <span class="kw">grpvar</span> <span class="kw">=</span> <span class="st">"grp"</span>,
-              <span class="kw">yval</span> <span class="kw">=</span> <span class="st">"y"</span>,
-             <span class="kw">direction</span> <span class="kw">=</span> <span class="st">"both"</span>)
-<span class="co">#&gt; $runchart</span></pre></div>
->>>>>>> master
 <p><img src="reference/figures/medians_only-1.png"><!-- --></p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co">#&gt; </span></span>
 <span id="cb8-2"><a href="#cb8-2"></a><span class="co">#&gt; $sustained</span></span>
@@ -309,7 +233,6 @@
 <span id="cb8-6"><a href="#cb8-6"></a><span class="co">#&gt; 3: WardY     13 2014-01-01 2015-01-01 2018-07-01 baseline</span></span>
 <span id="cb8-7"><a href="#cb8-7"></a><span class="co">#&gt; 4: WardZ      4 2014-01-01 2015-01-01 2018-07-01 baseline</span></span></code></pre></div>
 <p>Similarly, you can plot basic line charts by setting ‘med_rows’ to 0 (zero)</p>
-<<<<<<< HEAD
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johnmackintosh/runcharter">runcharter</a></span><span class="op">)</span>
 <span class="va">signals</span> <span class="op">%&gt;%</span> 
@@ -320,17 +243,6 @@
               yval <span class="op">=</span> <span class="st">"y"</span>,
              direction <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>
-=======
-<div class="sourceCode" id="cb9"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">runcharter</span>)
-<span class="no">signals</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="reference/runcharter.html">runcharter</a></span>(<span class="kw">med_rows</span> <span class="kw">=</span> <span class="fl">0</span>,
-             <span class="kw">runlength</span> <span class="kw">=</span> <span class="fl">9</span>,
-             <span class="kw">datecol</span> <span class="kw">=</span> <span class="st">"date"</span>,
-              <span class="kw">grpvar</span> <span class="kw">=</span> <span class="st">"grp"</span>,
-              <span class="kw">yval</span> <span class="kw">=</span> <span class="st">"y"</span>,
-             <span class="kw">direction</span> <span class="kw">=</span> <span class="st">"both"</span>)
-<span class="co">#&gt; $runchart</span></pre></div>
->>>>>>> master
 <p><img src="reference/figures/lines_only-1.png"><!-- --></p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co">#&gt; </span></span>
 <span id="cb10-2"><a href="#cb10-2"></a><span class="co">#&gt; $sustained</span></span>
@@ -376,11 +288,7 @@
 </div>
 
 <div class="pkgdown">
-<<<<<<< HEAD
   <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
-=======
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
->>>>>>> master
 </div>
 
       </footer>
