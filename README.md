@@ -8,8 +8,6 @@ Automated analysis and re-basing of run charts at scale.
 Online documentation and vignettes :
 [runcharter](https://www.johnmackintosh.com/runcharter/)
 
-[![Build
-Status](https://travis-ci.org/johnmackintosh/runcharter.svg?branch=master)](https://travis-ci.org/johnmackintosh/runcharter)
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
