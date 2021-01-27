@@ -12,3 +12,10 @@ pkgdown/
 ^runcharter\.png
 ^cran-comments\.md$
 ^\.github$
+
+
+^_pkgdown\.yml$
+^docs$
+^data-raw$
+netlify.toml
+pkgdown
