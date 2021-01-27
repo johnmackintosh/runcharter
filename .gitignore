@@ -7,3 +7,6 @@ docs/*.
 doc/
 
 Meta/
+
+.Ruserdata
+**/.DS_Store
