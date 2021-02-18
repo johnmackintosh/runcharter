@@ -17,6 +17,9 @@ status](https://codecov.io/gh/johnmackintosh/runcharter/branch/master/graph/badg
 [![R build
 status](https://github.com/johnmackintosh/runcharter/workflows/R-CMD-check/badge.svg)](https://github.com/johnmackintosh/runcharter/actions)
 
+[![Render
+README](https://github.com/johnmackintosh/runcharter/actions/workflows/render-readme.yaml/badge.svg)](https://github.com/johnmackintosh/runcharter/actions/workflows/render-readme.yaml)
+
 ## Installation
 
 You can install runcharter from github with:
@@ -49,7 +52,6 @@ A default run of 9 is specified as that is the length of run used by the
 IHI for its patient safety initiatives worldwide.
 
 ``` r
-
 library(runcharter)
 runcharter(df = signals,
           med_rows = 13,
@@ -75,7 +77,6 @@ baseline medians, and any sustained runs of improvement beyond the
 baseline period.
 
 ``` r
-
 library(runcharter)
 
 runcharter(signals,

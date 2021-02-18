@@ -25,6 +25,8 @@ Online documentation and vignettes : [runcharter](https://www.johnmackintosh.com
 
 [![R build status](https://github.com/johnmackintosh/runcharter/workflows/R-CMD-check/badge.svg)](https://github.com/johnmackintosh/runcharter/actions)
 
+[![Render README](https://github.com/johnmackintosh/runcharter/actions/workflows/render-readme.yaml/badge.svg)](https://github.com/johnmackintosh/runcharter/actions/workflows/render-readme.yaml)
+
 ## Installation
 
 You can install runcharter from github with:
