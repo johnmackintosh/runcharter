@@ -7,9 +7,9 @@ test_that(" more than one direction argument throws error", {
                          med_rows = 9,
                          runlength = 9,
                          direction = c("above","below","both"),
-                         datecol = "date",
-                         grpvar = "grp",
-                         yval = "y"), throws_error())
+                         datecol = date,
+                         grpvar = grp,
+                         yval = y), throws_error())
   
 })
 
@@ -22,9 +22,9 @@ test_that(" missing datecol throws errors", {
                          runlength = 9,
                          direction = c("above"),
                          datecol = ,
-                         grpvar = "grp",
-                         yval = "y"),
-              throws_error('"Please check and provide values for the "datecol", "grpvar"  and "yval" arguments'))
+                         grpvar = grp,
+                         yval = y),
+              throws_error())
   
   # datecol and grpvar missing
   expect_that(runcharter(signals,
@@ -33,7 +33,7 @@ test_that(" missing datecol throws errors", {
                          direction = c("above"),
                          datecol = ,
                          grpvar = ,
-                         yval = "y"), throws_error())
+                         yval = y), throws_error())
   
 })
 
@@ -45,10 +45,10 @@ test_that(" missing grpvar throws errors", {
                          med_rows = 9,
                          runlength = 9,
                          direction = c("above"),
-                         datecol = "date",
+                         datecol = date,
                          grpvar = ,
-                         yval = "y"),
-              throws_error('"Please check and provide values for the "datecol", "grpvar"  and "yval" arguments'))
+                         yval = y),
+              throws_error())
   
   
   
@@ -63,10 +63,10 @@ test_that(" missing yval throws errors", {
                          med_rows = 9,
                          runlength = 9,
                          direction = c("above"),
-                         datecol = "date",
-                         grpvar = "grp",
+                         datecol = date,
+                         grpvar = grp,
                          yval = ),
-              throws_error('"Please check and provide values for the "datecol", "grpvar"  and "yval" arguments'))
+              throws_error())
   
 })
 
@@ -78,10 +78,10 @@ test_that(" missing grpvar throws errors", {
                          med_rows = 9,
                          runlength = 9,
                          direction = c("above"),
-                         datecol = "date",
+                         datecol = date,
                          grpvar = ,
                          yval = ),
-              throws_error('"Please check and provide values for the "datecol", "grpvar"  and "yval" arguments'))
+              throws_error())
   
   
   # grpvar and date
@@ -92,7 +92,7 @@ test_that(" missing grpvar throws errors", {
                          datecol = ,
                          grpvar = ,
                          yval = "y" ),
-              throws_error('"Please check and provide values for the "datecol", "grpvar"  and "yval" arguments'))
+              throws_error())
   
   
   # missing datecol and yval
@@ -102,9 +102,9 @@ test_that(" missing grpvar throws errors", {
                          runlength = 9,
                          direction = c("above"),
                          datecol = ,
-                         grpvar = "grp",
+                         grpvar = grp,
                          yval = ),
-              throws_error('"Please check and provide values for the "datecol", "grpvar"  and "yval" arguments'))
+              throws_error())
   
   
   # 
@@ -131,7 +131,7 @@ test_that(" missing grpvar throws errors", {
                          datecol = ,
                          grpvar = ,
                          yval =  ),
-              throws_error('"Please check and provide values for the "datecol", "grpvar"  and "yval" arguments"'))
+              throws_error())
   
   
   
@@ -147,9 +147,9 @@ test_that(" there are enough rows beyond the baseline and runlength period", {
                          med_rows = 50,
                          runlength = 15,
                          direction = "above",
-                         datecol = "date",
-                         grpvar = "grp",
-                         yval = "y"),
+                         datecol = date,
+                         grpvar = grp,
+                         yval = y),
               throws_error("None of the groups have enough rows of data beyond the specified baseline period, for the desired runlength.
         Please check the values of the med_rows and runlength arguments.
         Currently they exceed the number of rows for each group"))
@@ -165,9 +165,9 @@ test_that(" there are enough rows beyond the baseline and runlength period", {
                          med_rows = 50,
                          runlength = 15,
                          direction = "above",
-                         datecol = "date",
-                         grpvar = "grp",
-                         yval = "y"),
+                         datecol = date,
+                         grpvar = grp,
+                         yval = y),
               throws_error("None of the groups have enough rows of data beyond the specified baseline period, for the desired runlength.
         Please check the values of the med_rows and runlength arguments.
         Currently they exceed the number of rows for each group"))  
@@ -180,9 +180,9 @@ test_that("missing df argument causes error", {
                          med_rows = 13,
                          runlength = 9,
                          direction = "both",
-                         datecol = "date",
-                         grpvar = "grp",
-                         yval = "y"),
+                         datecol = date,
+                         grpvar = grp,
+                         yval = y),
               throws_error())
   
   
@@ -190,9 +190,9 @@ test_that("missing df argument causes error", {
   expect_that(runcharter(med_rows = 13,
                          runlength = 9,
                          direction = "both",
-                         datecol = "date",
-                         grpvar = "grp",
-                         yval = "y"),
+                         datecol = date,
+                         grpvar = grp,
+                         yval = y),
               throws_error())
   
   

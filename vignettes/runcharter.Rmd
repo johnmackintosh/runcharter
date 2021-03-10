@@ -69,9 +69,9 @@ class(testdf) # note class of tibble, tbl_df and dataframe
 
 testdf %>% runcharter(
            direction = "both",
-           datecol = "date",
-           grpvar = "grp", 
-           yval = "y",
+           datecol = date,
+           grpvar = grp, 
+           yval = y,
            facet_cols = 2)
 
 # results class data.table
@@ -135,9 +135,9 @@ library(runcharter)
 runcharter(signals ,med_rows = 13,
 runlength = 9,
 direction = "below",
-datecol = "date",
-grpvar = "grp",
-yval = "y",
+datecol = date,
+grpvar = grp,
+yval = y,
 chart_title = "Analysis of runs below median",
 chart_subtitle = "Example plot",
 chart_caption = "analysed with runcharter",
@@ -162,9 +162,9 @@ The analysis continues, rebasing any further runs, until no more runs are found 
 library(runcharter)
 runcharter(signals,
            direction = "above",
-           datecol = "date",
-           grpvar = "grp", 
-           yval = "y",
+           datecol = date,
+           grpvar = grp, 
+           yval = y,
            facet_cols = 2)
 
 ```
@@ -178,9 +178,9 @@ Typically, you would only look for runs either "above" or "below" the median, de
 library(runcharter)
 signals %>% runcharter(
            direction = "both",
-           datecol = "date",
-           grpvar = "grp", 
-           yval = "y",
+           datecol = date,
+           grpvar = grp, 
+           yval = y,
            facet_cols = 2)
 ```
 
@@ -199,9 +199,9 @@ Don't try this at home - setting runlength of 5 and searching in both directions
 signals %>% 
   runcharter(med_rows = 7,
              runlength = 5, 
-             datecol = "date",
-              grpvar = "grp", 
-              yval = "y",
+             datecol = date,
+              grpvar = grp, 
+              yval = y,
              direction = "both")
 ```
 
@@ -219,9 +219,9 @@ utils::str(LOSdata) # note that Organisation is an ordered factor, not character
 LOSdata %>% runcharter(med_rows = 9,
                    runlength = 9,
                    direction = "both",
-                   datecol = "ID",
-                   grpvar = "Organisation",
-                   yval = "LOS")
+                   datecol = ID,
+                   grpvar = Organisation,
+                   yval = LOS)
 
 
 
@@ -239,9 +239,9 @@ library(runcharter)
 signals %>% 
   runcharter(med_rows = 13,
              runlength = 0, 
-             datecol = "date",
-              grpvar = "grp", 
-              yval = "y",
+             datecol = date,
+              grpvar = grp, 
+              yval = y,
              direction = "both")
 
 ```
@@ -253,9 +253,9 @@ library(runcharter)
 signals %>% 
   runcharter(med_rows = 0,
              runlength = 9, 
-             datecol = "date",
-              grpvar = "grp", 
-              yval = "y",
+             datecol = date,
+              grpvar = grp, 
+              yval = y,
              direction = "both")
 
 ```

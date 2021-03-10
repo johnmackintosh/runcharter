@@ -46,7 +46,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -75,7 +75,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/johnmackintosh/runcharter/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -89,14 +89,13 @@
 
       
 
-      </header><script src="improvement_files/header-attrs-2.5/header-attrs.js"></script><script src="improvement_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="improvement_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="improvement_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="improvement_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Monitoring Improvement</h1>
                         <h4 class="author">John MacKintosh</h4>
             
-            <h4 class="date">2021-01-05</h4>
+            <h4 class="date">2021-03-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/johnmackintosh/runcharter/blob/master/vignettes/improvement.Rmd"><code>vignettes/improvement.Rmd</code></a></small>
       <div class="hidden name"><code>improvement.Rmd</code></div>
@@ -111,7 +110,7 @@
 <p>Let’s mimic the start of an improvement initiative. We have <em>some</em> data, but not enough to derive a meaningful baseline median:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johnmackintosh/runcharter">runcharter</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://r-datatable.com">data.table</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com">data.table</a></span><span class="op">)</span>
 
 <span class="va">testdf</span> <span class="op">&lt;-</span> <span class="va">signals</span> <span class="co"># rename the built in data set</span>
 <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setDT.html">setDT</a></span><span class="op">(</span><span class="va">testdf</span><span class="op">)</span>
@@ -121,9 +120,9 @@
   med_rows <span class="op">=</span> <span class="fl">0</span>,
   runlength <span class="op">=</span> <span class="fl">0</span>,
   direction <span class="op">=</span> <span class="st">"both"</span>,
-  datecol <span class="op">=</span> <span class="st">"date"</span>,
-  grpvar <span class="op">=</span> <span class="st">"grp"</span>, 
-  yval <span class="op">=</span> <span class="st">"y"</span>,
+  datecol <span class="op">=</span> <span class="va">date</span>,
+ grpvar <span class="op">=</span> <span class="va">grp</span>,
+  yval <span class="op">=</span> <span class="va">y</span>,
   facet_cols <span class="op">=</span> <span class="fl">1</span>,
   chart_breaks <span class="op">=</span> <span class="op">(</span><span class="st">"1 month"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>
@@ -139,7 +138,7 @@
 <p>After 13 data points have been collected, we can calculate our initial median. We’ll use this for analysis - future points will be assessed against the median and we will look for a run of 9 consecutive points below the median.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johnmackintosh/runcharter">runcharter</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://r-datatable.com">data.table</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com">data.table</a></span><span class="op">)</span>
 
 <span class="va">testdf</span> <span class="op">&lt;-</span> <span class="va">signals</span> <span class="co"># rename the built in data set</span>
 <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setDT.html">setDT</a></span><span class="op">(</span><span class="va">testdf</span><span class="op">)</span>
@@ -149,9 +148,9 @@
   med_rows <span class="op">=</span> <span class="fl">13</span>,
   runlength <span class="op">=</span> <span class="fl">0</span>,
   direction <span class="op">=</span> <span class="st">"both"</span>,
-  datecol <span class="op">=</span> <span class="st">"date"</span>,
-  grpvar <span class="op">=</span> <span class="st">"grp"</span>, 
-  yval <span class="op">=</span> <span class="st">"y"</span>,
+  datecol <span class="op">=</span> <span class="va">date</span>,
+ grpvar <span class="op">=</span> <span class="va">grp</span>,
+  yval <span class="op">=</span> <span class="va">y</span>,
   facet_cols <span class="op">=</span> <span class="fl">1</span>,
   chart_breaks <span class="op">=</span> <span class="op">(</span><span class="st">"1 month"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>
@@ -167,7 +166,7 @@
 <p>We have extended our original baseline median, but no signals of improvement are visible yet</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johnmackintosh/runcharter">runcharter</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://r-datatable.com">data.table</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com">data.table</a></span><span class="op">)</span>
 
 <span class="va">testdf</span> <span class="op">&lt;-</span> <span class="va">signals</span> <span class="co"># rename the built in data set</span>
 <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setDT.html">setDT</a></span><span class="op">(</span><span class="va">testdf</span><span class="op">)</span>
@@ -177,9 +176,9 @@
   med_rows <span class="op">=</span> <span class="fl">13</span>,
   runlength <span class="op">=</span> <span class="fl">9</span>,
   direction <span class="op">=</span> <span class="st">"below"</span>,
-  datecol <span class="op">=</span> <span class="st">"date"</span>,
-  grpvar <span class="op">=</span> <span class="st">"grp"</span>, 
-  yval <span class="op">=</span> <span class="st">"y"</span>,
+  datecol <span class="op">=</span> <span class="va">date</span>,
+ grpvar <span class="op">=</span> <span class="va">grp</span>,
+  yval <span class="op">=</span> <span class="va">y</span>,
   facet_cols <span class="op">=</span> <span class="fl">1</span>,
   chart_breaks <span class="op">=</span> <span class="op">(</span><span class="st">"3 months"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>
@@ -195,7 +194,7 @@
 <p>We have been working hard to deliver our improvement initiative, and we’re encouraged by a run of 5 consecutive points below the median.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johnmackintosh/runcharter">runcharter</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://r-datatable.com">data.table</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com">data.table</a></span><span class="op">)</span>
 
 <span class="va">testdf</span> <span class="op">&lt;-</span> <span class="va">signals</span> <span class="co"># rename the built in data set</span>
 <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/setDT.html">setDT</a></span><span class="op">(</span><span class="va">testdf</span><span class="op">)</span>
@@ -205,9 +204,9 @@
   med_rows <span class="op">=</span> <span class="fl">13</span>,
   runlength <span class="op">=</span> <span class="fl">9</span>,
   direction <span class="op">=</span> <span class="st">"below"</span>,
-  datecol <span class="op">=</span> <span class="st">"date"</span>,
-  grpvar <span class="op">=</span> <span class="st">"grp"</span>, 
-  yval <span class="op">=</span> <span class="st">"y"</span>,
+  datecol <span class="op">=</span> <span class="va">date</span>,
+ grpvar <span class="op">=</span> <span class="va">grp</span>,
+  yval <span class="op">=</span> <span class="va">y</span>,
   facet_cols <span class="op">=</span> <span class="fl">1</span>,
   chart_breaks <span class="op">=</span> <span class="op">(</span><span class="st">"3 months"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>
@@ -226,9 +225,9 @@
   med_rows <span class="op">=</span> <span class="fl">13</span>,
   runlength <span class="op">=</span> <span class="fl">9</span>,
   direction <span class="op">=</span> <span class="st">"below"</span>,
-  datecol <span class="op">=</span> <span class="st">"date"</span>,
-  grpvar <span class="op">=</span> <span class="st">"grp"</span>, 
-  yval <span class="op">=</span> <span class="st">"y"</span>,
+  datecol <span class="op">=</span> <span class="va">date</span>,
+ grpvar <span class="op">=</span> <span class="va">grp</span>,
+  yval <span class="op">=</span> <span class="va">y</span>,
   facet_cols <span class="op">=</span> <span class="fl">1</span>,
   chart_breaks <span class="op">=</span> <span class="op">(</span><span class="st">"3 months"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>
@@ -250,9 +249,9 @@
   med_rows <span class="op">=</span> <span class="fl">13</span>,
   runlength <span class="op">=</span> <span class="fl">9</span>,
   direction <span class="op">=</span> <span class="st">"below"</span>,
-  datecol <span class="op">=</span> <span class="st">"date"</span>,
-  grpvar <span class="op">=</span> <span class="st">"grp"</span>, 
-  yval <span class="op">=</span> <span class="st">"y"</span>,
+  datecol <span class="op">=</span> <span class="va">date</span>,
+ grpvar <span class="op">=</span> <span class="va">grp</span>,
+  yval <span class="op">=</span> <span class="va">y</span>,
   facet_cols <span class="op">=</span> <span class="fl">1</span>,
   chart_breaks <span class="op">=</span> <span class="op">(</span><span class="st">"6 months"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>

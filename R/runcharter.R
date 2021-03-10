@@ -45,7 +45,7 @@
 #' @examples
 #' \donttest{
 #'runcharter(signals, med_rows = 13, runlength = 9,
-#'direction = "above", datecol = "date", grpvar ="grp", yval ="y",
+#'direction = "above", datecol = date, grpvar = grp, yval = y,
 #' facet_cols = 2,chart_title = "Automated runs analysis",
 #'chart_subtitle = " some runs found", chart_caption = "powered by R",
 #'chart_breaks = "6 months")
@@ -76,14 +76,18 @@ runcharter <- function(df,
                        highlight_point_size = 2.7,
                        ...) {
   
-  # error checks
+
+  datecol <- deparse1(substitute(datecol))
+  grpvar <- deparse1(substitute(grpvar))
+  yval <- deparse1(substitute(yval))
   
-  # direction
-  if (length(direction) > 1) {
-    stop('"Too many values passed to "direction" argument.
-         Please set direction to one of "above", "below", or "both"',
-         call. = FALSE)
-  }
+  stopifnot(!is.null(datecol),
+            !is.null(grpvar),
+            !is.null(df),
+            !is.null(yval),
+            length(direction) == 1
+  )
+  
   
   # mising arguments
   # df
@@ -92,11 +96,21 @@ runcharter <- function(df,
   }
   
   # datecol , grpvar and yval
-  if (!length(datecol) | !length(grpvar) | !length(yval)) {
+  if (datecol == 'NULL' | grpvar== 'NULL' | yval == 'NULL') {
     stop('"Please check and provide values for the "datecol", "grpvar"  and "yval" arguments"')
   }
   
   
+  
+  
+  # direction
+  if (length(direction) > 1) {
+    stop('"Too many values passed to "direction" argument.
+         Please set direction to one of "above", "below", or "both"',
+         call. = FALSE)
+  }
+  
+ 
   # 
   # # datecol in wrong format
   # 
@@ -121,8 +135,11 @@ runcharter <- function(df,
   masterDT <- copy(df)
   setDT(masterDT)
   
-  masterDT <- setnames(masterDT,
-                                   old = c(datecol,grpvar,yval),
+  
+  
+  
+  
+  masterDT <- setnames(masterDT, old = c(datecol,grpvar,yval),
                                    new = c("date","grp","y"))
   
   

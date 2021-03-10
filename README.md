@@ -25,13 +25,13 @@ README](https://github.com/johnmackintosh/runcharter/actions/workflows/render-re
 You can install runcharter from github with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("johnmackintosh/runcharter")
+# install.packages("remotes") # if not already installed
+remotes::install_github("johnmackintosh/runcharter")
 
 # to ensure the vignettes are built or ensure latest version is installed:
 
 devtools::install_github("johnmackintosh/runcharter", 
-                         build_vignettes = TRUE, force = TRUE)
+                         build_vignettes = TRUE)
 ```
 
 The rationale for the package is to analyse multiple run charts at once.
@@ -52,7 +52,6 @@ A default run of 9 is specified as that is the length of run used by the
 IHI for its patient safety initiatives worldwide.
 
 ``` r
-
 library(runcharter)
 runcharter(df = signals,
           med_rows = 13,
@@ -78,15 +77,14 @@ baseline medians, and any sustained runs of improvement beyond the
 baseline period.
 
 ``` r
-
 library(runcharter)
 
 runcharter(signals,
            direction = "below",
-           datecol = "date", 
-           grpvar = "grp",
-           yval = "y", 
-          chart_title = " Runs identified",
+           datecol = date, 
+           grpvar = grp,
+           yval = y, 
+          chart_title = "Runs identified",
           chart_subtitle = "Runs below the median signalling improvement")
 #> $runchart
 ```
@@ -122,9 +120,9 @@ signals %>%
   runcharter(med_rows = 7, 
              runlength = 5,
              direction = "both",
-             datecol = "date", 
-              grpvar = "grp",
-              yval = "y", 
+             datecol = date, 
+              grpvar = grp,
+              yval = y, 
              chart_title = "Runs in both directions",
              chart_subtitle = "Runs of 5, from median calculated over first 7 data points in each location")
 #> $runchart
@@ -187,9 +185,9 @@ library(runcharter)
 signals %>% 
   runcharter(med_rows = 13,
              runlength = 0, 
-             datecol = "date",
-              grpvar = "grp", 
-              yval = "y",
+             datecol = date,
+              grpvar = grp, 
+              yval = y,
              direction = "both")
 #> $runchart
 ```
@@ -212,9 +210,9 @@ library(runcharter)
 signals %>% 
   runcharter(med_rows = 0,
              runlength = 9, 
-             datecol = "date",
-              grpvar = "grp", 
-              yval = "y",
+             datecol = date,
+              grpvar = grp, 
+              yval = y,
              direction = "both")
 #> $runchart
 ```

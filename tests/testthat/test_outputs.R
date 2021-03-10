@@ -21,7 +21,7 @@ test_that("`runcharter function` works with input and returns expected data.fram
   checkDT$extend_to <- as.Date(checkDT$extend_to)
   
   p <- runcharter(signals,med_rows = 9, runlength = 9, direction = "both",
-                  datecol = "date",grpvar = "grp",yval = "y")
+                  datecol = date, grpvar = grp, yval = y)
   
   
   expect_equal(p$sustained,checkDT)
@@ -46,7 +46,7 @@ test_that("`runcharter function` works with input and returns expected data.fram
   checkDT1$extend_to <- as.Date(checkDT1$extend_to)
   
   p1 <- runcharter(signals,med_rows = 9, runlength = 9, direction = "above",
-                   datecol = "date",grpvar = "grp",yval = "y")
+                   datecol = date, grpvar = grp, yval = y)
   
   expect_equal(p1$sustained,checkDT1)
   expect_identical(p1$sustained,checkDT1)
@@ -70,7 +70,7 @@ test_that("`runcharter function` works with input and returns expected data.fram
   checkDT2$extend_to <- as.Date(checkDT2$extend_to)
   
   p2 <- runcharter(signals,med_rows = 9, runlength = 9, direction = "below",
-                   datecol = "date",grpvar = "grp",yval = "y")
+                   datecol = date, grpvar = grp, yval = y)
   
   expect_equal(p2$sustained,checkDT2)
   expect_identical(p2$sustained,checkDT2)
@@ -94,7 +94,7 @@ test_that("`runcharter function` works with input and returns expected data.fram
   
   
   p3 <- runcharter(signals,med_rows = 9, runlength = 0, direction = "above",
-                   datecol = "date",grpvar = "grp",yval = "y")
+                   datecol = date, grpvar = grp, yval = y)
   
   expect_equal(p3$sustained,checkDT3)
   expect_identical(p3$sustained,checkDT3)
@@ -119,7 +119,7 @@ test_that("`runcharter function` works with input and returns expected data.fram
   
 
   p4 <- runcharter(signals,med_rows = 0, runlength = 9,direction = "above",
-                   datecol = "date",grpvar = "grp",yval = "y")
+                   datecol = date, grpvar = grp, yval = y)
   
   
   expect_equal(p4$sustained$grp,checkDT4$grp)
@@ -137,7 +137,7 @@ test_that("`runcharter function` works with input and returns expected data.fram
   signals[["grp"]] <- as.factor(signals[["grp"]])
   
   p5 <- runcharter(signals,med_rows = 9, runlength = 9, direction = "both",
-                   datecol = "date",grpvar = "grp",yval = "y")
+                   datecol = date,grpvar = grp,yval = y)
   
   expect_true(is.factor(p5$sustained$grp))
   
@@ -282,7 +282,7 @@ test_that("`runcharter function` works with input and returns expected data.fram
           100,
           100
         ),
-        grp = c(
+        report_grp = c(
           "test_site1",
           "test_site1",
           "test_site1",
@@ -356,7 +356,7 @@ test_that("`runcharter function` works with input and returns expected data.fram
     )
   
   
-  checkDT6 <- data.table(grp = c("test_site1","test_site1"),
+  checkDT6 <- data.table(report_grp = c("test_site1","test_site1"),
                          median = c(100.0,81.8),
                          start_date = c("2018-01-01","2018-04-09"),
                          end_date = c("2018-03-26","2018-06-25"),
@@ -368,9 +368,9 @@ test_that("`runcharter function` works with input and returns expected data.fram
   checkDT6$extend_to <- as.Date(checkDT6$extend_to)
   
 p6 <- runcharter(highlights, direction = "both", 
-                 datecol = 'reportdate', grpvar = 'grp', yval = 'metric') 
+                 datecol = reportdate, grpvar = report_grp, yval = metric) 
   
-expect_equal(p6$sustained$grp,checkDT6$grp)
+expect_equal(p6$sustained$report_grp,checkDT6$report_grp)
 expect_equal(p6$sustained$start_date,checkDT6$start_date)
 expect_equal(p6$sustained$end_date,checkDT6$end_date)
 expect_equal(p6$sustained$extend_to,checkDT6$extend_to)
