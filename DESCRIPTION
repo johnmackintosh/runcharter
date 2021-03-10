@@ -1,6 +1,6 @@
 Package: runcharter
 Title: Automatically Plot, Analyse and Rebase Multiple Run Charts
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: 
     person(given = "John",
            family = "MacKintosh",
