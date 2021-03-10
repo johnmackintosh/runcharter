@@ -1,7 +1,4 @@
-# runcharter 1.0.0
-
-* Breaking change - function now accepts bare variable names
-
+# runcharter 0.2.0
 
 # runcharter 0.1.0
 
