@@ -46,7 +46,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -75,7 +75,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/johnmackintosh/runcharter/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -89,14 +89,13 @@
 
       
 
-      </header><script src="runcharter_files/header-attrs-2.5/header-attrs.js"></script><script src="runcharter_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="runcharter_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
-<script src="runcharter_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
+      </header><script src="runcharter_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>runcharter</h1>
                         <h4 class="author">John MacKintosh</h4>
             
-            <h4 class="date">2021-01-05</h4>
+            <h4 class="date">2021-03-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/johnmackintosh/runcharter/blob/master/vignettes/runcharter.Rmd"><code>vignettes/runcharter.Rmd</code></a></small>
       <div class="hidden name"><code>runcharter.Rmd</code></div>
@@ -145,9 +144,9 @@
 
 <span class="va">testdf</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/runcharter.html">runcharter</a></span><span class="op">(</span>
            direction <span class="op">=</span> <span class="st">"both"</span>,
-           datecol <span class="op">=</span> <span class="st">"date"</span>,
-           grpvar <span class="op">=</span> <span class="st">"grp"</span>, 
-           yval <span class="op">=</span> <span class="st">"y"</span>,
+           datecol <span class="op">=</span> <span class="va">date</span>,
+           grpvar <span class="op">=</span> <span class="va">grp</span>, 
+           yval <span class="op">=</span> <span class="va">y</span>,
            facet_cols <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>
 <p><img src="man/figures/pipe-1.png" width="768"></p>
@@ -201,9 +200,9 @@
 <span class="fu"><a href="../reference/runcharter.html">runcharter</a></span><span class="op">(</span><span class="va">signals</span> ,med_rows <span class="op">=</span> <span class="fl">13</span>,
 runlength <span class="op">=</span> <span class="fl">9</span>,
 direction <span class="op">=</span> <span class="st">"below"</span>,
-datecol <span class="op">=</span> <span class="st">"date"</span>,
-grpvar <span class="op">=</span> <span class="st">"grp"</span>,
-yval <span class="op">=</span> <span class="st">"y"</span>,
+datecol <span class="op">=</span> <span class="va">date</span>,
+grpvar <span class="op">=</span> <span class="va">grp</span>,
+yval <span class="op">=</span> <span class="va">y</span>,
 chart_title <span class="op">=</span> <span class="st">"Analysis of runs below median"</span>,
 chart_subtitle <span class="op">=</span> <span class="st">"Example plot"</span>,
 chart_caption <span class="op">=</span> <span class="st">"analysed with runcharter"</span>,
@@ -233,9 +232,9 @@ chart_breaks <span class="op">=</span> <span class="st">"6 months"</span><span c
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johnmackintosh/runcharter">runcharter</a></span><span class="op">)</span>
 <span class="fu"><a href="../reference/runcharter.html">runcharter</a></span><span class="op">(</span><span class="va">signals</span>,
            direction <span class="op">=</span> <span class="st">"above"</span>,
-           datecol <span class="op">=</span> <span class="st">"date"</span>,
-           grpvar <span class="op">=</span> <span class="st">"grp"</span>, 
-           yval <span class="op">=</span> <span class="st">"y"</span>,
+           datecol <span class="op">=</span> <span class="va">date</span>,
+           grpvar <span class="op">=</span> <span class="va">grp</span>, 
+           yval <span class="op">=</span> <span class="va">y</span>,
            facet_cols <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>
 <p><img src="man/figures/runs-above-1.png" width="768"></p>
@@ -256,9 +255,9 @@ chart_breaks <span class="op">=</span> <span class="st">"6 months"</span><span c
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johnmackintosh/runcharter">runcharter</a></span><span class="op">)</span>
 <span class="va">signals</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/runcharter.html">runcharter</a></span><span class="op">(</span>
            direction <span class="op">=</span> <span class="st">"both"</span>,
-           datecol <span class="op">=</span> <span class="st">"date"</span>,
-           grpvar <span class="op">=</span> <span class="st">"grp"</span>, 
-           yval <span class="op">=</span> <span class="st">"y"</span>,
+           datecol <span class="op">=</span> <span class="va">date</span>,
+           grpvar <span class="op">=</span> <span class="va">grp</span>, 
+           yval <span class="op">=</span> <span class="va">y</span>,
            facet_cols <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>
 <p><img src="man/figures/both-directions-1.png" width="768"></p>
@@ -284,9 +283,9 @@ chart_breaks <span class="op">=</span> <span class="st">"6 months"</span><span c
 <code class="sourceCode R"><span class="va">signals</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/runcharter.html">runcharter</a></span><span class="op">(</span>med_rows <span class="op">=</span> <span class="fl">7</span>,
              runlength <span class="op">=</span> <span class="fl">5</span>, 
-             datecol <span class="op">=</span> <span class="st">"date"</span>,
-              grpvar <span class="op">=</span> <span class="st">"grp"</span>, 
-              yval <span class="op">=</span> <span class="st">"y"</span>,
+             datecol <span class="op">=</span> <span class="va">date</span>,
+              grpvar <span class="op">=</span> <span class="va">grp</span>, 
+              yval <span class="op">=</span> <span class="va">y</span>,
              direction <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>
 <p><img src="man/figures/multiple-runs-1.png" width="768"></p>
@@ -330,9 +329,9 @@ chart_breaks <span class="op">=</span> <span class="st">"6 months"</span><span c
 <span class="va">LOSdata</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/runcharter.html">runcharter</a></span><span class="op">(</span>med_rows <span class="op">=</span> <span class="fl">9</span>,
                    runlength <span class="op">=</span> <span class="fl">9</span>,
                    direction <span class="op">=</span> <span class="st">"both"</span>,
-                   datecol <span class="op">=</span> <span class="st">"ID"</span>,
-                   grpvar <span class="op">=</span> <span class="st">"Organisation"</span>,
-                   yval <span class="op">=</span> <span class="st">"LOS"</span><span class="op">)</span>
+                   datecol <span class="op">=</span> <span class="va">ID</span>,
+                   grpvar <span class="op">=</span> <span class="va">Organisation</span>,
+                   yval <span class="op">=</span> <span class="va">LOS</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>
 <p><img src="man/figures/factor-handling-1.png" width="768"></p>
 <pre><code>#&gt; 
@@ -360,9 +359,9 @@ chart_breaks <span class="op">=</span> <span class="st">"6 months"</span><span c
 <span class="va">signals</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/runcharter.html">runcharter</a></span><span class="op">(</span>med_rows <span class="op">=</span> <span class="fl">13</span>,
              runlength <span class="op">=</span> <span class="fl">0</span>, 
-             datecol <span class="op">=</span> <span class="st">"date"</span>,
-              grpvar <span class="op">=</span> <span class="st">"grp"</span>, 
-              yval <span class="op">=</span> <span class="st">"y"</span>,
+             datecol <span class="op">=</span> <span class="va">date</span>,
+              grpvar <span class="op">=</span> <span class="va">grp</span>, 
+              yval <span class="op">=</span> <span class="va">y</span>,
              direction <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>
 <p><img src="man/figures/analysis_off-1.png" width="768"></p>
@@ -379,9 +378,9 @@ chart_breaks <span class="op">=</span> <span class="st">"6 months"</span><span c
 <span class="va">signals</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/runcharter.html">runcharter</a></span><span class="op">(</span>med_rows <span class="op">=</span> <span class="fl">0</span>,
              runlength <span class="op">=</span> <span class="fl">9</span>, 
-             datecol <span class="op">=</span> <span class="st">"date"</span>,
-              grpvar <span class="op">=</span> <span class="st">"grp"</span>, 
-              yval <span class="op">=</span> <span class="st">"y"</span>,
+             datecol <span class="op">=</span> <span class="va">date</span>,
+              grpvar <span class="op">=</span> <span class="va">grp</span>, 
+              yval <span class="op">=</span> <span class="va">y</span>,
              direction <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>
 <p><img src="man/figures/med_row-0-1.png" width="768"></p>

@@ -35,9 +35,9 @@ testdf <- testdf[grp == "WardX",head(.SD,7)]
   med_rows = 0,
   runlength = 0,
   direction = "both",
-  datecol = "date",
-  grpvar = "grp", 
-  yval = "y",
+  datecol = date,
+ grpvar = grp,
+  yval = y,
   facet_cols = 1,
   chart_breaks = ("1 month"))
 
@@ -63,9 +63,9 @@ testdf <- testdf[grp == "WardX",head(.SD,13)]
   med_rows = 13,
   runlength = 0,
   direction = "both",
-  datecol = "date",
-  grpvar = "grp", 
-  yval = "y",
+  datecol = date,
+ grpvar = grp,
+  yval = y,
   facet_cols = 1,
   chart_breaks = ("1 month"))
 ```
@@ -86,9 +86,9 @@ testdf <- testdf[grp == "WardX",head(.SD,30)]
   med_rows = 13,
   runlength = 9,
   direction = "below",
-  datecol = "date",
-  grpvar = "grp", 
-  yval = "y",
+  datecol = date,
+ grpvar = grp,
+  yval = y,
   facet_cols = 1,
   chart_breaks = ("3 months"))
 
@@ -111,9 +111,9 @@ testdf <- testdf[grp == "WardX",head(.SD,40)]
   med_rows = 13,
   runlength = 9,
   direction = "below",
-  datecol = "date",
-  grpvar = "grp", 
-  yval = "y",
+  datecol = date,
+ grpvar = grp,
+  yval = y,
   facet_cols = 1,
   chart_breaks = ("3 months"))
 ```
@@ -130,9 +130,9 @@ testdf <- testdf[grp == "WardX",head(.SD,44)]
   med_rows = 13,
   runlength = 9,
   direction = "below",
-  datecol = "date",
-  grpvar = "grp", 
-  yval = "y",
+  datecol = date,
+ grpvar = grp,
+  yval = y,
   facet_cols = 1,
   chart_breaks = ("3 months"))
 ```
@@ -148,9 +148,9 @@ data.table::setDT(testdf)
   med_rows = 13,
   runlength = 9,
   direction = "below",
-  datecol = "date",
-  grpvar = "grp", 
-  yval = "y",
+  datecol = date,
+ grpvar = grp,
+  yval = y,
   facet_cols = 1,
   chart_breaks = ("6 months"))
 
