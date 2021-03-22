@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">runcharter</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -107,13 +107,13 @@
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install runcharter from github with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"johnmackintosh/runcharter"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="co"># install.packages("remotes") # if not already installed</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"johnmackintosh/runcharter"</span><span class="op">)</span>
 
 <span class="co"># to ensure the vignettes are built or ensure latest version is installed:</span>
 
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"johnmackintosh/runcharter"</span>, 
-                         build_vignettes <span class="op">=</span> <span class="cn">TRUE</span>, force <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"johnmackintosh/runcharter"</span>, 
+                         build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>The rationale for the package is to analyse multiple run charts at once. More importantly, the package will identify a run of n successive points on the desired side of the median line, and will recalculate / rebase the median accordingly. Each time a run occurs, the median will be rebased. This helps to track improvements over time.</p>
 <p>The default is to plot a faceted plot, allowing ggplot2 to handle the axis limits. You can specify the number of columns in the faceted plot however, and you can also specify both the breaks for date labels on the x axis, and whether the y axis limits are fixed, or can vary by facet panel.</p>
 </div>
@@ -123,7 +123,8 @@
 <a href="#function-arguments-and-defaults" class="anchor"></a>Function arguments and defaults</h1>
 <p>A default run of 9 is specified as that is the length of run used by the IHI for its patient safety initiatives worldwide.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johnmackintosh/runcharter">runcharter</a></span><span class="op">)</span>
+<code class="sourceCode R">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johnmackintosh/runcharter">runcharter</a></span><span class="op">)</span>
 <span class="fu"><a href="reference/runcharter.html">runcharter</a></span><span class="op">(</span>df <span class="op">=</span> <span class="va">signals</span>,
           med_rows <span class="op">=</span> <span class="fl">13</span>,
           runlength <span class="op">=</span> <span class="fl">9</span>,
@@ -143,14 +144,15 @@
           highlight_fill <span class="op">=</span> <span class="st">"#DB1884"</span><span class="op">)</span> <span class="co"># magenta</span></code></pre></div>
 <p>The function will return a plot and a summary table showing the original baseline medians, and any sustained runs of improvement beyond the baseline period.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johnmackintosh/runcharter">runcharter</a></span><span class="op">)</span>
+<code class="sourceCode R">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johnmackintosh/runcharter">runcharter</a></span><span class="op">)</span>
 
 <span class="fu"><a href="reference/runcharter.html">runcharter</a></span><span class="op">(</span><span class="va">signals</span>,
            direction <span class="op">=</span> <span class="st">"below"</span>,
-           datecol <span class="op">=</span> <span class="st">"date"</span>, 
-           grpvar <span class="op">=</span> <span class="st">"grp"</span>,
-           yval <span class="op">=</span> <span class="st">"y"</span>, 
-          chart_title <span class="op">=</span> <span class="st">" Runs identified"</span>,
+           datecol <span class="op">=</span> <span class="va">date</span>, 
+           grpvar <span class="op">=</span> <span class="va">grp</span>,
+           yval <span class="op">=</span> <span class="va">y</span>, 
+          chart_title <span class="op">=</span> <span class="st">"Runs identified"</span>,
           chart_subtitle <span class="op">=</span> <span class="st">"Runs below the median signalling improvement"</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>
 <p><img src="reference/figures/README-runs_below-1.png"><!-- --></p>
@@ -174,9 +176,9 @@
   <span class="fu"><a href="reference/runcharter.html">runcharter</a></span><span class="op">(</span>med_rows <span class="op">=</span> <span class="fl">7</span>, 
              runlength <span class="op">=</span> <span class="fl">5</span>,
              direction <span class="op">=</span> <span class="st">"both"</span>,
-             datecol <span class="op">=</span> <span class="st">"date"</span>, 
-              grpvar <span class="op">=</span> <span class="st">"grp"</span>,
-              yval <span class="op">=</span> <span class="st">"y"</span>, 
+             datecol <span class="op">=</span> <span class="va">date</span>, 
+              grpvar <span class="op">=</span> <span class="va">grp</span>,
+              yval <span class="op">=</span> <span class="va">y</span>, 
              chart_title <span class="op">=</span> <span class="st">"Runs in both directions"</span>,
              chart_subtitle <span class="op">=</span> <span class="st">"Runs of 5, from median calculated over first 7 data points in each location"</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>
@@ -218,9 +220,9 @@
 <span class="va">signals</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="reference/runcharter.html">runcharter</a></span><span class="op">(</span>med_rows <span class="op">=</span> <span class="fl">13</span>,
              runlength <span class="op">=</span> <span class="fl">0</span>, 
-             datecol <span class="op">=</span> <span class="st">"date"</span>,
-              grpvar <span class="op">=</span> <span class="st">"grp"</span>, 
-              yval <span class="op">=</span> <span class="st">"y"</span>,
+             datecol <span class="op">=</span> <span class="va">date</span>,
+              grpvar <span class="op">=</span> <span class="va">grp</span>, 
+              yval <span class="op">=</span> <span class="va">y</span>,
              direction <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>
 <p><img src="reference/figures/README-medians_only-1.png"><!-- --></p>
@@ -237,9 +239,9 @@
 <span class="va">signals</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="reference/runcharter.html">runcharter</a></span><span class="op">(</span>med_rows <span class="op">=</span> <span class="fl">0</span>,
              runlength <span class="op">=</span> <span class="fl">9</span>, 
-             datecol <span class="op">=</span> <span class="st">"date"</span>,
-              grpvar <span class="op">=</span> <span class="st">"grp"</span>, 
-              yval <span class="op">=</span> <span class="st">"y"</span>,
+             datecol <span class="op">=</span> <span class="va">date</span>,
+              grpvar <span class="op">=</span> <span class="va">grp</span>, 
+              yval <span class="op">=</span> <span class="va">y</span>,
              direction <span class="op">=</span> <span class="st">"both"</span><span class="op">)</span>
 <span class="co">#&gt; $runchart</span></code></pre></div>
 <p><img src="reference/figures/README-lines_only-1.png"><!-- --></p>
