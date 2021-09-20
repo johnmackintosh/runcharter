@@ -131,7 +131,6 @@ signals %>%
 ```
 
 
-
 ## Design decisions and similar packages
 
 This package makes no attempt to identify or highlight 'trends' (consecutively increasing or decreasing points) or shorter 'shifts' of runs below the median.
@@ -175,3 +174,4 @@ signals %>%
              direction = "both")
 
 ```
+removed blank space
