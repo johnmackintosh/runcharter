@@ -95,7 +95,7 @@
       <h1 data-toc-skip>runcharter</h1>
                         <h4 class="author">John MacKintosh</h4>
             
-            <h4 class="date">2021-03-22</h4>
+            <h4 class="date">2021-09-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/johnmackintosh/runcharter/blob/master/vignettes/runcharter.Rmd"><code>vignettes/runcharter.Rmd</code></a></small>
       <div class="hidden name"><code>runcharter.Rmd</code></div>
@@ -141,7 +141,6 @@
 
 <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">testdf</span><span class="op">)</span> <span class="co"># note class of tibble, tbl_df and dataframe</span>
 <span class="co">#&gt; [1] "tbl_df"     "tbl"        "data.frame"</span>
-
 <span class="va">testdf</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/runcharter.html">runcharter</a></span><span class="op">(</span>
            direction <span class="op">=</span> <span class="st">"both"</span>,
            datecol <span class="op">=</span> <span class="va">date</span>,
@@ -160,7 +159,6 @@
 #&gt; 5: WardX      6 2016-12-01 2017-08-01 2018-07-01 sustained
 #&gt; 6: WardY      8 2017-10-01 2018-06-01 2018-07-01 sustained
 #&gt; 7: WardZ      9 2017-06-01 2018-03-01 2018-07-01 sustained
-
 # results class data.table</code></pre>
 </div>
 <div id="runcharter-function-arguments" class="section level2">
@@ -325,7 +323,6 @@ chart_breaks <span class="op">=</span> <span class="st">"6 months"</span><span c
 <span class="co">#&gt;  $ Age         : int [1:300] 55 27 93 45 70 60 25 48 51 81 ...</span>
 <span class="co">#&gt;  $ LOS         : int [1:300] 2 1 12 3 11 7 4 4 7 1 ...</span>
 <span class="co">#&gt;  $ Death       : int [1:300] 0 0 0 1 0 0 0 0 1 0 ...</span>
-
 <span class="va">LOSdata</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/runcharter.html">runcharter</a></span><span class="op">(</span>med_rows <span class="op">=</span> <span class="fl">9</span>,
                    runlength <span class="op">=</span> <span class="fl">9</span>,
                    direction <span class="op">=</span> <span class="st">"both"</span>,
