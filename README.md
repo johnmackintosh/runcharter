@@ -6,7 +6,7 @@
 Automated analysis and re-basing of run charts at scale.
 
 Online documentation and vignettes :
-[johnmackintosh.github.io/runcharter](https://www.johnmackintosh.github.io/runcharter)
+[johnmackintosh.github.io/runcharter](johnmackintosh.github.io/runcharter)
 
 <!-- badges: start -->
 
@@ -56,7 +56,6 @@ A default run of 9 is specified as that is the length of run used by the
 IHI for its patient safety initiatives worldwide.
 
 ``` r
-
 library(runcharter)
 runcharter(df = signals,
           med_rows = 13,
@@ -82,7 +81,6 @@ baseline medians, and any sustained runs of improvement beyond the
 baseline period.
 
 ``` r
-
 library(runcharter)
 
 runcharter(signals,
@@ -165,7 +163,7 @@ see trends, and when they do appear, they tend to result after a period
 of process degradation, when the process begins to return back to its
 natural median state.
 
-In addition, [research by qicharts2 author Jacob Anheoj shows that the
+In addition, [research by qicharts2 author Jacob Anhoej shows that the
 trend rule is not
 reliable](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0121349).
 There are no plans to add tests to identify trends to the package

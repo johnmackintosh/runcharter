@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 Automated analysis and re-basing of  run charts at scale.
 
-Online documentation and vignettes : [johnmackintosh.github.io/runcharter](https://www.johnmackintosh.github.io/runcharter)
+Online documentation and vignettes : [johnmackintosh.github.io/runcharter](johnmackintosh.github.io/runcharter)
 
 
 <!-- badges: start -->
@@ -143,7 +143,7 @@ signals %>%
 This package makes no attempt to identify or highlight 'trends' (consecutively increasing or decreasing points) or shorter 'shifts' of runs below the median.
 In 8 years of working with QI data, I very rarely see trends, and when they do appear, they tend to result after a period of process degradation, when the process begins to return back to its natural median state. 
 
-In addition, [research by qicharts2 author Jacob Anheoj shows that the trend rule is not reliable](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0121349). There are no plans to add tests to identify trends to the package functionality.
+In addition, [research by qicharts2 author Jacob Anhoej shows that the trend rule is not reliable](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0121349). There are no plans to add tests to identify trends to the package functionality.
 
 If you want to apply the rules for trend , in addition to rebasing run charts, then you should consider using [the runchart package by Joseph Adams](https://github.com/jsphdms/runchart).
 
