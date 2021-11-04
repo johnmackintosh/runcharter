@@ -170,8 +170,7 @@ Re-bases median each time a run is discovered.</p>
   median_colr <span class='op'>=</span> <span class='st'>"#E87722"</span>,
   median_line_size <span class='op'>=</span> <span class='fl'>1.05</span>,
   highlight_fill <span class='op'>=</span> <span class='st'>"#DB1884"</span>,
-  highlight_point_size <span class='op'>=</span> <span class='fl'>2.7</span>,
-  <span class='va'>...</span>
+  highlight_point_size <span class='op'>=</span> <span class='fl'>2.7</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -227,7 +226,9 @@ Re-bases median each time a run is discovered.</p>
     </tr>
     <tr>
       <th>chart_breaks</th>
-      <td><p>character string defining desired x-axis date breaks</p></td>
+      <td><p>character string defining desired x-axis date / datetime breaks.
+If the x axis is not a Date or datetime, then this argument is ignored, 
+and ggplot2 will provide default breaks</p></td>
     </tr>
     <tr>
       <th>line_colr</th>
@@ -261,10 +262,6 @@ Re-bases median each time a run is discovered.</p>
       <th>highlight_point_size</th>
       <td><p>size of highlighted points in a sustained run</p></td>
     </tr>
-    <tr>
-      <th>...</th>
-      <td><p>further arguments passed on to function</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -273,7 +270,8 @@ Re-bases median each time a run is discovered.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Facets and axis limits are handled by ggplot, though x-axis breaks can be
-specified using the appropriate character string e.g. "3 months"</p>
+specified using the appropriate character string e.g. "3 months" if they are
+either of class dates or datetime</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='r-in'><span class='co'># \donttest{</span></span>
