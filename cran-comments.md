@@ -1,6 +1,15 @@
 ## Test environments
 * local R installation, R 4.1.0 (Windows)
-* ubuntu 20.04 (release), ubuntu 20.04 (devel), windows_latest (release), macOS-latest (release) (via github actions)
+
+* GitHub actions:
+  * Mac OS x 10.15.7 19H1419, R 4.1.2
+  * Windows Server 2019 x64 latest, R 4.1.2
+  * Ubuntu 20.04.3 LTS, R-devel 2021-11-04 r81137
+  * Ubuntu 20.04.3 LTS, R 4.1.2
+
+* r-hub:
+  * Ubuntu Linux 20.04.1 LTS, R-release, GCC
+  * Windows Server 2008 R2 SP1, R-devel, 32/64 bit
 
 ## R CMD check results
 
