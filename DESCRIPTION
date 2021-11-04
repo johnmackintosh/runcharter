@@ -22,5 +22,6 @@ Suggests:
     testthat,
     NHSRdatasets
 VignetteBuilder: knitr
-URL: https://github.com/johnmackintosh/runcharter
+URL: https://github.com/johnmackintosh/runcharter,
+    https://johnmackintosh.github.io/runcharter
 BugReports: https://github.com/johnmackintosh/runcharter/issues
