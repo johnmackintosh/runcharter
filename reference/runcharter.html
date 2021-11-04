@@ -276,25 +276,28 @@ Re-bases median each time a run is discovered.</p>
 specified using the appropriate character string e.g. "3 months"</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-<span class='fu'>runcharter</span><span class='op'>(</span><span class='va'>signals</span>, med_rows <span class='op'>=</span> <span class='fl'>13</span>, runlength <span class='op'>=</span> <span class='fl'>9</span>,
-direction <span class='op'>=</span> <span class='st'>"above"</span>, datecol <span class='op'>=</span> <span class='va'>date</span>, grpvar <span class='op'>=</span> <span class='va'>grp</span>, yval <span class='op'>=</span> <span class='va'>y</span>,
-facet_cols <span class='op'>=</span> <span class='fl'>2</span>,chart_title <span class='op'>=</span> <span class='st'>"Automated runs analysis"</span>,
-chart_subtitle <span class='op'>=</span> <span class='st'>" some runs found"</span>, chart_caption <span class='op'>=</span> <span class='st'>"powered by R"</span>,
-chart_breaks <span class='op'>=</span> <span class='st'>"6 months"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $runchart</div><div class='img'><img src='runcharter-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; 
-#&gt; $sustained
-#&gt;      grp median start_date   end_date  extend_to  run_type
-#&gt; 1: WardV      7 2014-01-01 2015-01-01 2018-07-01  baseline
-#&gt; 2: WardX     11 2014-01-01 2015-01-01 2018-07-01  baseline
-#&gt; 3: WardY     13 2014-01-01 2015-01-01 2018-07-01  baseline
-#&gt; 4: WardZ      4 2014-01-01 2015-01-01 2017-06-01  baseline
-#&gt; 5: WardZ      9 2017-06-01 2018-03-01 2018-07-01 sustained
-#&gt; </div><div class='input'><span class='co'># }</span>
-
-
-
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># \donttest{</span></span>
+<span class='r-in'><span class='fu'>runcharter</span><span class='op'>(</span><span class='va'>signals</span>, med_rows <span class='op'>=</span> <span class='fl'>13</span>, runlength <span class='op'>=</span> <span class='fl'>9</span>,</span>
+<span class='r-in'>direction <span class='op'>=</span> <span class='st'>"above"</span>, datecol <span class='op'>=</span> <span class='va'>date</span>, grpvar <span class='op'>=</span> <span class='va'>grp</span>, yval <span class='op'>=</span> <span class='va'>y</span>,</span>
+<span class='r-in'>facet_cols <span class='op'>=</span> <span class='fl'>2</span>,chart_title <span class='op'>=</span> <span class='st'>"Automated runs analysis"</span>,</span>
+<span class='r-in'>chart_subtitle <span class='op'>=</span> <span class='st'>" some runs found"</span>, chart_caption <span class='op'>=</span> <span class='st'>"powered by R"</span>,</span>
+<span class='r-in'>chart_breaks <span class='op'>=</span> <span class='st'>"6 months"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $runchart</span>
+<span class='r-plt img'><img src='runcharter-1.png' alt='' width='700' height='433' /></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> $sustained</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>      grp median start_date   end_date  extend_to  run_type</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1: WardV      7 2014-01-01 2015-01-01 2018-07-01  baseline</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2: WardX     11 2014-01-01 2015-01-01 2018-07-01  baseline</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3: WardY     13 2014-01-01 2015-01-01 2018-07-01  baseline</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4: WardZ      4 2014-01-01 2015-01-01 2017-06-01  baseline</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5: WardZ      9 2017-06-01 2018-03-01 2018-07-01 sustained</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> </span>
+<span class='r-in'><span class='co'># }</span></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

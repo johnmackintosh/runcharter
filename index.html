@@ -98,10 +98,13 @@
 <a href="#runcharter-" class="anchor"></a>runcharter <img src="reference/figures/logo.png" width="160px" align="right">
 </h1></div>
 <p>Automated analysis and re-basing of run charts at scale.</p>
-<p>Online documentation and vignettes : <a href="https://www.johnmackintosh.com/runcharter/">runcharter</a></p>
-<p><a href="https://www.repostatus.org/#active"><img src="https://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active – The project has reached a stable, usable state and is being actively developed."></a> <a href="https://codecov.io/github/johnmackintosh/runcharter?branch=master"><img src="https://codecov.io/gh/johnmackintosh/runcharter/branch/master/graph/badge.svg" alt="Coverage status"></a></p>
-<p><a href="https://github.com/johnmackintosh/runcharter/actions"><img src="https://github.com/johnmackintosh/runcharter/workflows/R-CMD-check/badge.svg" alt="R build status"></a></p>
-<p><a href="https://github.com/johnmackintosh/runcharter/actions/workflows/render-readme.yaml"><img src="https://github.com/johnmackintosh/runcharter/actions/workflows/render-readme.yaml/badge.svg" alt="Render README"></a></p>
+<p>Online documentation and vignettes : <a href="https://www.johnmackintosh.github.io/runcharter/">johnmackintosh.github.io/runcharter</a></p>
+<!-- badges: start -->
+
+
+
+
+<!-- badges: end -->
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -123,8 +126,7 @@
 <a href="#function-arguments-and-defaults" class="anchor"></a>Function arguments and defaults</h1>
 <p>A default run of 9 is specified as that is the length of run used by the IHI for its patient safety initiatives worldwide.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johnmackintosh/runcharter">runcharter</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johnmackintosh/runcharter">runcharter</a></span><span class="op">)</span>
 <span class="fu"><a href="reference/runcharter.html">runcharter</a></span><span class="op">(</span>df <span class="op">=</span> <span class="va">signals</span>,
           med_rows <span class="op">=</span> <span class="fl">13</span>,
           runlength <span class="op">=</span> <span class="fl">9</span>,
@@ -144,8 +146,7 @@
           highlight_fill <span class="op">=</span> <span class="st">"#DB1884"</span><span class="op">)</span> <span class="co"># magenta</span></code></pre></div>
 <p>The function will return a plot and a summary table showing the original baseline medians, and any sustained runs of improvement beyond the baseline period.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johnmackintosh/runcharter">runcharter</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johnmackintosh/runcharter">runcharter</a></span><span class="op">)</span>
 
 <span class="fu"><a href="reference/runcharter.html">runcharter</a></span><span class="op">(</span><span class="va">signals</span>,
            direction <span class="op">=</span> <span class="st">"below"</span>,
@@ -172,7 +173,7 @@
 <p>However, for longer term monitoring, it may be necessary to identify and ‘reset’ a median if a sustained deterioration in performance occurs. Ideally, you should move to using SPC charts for monitoring purposes.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johnmackintosh/runcharter">runcharter</a></span><span class="op">)</span>
-<span class="va">signals</span> <span class="op">%&gt;%</span> 
+<span class="va">signals</span> <span class="op"><a href="reference/%&gt;%.html">%&gt;%</a></span> 
   <span class="fu"><a href="reference/runcharter.html">runcharter</a></span><span class="op">(</span>med_rows <span class="op">=</span> <span class="fl">7</span>, 
              runlength <span class="op">=</span> <span class="fl">5</span>,
              direction <span class="op">=</span> <span class="st">"both"</span>,
@@ -217,7 +218,7 @@
 <p>You can avoid rebasing medians by setting ‘runlength’ to 0 (zero). This will plot the runcharts with the original baseline medians, but no runs analysis will take place.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johnmackintosh/runcharter">runcharter</a></span><span class="op">)</span>
-<span class="va">signals</span> <span class="op">%&gt;%</span> 
+<span class="va">signals</span> <span class="op"><a href="reference/%&gt;%.html">%&gt;%</a></span> 
   <span class="fu"><a href="reference/runcharter.html">runcharter</a></span><span class="op">(</span>med_rows <span class="op">=</span> <span class="fl">13</span>,
              runlength <span class="op">=</span> <span class="fl">0</span>, 
              datecol <span class="op">=</span> <span class="va">date</span>,
@@ -236,7 +237,7 @@
 <p>Similarly, you can plot basic line charts by setting ‘med_rows’ to 0 (zero)</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/johnmackintosh/runcharter">runcharter</a></span><span class="op">)</span>
-<span class="va">signals</span> <span class="op">%&gt;%</span> 
+<span class="va">signals</span> <span class="op"><a href="reference/%&gt;%.html">%&gt;%</a></span> 
   <span class="fu"><a href="reference/runcharter.html">runcharter</a></span><span class="op">(</span>med_rows <span class="op">=</span> <span class="fl">0</span>,
              runlength <span class="op">=</span> <span class="fl">9</span>, 
              datecol <span class="op">=</span> <span class="va">date</span>,
@@ -252,6 +253,7 @@
 <span id="cb10-5"><a href="#cb10-5"></a><span class="co">#&gt; 2: WardX     NA 2014-01-01 2014-01-01 2018-07-01 baseline</span></span>
 <span id="cb10-6"><a href="#cb10-6"></a><span class="co">#&gt; 3: WardY     NA 2014-01-01 2014-01-01 2018-07-01 baseline</span></span>
 <span id="cb10-7"><a href="#cb10-7"></a><span class="co">#&gt; 4: WardZ     NA 2014-01-01 2014-01-01 2018-07-01 baseline</span></span></code></pre></div>
+<p>removed blank space</p>
 </div>
 </div>
 
@@ -280,7 +282,16 @@
 </ul>
 </div>
 
-  </div>
+  <div class="dev-status">
+<h2>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/johnmackintosh/runcharter/actions"><img src="https://github.com/johnmackintosh/runcharter/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://www.repostatus.org/#active"><img src="https://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active – The project has reached a stable, usable state and is being actively developed."></a></li>
+<li><a href="https://codecov.io/github/johnmackintosh/runcharter?branch=master"><img src="https://codecov.io/gh/johnmackintosh/runcharter/branch/master/graph/badge.svg" alt="Coverage status"></a></li>
+<li><a href="https://github.com/johnmackintosh/runcharter/actions/workflows/render-readme.yaml"><img src="https://github.com/johnmackintosh/runcharter/actions/workflows/render-readme.yaml/badge.svg" alt="Render README"></a></li>
+</ul>
+</div>
+</div>
 </div>
 
 
