@@ -18,14 +18,21 @@ knitr::opts_chunk$set(
 
 Automated analysis and re-basing of  run charts at scale.
 
-Online documentation and vignettes : [runcharter](https://www.johnmackintosh.com/runcharter/)
+Online documentation and vignettes : [johnmackintosh.github.io/runcharter](https://www.johnmackintosh.github.io/runcharter/)
+
+
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/johnmackintosh/runcharter/workflows/R-CMD-check/badge.svg)](https://github.com/johnmackintosh/runcharter/actions)
 
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+
 [![Coverage status](https://codecov.io/gh/johnmackintosh/runcharter/branch/master/graph/badge.svg)](https://codecov.io/github/johnmackintosh/runcharter?branch=master)
 
-[![R build status](https://github.com/johnmackintosh/runcharter/workflows/R-CMD-check/badge.svg)](https://github.com/johnmackintosh/runcharter/actions)
 
 [![Render README](https://github.com/johnmackintosh/runcharter/actions/workflows/render-readme.yaml/badge.svg)](https://github.com/johnmackintosh/runcharter/actions/workflows/render-readme.yaml)
+
+<!-- badges: end -->
+
 
 ## Installation
 
