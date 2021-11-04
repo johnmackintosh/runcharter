@@ -25,8 +25,7 @@ runcharter(
   median_colr = "#E87722",
   median_line_size = 1.05,
   highlight_fill = "#DB1884",
-  highlight_point_size = 2.7,
-  ...
+  highlight_point_size = 2.7
 )
 }
 \arguments{
@@ -54,7 +53,9 @@ runcharter(
 
 \item{chart_caption}{caption for chart}
 
-\item{chart_breaks}{character string defining desired x-axis date breaks}
+\item{chart_breaks}{character string defining desired x-axis date / datetime breaks.
+If the x axis is not a Date or datetime, then this argument is ignored, 
+and ggplot2 will provide default breaks}
 
 \item{line_colr}{colour for run chart lines}
 
@@ -71,8 +72,6 @@ runcharter(
 \item{highlight_fill}{fill colour for highlighting points in a sustained run}
 
 \item{highlight_point_size}{size of highlighted points in a sustained run}
-
-\item{...}{further arguments passed on to function}
 }
 \value{
 list - faceted plot and data.table showing all identified runs
@@ -85,7 +84,8 @@ Re-bases median each time a run is discovered.
 }
 \details{
 Facets and axis limits are handled by ggplot, though x-axis breaks can be
-specified using the appropriate character string e.g. "3 months"
+specified using the appropriate character string e.g. "3 months" if they are
+either of class dates or datetime
 }
 \examples{
 \donttest{

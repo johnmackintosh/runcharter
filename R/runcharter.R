@@ -6,7 +6,8 @@
 #' Re-bases median each time a run is discovered.
 #'
 #' Facets and axis limits are handled by ggplot, though x-axis breaks can be
-#' specified using the appropriate character string e.g. "3 months"
+#' specified using the appropriate character string e.g. "3 months" if they are
+#' either of class dates or datetime
 #'
 #'
 #' @param df  data.frame or data table
@@ -21,7 +22,9 @@
 #' @param chart_title title for the  final chart
 #' @param chart_subtitle subtitle for chart
 #' @param chart_caption caption for chart
-#' @param chart_breaks character string defining desired x-axis date breaks
+#' @param chart_breaks character string defining desired x-axis date / datetime breaks.
+#' If the x axis is not a Date or datetime, then this argument is ignored, 
+#' and ggplot2 will provide default breaks
 #' @param line_colr colour for run chart lines
 #' @param line_size thickness of connecting lines between run chart points
 #' @param point_colr colour for run chart points
@@ -30,7 +33,6 @@
 #' @param median_line_size thickness of solid and extended median lines
 #' @param highlight_fill fill colour for highlighting points in a sustained run
 #' @param highlight_point_size size of highlighted points in a sustained run
-#' @param ...  further arguments passed on to function
 #'
 #' @return list - faceted plot and data.table showing all identified runs
 #'
@@ -73,8 +75,7 @@ runcharter <- function(df,
                        median_colr = "#E87722",
                        median_line_size = 1.05,
                        highlight_fill = "#DB1884",
-                       highlight_point_size = 2.7,
-                       ...) {
+                       highlight_point_size = 2.7) {
   
 
   datecol <- deparse1(substitute(datecol))
@@ -96,7 +97,7 @@ runcharter <- function(df,
   }
   
   # datecol , grpvar and yval
-  if (datecol == 'NULL' | grpvar== 'NULL' | yval == 'NULL') {
+  if (datecol == 'NULL' | grpvar == 'NULL' | yval == 'NULL') {
     stop('"Please check and provide values for the "datecol", "grpvar"  and "yval" arguments"')
   }
   
@@ -110,15 +111,7 @@ runcharter <- function(df,
          call. = FALSE)
   }
   
- 
-  # 
-  # # datecol in wrong format
-  # 
-  # if (is.character(datecol)) {
-  #   stop("The date column is a character vector.
-  #    Please ensure this is in a date / datetime / numeric format")
-  # }
-  
+
   start_date <- NULL
   end_date <- NULL
   keepgroup <- character()
@@ -150,8 +143,18 @@ runcharter <- function(df,
     keeplevels <- levels(masterDT[["grp"]])
   }
   
-  
+  # then change to character for now
   masterDT[["grp"]] <- as.character(masterDT[["grp"]])
+  
+  # is datecol in wrong format?
+  charactercheck <- is.character(masterDT[["date"]])
+  
+  if (charactercheck) {
+    stop("The date column is a character  or factor vector.
+     Please ensure this is in a Date, PosixCT, numeric or integer format")
+  }
+  
+  
   masterDT[["y"]] <- as.numeric(masterDT[["y"]])
   
   setkey(masterDT, grp, date)
@@ -381,8 +384,23 @@ runcharter <- function(df,
                           linetype = 2,
                           size = median_line_size)
   
-  if (!is.null(chart_breaks)) {
+  # date breaks
+  
+  if (inherits(masterDT[["date"]],"Date") & !is.null(chart_breaks)) {
     runchart <- runchart + ggplot2::scale_x_date(date_breaks = chart_breaks)
+  }
+  
+  if (inherits(masterDT[["date"]],"Date") & is.null(chart_breaks)) {
+    runchart <- runchart + ggplot2::scale_x_date()
+  }
+  
+  
+  if (inherits(masterDT[["date"]],"PosixCT") & !is.null(chart_breaks)) {
+    runchart <- runchart + ggplot2::scale_x_datetime(date_breaks = chart_breaks)
+  }
+  
+  if (inherits(masterDT[["date"]],"PosixCT") & is.null(chart_breaks)) {
+    runchart <- runchart + ggplot2::scale_x_datetime()
   }
   
   # tidy up the medians DT and reapply original column names

@@ -107,18 +107,21 @@ test_that(" missing grpvar throws errors", {
               throws_error())
   
   
-  # 
-  # #wrong date format
-  # 
-  # test_that("wrong dateformat causes error",{
-  #   expect_that(runcharter(med_rows = 13,
-  #                          runlength = 9,
-  #                          direction = "both",
-  #                          datecol = as.character("date"),
-  #                          grpvar = "grp",
-  #                          yval = "y"),
-  #               throws_error())
-  # })
+
+  # wrong date format
+
+  test_that("wrong dateformat causes error",{
+    signals2 <- signals
+    signals2$date <- as.character(signals2$date)
+    expect_that(runcharter(signals2,
+                           med_rows = 13,
+                           runlength = 9,
+                           direction = "both",
+                           datecol = as.character("date"),
+                           grpvar = "grp",
+                           yval = "y"),
+                throws_error())
+  })
   
   
   

@@ -6,7 +6,7 @@
 Automated analysis and re-basing of run charts at scale.
 
 Online documentation and vignettes :
-[johnmackintosh.github.io/runcharter](https://www.johnmackintosh.github.io/runcharter/)
+[johnmackintosh.github.io/runcharter](https://www.johnmackintosh.github.io/runcharter)
 
 <!-- badges: start -->
 
