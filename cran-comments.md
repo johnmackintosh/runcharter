@@ -12,6 +12,7 @@
 * r-hub:
   * Ubuntu Linux 20.04.1 LTS, R-release, GCC
   * Windows Server 2008 R2 SP1, R-devel, 32/64 bit
+  * Fedora Linux, r-devel, clang, gfortran
 
 ## R CMD check results
 
