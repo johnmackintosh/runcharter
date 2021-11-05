@@ -7,7 +7,10 @@ Authors@R:
            role = c("aut", "cre"),
            email = "johnmackintosh.jm@gmail.com")
 Description: Plots multiple run charts, finds successive signals of 
-    improvement, and revises medians when each signal occurs.
+    improvement, and revises medians when each signal occurs. Finds runs
+    above, below, or on both sides of the median, and returns a plot and
+    a data.table summarising original medians and any revisions, for all
+    groups within the supplied data.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
