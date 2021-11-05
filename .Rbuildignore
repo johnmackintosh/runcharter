@@ -19,3 +19,4 @@ pkgdown/
 ^data-raw$
 netlify.toml
 pkgdown
+^LICENSE\.md$
