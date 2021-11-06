@@ -20,3 +20,4 @@ pkgdown/
 netlify.toml
 pkgdown
 ^LICENSE\.md$
+^CRAN-RELEASE$
