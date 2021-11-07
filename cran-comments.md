@@ -2,7 +2,7 @@
 
 This is a resubmission. In this version I have:  
 
-* fully specified the url in readme.md to include the protocol (https://johnmackintosh.github.io/runcharter)
+* fully specified the url in readme.md to include the protocol (https://johnmackintosh.github.io/runcharter)  
 
 
 ## Test environments
