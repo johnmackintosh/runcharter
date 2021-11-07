@@ -55,6 +55,7 @@ A default run of 9 is specified as that is the length of run used by the
 IHI for its patient safety initiatives worldwide.
 
 ``` r
+
 library(runcharter)
 runcharter(df = signals,
           med_rows = 13,
@@ -80,6 +81,7 @@ baseline medians, and any sustained runs of improvement beyond the
 baseline period.
 
 ``` r
+
 library(runcharter)
 
 runcharter(signals,
