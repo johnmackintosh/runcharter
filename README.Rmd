@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 Automated analysis and re-basing of  run charts at scale.
 
-Online documentation and vignettes : [https://johnmackintosh.github.io/runcharter](https://johnmackintosh.github.io/runcharter)
+Online documentation and vignettes : [https://johnmackintosh.github.io/runcharter/](https://johnmackintosh.github.io/runcharter/)
 
 
 <!-- badges: start -->
