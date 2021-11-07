@@ -2,7 +2,7 @@
 
 This is a resubmission. In this version I have:  
 
-* fully specified the url in readme.md to include the protocol and trailing slash (https://johnmackintosh.github.io/runcharter/)  
+* fully specified the url in readme.md to include the protocol and trailing slash (https://johnmackintosh.github.io/runcharter/). Tested on r-hub and no notes relating to URLs were created.  
 
 
 ## Test environments
@@ -25,6 +25,6 @@ This is a resubmission. In this version I have:
 
 0 errors | 0 warnings | 1 note
 
-* This is a first submission.
+* This is a first submission.  
 
-* NOTEs for 'possibly invalid URL' have all been checked with rlib/urlchecker and are valid.
+
