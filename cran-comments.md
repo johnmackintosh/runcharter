@@ -1,3 +1,10 @@
+## Resubmission
+
+This is a resubmission. In this version I have:  
+
+* fully specified the url in readme.md to include the protocol (https://johnmackintosh.github.io/runcharter)
+
+
 ## Test environments
 * local R installation, R 4.1.0 (Windows)
 
