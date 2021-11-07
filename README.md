@@ -162,11 +162,9 @@ see trends, and when they do appear, they tend to result after a period
 of process degradation, when the process begins to return back to its
 natural median state.
 
-In addition, [research by qicharts2 author Jacob Anhoej shows that the
-trend rule is not
-reliable](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0121349).
-There are no plans to add tests to identify trends to the package
-functionality.
+In addition, research by qicharts2 author Jacob Anhoej shows that the
+trend rule is not reliable. There are no plans to add tests to identify
+trends to the package.
 
 However, analysts are often asked to apply all the run chart rules.  
 In this case, if you need to apply the rules for trend , and still have
