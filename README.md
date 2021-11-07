@@ -6,7 +6,7 @@
 Automated analysis and re-basing of run charts at scale.
 
 Online documentation and vignettes :
-[johnmackintosh.github.io/runcharter](johnmackintosh.github.io/runcharter)
+<https://johnmackintosh.github.io/runcharter>
 
 <!-- badges: start -->
 
@@ -55,7 +55,6 @@ A default run of 9 is specified as that is the length of run used by the
 IHI for its patient safety initiatives worldwide.
 
 ``` r
-
 library(runcharter)
 runcharter(df = signals,
           med_rows = 13,
@@ -81,7 +80,6 @@ baseline medians, and any sustained runs of improvement beyond the
 baseline period.
 
 ``` r
-
 library(runcharter)
 
 runcharter(signals,
@@ -170,9 +168,10 @@ reliable](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0121
 There are no plans to add tests to identify trends to the package
 functionality.
 
-If you want to apply the rules for trend , in addition to rebasing run
-charts, then you should consider using [the runchart package by Joseph
-Adams](https://github.com/jsphdms/runchart).
+However, analysts are often asked to apply all the run chart rules.  
+In this case, if you need to apply the rules for trend , and still have
+the ability to revise run chart medians, you should consider using [the
+runchart package by Joseph Adams](https://github.com/jsphdms/runchart).
 
 [qicharts2](https://github.com/anhoej/qicharts2) creates run and SPC
 charts. These can be rebased, but you must specify when to do so. Also,

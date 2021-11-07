@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 Automated analysis and re-basing of  run charts at scale.
 
-Online documentation and vignettes : [johnmackintosh.github.io/runcharter](johnmackintosh.github.io/runcharter)
+Online documentation and vignettes : [https://johnmackintosh.github.io/runcharter](https://johnmackintosh.github.io/runcharter)
 
 
 <!-- badges: start -->
@@ -142,7 +142,8 @@ In 8 years of working with QI data, I very rarely see trends, and when they do a
 
 In addition, [research by qicharts2 author Jacob Anhoej shows that the trend rule is not reliable](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0121349). There are no plans to add tests to identify trends to the package functionality.
 
-If you want to apply the rules for trend , in addition to rebasing run charts, then you should consider using [the runchart package by Joseph Adams](https://github.com/jsphdms/runchart).
+However, analysts are often asked to apply all the run chart rules.  
+In this case, if you need to apply the rules for trend , and still have the ability to revise run chart medians, you should consider using [the runchart package by Joseph Adams](https://github.com/jsphdms/runchart).
 
 
 [qicharts2](https://github.com/anhoej/qicharts2) creates run and SPC charts. These can be rebased, but you must specify when to do so. Also, the analysis is based on the author's own rules and not the rules typically used in healthcare (e.g. the rules promoted by the IHI).
