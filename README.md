@@ -21,11 +21,19 @@ status](https://codecov.io/gh/johnmackintosh/runcharter/branch/master/graph/badg
 README](https://github.com/johnmackintosh/runcharter/actions/workflows/render-readme.yaml/badge.svg)](https://github.com/johnmackintosh/runcharter/actions/workflows/render-readme.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/johnmackintosh/runcharter/branch/master/graph/badge.svg)](https://app.codecov.io/gh/johnmackintosh/runcharter?branch=master)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/runcharter)](https://CRAN.R-project.org/package=runcharter)
 <!-- badges: end -->
 
 ## Installation
 
-You can install runcharter from github with:
+You can install the latest stable version from CRAN with:
+
+``` r
+install.packages("runcharter")
+```
+
+You can install the development version from github with:
 
 ``` r
 # install.packages("remotes") # if not already installed
@@ -55,7 +63,6 @@ A default run of 9 is specified as that is the length of run used by the
 IHI for its patient safety initiatives worldwide.
 
 ``` r
-
 library(runcharter)
 runcharter(df = signals,
           med_rows = 13,
@@ -81,7 +88,6 @@ baseline medians, and any sustained runs of improvement beyond the
 baseline period.
 
 ``` r
-
 library(runcharter)
 
 runcharter(signals,
