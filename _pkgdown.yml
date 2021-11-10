@@ -1,2 +1,4 @@
-url: https://johnmackintosh.github.io/runcharter
+template:
+  params:
+    bootswatch: cerulean
 
