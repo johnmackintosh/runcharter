@@ -23,6 +23,13 @@ README](https://github.com/johnmackintosh/runcharter/actions/workflows/render-re
 coverage](https://codecov.io/gh/johnmackintosh/runcharter/branch/master/graph/badge.svg)](https://app.codecov.io/gh/johnmackintosh/runcharter?branch=master)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/runcharter)](https://CRAN.R-project.org/package=runcharter)
+
+[![CRAN
+Downloads](https://cranlogs.r-pkg.org/badges/runcharter)](https://cran.r-project.org/package=runcharter)
+
+[![Total
+Downloads](https://cranlogs.r-pkg.org/badges/grand-total/runcharter)](https://cran.r-project.org/package=runcharter)
+
 <!-- badges: end -->
 
 ## Installation
